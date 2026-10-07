@@ -243,9 +243,9 @@
             </p>
             <p class="mt-4 text-sm font-semibold text-brand-gold">Gebouwd door ondernemers, voor ondernemers.</p>
           </div>
-          <div class="reveal reveal-delay-2">
+          <div class="reveal reveal-delay-2 hidden lg:block">
             <div class="photo-treatment rounded-2xl overflow-hidden shadow-xl aspect-[4/3]">
-              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80&auto=format" alt="Ondernemers bespreken termijnbetalingen voor hun bedrijf" class="w-full h-full object-cover" loading="lazy" width="800" height="600">
+              <div class="photo-bg photo-bg-missie w-full h-full"></div>
             </div>
           </div>
         </div>
@@ -324,12 +324,11 @@
                 <p class="text-3xl font-extrabold text-brand-black">Vanaf <span class="text-brand-gold">€99</span> per maand</p>
               </div>
             </div>
-            <a href="#configurator" class="mt-8 inline-flex btn-primary px-7 py-3.5 rounded-lg font-bold">Ontdek de mogelijkheden</a>
+            <a href="#prijzen" class="mt-8 inline-flex btn-primary px-7 py-3.5 rounded-lg font-bold">Ontdek de mogelijkheden</a>
           </div>
-          <div class="reveal reveal-delay-2">
+          <div class="reveal reveal-delay-2 hidden lg:block">
             <div class="photo-treatment rounded-2xl overflow-hidden shadow-xl aspect-[4/3]">
-              <!-- Replace: contract signing / sales meeting -->
-              <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80&auto=format" alt="Klant tekent een betaalplan voor een termijnbetaling" class="w-full h-full object-cover" loading="lazy" width="800" height="600">
+              <div class="photo-bg photo-bg-oplossing w-full h-full"></div>
             </div>
           </div>
         </div>
@@ -496,48 +495,103 @@
       </div>
     </section>
 
-    <!-- ========== CONFIGURATOR ========== -->
-    <section id="configurator" class="py-16 lg:py-24 bg-brand-light-grey">
+    <!-- ========== PRICING ========== -->
+    <section id="prijzen" class="py-16 lg:py-24 bg-brand-light-grey">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto reveal">
           <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-black tracking-tight gold-accent mx-auto">
-            Stel jouw groeiplatform samen.
+            Eén vaste basis. Zelf uitbreiden wat je nodig hebt.
           </h2>
-          <p class="mt-6 text-lg text-brand-dark-grey/80">Kies de modules die passen bij jouw bedrijf en zie direct je investering. Alle accounts worden persoonlijk aangemaakt aan de hand van de wensen van de klant.</p>
+          <p class="mt-6 text-lg text-brand-dark-grey/80">Iedereen start met Basis: alles om in termijnen te verkopen. Breid daarna uit met de modules die bij jouw bedrijf passen.</p>
         </div>
-        <div class="mt-14 grid lg:grid-cols-3 gap-8">
-          <div class="lg:col-span-2 reveal">
-            <div class="card rounded-2xl p-6 sm:p-8">
-              <div class="flex items-center justify-between pb-6 border-b border-black/5 mb-6">
-                <div>
-                  <p class="font-bold text-brand-black text-lg">TermijnPartner Platform</p>
-                  <p class="text-sm text-brand-dark-grey/60">Basisabonnement — alles wat je nodig hebt om te starten met het verkopen in termijnen</p>
-                </div>
-                <p class="text-xl font-extrabold text-brand-gold">Tijdelijk €199 p/m</p>
-              </div>
-              <p class="text-sm font-semibold text-brand-dark-grey/70 uppercase tracking-wider mb-4">Optionele modules</p>
-              <div id="configurator-modules" class="grid sm:grid-cols-2 gap-3"></div>
-            </div>
-          </div>
-          <div class="reveal reveal-delay-2">
-            <div class="price-display rounded-2xl p-6 sm:p-8 text-white sticky top-28">
-              <h3 class="text-lg font-bold text-white/80">Jouw configuratie</h3>
-              <div class="mt-6 space-y-4">
-                <div class="flex justify-between items-baseline border-b border-white/10 pb-4">
-                  <span class="text-white/70">Maandelijks totaal</span>
-                  <span id="monthly-total" class="font-display text-3xl text-brand-gold">€99</span>
-                </div>
-                <div class="flex justify-between items-baseline border-b border-white/10 pb-4">
-                  <span class="text-white/70">Eenmalige kosten</span>
-                  <span id="onetime-total" class="text-2xl font-extrabold">€150</span>
-                </div>
-                <div class="pt-2">
-                  <p class="text-sm text-white/50">Per maand vanaf</p>
-                  <p id="grand-monthly" class="font-display text-4xl text-brand-gold mt-1">€99</p>
-                </div>
-              </div>
+        <div class="mt-14 grid lg:grid-cols-3 gap-8 items-start">
+          <div class="reveal">
+            <div class="price-display rounded-2xl p-6 sm:p-8 text-white">
+              <p class="text-sm font-bold uppercase tracking-wider text-brand-gold">Basis</p>
+              <p class="mt-3 font-display text-4xl text-white">Tijdelijk €300<span class="text-lg text-white/60"> p/m</span></p>
+              <p class="mt-1 text-sm text-white/50">+ €200 eenmalig voor inrichting van je CRM en koppelingen</p>
+              <ul class="mt-6 space-y-3 text-sm text-white/80">
+                <li class="flex items-start gap-2"><svg class="w-4 h-4 text-brand-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Verkopen in termijnen</li>
+                <li class="flex items-start gap-2"><svg class="w-4 h-4 text-brand-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>CRM voor al je klanten en deals</li>
+                <li class="flex items-start gap-2"><svg class="w-4 h-4 text-brand-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>WhatsApp-integratie</li>
+                <li class="flex items-start gap-2"><svg class="w-4 h-4 text-brand-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Offertes versturen en opvolgen</li>
+                <li class="flex items-start gap-2"><svg class="w-4 h-4 text-brand-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Agenda gekoppeld aan leads</li>
+                <li class="flex items-start gap-2"><svg class="w-4 h-4 text-brand-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Dashboards &amp; leadopvolging</li>
+              </ul>
               <a href="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm" target="_blank" rel="noopener noreferrer" class="mt-8 block w-full text-center btn-primary px-6 py-3.5 rounded-lg font-bold">Plan een demo</a>
               <p class="mt-4 text-xs text-white/40 text-center">Alle accounts worden persoonlijk ingericht. Prijzen zijn indicatief — definitieve offerte na demo.</p>
+            </div>
+          </div>
+          <div class="lg:col-span-2 reveal reveal-delay-2">
+            <div class="card rounded-2xl p-6 sm:p-8">
+              <p class="font-bold text-brand-black text-lg">Uitbreidingen</p>
+              <p class="text-sm text-brand-dark-grey/60 mb-2">Altijd beschikbaar als je eraan toe bent — je bespreekt met ons welke opties bij jouw bedrijf passen.</p>
+              <div class="mt-4 grid sm:grid-cols-2 gap-x-6">
+                <div class="flex items-start gap-3 py-3">
+                  <div class="mt-0.5 w-6 h-6 rounded-full bg-brand-gold/10 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-3.5 h-3.5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  </div>
+                  <div>
+                    <p class="font-semibold text-brand-black text-sm">AI WhatsApp medewerker</p>
+                    <p class="text-xs text-brand-dark-grey/60 mt-0.5">Reageert razendsnel op binnenkomende leads</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 py-3">
+                  <div class="mt-0.5 w-6 h-6 rounded-full bg-brand-gold/10 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-3.5 h-3.5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  </div>
+                  <div>
+                    <p class="font-semibold text-brand-black text-sm">AI telefoniste</p>
+                    <p class="text-xs text-brand-dark-grey/60 mt-0.5">Mist nooit meer een telefoontje</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 py-3">
+                  <div class="mt-0.5 w-6 h-6 rounded-full bg-brand-gold/10 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-3.5 h-3.5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  </div>
+                  <div>
+                    <p class="font-semibold text-brand-black text-sm">Google Ads 24/7 AI beheer</p>
+                    <p class="text-xs text-brand-dark-grey/60 mt-0.5">Doorlopend geoptimaliseerde advertenties</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 py-3">
+                  <div class="mt-0.5 w-6 h-6 rounded-full bg-brand-gold/10 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-3.5 h-3.5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  </div>
+                  <div>
+                    <p class="font-semibold text-brand-black text-sm">Review automatisering</p>
+                    <p class="text-xs text-brand-dark-grey/60 mt-0.5">Verzamelt automatisch nieuwe reviews</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 py-3">
+                  <div class="mt-0.5 w-6 h-6 rounded-full bg-brand-gold/10 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-3.5 h-3.5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  </div>
+                  <div>
+                    <p class="font-semibold text-brand-black text-sm">Website binnen 7 werkdagen live</p>
+                    <p class="text-xs text-brand-dark-grey/60 mt-0.5">Een nieuwe website, volledig gebouwd en live</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 py-3">
+                  <div class="mt-0.5 w-6 h-6 rounded-full bg-brand-gold/10 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-3.5 h-3.5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  </div>
+                  <div>
+                    <p class="font-semibold text-brand-black text-sm">Extra funnel of landingspagina</p>
+                    <p class="text-xs text-brand-dark-grey/60 mt-0.5">Eigen pagina per campagne of branche</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 py-3">
+                  <div class="mt-0.5 w-6 h-6 rounded-full bg-brand-gold/10 flex items-center justify-center flex-shrink-0">
+                    <svg class="w-3.5 h-3.5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  </div>
+                  <div>
+                    <p class="font-semibold text-brand-black text-sm">Maatwerk automatiseringen</p>
+                    <p class="text-xs text-brand-dark-grey/60 mt-0.5">Workflows op maat voor jouw verkoopproces</p>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-6 pt-6 border-t border-black/5 text-xs text-brand-dark-grey/50">Prijs per uitbreiding bespreken we tijdens de demo, afgestemd op wat je nodig hebt.</p>
             </div>
           </div>
         </div>

@@ -280,6 +280,25 @@ h1 em, h2 em, .font-display em {
   pointer-events: none;
 }
 
+/* Decorative homepage stock photos: background-image (not <img>) scoped to a
+   desktop-only media query, so mobile never requests the file at all — not
+   just hidden, genuinely never downloaded. */
+.photo-bg {
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(55%) contrast(1.05) brightness(0.97);
+}
+
+@media (min-width: 1024px) {
+  .photo-bg-missie {
+    background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80&auto=format');
+  }
+
+  .photo-bg-oplossing {
+    background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80&auto=format');
+  }
+}
+
 /* --- Hero statement: big, bold, centered typography carries the whole hero —
    no photo, no widget. A soft gold glow behind the headline adds depth
    without competing with the type. --- */
@@ -314,48 +333,6 @@ h1 em, h2 em, .font-display em {
 .comparison-with {
   border-left: 4px solid var(--color-gold);
   background: linear-gradient(135deg, rgba(201, 151, 43, 0.04) 0%, rgba(201, 151, 43, 0.01) 100%);
-}
-
-/* --- Configurator module toggle --- */
-.module-card {
-  cursor: pointer;
-  transition: all var(--transition-base);
-  border: 2px solid rgba(17, 17, 17, 0.08);
-}
-
-.module-card:hover {
-  border-color: rgba(201, 151, 43, 0.4);
-}
-
-.module-card.selected {
-  border-color: var(--color-gold);
-  background: linear-gradient(135deg, rgba(201, 151, 43, 0.06) 0%, rgba(201, 151, 43, 0.02) 100%);
-}
-
-.module-card.selected .module-check {
-  background-color: var(--color-gold);
-  border-color: var(--color-gold);
-}
-
-.module-card.selected .module-check svg {
-  opacity: 1;
-}
-
-.module-check {
-  width: 22px;
-  height: 22px;
-  border: 2px solid rgba(17, 17, 17, 0.2);
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: all var(--transition-base);
-}
-
-.module-check svg {
-  opacity: 0;
-  transition: opacity var(--transition-base);
 }
 
 /* --- FAQ accordion --- */

@@ -1,6 +1,6 @@
 /**
  * TermijnPartner.nl – Main JavaScript
- * Handles: mobile menu, FAQ accordion, configurator, smooth scroll, scroll reveal
+ * Handles: mobile menu, FAQ accordion, smooth scroll, scroll reveal
  */
 
 (function () {
@@ -16,7 +16,6 @@
     initMobileMenu();
     initSmoothScroll();
     initScrollReveal();
-    initConfigurator();
     initBranchesCarousel();
     initFAQ();
     initContactForm();
@@ -152,148 +151,6 @@
     );
 
     reveals.forEach((el) => observer.observe(el));
-  }
-
-  /* ==========================================
-     Configurator Price Calculator
-     ========================================== */
-  function initConfigurator() {
-    const BASE_PRICE = 199;
-    const modulesContainer = document.getElementById('configurator-modules');
-    const monthlyTotalEl = document.getElementById('monthly-total');
-    const onetimeTotalEl = document.getElementById('onetime-total');
-    const grandMonthlyEl = document.getElementById('grand-monthly');
-
-    if (!modulesContainer) return;
-
-    const modules = [
-      { id: 'ai-whatsapp', name: 'AI WhatsApp medewerker', price: 150, type: 'monthly' },
-      { id: 'ai-telefoniste', name: 'AI telefoniste', price: 150, type: 'monthly' },
-      { id: 'google-ads', name: 'Google Ads 24/7 AI beheer', price: 499, type: 'monthly' },
-      { id: 'reviews', name: 'Review automatisering', price: 49, type: 'monthly' },
-      { id: 'website', name: 'Website binnen 7 werkdagen live', price: 999, type: 'onetime' },
-      { id: 'funnel', name: 'Extra funnel of landingspagina', price: 30, type: 'perunit', unitLabel: 'per funnel' },
-      { id: 'maatwerk', name: 'Maatwerk automatiseringen', price: 499, type: 'onetime' },
-    ];
-
-    function getPriceLabel(mod) {
-      if (mod.type === 'monthly') return `+€${mod.price} p/m`;
-      if (mod.type === 'perunit') return `+€${mod.price} ${mod.unitLabel}`;
-      return `+€${mod.price.toLocaleString('nl-NL')} eenmalig`;
-    }
-
-    // Build module cards
-    modules.forEach((mod) => {
-      const card = document.createElement('div');
-      card.className = 'module-card card rounded-xl p-4 flex items-start gap-3';
-      card.dataset.id = mod.id;
-      card.dataset.price = mod.price;
-      card.dataset.type = mod.type;
-      card.dataset.quantity = mod.type === 'perunit' ? '1' : '1';
-      card.setAttribute('role', 'checkbox');
-      card.setAttribute('aria-checked', 'false');
-      card.setAttribute('tabindex', '0');
-
-      const quantityHtml = mod.type === 'perunit'
-        ? `<div class="module-quantity hidden mt-3 flex items-center gap-2" data-quantity-control>
-            <button type="button" class="qty-btn w-7 h-7 rounded-md border border-black/10 text-brand-black font-bold hover:bg-brand-light-grey transition-colors" data-action="decrease" aria-label="Minder">−</button>
-            <span class="qty-value text-sm font-semibold text-brand-black min-w-[1.5rem] text-center">1</span>
-            <button type="button" class="qty-btn w-7 h-7 rounded-md border border-black/10 text-brand-black font-bold hover:bg-brand-light-grey transition-colors" data-action="increase" aria-label="Meer">+</button>
-          </div>`
-        : '';
-
-      card.innerHTML = `
-        <div class="module-check" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M2.5 7L5.5 10L11.5 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="flex-1 min-w-0">
-          <p class="font-semibold text-brand-black text-sm leading-snug">${mod.name}</p>
-          <p class="text-brand-gold text-sm font-medium mt-0.5">${getPriceLabel(mod)}</p>
-          ${quantityHtml}
-        </div>
-      `;
-
-      card.addEventListener('click', (e) => {
-        if (e.target.closest('[data-quantity-control]')) return;
-        toggleModule(card);
-      });
-      card.addEventListener('keydown', (e) => {
-        if (e.key === ' ' || e.key === 'Enter') {
-          e.preventDefault();
-          toggleModule(card);
-        }
-      });
-
-      const qtyControl = card.querySelector('[data-quantity-control]');
-      if (qtyControl) {
-        qtyControl.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const btn = e.target.closest('[data-action]');
-          if (!btn || !card.classList.contains('selected')) return;
-
-          let qty = parseInt(card.dataset.quantity, 10) || 1;
-          if (btn.dataset.action === 'increase') qty = Math.min(qty + 1, 99);
-          if (btn.dataset.action === 'decrease') qty = Math.max(qty - 1, 1);
-
-          card.dataset.quantity = String(qty);
-          card.querySelector('.qty-value').textContent = qty;
-          updateTotals();
-        });
-      }
-
-      modulesContainer.appendChild(card);
-    });
-
-    function toggleModule(card) {
-      const isSelected = card.classList.toggle('selected');
-      card.setAttribute('aria-checked', isSelected ? 'true' : 'false');
-
-      const qtyControl = card.querySelector('[data-quantity-control]');
-      if (qtyControl) {
-        qtyControl.classList.toggle('hidden', !isSelected);
-        if (!isSelected) {
-          card.dataset.quantity = '1';
-          const qtyValue = card.querySelector('.qty-value');
-          if (qtyValue) qtyValue.textContent = '1';
-        }
-      }
-
-      updateTotals();
-    }
-
-    function updateTotals() {
-      let monthlyExtras = 0;
-      let onetimeExtras = 249;
-
-      modulesContainer.querySelectorAll('.module-card.selected').forEach((card) => {
-        const price = parseInt(card.dataset.price, 10);
-        const qty = parseInt(card.dataset.quantity, 10) || 1;
-        const type = card.dataset.type;
-
-        if (type === 'monthly') {
-          monthlyExtras += price;
-        } else if (type === 'perunit') {
-          onetimeExtras += price * qty;
-        } else {
-          onetimeExtras += price;
-        }
-      });
-
-      const totalMonthly = BASE_PRICE + monthlyExtras;
-
-      if (monthlyTotalEl) monthlyTotalEl.textContent = formatCurrency(totalMonthly);
-      if (onetimeTotalEl) onetimeTotalEl.textContent = formatCurrency(onetimeExtras);
-      if (grandMonthlyEl) grandMonthlyEl.textContent = formatCurrency(totalMonthly);
-    }
-
-    function formatCurrency(amount) {
-      return '€' + amount.toLocaleString('nl-NL');
-    }
-
-    // Initial render
-    updateTotals();
   }
 
   /* ==========================================
