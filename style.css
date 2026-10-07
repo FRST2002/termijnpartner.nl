@@ -734,7 +734,8 @@ a.whatsapp-float {
   box-shadow: 0 10px 25px rgba(0,0,0,0.25) !important;
 }
 
-a.whatsapp-float img {
+a.whatsapp-float img,
+a.whatsapp-float svg {
   width: 32px !important;
   height: 32px !important;
   max-width: 32px !important;
@@ -751,7 +752,8 @@ a.whatsapp-float img {
     bottom: 18px !important;
   }
 
-  a.whatsapp-float img {
+  a.whatsapp-float img,
+  a.whatsapp-float svg {
     width: 30px !important;
     height: 30px !important;
     max-width: 30px !important;
