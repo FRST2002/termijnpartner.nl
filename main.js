@@ -326,7 +326,7 @@
       },
       {
         name: 'Badkamers',
-        image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80',
+        image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80&auto=format',
         alt: 'Badkamer renovatie',
         orderValue: '€8.000 – €20.000',
         monthly: 'vanaf €129 p/m',
@@ -374,7 +374,7 @@
       },
       {
         name: "Auto's",
-        image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80',
+        image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80&auto=format',
         alt: 'Autodealer showroom',
         orderValue: '€15.000 – €50.000+',
         monthly: 'vanaf €199 p/m',
@@ -382,7 +382,7 @@
       },
       {
         name: 'Tanden facings / bleken',
-        image: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&q=80',
+        image: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&q=80&auto=format',
         alt: 'Tandartspraktijk',
         orderValue: '€3.000 – €15.000',
         monthly: 'vanaf €99 p/m',
@@ -390,7 +390,7 @@
       },
          {
         name: 'Zonnepanelen',
-        image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&q=80',
+        image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&q=80&auto=format',
         alt: 'Zonnepanelen installatie',
         orderValue: '€6.000 – €12.000',
         monthly: 'vanaf €99 p/m',
