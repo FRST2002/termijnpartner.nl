@@ -503,6 +503,7 @@ h1 em, h2 em, .font-display em {
 .branches-carousel-track {
   display: flex;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  touch-action: pan-y;
 }
 
 .branch-slide {
@@ -554,8 +555,12 @@ h1 em, h2 em, .font-display em {
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 50%;
-  background: rgba(17, 17, 17, 0.15);
+  background: rgba(255, 255, 255, 0.25);
   transition: all var(--transition-base);
+}
+
+.carousel-dot:hover {
+  background: rgba(255, 255, 255, 0.4);
 }
 
 .carousel-dot.active {
