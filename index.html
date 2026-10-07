@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TermijnPartner – Laat klanten vandaag kopen en in termijnen betalen. Beschikbaar voor bedrijven in Nederland en België. Verhoog je conversie met termijnbetalingen, CRM en automatisering.">
+  <title>TermijnPartner – Termijnbetalingen &amp; Verkoopplatform voor Bedrijven</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- FAVEICON --->
+
+<link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              black: '#111111',
+              ink: '#1C1B19',
+              gold: '#C9972B',
+              'gold-light': '#d4a84a',
+              'gold-dark': '#a67d22',
+              white: '#FFFFFF',
+              paper: '#FAF7F1',
+              'light-grey': '#FAF7F1',
+              'dark-grey': '#3A3733',
+            }
+          },
+          fontFamily: {
+            sans: ['Manrope', 'Inter', 'system-ui', 'sans-serif'],
+            display: ['Fraunces', 'Georgia', 'serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-brand-white text-brand-dark-grey antialiased">
+
+  <a href="#main" class="skip-link">Ga naar inhoud</a>
+
+  <!-- ========== HEADER ========== -->
+  <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-black/5 transition-shadow duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 lg:h-20">
+        <a href="#" class="text-xl lg:text-2xl font-extrabold text-brand-black tracking-tight">
+          Termijn<span class="text-brand-gold">Partner</span>
+        </a>
+
+        <nav class="hidden lg:flex items-center gap-8" aria-label="Hoofdnavigatie">
+          <a href="#oplossing" class="text-sm font-semibold text-brand-dark-grey hover:text-brand-gold transition-colors">Oplossing</a>
+          <a href="#platform" class="text-sm font-semibold text-brand-dark-grey hover:text-brand-gold transition-colors">Platform</a>
+          <a href="#branches" class="text-sm font-semibold text-brand-dark-grey hover:text-brand-gold transition-colors">Branches</a>
+          <a href="#termijnbetalingen" class="text-sm font-semibold text-brand-dark-grey hover:text-brand-gold transition-colors">Termijnbetalingen</a>
+          <a href="#werkwijze" class="text-sm font-semibold text-brand-dark-grey hover:text-brand-gold transition-colors">Werkwijze</a>
+          <a href="#klanten" class="text-sm font-semibold text-brand-dark-grey hover:text-brand-gold transition-colors">Klanten</a>
+          <a href="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-brand-dark-grey hover:text-brand-gold transition-colors">Contact</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <a href="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex btn-primary px-5 py-2.5 rounded-lg text-sm font-bold">Plan een demo</a>
+          <button id="hamburger" class="lg:hidden hamburger flex flex-col justify-center gap-1.5 w-10 h-10 p-2" aria-label="Menu openen" aria-expanded="false" aria-controls="mobile-menu">
+            <span class="hamburger-line block w-6 h-0.5 bg-brand-black rounded"></span>
+            <span class="hamburger-line block w-6 h-0.5 bg-brand-black rounded"></span>
+            <span class="hamburger-line block w-6 h-0.5 bg-brand-black rounded"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="mobile-menu hidden fixed inset-0 z-40 lg:hidden">
+    <div id="mobile-overlay" class="absolute inset-0 bg-black/40" aria-hidden="true"></div>
+    <nav class="absolute right-0 top-0 bottom-0 w-72 max-w-[85vw] bg-white shadow-2xl p-6 pt-20 flex flex-col gap-1" aria-label="Mobiele navigatie">
+      <a href="#oplossing" class="mobile-nav-link py-3 px-4 rounded-lg font-semibold text-brand-dark-grey hover:bg-brand-light-grey hover:text-brand-gold transition-colors">Oplossing</a>
+      <a href="#platform" class="mobile-nav-link py-3 px-4 rounded-lg font-semibold text-brand-dark-grey hover:bg-brand-light-grey hover:text-brand-gold transition-colors">Platform</a>
+      <a href="#branches" class="mobile-nav-link py-3 px-4 rounded-lg font-semibold text-brand-dark-grey hover:bg-brand-light-grey hover:text-brand-gold transition-colors">Branches</a>
+      <a href="#termijnbetalingen" class="mobile-nav-link py-3 px-4 rounded-lg font-semibold text-brand-dark-grey hover:bg-brand-light-grey hover:text-brand-gold transition-colors">Termijnbetalingen</a>
+      <a href="#werkwijze" class="mobile-nav-link py-3 px-4 rounded-lg font-semibold text-brand-dark-grey hover:bg-brand-light-grey hover:text-brand-gold transition-colors">Werkwijze</a>
+      <a href="#klanten" class="mobile-nav-link py-3 px-4 rounded-lg font-semibold text-brand-dark-grey hover:bg-brand-light-grey hover:text-brand-gold transition-colors">Klanten</a>
+      <a href="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm" target="_blank" rel="noopener noreferrer" class="mobile-nav-link py-3 px-4 rounded-lg font-semibold text-brand-dark-grey hover:bg-brand-light-grey hover:text-brand-gold transition-colors">Contact</a>
+      <a href="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm" target="_blank" rel="noopener noreferrer" class="mobile-nav-link mt-4 btn-primary text-center px-5 py-3 rounded-lg font-bold">Plan een demo</a>
+    </nav>
+  </div>
+
+  <main id="main">
+
+    <!-- ========== HERO ========== -->
+    <section id="hero" class="pt-24 lg:pt-32 pb-16 lg:pb-24 bg-brand-light-grey overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div class="reveal">
+            <div class="flex flex-wrap items-center gap-3 mb-5">
+              <p class="inline-flex items-center gap-2 text-sm font-semibold text-brand-gold uppercase tracking-wider">
+                <span class="w-8 h-px bg-brand-gold"></span>
+                Verkoopplatform voor bedrijven
+              </p>
+              <span class="region-badge"><span class="region-flags">🇳🇱🇧🇪</span>Actief in Nederland &amp; België</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl xl:text-[3.25rem] text-brand-black leading-tight">
+              Laat klanten vandaag kopen en in termijnen betalen.
+            </h1>
+            <p class="mt-5 text-lg sm:text-xl font-semibold text-brand-dark-grey leading-relaxed">
+              Verhoog je conversie, sluit meer opdrachten en laat prijs geen bezwaar meer zijn.
+            </p>
+            <p class="mt-4 text-base text-brand-dark-grey/80 leading-relaxed max-w-xl">
+              Met TermijnPartner bied je klanten maandelijkse betaalmogelijkheden aan en beheer je jouw verkoopproces vanuit één professioneel platform — beschikbaar voor bedrijven in Nederland én België.
+            </p>
+            <div class="mt-8 flex flex-col sm:flex-row gap-4">
+              <a href="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm" target="_blank" rel="noopener noreferrer" class="btn-primary inline-flex items-center justify-center px-7 py-3.5 rounded-lg font-bold text-base">Plan een demo</a>
+              <a href="#oplossing" class="btn-secondary inline-flex items-center justify-center px-7 py-3.5 rounded-lg font-bold text-base">Bekijk mogelijkheden</a>
+            </div>
+
+            <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="trust-badge rounded-lg h-16 flex items-center justify-center text-center px-3">
+                <p class="text-xs font-bold text-brand-black">Veilig geregeld</p>
+              </div>
+
+              <div class="trust-badge rounded-lg h-16 flex items-center justify-center text-center px-3">
+                <p class="text-xs font-bold text-brand-black">NL &amp; BE</p>
+              </div>
+
+              <div class="trust-badge rounded-lg h-16 flex items-center justify-center text-center px-3">
+                <p class="text-xs font-bold text-brand-black">Persoonlijke ondersteuning</p>
+              </div>
+
+              <div class="trust-badge rounded-lg h-16 flex items-center justify-center text-center px-3">
+                <p class="text-xs font-bold text-brand-black">Snelle implementatie</p>
+              </div>
+            </div>
+          </div>
+          <div class="reveal reveal-delay-2 relative">
+            <div class="hero-image-wrapper relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
+              <!-- Replace: business owner meeting with customer -->
+              <img
+                src="Foto%20header.png"
+                alt="Zakelijke bespreking tussen ondernemer en klant"
+                class="w-full h-full object-contain"
+                loading="eager"
+                width="800"
+                height="600"
+              >
+            </div>
+            <div class="absolute -bottom-6 -left-6 hidden sm:block bg-white rounded-xl shadow-lg p-5 border border-black/5">
+              <p class="text-sm text-brand-dark-grey/70">Gemiddelde orderwaarde</p>
+              <p class="text-2xl font-extrabold text-brand-black">€15.000+</p>
+              <p class="text-sm font-semibold text-brand-gold mt-1">Vanaf €99 p/m voor klanten</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== WHY TERMIJNPARTNER EXISTS ========== -->
+    <section id="missie" class="py-16 lg:py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div class="reveal">
+            <p class="inline-flex items-center gap-2 text-sm font-semibold text-brand-gold uppercase tracking-wider mb-4">
+              <span class="w-8 h-px bg-brand-gold"></span>
+              Waarom TermijnPartner bestaat
+            </p>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-black tracking-tight leading-tight">
+              Wij zagen ondernemers jaarlijks duizenden euro's aan omzet mislopen.
+            </h2>
+            <div class="brand-story-quote mt-8 pl-6">
+              <p class="text-lg text-brand-dark-grey/80 leading-relaxed">
+                Niet omdat hun product of dienst niet goed genoeg was. Maar omdat klanten grote bedragen niet in één keer wilden betalen — en ondernemers geen eenvoudige manier hadden om dat op te lossen.
+              </p>
+            </div>
+            <p class="mt-6 text-brand-dark-grey/80 leading-relaxed">
+              Daarom hebben wij TermijnPartner opgericht: een platform waarmee jij termijnbetalingen aanbiedt, je verkoopproces beheert en meer klanten over de streep trekt — zonder dat jij op je geld hoeft te wachten.
+            </p>
+            <p class="mt-4 text-sm font-semibold text-brand-gold">Gebouwd door ondernemers, voor ondernemers.</p>
+          </div>
+          <div class="reveal reveal-delay-2">
+            <div class="photo-treatment rounded-2xl overflow-hidden shadow-xl aspect-[4/3]">
+              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="Ondernemers in overleg" class="w-full h-full object-cover" loading="lazy" width="800" height="600">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== PROBLEM ========== -->
+    <section id="probleem" class="py-16 lg:py-24 bg-brand-light-grey">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto reveal">
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-black tracking-tight gold-accent mx-auto">
+            Hoeveel opdrachten loop jij jaarlijks mis?
+          </h2>
+          <p class="mt-6 text-lg text-brand-dark-grey/80 leading-relaxed">
+            Veel bedrijven verliezen klanten niet omdat hun aanbod slecht is, maar omdat de investering voor de klant te groot voelt.
+          </p>
+        </div>
+        <div class="mt-14 grid lg:grid-cols-2 lg:gap-x-12 reveal">
+          <div class="num-row">
+            <span class="num-row-index">01</span>
+            <div>
+              <h3 class="font-bold text-brand-black">Klanten vinden het bedrag te hoog</h3>
+              <p class="mt-2 text-sm text-brand-dark-grey/70">Een hoge eenmalige investering schrikt af, ook als de klant geïnteresseerd is.</p>
+            </div>
+          </div>
+          <div class="num-row">
+            <span class="num-row-index">02</span>
+            <div>
+              <h3 class="font-bold text-brand-black">Offertes blijven onbeantwoord</h3>
+              <p class="mt-2 text-sm text-brand-dark-grey/70">Klanten twijfelen en stellen een beslissing uit — soms voor altijd.</p>
+            </div>
+          </div>
+          <div class="num-row">
+            <span class="num-row-index">03</span>
+            <div>
+              <h3 class="font-bold text-brand-black">Concurrenten winnen de opdracht</h3>
+              <p class="mt-2 text-sm text-brand-dark-grey/70">Anderen bieden flexibele betaling en jij verliest de deal.</p>
+            </div>
+          </div>
+          <div class="num-row">
+            <span class="num-row-index">04</span>
+            <div>
+              <h3 class="font-bold text-brand-black">Leads worden te laat opgevolgd</h3>
+              <p class="mt-2 text-sm text-brand-dark-grey/70">Zonder structuur verwateren kansen in de dagelijkse drukte.</p>
+            </div>
+          </div>
+          <div class="num-row lg:col-span-2">
+            <span class="num-row-index">05</span>
+            <div>
+              <h3 class="font-bold text-brand-black">Je mist overzicht in je verkoopproces</h3>
+              <p class="mt-2 text-sm text-brand-dark-grey/70">Offertes, leads en opvolging verspreid over meerdere systemen.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SOLUTION ========== -->
+    <section id="oplossing" class="py-16 lg:py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div class="reveal">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-black tracking-tight gold-accent">
+              Maak van twijfelaars kopers.
+            </h2>
+            <p class="mt-6 text-lg text-brand-dark-grey/80 leading-relaxed">
+              Een aankoop van €15.000 voelt zwaar wanneer iemand alles direct moet betalen. Maar wanneer diezelfde aankoop wordt verdeeld over een maandbedrag, wordt de beslissing veel makkelijker.
+            </p>
+            <div class="mt-10 space-y-4">
+              <div class="comparison-without card rounded-xl p-6 bg-white">
+                <p class="text-sm font-semibold text-brand-dark-grey/60 uppercase tracking-wider mb-2">Zonder TermijnPartner</p>
+                <p class="text-2xl font-extrabold text-brand-dark-grey/50 line-through decoration-red-400">€15.000 direct betalen</p>
+              </div>
+              <div class="comparison-with card rounded-xl p-6">
+                <p class="text-sm font-semibold text-brand-gold uppercase tracking-wider mb-2">Met TermijnPartner</p>
+                <p class="text-3xl font-extrabold text-brand-black">Vanaf <span class="text-brand-gold">€99</span> per maand</p>
+              </div>
+            </div>
+            <a href="#configurator" class="mt-8 inline-flex btn-primary px-7 py-3.5 rounded-lg font-bold">Ontdek de mogelijkheden</a>
+          </div>
+          <div class="reveal reveal-delay-2">
+            <div class="photo-treatment rounded-2xl overflow-hidden shadow-xl aspect-[4/3]">
+              <!-- Replace: contract signing / sales meeting -->
+              <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80" alt="Professioneel overleg en contractondertekening" class="w-full h-full object-cover" loading="lazy" width="800" height="600">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== UPFRONT GUARANTEE + PRICE PSYCHOLOGY ========== -->
+    <section id="zekerheid" class="py-16 lg:py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="upfront-banner rounded-2xl p-8 sm:p-10 lg:p-12 text-white reveal">
+          <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div>
+              <p class="text-brand-gold font-bold text-sm uppercase tracking-wider mb-3">Financiële zekerheid voor jou</p>
+              <h2 class="text-2xl sm:text-3xl font-extrabold leading-tight">Jij als bedrijf krijgt altijd 100% van het bedrag, vooraf.</h2>
+              <p class="mt-4 text-white/70 leading-relaxed">Je weet voordat je ergens aan begint dat de klant het geld heeft. Geen risico, geen wachten, geen onzekerheid. De klant betaalt jou het volledige bedrag in 1x. <br> <br>Jouw klant betaalt in termijnen terug aan de financieringspartner. Mocht jouw klant de financier niet terug betalen om welke reden dan ook, dan heb jij als bedrijf hier geen last van.</p>
+            </div>
+            <div class="flex items-center justify-center">
+              <div class="text-center">
+                <p class="font-display text-6xl sm:text-7xl text-brand-gold">100%</p>
+                <p class="mt-2 text-lg font-bold text-white">vooraf uitbetaald</p>
+                <p class="mt-1 text-sm text-white/50">aan jou als ondernemer</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-16 grid lg:grid-cols-2 gap-8 items-center reveal">
+          <div class="text-center lg:text-left">
+            <p class="text-sm font-semibold text-brand-dark-grey/60 uppercase tracking-wider mb-4">Prijspsychologie</p>
+            <p class="font-display text-4xl sm:text-5xl text-brand-dark-grey/30 price-psychology-strike">€10.000</p>
+            <p class="mt-4 text-brand-dark-grey/70 text-lg">Klanten schrikken snel af van hoge eenmalige bedragen.</p>
+          </div>
+          <div class="text-center lg:text-left">
+            <p class="text-sm font-semibold text-brand-gold uppercase tracking-wider mb-4">Met TermijnPartner</p>
+            <p class="font-display text-4xl sm:text-5xl text-brand-black">Vanaf <span class="text-brand-gold">€99</span> <span class="text-2xl sm:text-3xl">p/m</span></p>
+            <p class="mt-4 text-brand-dark-grey/70 text-lg">Van een maandbedrag schrikken ze niet. De beslissing wordt plotseling een stuk makkelijker.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== WHY CUSTOMERS SAY NO ========== -->
+    <section id="psychologie" class="py-16 lg:py-24 bg-brand-light-grey">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto reveal">
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-black tracking-tight gold-accent mx-auto">
+            Waarom klanten nee zeggen
+          </h2>
+          <p class="mt-6 text-xl font-semibold text-brand-dark-grey">
+            Niet omdat ze je product niet willen.
+          </p>
+          <p class="mt-2 text-lg text-brand-dark-grey/70">Maar omdat:</p>
+        </div>
+
+        <div class="mt-12 grid sm:grid-cols-2 gap-x-10 gap-y-7">
+          <div class="quote-row reveal">
+            <p class="quote-row-label">Reden 01</p>
+            <h3 class="mt-1 font-bold text-brand-black">Ze hun spaargeld niet willen gebruiken</h3>
+            <p class="mt-2 text-sm text-brand-dark-grey/70">Grote aankopen voelen als een dreiging voor hun financiële buffer.</p>
+          </div>
+          <div class="quote-row reveal reveal-delay-1">
+            <p class="quote-row-label">Reden 02</p>
+            <h3 class="mt-1 font-bold text-brand-black">Ze de uitgave willen spreiden</h3>
+            <p class="mt-2 text-sm text-brand-dark-grey/70">Een vast maandbedrag past beter bij hun budget dan één grote rekening.</p>
+          </div>
+          <div class="quote-row reveal reveal-delay-2">
+            <p class="quote-row-label">Reden 03</p>
+            <h3 class="mt-1 font-bold text-brand-black">Ze nog andere plannen hebben</h3>
+            <p class="mt-2 text-sm text-brand-dark-grey/70">Vakantie, verbouwing of andere investeringen concurreren om hetzelfde geld.</p>
+          </div>
+          <div class="quote-row reveal reveal-delay-3">
+            <p class="quote-row-label">Reden 04</p>
+            <h3 class="mt-1 font-bold text-brand-black">Ze flexibiliteit willen</h3>
+            <p class="mt-2 text-sm text-brand-dark-grey/70">Ze willen zelf kiezen hoe en wanneer ze betalen — zonder druk.</p>
+          </div>
+        </div>
+
+        <div class="solution-bridge mt-12 rounded-2xl p-8 sm:p-10 text-center reveal">
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-brand-black">TermijnPartner lost dit op.</h3>
+          <p class="mt-4 text-lg text-brand-dark-grey/80 max-w-2xl mx-auto leading-relaxed">
+            Jij biedt flexibele termijnbetalingen aan, ontvangt 100% vooraf en sluit meer opdrachten — terwijl jouw klant ja zegt tegen het product dat ze al wilden.
+          </p>
+          <a href="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm" target="_blank" rel="noopener noreferrer" class="mt-8 inline-flex btn-primary px-7 py-3.5 rounded-lg font-bold">Plan een demo</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== PLATFORM ========== -->
+    <section id="platform" class="py-16 lg:py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto reveal">
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-black tracking-tight gold-accent mx-auto">
+            Meer dan alleen termijnbetalingen.
+          </h2>
+          <p class="mt-6 text-lg text-brand-dark-grey/80 leading-relaxed">
+            TermijnPartner combineert termijnbetalingen met CRM, WhatsApp, telefonie, AI en automatiseringen. Zo krijg je niet alleen een betaaloplossing, maar een compleet verkoopplatform.
+          </p>
+        </div>
+        <div class="mt-14 grid lg:grid-cols-2 lg:gap-x-16 reveal">
+          <div>
+            <div class="feature-row"><span class="feature-row-name">CRM</span><span class="feature-row-desc">Alle klanten en deals op één plek</span></div>
+            <div class="feature-row"><span class="feature-row-name">WhatsApp</span><span class="feature-row-desc">Gesprekken rechtstreeks in het platform</span></div>
+            <div class="feature-row"><span class="feature-row-name">Telefonie</span><span class="feature-row-desc">Bellen en bijhouden zonder extra tool</span></div>
+            <div class="feature-row"><span class="feature-row-name">Offertes</span><span class="feature-row-desc">Versturen, opvolgen, afsluiten</span></div>
+            <div class="feature-row"><span class="feature-row-name">Agenda</span><span class="feature-row-desc">Afspraken direct gekoppeld aan leads</span></div>
+          </div>
+          <div>
+            <div class="feature-row"><span class="feature-row-name">Automatiseringen</span><span class="feature-row-desc">Opvolging die vanzelf gebeurt</span></div>
+            <div class="feature-row"><span class="feature-row-name">AI WhatsApp medewerker</span><span class="feature-row-desc">Reageert razendsnel op leads</span></div>
+            <div class="feature-row"><span class="feature-row-name">AI telefoniste</span><span class="feature-row-desc">Mist nooit meer een telefoontje</span></div>
+            <div class="feature-row"><span class="feature-row-name">Dashboards</span><span class="feature-row-desc">Omzet en voortgang in één oogopslag</span></div>
+            <div class="feature-row"><span class="feature-row-name">Leadopvolging</span><span class="feature-row-desc">Niets valt meer tussen wal en schip</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CONFIGURATOR ========== -->
+    <section id="configurator" class="py-16 lg:py-24 bg-brand-light-grey">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto reveal">
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-black tracking-tight gold-accent mx-auto">
+            Stel jouw groeiplatform samen.
+          </h2>
+          <p class="mt-6 text-lg text-brand-dark-grey/80">Kies de modules die passen bij jouw bedrijf en zie direct je investering. Alle accounts worden persoonlijk aangemaakt aan de hand van de wensen van de klant.</p>
+        </div>
+        <div class="mt-14 grid lg:grid-cols-3 gap-8">
+          <div class="lg:col-span-2 reveal">
+            <div class="card rounded-2xl p-6 sm:p-8">
+              <div class="flex items-center justify-between pb-6 border-b border-black/5 mb-6">
+                <div>
+                  <p class="font-bold text-brand-black text-lg">TermijnPartner Platform</p>
+                  <p class="text-sm text-brand-dark-grey/60">Basisabonnement — alles wat je nodig hebt om te starten met het verkopen in termijnen</p>
+                </div>
+                <p class="text-xl font-extrabold text-brand-gold">Tijdelijk €199 p/m</p>
+              </div>
+              <p class="text-sm font-semibold text-brand-dark-grey/70 uppercase tracking-wider mb-4">Optionele modules</p>
+              <div id="configurator-modules" class="grid sm:grid-cols-2 gap-3"></div>
+            </div>
+          </div>
+          <div class="reveal reveal-delay-2">
+            <div class="price-display rounded-2xl p-6 sm:p-8 text-white sticky top-28">
+              <h3 class="text-lg font-bold text-white/80">Jouw configuratie</h3>
+              <div class="mt-6 space-y-4">
+                <div class="flex justify-between items-baseline border-b border-white/10 pb-4">
+                  <span class="text-white/70">Maandelijks totaal</span>
+                  <span id="monthly-total" class="font-display text-3xl text-brand-gold">€99</span>
+                </div>
+                <div class="flex justify-between items-baseline border-b border-white/10 pb-4">
+                  <span class="text-white/70">Eenmalige kosten</span>
+                  <span id="onetime-total" class="text-2xl font-extrabold">€150</span>
+                </div>
+                <div class="pt-2">
+                  <p class="text-sm text-white/50">Per maand vanaf</p>
+                  <p id="grand-monthly" class="font-display text-4xl text-brand-gold mt-1">€99</p>
+                </div>
+              </div>
+              <a href="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm" target="_blank" rel="noopener noreferrer" class="mt-8 block w-full text-center btn-primary px-6 py-3.5 rounded-lg font-bold">Plan een demo</a>
+              <p class="mt-4 text-xs text-white/40 text-center">Alle accounts worden persoonlijk ingericht. Prijzen zijn indicatief — definitieve offerte na demo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== INDUSTRIES CAROUSEL ========== -->
+    <section id="branches" class="py-16 lg:py-24 bg-brand-black text-white overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 reveal">
+          <div class="max-w-2xl">
+            <p class="text-brand-gold font-bold text-sm uppercase tracking-wider mb-3">Branches</p>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
+              Gebouwd voor bedrijven met hoge orderwaardes.
+            </h2>
+            <p class="mt-4 text-white/60">Ontdek hoe termijnbetalingen werken in jouw branche.</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button id="branches-prev" class="carousel-btn text-brand-black" aria-label="Vorige branche">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <button id="branches-next" class="carousel-btn text-brand-black" aria-label="Volgende branche">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="branches-carousel mt-10 reveal">
+          <div class="branches-carousel-viewport">
+            <div id="branches-carousel-track" class="branches-carousel-track" role="list"></div>
+          </div>
+          <div id="branches-dots" class="flex justify-center gap-2 mt-8" role="tablist" aria-label="Branche navigatie"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== HOW INSTALLMENT PAYMENTS WORK (B2B) ========== -->
+    <section id="termijnbetalingen" class="py-16 lg:py-24 bg-brand-light-grey">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Intro -->
+        <div class="max-w-3xl reveal">
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-black tracking-tight gold-accent">
+            Hoe werken termijnbetalingen voor jouw klanten?
+          </h2>
+          <p class="mt-6 text-lg text-brand-dark-grey/80 leading-relaxed">
+            Met TermijnPartner bied je klanten de mogelijkheid om een grote aankoop te doen zonder in één keer het volledige bedrag te betalen. Via een veilig en transparant betaalplan kiest jouw klant zelf het maandbedrag — tot wel 120 termijnen, vanaf €99 per maand.
+          </p>
+          <ul class="payment-checklist mt-8 space-y-3">
+            <li class="text-brand-dark-grey/80"><svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Jouw product of dienst blijft centraal in het verkoopproces</span></li>
+            <li class="text-brand-dark-grey/80"><svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Officiële financiering via erkende partners — veilig en professioneel</span></li>
+            <li class="text-brand-dark-grey/80"><svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Snelle kredietcheck: binnen 24 uur vrijblijvend antwoord</span></li>
+            <li class="text-brand-dark-grey/80"><svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Flexibel betaalplan dat past bij de financiële situatie van je klant</span></li>
+            <li class="text-brand-dark-grey/80"><svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Jij kunt door met verkopen — wij regelen het betaaltraject</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== PAYMENT PLAN DETAILS (deliberately its own section — separated from the intro above so it doesn't all read as one dense wall) ========== -->
+    <section id="betaalplan" class="py-16 lg:py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto reveal">
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-black tracking-tight gold-accent mx-auto">Hoe werkt het betaalplan?</h2>
+          <p class="mt-6 text-lg text-brand-dark-grey/80 leading-relaxed">Zo verloopt het traject voor jouw klant — van keuze tot levering.</p>
+        </div>
+
+        <!-- Payment plan steps -->
+        <div class="mt-14 grid lg:grid-cols-2 gap-12 lg:gap-20">
+          <div class="reveal">
+            <div class="space-y-8">
+              <div class="payment-step">
+                <span class="payment-step-number">1</span>
+                <h4 class="font-bold text-brand-black">Klant kiest product of dienst</h4>
+                <p class="mt-2 text-sm text-brand-dark-grey/70 leading-relaxed">Jouw klant kiest uit jouw aanbod — of het nu een keuken, dakkapel, auto of behandeling is. Jij presenteert de offerte inclusief de optie voor termijnbetaling.</p>
+              </div>
+              <div class="payment-step">
+                <span class="payment-step-number">2</span>
+                <h4 class="font-bold text-brand-black">Klant kiest zelf het maandbedrag</h4>
+                <p class="mt-2 text-sm text-brand-dark-grey/70 leading-relaxed">Tijdens de aanvraag bepaalt jouw klant:</p>
+                <ul class="mt-2 space-y-1 text-sm text-brand-dark-grey/70">
+                  <li>• Hoeveel er per maand betaald wordt</li>
+                  <li>• Of er wel of geen aanbetaling wordt gedaan</li>
+                  <li>• Over welke looptijd (max. 120 maanden)</li>
+                </ul>
+                <p class="mt-2 text-sm text-brand-dark-grey/70">Zo wordt het betaalplan toegankelijk voor klanten met voldoende inkomen.</p>
+              </div>
+              <div class="payment-step">
+                <span class="payment-step-number">3</span>
+                <h4 class="font-bold text-brand-black">Snelle kredietcheck door financieringspartner</h4>
+                <p class="mt-2 text-sm text-brand-dark-grey/70 leading-relaxed">Binnen 24 uur ontvangt jouw klant vrijblijvend uitslag of hij of zij in aanmerking komt.</p>
+                <ul class="payment-checklist mt-3 space-y-2 text-sm text-brand-dark-grey/80">
+                  <li><svg class="w-4 h-4 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Geen zware BKR-procedures</li>
+                  <li><svg class="w-4 h-4 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Geen verrassingen achteraf</li>
+                  <li><svg class="w-4 h-4 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>100% transparant</li>
+                </ul>
+              </div>
+              <div class="payment-step">
+                <span class="payment-step-number">4</span>
+                <h4 class="font-bold text-brand-black">Na akkoord wordt het betaalplan afgesloten</h4>
+                <p class="mt-2 text-sm text-brand-dark-grey/70 leading-relaxed">Jouw klant ontvangt digitaal akkoord van de financieringspartner. Jij wordt op de hoogte gehouden via het TermijnPartner-platform.</p>
+              </div>
+              <div class="payment-step">
+                <span class="payment-step-number">5</span>
+                <h4 class="font-bold text-brand-black">Jij levert de opdracht</h4>
+                <p class="mt-2 text-sm text-brand-dark-grey/70 leading-relaxed">Zodra het betaaltraject is goedgekeurd en de financieringspartner de klant heeft uitbetaald, kun jij starten met levering, installatie of uitvoering van de opdracht.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-8 reveal reveal-delay-2">
+            <!-- Conditions -->
+            <div class="card rounded-2xl p-6 sm:p-8">
+              <h3 class="text-xl font-extrabold text-brand-black">Wat zijn de voorwaarden?</h3>
+              <p class="mt-3 text-sm text-brand-dark-grey/70">Toelatingscriteria die jouw klant moet voldoen voor een betaalplan:</p>
+              <ul class="mt-5 space-y-3">
+                <li class="flex items-start gap-3 text-sm text-brand-dark-grey/80"><span class="w-1.5 h-1.5 rounded-full bg-brand-gold mt-2 flex-shrink-0"></span>Minimaal 25 jaar</li>
+                <li class="flex items-start gap-3 text-sm text-brand-dark-grey/80"><span class="w-1.5 h-1.5 rounded-full bg-brand-gold mt-2 flex-shrink-0"></span>Minimaal €2.500 bruto inkomen</li>
+                <li class="flex items-start gap-3 text-sm text-brand-dark-grey/80"><span class="w-1.5 h-1.5 rounded-full bg-brand-gold mt-2 flex-shrink-0"></span>Vast contract of minimaal 1 jaar contract (met mogelijkheid tot intentieverklaring)</li>
+                <li class="flex items-start gap-3 text-sm text-brand-dark-grey/80"><span class="w-1.5 h-1.5 rounded-full bg-brand-gold mt-2 flex-shrink-0"></span>Geen negatieve BKR-codering</li>
+                <li class="flex items-start gap-3 text-sm text-brand-dark-grey/80"><span class="w-1.5 h-1.5 rounded-full bg-brand-gold mt-2 flex-shrink-0"></span>Of: ondernemer met stabiele inkomsten</li>
+              </ul>
+            </div>
+
+            <!-- Interest & costs -->
+            <div class="card rounded-2xl p-6 sm:p-8">
+              <h3 class="text-xl font-extrabold text-brand-black">Rente en extra kosten</h3>
+              <p class="mt-3 text-sm text-brand-dark-grey/70 leading-relaxed">Het rentepercentage is afhankelijk van de financiële situatie van je klant, de gekozen looptijd en het te financieren bedrag. De financieringspartner bespreekt dit altijd vooraf 1-op-1 met jouw klant — zodat iedereen exact weet waar men aan toe is.</p>
+              <div class="mt-5 p-4 rounded-xl bg-brand-light-grey border border-black/5">
+                <p class="text-sm font-bold text-brand-black flex items-center gap-2">
+                  <svg class="w-5 h-5 text-brand-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  Boetevrij aflossen mogelijk
+                </p>
+                <p class="mt-2 text-sm text-brand-dark-grey/70">Extra of volledig aflossen kan op ieder moment, zonder boete en zonder bijkomende kosten.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment options comparison -->
+        <div class="mt-16 lg:mt-20 reveal">
+          <h3 class="text-2xl font-extrabold text-brand-black text-center">Voordelen voor jouw klant — beide opties</h3>
+          <div class="mt-10 grid md:grid-cols-2 gap-6">
+            <div class="payment-option-card rounded-2xl p-6 sm:p-8 bg-white">
+              <h4 class="font-extrabold text-brand-black text-lg">Betalen in één keer</h4>
+              <ul class="mt-5 space-y-3">
+                <li class="flex items-start gap-3 text-sm text-brand-dark-grey/80"><svg class="w-4 h-4 text-brand-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Direct geregeld</li>
+                <li class="flex items-start gap-3 text-sm text-brand-dark-grey/80"><svg class="w-4 h-4 text-brand-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Opdracht kan direct worden uitgevoerd</li>
+                <li class="flex items-start gap-3 text-sm text-brand-dark-grey/80"><svg class="w-4 h-4 text-brand-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Geen looptijd, geen rente</li>
+                <li class="flex items-start gap-3 text-sm text-brand-dark-grey/80"><svg class="w-4 h-4 text-brand-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Ideaal bij klanten die de investering in één keer willen afronden</li>
+              </ul>
+            </div>
+            <div class="payment-option-card payment-option-card--highlight rounded-2xl p-6 sm:p-8">
+              <h4 class="font-extrabold text-brand-black text-lg">Betalen in termijnen</h4>
+              <ul class="mt-5 space-y-3">
+                <li class="flex items-start gap-3 text-sm text-brand-dark-grey/80"><svg class="w-4 h-4 text-brand-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Betaal vanaf €99 per maand</li>
+                <li class="flex items-start gap-3 text-sm text-brand-dark-grey/80"><svg class="w-4 h-4 text-brand-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Klant kiest zelf maandbedrag en looptijd</li>
+                <li class="flex items-start gap-3 text-sm text-brand-dark-grey/80"><svg class="w-4 h-4 text-brand-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Geen verplichting tot aanbetaling</li>
+                <li class="flex items-start gap-3 text-sm text-brand-dark-grey/80"><svg class="w-4 h-4 text-brand-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Extra aflossen kan altijd kosteloos</li>
+                <li class="flex items-start gap-3 text-sm text-brand-dark-grey/80"><svg class="w-4 h-4 text-brand-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Meer klanten zeggen ja op jouw offerte</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========== HOW IT WORKS ========== -->
+    <section id="werkwijze" class="py-16 lg:py-24 bg-brand-light-grey">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto reveal">
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-black tracking-tight gold-accent mx-auto">Binnen korte tijd live.</h2>
+        </div>
+        <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="relative reveal text-center">
+            <p class="step-bare-number">01</p>
+            <div class="mt-3 h-px w-10 bg-brand-gold/40 mx-auto"></div>
+            <h3 class="mt-4 font-bold text-brand-black text-lg">Plan een demo</h3>
+            <p class="mt-2 text-sm text-brand-dark-grey/70">Bespreek jouw situatie en doelen met ons team.</p>
+          </div>
+          <div class="relative reveal reveal-delay-1 text-center">
+            <p class="step-bare-number">02</p>
+            <div class="mt-3 h-px w-10 bg-brand-gold/40 mx-auto"></div>
+            <h3 class="mt-4 font-bold text-brand-black text-lg">Wij richten jouw platform in</h3>
+            <p class="mt-2 text-sm text-brand-dark-grey/70">Configuratie, koppelingen en training — wij regelen het.</p>
+          </div>
+          <div class="relative reveal reveal-delay-2 text-center">
+            <p class="step-bare-number">03</p>
+            <div class="mt-3 h-px w-10 bg-brand-gold/40 mx-auto"></div>
+            <h3 class="mt-4 font-bold text-brand-black text-lg">Jij biedt maandbedragen aan</h3>
+            <p class="mt-2 text-sm text-brand-dark-grey/70">Presenteer termijnbetalingen bij elke offerte en verkoop.</p>
+          </div>
+          <div class="relative reveal reveal-delay-3 text-center">
+            <p class="step-bare-number">04</p>
+            <div class="mt-3 h-px w-10 bg-brand-gold/40 mx-auto"></div>
+            <h3 class="mt-4 font-bold text-brand-black text-lg">Je sluit meer opdrachten</h3>
+            <p class="mt-2 text-sm text-brand-dark-grey/70">Meer akkoord, betere opvolging en hogere omzet.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SUCCESS STORIES ========== -->
+    <section id="klanten" class="py-16 lg:py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto reveal">
+          <p class="inline-flex items-center gap-2 text-sm font-semibold text-brand-gold uppercase tracking-wider mb-4">
+            <span class="w-8 h-px bg-brand-gold"></span>
+            Bewezen in de praktijk
+            <span class="w-8 h-px bg-brand-gold"></span>
+          </p>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-black tracking-tight gold-accent mx-auto">
+            Onze klanten.
+          </h2>
+          <p class="mt-6 text-lg text-brand-dark-grey/80 leading-relaxed">
+            Ontdek hoe bedrijven zoals Holland's Totaalbouw en Roley Termijn hun klanten laten betalen in termijnen en daardoor meer verkopen realiseren.
+          </p>
+        </div>
+
+        <div class="mt-14 grid lg:grid-cols-2 gap-8">
+          <!-- Roley Termijn -->
+          <article class="case-study-card card rounded-2xl p-6 sm:p-8 reveal">
+            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+              <div class="case-study-logo w-full sm:w-auto">
+                <img src="roleytermijn.png" alt="Roley Termijn logo" width="280" height="104">
+              </div>
+              <span class="inline-flex self-start px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-brand-black text-white">Luxe horloges</span>
+            </div>
+            <h3 class="text-xl font-extrabold text-brand-black">Roleytermijn.nl</h3>
+            <p class="mt-3 text-brand-dark-grey/80 leading-relaxed">
+              Roley Termijn verkoopt Rolex-horloges in termijnen. Sinds de samenwerking met TermijnPartner draait het bedrijf uitstekend — klanten kiezen vaker voor een aankoop wanneer het maandbedrag overzichtelijk is.
+            </p>
+            <div class="mt-6 grid sm:grid-cols-2 gap-4">
+              <div class="case-study-stat rounded-xl p-4 text-center">
+                <p class="font-display text-3xl text-brand-gold">90%</p>
+                <p class="mt-1 text-sm font-semibold text-brand-black">van de klanten</p>
+                <p class="text-xs text-brand-dark-grey/60 mt-1">betaalt de Rolex af vanaf €99 p/m</p>
+              </div>
+              <div class="case-study-stat rounded-xl p-4 text-center">
+                <p class="text-3xl font-extrabold text-brand-gold">↗</p>
+                <p class="mt-1 text-sm font-semibold text-brand-black">Sterke groei</p>
+                <p class="text-xs text-brand-dark-grey/60 mt-1">sinds de start met TermijnPartner</p>
+              </div>
+            </div>
+            <a href="https://roleytermijn.nl" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-brand-gold hover:text-brand-gold-dark transition-colors">
+              Bekijk roleytermijn.nl
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+          </article>
+
+          <!-- Holland's Totaal Bouw -->
+          <article class="case-study-card card rounded-2xl p-6 sm:p-8 reveal reveal-delay-2">
+            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+              <div class="case-study-logo w-full sm:w-auto">
+                <img src="hollandstotaalbouw.png" alt="Holland's Totaal Bouw logo" width="280" height="104">
+              </div>
+              <span class="inline-flex self-start px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-brand-gold/10 text-brand-gold border border-brand-gold/20">Dakkapellen &amp; veranda's</span>
+            </div>
+            <h3 class="text-xl font-extrabold text-brand-black">Holland's Totaal Bouw</h3>
+            <p class="mt-3 text-brand-dark-grey/80 leading-relaxed">
+              Holland's Totaal Bouw verkoopt dakkapellen en veranda's. In de eerste 90 dagen met termijnbetalingen via TermijnPartner realiseerden zij alleen al aan termijnbetalingen een omzet van €300.000. Het bewijs dat termijnbetalingen direct omzet opleveren.
+            </p>
+            <div class="mt-6 grid sm:grid-cols-2 gap-4">
+              <div class="case-study-stat rounded-xl p-4 text-center sm:col-span-2">
+                <p class="font-display text-3xl sm:text-4xl text-brand-gold">€300.000</p>
+                <p class="mt-1 text-sm font-semibold text-brand-black">omzet in de eerste 90 dagen</p>
+                <p class="text-xs text-brand-dark-grey/60 mt-1">alleen via termijnbetalingen</p>
+              </div>
+            </div>
+            <p class="mt-6 text-sm font-semibold text-brand-black flex items-center gap-2">
+              <svg class="w-5 h-5 text-brand-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Direct meetbaar resultaat vanaf dag één
+            </p>
+            <a href="https://www.hollandstotaalbouw.nl" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-brand-gold hover:text-brand-gold-dark transition-colors">
+              Bekijk hollandstotaalbouw.nl
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+          </article>
+        </div>
+
+        <div class="mt-12 text-center reveal">
+          <p class="text-brand-dark-grey/70 mb-6">Wil jij ook zulke resultaten? Ontdek wat TermijnPartner voor jouw bedrijf kan betekenen.</p>
+          <a href="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm" target="_blank" rel="noopener noreferrer" class="btn-primary inline-flex items-center justify-center px-7 py-3.5 rounded-lg font-bold">Plan een gratis demo</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== COMPARISON ========== -->
+    <section id="vergelijking" class="py-16 lg:py-24 bg-brand-light-grey">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto reveal">
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-black tracking-tight gold-accent mx-auto">Waarom TermijnPartner anders is.</h2>
+        </div>
+        <div class="mt-14 reveal overflow-x-auto">
+          <table class="comparison-table w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b-2 border-brand-black/10">
+                <th class="font-bold text-brand-black text-sm sm:text-base">Functie</th>
+                <th class="font-bold text-brand-dark-grey/60 text-sm sm:text-base">Traditionele financieringspartij</th>
+                <th class="font-bold text-brand-gold text-sm sm:text-base">TermijnPartner</th>
+              </tr>
+            </thead>
+            <tbody class="text-sm sm:text-base">
+              <tr class="border-b border-black/5"><td class="font-semibold text-brand-black py-4">Financiering</td><td class="text-brand-dark-grey/70">Alleen financiering</td><td class="text-brand-black font-semibold">Termijnbetalingen</td></tr>
+              <tr class="border-b border-black/5"><td class="font-semibold text-brand-black py-4">CRM</td><td class="text-brand-dark-grey/70"><span class="text-red-400">✕</span> Geen CRM</td><td class="text-brand-black font-semibold"><span class="text-brand-gold">✓</span> CRM inbegrepen</td></tr>
+              <tr class="border-b border-black/5"><td class="font-semibold text-brand-black py-4">Communicatie</td><td class="text-brand-dark-grey/70"><span class="text-red-400">✕</span> Geen WhatsApp</td><td class="text-brand-black font-semibold"><span class="text-brand-gold">✓</span> WhatsApp en telefonie</td></tr>
+              <tr class="border-b border-black/5"><td class="font-semibold text-brand-black py-4">AI</td><td class="text-brand-dark-grey/70"><span class="text-red-400">✕</span> Geen AI</td><td class="text-brand-black font-semibold"><span class="text-brand-gold">✓</span> AI medewerkers</td></tr>
+              <tr class="border-b border-black/5"><td class="font-semibold text-brand-black py-4">Opvolging</td><td class="text-brand-dark-grey/70"><span class="text-red-400">✕</span> Geen automatische opvolging</td><td class="text-brand-black font-semibold"><span class="text-brand-gold">✓</span> Automatiseringen</td></tr>
+              <tr class="border-b border-black/5"><td class="font-semibold text-brand-black py-4">Marketing</td><td class="text-brand-dark-grey/70"><span class="text-red-400">✕</span> Geen marketingondersteuning</td><td class="text-brand-black font-semibold"><span class="text-brand-gold">✓</span> Marketingmodules</td></tr>
+              <tr><td class="font-semibold text-brand-black py-4">Focus</td><td class="text-brand-dark-grey/70">Kredietverstrekking</td><td class="text-brand-black font-semibold">Gericht op meer omzet</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== RESULTS ========== -->
+    <section id="resultaten" class="py-16 lg:py-24 bg-brand-black text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto reveal">
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Betaalgemak dat omzet oplevert.</h2>
+          <p class="mt-4 text-white/60">Wat bedrijven merken wanneer ze termijnbetalingen combineren met betere opvolging.</p>
+        </div>
+        <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
+          <div class="metric-card card bg-white/5 border border-white/10 rounded-xl p-6 reveal">
+            <p class="font-display text-2xl text-brand-gold/50">01</p>
+            <h3 class="mt-2 font-bold text-white">Meer offerte-aanvragen</h3>
+            <p class="mt-2 text-sm text-white/50">Lagere drempel trekt meer geïnteresseerde klanten.</p>
+          </div>
+          <div class="metric-card card bg-white/5 border border-white/10 rounded-xl p-6 reveal reveal-delay-1">
+            <p class="font-display text-2xl text-brand-gold/50">02</p>
+            <h3 class="mt-2 font-bold text-white">Meer akkoord op offertes</h3>
+            <p class="mt-2 text-sm text-white/50">Maandbedragen maken beslissingen eenvoudiger.</p>
+          </div>
+          <div class="metric-card card bg-white/5 border border-white/10 rounded-xl p-6 reveal reveal-delay-2">
+            <p class="font-display text-2xl text-brand-gold/50">03</p>
+            <h3 class="mt-2 font-bold text-white">Minder verloren klanten</h3>
+            <p class="mt-2 text-sm text-white/50">Prijs wordt geen dealbreaker meer.</p>
+          </div>
+          <div class="metric-card card bg-white/5 border border-white/10 rounded-xl p-6 reveal reveal-delay-3">
+            <p class="font-display text-2xl text-brand-gold/50">04</p>
+            <h3 class="mt-2 font-bold text-white">Betere opvolging</h3>
+            <p class="mt-2 text-sm text-white/50">Geautomatiseerde follow-up houdt leads warm.</p>
+          </div>
+          <div class="metric-card card bg-white/5 border border-white/10 rounded-xl p-6 reveal reveal-delay-4 sm:col-span-2 lg:col-span-1">
+            <p class="font-display text-2xl text-brand-gold/50">05</p>
+            <h3 class="mt-2 font-bold text-white">Meer omzet per klant</h3>
+            <p class="mt-2 text-sm text-white/50">Klanten kiezen vaker voor het complete pakket.</p>
+          </div>
+        </div>
+         <div class="mt-12 text-center reveal">
+          <a href="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm" target="_blank" rel="noopener noreferrer" class="btn-primary inline-flex items-center justify-center px-7 py-3.5 rounded-lg font-bold">Plan een gratis demo</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FAQ ========== -->
+    <section id="faq" class="py-16 lg:py-24 bg-brand-light-grey">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center reveal">
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-black tracking-tight gold-accent mx-auto">Veelgestelde vragen</h2>
+        </div>
+        <div class="mt-12 reveal">
+          <div class="faq-item">
+            <button class="faq-question w-full flex items-center justify-between py-5 text-left font-bold text-brand-black" aria-expanded="false">
+              <span>Voor welke bedrijven is TermijnPartner geschikt?</span>
+              <svg class="faq-icon w-5 h-5 text-brand-gold flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-answer"><p class="pb-5 text-brand-dark-grey/80 leading-relaxed">TermijnPartner is ontwikkeld voor bedrijven met hoge orderwaardes, zoals bouwbedrijven, keukenspecialisten, autodealers en klinieken. Ideaal wanneer klanten een investering van €3.000 of meer overwegen.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question w-full flex items-center justify-between py-5 text-left font-bold text-brand-black" aria-expanded="false">
+              <span>Verstrekken jullie zelf financieringen?</span>
+              <svg class="faq-icon w-5 h-5 text-brand-gold flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-answer"><p class="pb-5 text-brand-dark-grey/80 leading-relaxed">TermijnPartner is een verkoopplatform dat termijnbetalingen faciliteert. Wij werken samen met erkende financieringspartners zodat jij je kunt richten op verkopen.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question w-full flex items-center justify-between py-5 text-left font-bold text-brand-black" aria-expanded="false">
+              <span>Kan ik mijn huidige CRM blijven gebruiken?</span>
+              <svg class="faq-icon w-5 h-5 text-brand-gold flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-answer">
+              <div class="pb-5 text-brand-dark-grey/80 leading-relaxed space-y-3">
+                <p><strong class="text-brand-black">Nee.</strong> Alle gesprekken dienen via het TermijnPartner CRM-systeem te verlopen. Je kunt eenvoudig je WhatsApp koppelen aan ons platform, zodat je alsnog via WhatsApp kunt chatten — maar dit moet ten alle tijden gekoppeld zijn aan ons systeem.</p>
+                <p>Zo sta jij als bedrijf veilig. In verband met de AFM willen wij jou als bedrijf en onze partners indekken tegen bepaalde situaties. Mocht een klant bijvoorbeeld beweren dat jij hebt gezegd dat hij of zij maar een bepaald rentepercentage kan krijgen, dan kun jij via het systeem aantonen dat dit niet is gebeurd. De financier zit namelijk ook in dit systeem — zo beschermen wij elkaar.</p>
+                <p>Ook de automatiseringen lopen via dit systeem, zodat alles netjes werkt zoals je altijd al wilde.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question w-full flex items-center justify-between py-5 text-left font-bold text-brand-black" aria-expanded="false">
+              <span>Hoe snel kan ik starten?</span>
+              <svg class="faq-icon w-5 h-5 text-brand-gold flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-answer"><p class="pb-5 text-brand-dark-grey/80 leading-relaxed">Na de demo en configuratie kun je doorgaans binnen enkele werkdagen live. De exacte doorlooptijd hangt af van de gekozen modules en koppelingen.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question w-full flex items-center justify-between py-5 text-left font-bold text-brand-black" aria-expanded="false">
+              <span>Kan ik extra modules later toevoegen?</span>
+              <svg class="faq-icon w-5 h-5 text-brand-gold flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-answer"><p class="pb-5 text-brand-dark-grey/80 leading-relaxed">Absoluut. Je begint met de basis en voegt modules toe wanneer je bedrijf groeit. Zo betaal je alleen voor wat je nodig hebt.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question w-full flex items-center justify-between py-5 text-left font-bold text-brand-black" aria-expanded="false">
+              <span>Is dit geschikt voor bedragen boven €3.000?</span>
+              <svg class="faq-icon w-5 h-5 text-brand-gold flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-answer"><p class="pb-5 text-brand-dark-grey/80 leading-relaxed">Ja, TermijnPartner is specifiek ontworpen voor hogere orderwaardes. Van enkele duizenden euro's tot grote projecten van €100.000+.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question w-full flex items-center justify-between py-5 text-left font-bold text-brand-black" aria-expanded="false">
+              <span>Krijg ik ondersteuning bij inrichting?</span>
+              <svg class="faq-icon w-5 h-5 text-brand-gold flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-answer"><p class="pb-5 text-brand-dark-grey/80 leading-relaxed">Ja, ons team begeleidt je bij de volledige inrichting. Elk account wordt persoonlijk aangemaakt aan de hand van jouw wensen — van platformconfiguratie tot training van je medewerkers.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FINAL CTA ========== -->
+    <section id="demo" class="py-16 lg:py-24 bg-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-black tracking-tight leading-tight">
+          Laat geen opdracht meer verloren gaan door de prijs.
+        </h2>
+        <p class="mt-6 text-lg text-brand-dark-grey/80 max-w-2xl mx-auto">
+          Ontdek hoe TermijnPartner jouw bedrijf kan helpen meer klanten akkoord te laten gaan.
+        </p>
+        <a href="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm" target="_blank" rel="noopener noreferrer"class="mt-8 inline-flex btn-primary px-8 py-4 rounded-lg font-bold text-lg">Plan een gratis demo</a>
+      </div>
+    </section>
+
+
+<!-- ========== CIJFERS SECTION ========== -->
+<section id="cijfers" class="stats-section">
+  <div class="stats-overlay"></div>
+
+  <div class="stats-content">
+    <p class="stats-label">De kracht van termijnbetalingen</p>
+
+    <h2>
+      De cijfers spreken <span>voor zich</span>
+    </h2>
+
+    <p class="stats-subtitle">
+      TermijnPartner helpt bedrijven met hoge orderwaardes om meer offertes om te zetten naar klanten.
+    </p>
+
+    <div class="stats-grid">
+      <div class="stats-item">
+        <h3>€1.000.000</h3>
+        <p>Omzet via termijnverkopen</p>
+      </div>
+
+      <div class="stats-item">
+        <h3>120</h3>
+        <p>Maanden betaaltermijn mogelijk</p>
+      </div>
+
+      <div class="stats-item">
+        <h3>100%</h3>
+        <p>Vooraf uitbetaald aan ondernemer</p>
+      </div>
+
+      <div class="stats-item">
+        <h3>€4.000+</h3>
+        <p>Geschikt voor hogere orderwaardes</p>
+      </div>
+    </div>
+
+    <p class="stats-bottom-text">
+      Van veranda’s en dakkapellen tot luxe horloges en behandelingen: klanten beslissen sneller wanneer een grote aankoop wordt vertaald naar een overzichtelijk maandbedrag.
+    </p>
+  </div>
+</section>
+
+
+
+<section id="contact" class="py-16 lg:py-24 bg-brand-light-grey">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center max-w-3xl mx-auto mb-12 reveal">
+      <p class="inline-flex items-center gap-2 text-sm font-semibold text-brand-gold uppercase tracking-wider mb-4">
+        <span class="w-8 h-px bg-brand-gold"></span>
+        Gratis Demo
+        <span class="w-8 h-px bg-brand-gold"></span>
+      </p>
+
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-black tracking-tight">
+        Ontdek hoeveel extra omzet jouw bedrijf kan realiseren.
+      </h2>
+
+      <p class="mt-6 text-lg text-brand-dark-grey/80 leading-relaxed">
+        Tijdens deze vrijblijvende demo laten we zien hoe jouw bedrijf klanten in termijnen kan laten betalen, meer offertes kan omzetten naar opdrachten en tegelijkertijd 100% vooraf uitbetaald krijgt.
+      </p>
+
+      <div class="mt-8 flex flex-wrap justify-center gap-6 text-sm font-semibold text-brand-dark-grey">
+        <span>✓ Gratis & vrijblijvend</span>
+        <span>✓ Persoonlijke demo</span>
+        <span>✓ Binnen 30 minuten inzicht</span>
+        <span>✓ Speciaal voor ondernemers</span>
+      </div>
+
+      <p class="mt-8 text-brand-dark-grey/60">
+        Kies hieronder eenvoudig een datum en tijd die jou uitkomt.
+      </p>
+    </div>
+
+    <div class="card rounded-2xl p-4 sm:p-6 bg-white shadow-xl">
+      <iframe
+        src="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm"
+        style="width:100%;border:none;overflow:hidden;min-height:850px;"
+        scrolling="no"
+        id="9FMYDV2YsBBCcbMCHCcm_1781020103975">
+      </iframe>
+
+      <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+    </div>
+
+  </div>
+</section>
+
+
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-brand-black text-white py-14">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div class="sm:col-span-2 lg:col-span-1">
+          <p class="text-xl font-extrabold">Termijn<span class="text-brand-gold">Partner</span></p>
+          <p class="mt-4 text-sm text-white/50 leading-relaxed max-w-xs">Het verkoopplatform voor bedrijven met hoge orderwaardes. Termijnbetalingen, CRM en automatisering in één oplossing.</p>
+        </div>
+        <div>
+          <p class="font-bold text-sm uppercase tracking-wider text-white/40 mb-4">Navigatie</p>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#oplossing" class="text-white/70 hover:text-brand-gold transition-colors">Oplossing</a></li>
+            <li><a href="#platform" class="text-white/70 hover:text-brand-gold transition-colors">Platform</a></li>
+            <li><a href="#branches" class="text-white/70 hover:text-brand-gold transition-colors">Branches</a></li>
+            <li><a href="#termijnbetalingen" class="text-white/70 hover:text-brand-gold transition-colors">Termijnbetalingen</a></li>
+            <li><a href="#werkwijze" class="text-white/70 hover:text-brand-gold transition-colors">Werkwijze</a></li>
+            <li><a href="#klanten" class="text-white/70 hover:text-brand-gold transition-colors">Klanten</a></li>
+            <li><a href="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm" target="_blank" rel="noopener noreferrer" class="text-white/70 hover:text-brand-gold transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-bold text-sm uppercase tracking-wider text-white/40 mb-4">Contact</p>
+          <ul class="space-y-2 text-sm text-white/70">
+            <li>info@termijnpartner.nl</li>
+            <li>+31611081317</li>
+            <li>Nederland &amp; België</li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-bold text-sm uppercase tracking-wider text-white/40 mb-4">Juridisch</p>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="text-white/70 hover:text-brand-gold transition-colors">Privacybeleid</a></li>
+            <li><a href="#" class="text-white/70 hover:text-brand-gold transition-colors">Algemene voorwaarden</a></li>
+            <li><a href="#" class="text-white/70 hover:text-brand-gold transition-colors">Disclaimer</a></li>
+            <li><a href="#" class="text-white/60 hover:text-brand-gold transition-colors">Plan een demo in op de documenten te ontvangen</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-12 pt-8 border-t border-white/10 text-center text-sm text-white/40">
+
+      <div class="legal-warning">
+    Let op! Geld lenen kost geld.
+</div>
+
+        <p>&copy; 2026 TermijnPartner. Alle rechten voorbehouden.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
