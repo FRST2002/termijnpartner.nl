@@ -1,0 +1,9 @@
+{
+  "name": "termijnpartner-site",
+  "private": true,
+  "type": "module",
+  "description": "Static marketing site for TermijnPartner. No build step — Routing Middleware (middleware.js) adds Markdown content negotiation and agent-friendly 404s on top of the static HTML/CSS/JS.",
+  "dependencies": {
+    "@vercel/functions": "^3.9.11"
+  }
+}
