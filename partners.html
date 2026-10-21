@@ -216,6 +216,12 @@
           <div class="stat"><small>Kosten per gefinancierde opdracht</small><strong id="perDeal"></strong></div>
         </div>
 
+        <div class="result dark" style="margin-top:14px">
+          <small>De eindklant betaalt per maand</small>
+          <strong id="clientMonthly"></strong>
+          <p id="clientText"></p>
+        </div>
+
         <h3>Per maand, bij 1 gefinancierde opdracht</h3>
         <div class="table-wrap">
           <table>
@@ -240,6 +246,7 @@
               <tr><td>Normale prijs excl. btw</td><td id="dNormal"></td></tr>
               <tr><td>Erbovenop voor de klant <span class="calc" id="cMarkup"></span></td><td id="dMarkup"></td></tr>
               <tr><td>Prijs voor de klant excl. btw</td><td id="dPrice"></td></tr>
+              <tr><td>Maandbedrag voor de klant <span class="calc">prijs ÷ 180 maanden, zonder rente</span></td><td id="dMonthly"></td></tr>
               <tr><td>Vergoeding aan TermijnPartner <span class="calc" id="cFee"></span></td><td id="dFee"></td></tr>
             </tbody>
             <tfoot>
@@ -277,9 +284,11 @@
       var $ = function (id) { return document.getElementById(id); };
       var eur = function (n) { return new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n); };
       var num = function (n, d) { return new Intl.NumberFormat('nl-NL', { maximumFractionDigits: d == null ? 1 : d }).format(n); };
+      var eur2 = function (n) { return new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n); };
       var signed = function (n) { return (n < 0 ? '− ' : n > 0 ? '+ ' : '') + eur(Math.abs(n)); };
 
       var DEALS = 1; // gefinancierde opdrachten per maand (vast)
+      var TERM = 180; // looptijd in maanden; maandbedrag = prijs / 180, zonder rente
       var KEYS = ['order', 'monthly', 'commission', 'saleFee', 'pass'];
       var DEFAULTS = { order: 15000, monthly: 1000, commission: 10, saleFee: 5, pass: 0, saleOn: 0 };
 
@@ -327,7 +336,7 @@
           var price = clientPrice(v, c.p);
           var keep = price * (1 - feeRate(v));
           return '<button type="button" class="opt" data-pass="' + c.p + '" aria-pressed="' + on + '"><b>' + c.t + '</b><span>' + c.d +
-            ' Klantprijs ' + eur(price) + ', verschil voor het bedrijf per opdracht ' + signed(keep - v.order) + '.</span></button>';
+            ' Klantprijs ' + eur(price) + ' (' + eur2(price / TERM) + ' per maand), verschil voor het bedrijf per opdracht ' + signed(keep - v.order) + '.</span></button>';
         }).join('');
       }
 
@@ -367,6 +376,9 @@
         setText('cMarkup', v.pass + '% van de vergoeding van ' + num(feeRate(v) * 100) + '%');
         setText('dMarkup', eur(markup));
         setText('dPrice', eur(r.price));
+        setText('dMonthly', eur2(r.price / TERM));
+        setText('clientMonthly', eur2(r.price / TERM));
+        setText('clientText', 'Prijs voor de klant ' + eur(r.price) + ' excl. btw, gedeeld door ' + TERM + ' maanden. Zonder rente.' + (markup > 0 ? ' Inclusief ' + eur(markup) + ' die het bedrijf van de vergoeding doorberekent.' : ''));
         setText('cFee', num(feeRate(v) * 100) + '% van ' + eur(r.price));
         setText('dFee', '− ' + eur(r.fee));
         setText('dKeep', eur(r.keep));
