@@ -167,11 +167,6 @@
           <p class="hint">De normale prijs van het bouwbedrijf, zonder doorberekening van de transactievergoeding.</p>
         </div>
         <div class="control">
-          <label class="q" for="monthly">Maandelijkse kosten (CRM en Finance) <output id="monthlyOut"></output></label>
-          <input id="monthly" type="range" min="0" max="3000" step="50" value="1000">
-          <p class="hint">Standaard € 1.000 per maand, ongeacht het aantal opdrachten.</p>
-        </div>
-        <div class="control">
           <label class="q" for="commission">Transactievergoeding per deal <output id="commissionOut"></output></label>
           <input id="commission" type="range" min="0" max="100" step="0.5" value="10">
           <p class="hint">Percentage van de factuurwaarde excl. btw, per gefinancierde opdracht.</p>
@@ -228,7 +223,7 @@
             <thead><tr><th>Waar bestaat het uit?</th><th>Per maand</th></tr></thead>
             <tbody>
               <tr><td>Extra omzet voor bouwbedrijf via TermijnPartner <span class="calc" id="cRevenue"></span></td><td id="rRevenue"></td></tr>
-              <tr><td>Maandelijkse kosten (CRM en Finance)</td><td id="rMonthly"></td></tr>
+              <tr><td>Maandelijkse kosten (CRM en Finance) <span class="calc">vast bedrag per maand</span></td><td id="rMonthly"></td></tr>
               <tr><td>Transactievergoeding <span class="calc" id="cTrans"></span></td><td id="rTrans"></td></tr>
               <tr><td>Extra voor de sale <span class="calc" id="cSale"></span></td><td id="rSale"></td></tr>
             </tbody>
@@ -289,14 +284,16 @@
 
       var DEALS = 1; // gefinancierde opdrachten per maand (vast)
       var TERM = 180; // looptijd in maanden; maandbedrag = prijs / 180, zonder rente
-      var KEYS = ['order', 'monthly', 'commission', 'saleFee', 'pass'];
-      var DEFAULTS = { order: 15000, monthly: 1000, commission: 10, saleFee: 5, pass: 0, saleOn: 0 };
+      var MONTHLY = 1000; // maandelijkse kosten CRM en Finance (vast)
+      var KEYS = ['order', 'commission', 'saleFee', 'pass'];
+      var DEFAULTS = { order: 15000, commission: 10, saleFee: 5, pass: 0, saleOn: 0 };
 
       function read() {
         var v = {};
         KEYS.forEach(function (k) { v[k] = +$(k).value; });
         v.saleOn = $('saleOn').checked ? 1 : 0;
         v.deals = DEALS;
+        v.monthly = MONTHLY;
         return v;
       }
 
@@ -347,7 +344,6 @@
         $('saleFee').disabled = !v.saleOn;
 
         setText('orderOut', eur(v.order));
-        setText('monthlyOut', eur(v.monthly));
         setText('commissionOut', num(v.commission) + '%');
         setText('saleFeeOut', v.saleOn ? '+ ' + num(v.saleFee) + '%' : 'uit');
         setText('passOut', v.pass + '% erbovenop');
