@@ -95,7 +95,7 @@
     .step-box.dark strong{color:#f0c35a}
     .step-box p{margin:0;font-size:12px;line-height:1.45;color:#4d4740}
     .step-box.dark p{color:#e6dfd0}
-    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+    .stats{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
     .stat{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:16px}
     .stat small{display:block;color:var(--muted);font-size:13px;line-height:1.35;min-height:34px}
     .stat strong{display:block;font-size:clamp(1.25rem,2.3vw,1.7rem);letter-spacing:-.03em;margin-top:6px}
@@ -262,8 +262,6 @@
 
         <div class="stats">
           <div class="stat"><small>Extra omzet voor bouwbedrijf via TermijnPartner</small><strong id="revenue"></strong></div>
-          <div class="stat"><small>Kosten als % van die omzet</small><strong id="pct"></strong></div>
-          <div class="stat"><small>Kosten per gefinancierde opdracht</small><strong id="perDeal"></strong></div>
         </div>
 
         <h3>Per maand, bij 1 gefinancierde opdracht</h3>
@@ -283,24 +281,8 @@
           </table>
         </div>
 
-        <h3>Per opdracht: wie draagt de vergoeding?</h3>
-        <div class="table-wrap">
-          <table>
-            <tbody>
-              <tr><td>Normale prijs excl. btw</td><td id="dNormal"></td></tr>
-              <tr><td>Erbovenop voor de klant <span class="calc" id="cMarkup"></span></td><td id="dMarkup"></td></tr>
-              <tr><td>Prijs voor de klant excl. btw</td><td id="dPrice"></td></tr>
-              <tr><td>Maandbedrag voor de klant <span class="calc">prijs ÷ 180 maanden, zonder rente</span></td><td id="dMonthly"></td></tr>
-              <tr><td>Vergoeding aan TermijnPartner <span class="calc" id="cFee"></span></td><td id="dFee"></td></tr>
-            </tbody>
-            <tfoot>
-              <tr><td>Bouwbedrijf houdt over per opdracht</td><td id="dKeep"></td></tr>
-              <tr><td>Verschil met de normale prijs</td><td id="dDiff"></td></tr>
-            </tfoot>
-          </table>
-        </div>
         <div class="note">
-          Het bouwbedrijf ontvangt het volledige bedrag van elke opdracht vooraf. De klant betaalt in termijnen terug aan de financieringspartner. De maandelijkse kosten van CRM en Finance zijn niet in de bedragen per opdracht meegerekend.
+          Het bouwbedrijf ontvangt het volledige bedrag van elke opdracht vooraf. De klant betaalt in termijnen terug aan de financieringspartner.
         </div>
       </div>
     </section>
@@ -400,8 +382,6 @@
         renderOptions(v);
 
         setText('revenue', eur(r.revenue));
-        setText('pct', r.pct == null ? '–' : num(r.pct, 1) + '%');
-        setText('perDeal', r.perDeal == null ? '–' : eur(r.perDeal));
         setText('cRevenue', v.deals + ' × ' + eur(r.price));
         setText('rRevenue', eur(r.revenue));
         setText('rMonthly', eur(v.monthly));
@@ -412,13 +392,7 @@
         setText('rTotal', eur(r.total));
         setText('rAfter', eur(r.revenue - r.total));
 
-        // Per opdracht
         var markup = r.price - v.order;
-        setText('dNormal', eur(v.order));
-        setText('cMarkup', v.pass + '% van de vergoeding van ' + num(feeRate(v) * 100) + '%');
-        setText('dMarkup', eur(markup));
-        setText('dPrice', eur(r.price));
-        setText('dMonthly', eur2(r.price / TERM));
 
         // Wat ziet de eindklant: prijs zonder termijnen, prijs met termijnen, verschil, maandbedrag
         var diffPct = v.order > 0 ? markup / v.order * 100 : 0;
@@ -438,11 +412,6 @@
         setText('wCompanyText', 'Krijgt het volledige bedrag vooraf. Betaalt daarvan ' + eur(r.trans + r.sale) + ' vergoeding aan ons en ' + eur(v.monthly) + ' voor CRM en Finance. Houdt deze maand over: ' + eur(overBedrijf) + ' (' + signed(overBedrijf - v.order * v.deals) + ' t.o.v. de normale prijs).');
         setText('wUs', eur(r.total));
         setText('wUsText', eur(r.trans) + ' transactievergoeding' + (v.saleOn ? ' + ' + eur(r.sale) + ' voor de sale' : '') + ' + ' + eur(v.monthly) + ' CRM en Finance.');
-        setText('cFee', num(feeRate(v) * 100) + '% van ' + eur(r.price));
-        setText('dFee', '− ' + eur(r.fee));
-        setText('dKeep', eur(r.keep));
-        setText('dDiff', signed(r.keep - v.order));
-        setTone('dDiff', r.keep - v.order);
 
         syncHash(v);
       }
