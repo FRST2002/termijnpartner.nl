@@ -204,6 +204,7 @@
         <div class="control">
           <label class="q" for="pass">Hoe gaat het bouwbedrijf om met de vergoeding? <output id="passOut"></output></label>
           <div class="opts" id="opts"></div>
+          <p class="hint" id="optDiff"></p>
           <input id="pass" type="range" min="0" max="100" step="5" value="0" aria-label="Percentage van de vergoeding dat boven op de prijs komt">
           <p class="hint" id="passHint"></p>
         </div>
@@ -360,16 +361,19 @@
 
       function renderOptions(v) {
         var f = feeRate(v) * 100;
+        var h = num(f / 2);
         var choices = [
-          { p: 0,   t: 'Alles in eigen marge', d: num(f) + '% in eigen marge' },
-          { p: 50,  t: 'Half-half', d: num(f / 2) + '% in eigen marge · ' + num(f / 2) + '% erbovenop' },
-          { p: 100, t: 'Alles erbovenop', d: num(f) + '% erbovenop' }
+          { p: 0,   t: 'Optie A – ' + num(f) + '% volledig uit eigen marge', d: 'De klant betaalt de normale prijs. De ' + num(f) + '% van TermijnPartner wordt uit jouw marge betaald.' },
+          { p: 50,  t: 'Optie B – 50/50 verdeling', d: h + '% betaal je uit je eigen marge en ' + h + '% wordt bovenop de klantprijs berekend.' },
+          { p: 100, t: 'Optie C – ' + num(f) + '% volledig bovenop de prijs', d: 'Jouw marge blijft volledig behouden. De ' + num(f) + '% van TermijnPartner wordt bovenop de klantprijs berekend.' }
         ];
         $('opts').innerHTML = choices.map(function (c) {
           var on = v.pass === c.p;
           return '<button type="button" class="opt" data-pass="' + c.p + '" aria-pressed="' + on + '"><b>' + c.t + '</b><span>' + c.d +
-            '</span><em>' + eur2(clientPrice(v, c.p) / TERM) + ' per maand</em></button>';
+            '</span><em>Maandbedrag voor de klant: ' + eur2(clientPrice(v, c.p) / TERM) + '</em></button>';
         }).join('');
+        var diff = (clientPrice(v, 100) - clientPrice(v, 0)) / TERM;
+        setText('optDiff', 'Verschil voor de klant per maand tussen optie A en C: ' + eur2(diff));
       }
 
       function render() {
