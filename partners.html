@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Partners | TermijnPartner</title>
-  <meta name="description" content="Rekenmodel voor partners van TermijnPartner: wat het bouwbedrijf per maand betaalt, wat TermijnPartner ontvangt en wat het bedrijf overhoudt.">
+  <meta name="description" content="Rekenmodel van TermijnPartner: wat uw klant per maand betaalt en wat u overhoudt.">
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,6 +47,7 @@
     .panel .sub{margin:0 0 14px;color:var(--muted);font-size:14px;line-height:1.5}
     .control{padding:10px 0 12px;border-bottom:1px solid var(--line)}
     .control:last-of-type{border-bottom:0}
+    .control .q{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px;font-size:16px;font-weight:800;line-height:1.3}
     .control label.q{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px;font-size:16px;font-weight:800;line-height:1.3}
     .control output{font-weight:800;white-space:nowrap;color:var(--gold-dark);font-size:18px}
     .control .hint{margin:7px 0 0;font-size:13px;color:var(--muted);line-height:1.45}
@@ -165,7 +166,7 @@
     <section class="hero wrap">
       <div class="eyebrow">Voor partners</div>
       <h1 class="serif">Rekenmodel: <em>betalen in termijnen</em> voor uw klanten.</h1>
-      <p class="lead">Stel de cijfers in. U ziet direct wat het bouwbedrijf per maand betaalt, wat TermijnPartner ontvangt en wat het bedrijf overhoudt.</p>
+      <p class="lead">Stel de cijfers in voor uw situatie. U ziet direct wat uw klant per maand betaalt en wat u overhoudt.</p>
     </section>
 
     <section class="section wrap" id="werkwijze">
@@ -190,15 +191,13 @@
           <p class="hint">De normale prijs van het bouwbedrijf, zonder doorberekening van de transactievergoeding.</p>
         </div>
         <div class="control">
-          <label class="q" for="commission">Transactievergoeding per deal <output id="commissionOut"></output></label>
-          <input id="commission" type="range" min="0" max="100" step="0.5" value="10">
-          <p class="hint">Percentage van de factuurwaarde excl. btw, per gefinancierde opdracht.</p>
+          <div class="q">Transactievergoeding per deal <output id="commissionOut"></output></div>
+          <p class="hint">Vast percentage van de factuurwaarde excl. btw, per gefinancierde opdracht.</p>
         </div>
         <div class="control">
-          <label class="q" for="saleFee">Extra als TermijnPartner de sale doet <output id="saleFeeOut"></output></label>
+          <div class="q">Extra als TermijnPartner de sale doet <output id="saleFeeOut"></output></div>
           <label class="switch"><input type="checkbox" id="saleOn"> TermijnPartner doet de sale</label>
-          <input id="saleFee" type="range" min="0" max="20" step="0.5" value="5">
-          <p class="hint">Extra percentage van de factuurwaarde excl. btw, alleen als de schakelaar aan staat.</p>
+          <p class="hint">Vast: er komt 5% van de factuurwaarde excl. btw bij, alleen als de schakelaar aan staat.</p>
           <p class="total-line" id="feeTotal"></p>
         </div>
         <div class="control">
@@ -318,8 +317,10 @@
       var DEALS = 1; // gefinancierde opdrachten per maand (vast)
       var TERM = 180; // looptijd in maanden; maandbedrag = prijs / 180, zonder rente
       var MONTHLY = 1000; // maandelijkse kosten CRM en Finance (vast)
-      var KEYS = ['order', 'commission', 'saleFee', 'pass'];
-      var DEFAULTS = { order: 15000, commission: 10, saleFee: 5, pass: 0, saleOn: 0 };
+      var COMMISSION = 10; // transactievergoeding per deal in % (vast)
+      var SALE_FEE = 5; // extra % als TermijnPartner de sale doet (vast)
+      var KEYS = ['order', 'pass'];
+      var DEFAULTS = { order: 15000, pass: 0, saleOn: 0 };
 
       function read() {
         var v = {};
@@ -327,6 +328,8 @@
         v.saleOn = $('saleOn').checked ? 1 : 0;
         v.deals = DEALS;
         v.monthly = MONTHLY;
+        v.commission = COMMISSION;
+        v.saleFee = SALE_FEE;
         return v;
       }
 
@@ -374,7 +377,6 @@
         var v = read();
         var r = calc(v);
 
-        $('saleFee').disabled = !v.saleOn;
 
         setText('orderOut', eur(v.order));
         setText('commissionOut', num(v.commission) + '%');
