@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
   <title>Partners | TermijnPartner</title>
   <meta name="description" content="Rekenmodel van TermijnPartner: wat uw klant per maand betaalt en wat u overhoudt.">
   <meta name="robots" content="noindex, nofollow">
@@ -23,6 +24,8 @@
     .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
     .serif{font-family:Fraunces,Georgia,serif}
     a{color:inherit}
+    a[x-apple-data-detectors]{color:inherit!important;text-decoration:none!important;font:inherit!important}
+    button{color:inherit}
     .topbar{position:sticky;top:0;z-index:20;background:rgba(251,248,242,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(20,20,20,.06)}
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:72px}
     .brand{font-weight:800;font-size:24px;letter-spacing:-.03em;text-decoration:none}
@@ -61,9 +64,9 @@
     input[type=range]:disabled{opacity:.4;cursor:not-allowed}
     
     .opts{display:grid;gap:8px;margin-bottom:12px}
-    .opt{text-align:left;font:inherit;background:var(--white);border:2px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;line-height:1.4}
+    .opt{text-align:left;font:inherit;color:var(--text);-webkit-text-fill-color:var(--text);background:var(--white);border:2px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;line-height:1.4}
     .opt b{display:block;font-size:14px}
-    .opt span{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+    .opt span{display:block;font-size:13px;color:var(--muted);-webkit-text-fill-color:var(--muted);margin-top:2px}
     .opt em{display:block;font-style:normal;font-weight:800;font-size:17px;margin-top:6px}
     .opt[aria-pressed="true"]{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,154,46,.2)}
 
