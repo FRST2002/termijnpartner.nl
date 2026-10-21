@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Partners | TermijnPartner</title>
+  <meta name="description" content="Bereken in een paar seconden wat betalen in termijnen uw bedrijf oplevert.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f6f2ea; --card:#fbf8f2; --soft:#f8f5ef; --text:#141414; --muted:#6b665f;
+      --line:#e6dece; --gold:#c99a2e; --gold-dark:#b6871f; --black:#121212; --white:#fff;
+      --green:#2f7d4f; --red:#b3402f;
+      --shadow:0 14px 40px rgba(20,20,20,.08);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;color:var(--text);background:linear-gradient(180deg,#f6f2ea,#f2ede4);font-family:Manrope,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+    .serif{font-family:Fraunces,Georgia,serif}
+    a{color:inherit}
+    .topbar{position:sticky;top:0;z-index:20;background:rgba(251,248,242,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(20,20,20,.06)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:72px}
+    .brand{font-weight:800;font-size:24px;letter-spacing:-.03em;text-decoration:none}
+    .brand span{color:var(--gold)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 20px;border-radius:12px;border:0;background:var(--gold);color:#fff;font:inherit;font-weight:700;text-decoration:none;cursor:pointer;transition:background .2s}
+    .btn:hover{background:var(--gold-dark)}
+    .btn.ghost{background:transparent;color:var(--black);border:2px solid var(--black)}
+    .btn.ghost:hover{background:var(--black);color:#fff}
+    .btn.small{padding:9px 14px;font-size:14px}
+
+    .hero{padding:56px 0 28px;text-align:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:12px;color:var(--gold-dark);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:13px}
+    .eyebrow:before{content:"";width:36px;height:2px;background:var(--gold)}
+    h1{margin:16px auto 14px;max-width:880px;line-height:1.02;letter-spacing:-.04em;font-size:clamp(2.4rem,6.5vw,4.6rem);font-weight:700}
+    h1 em{color:var(--gold);font-weight:500}
+    .lead{max-width:680px;margin:0 auto;color:var(--muted);font-size:clamp(1rem,1.6vw,1.2rem);line-height:1.7}
+
+    .tool{display:grid;grid-template-columns:5fr 7fr;gap:24px;margin:32px 0 24px;align-items:start}
+    .panel{background:var(--card);border:1px solid rgba(20,20,20,.08);border-radius:28px;padding:28px;box-shadow:var(--shadow)}
+    .panel h2{margin:0 0 4px;font-size:22px;letter-spacing:-.02em}
+    .panel .sub{margin:0 0 18px;color:var(--muted);font-size:14px;line-height:1.5}
+    .presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+    .chip{padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--white);font:inherit;font-weight:700;font-size:13px;cursor:pointer;color:#312d28}
+    .chip[aria-pressed="true"]{background:var(--black);color:#fff;border-color:var(--black)}
+    .control{padding:8px 0 10px}
+    .control label{display:flex;justify-content:space-between;gap:12px;margin-bottom:10px;font-size:15px;font-weight:700}
+    .control output{font-weight:800;white-space:nowrap}
+    .control .hint{margin:6px 0 0;font-size:12px;color:var(--muted);line-height:1.4}
+    input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:10px;border-radius:999px;background:#e8e0d0;outline:none}
+    input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;border:2px solid rgba(20,20,20,.1);box-shadow:0 4px 12px rgba(0,0,0,.15);cursor:pointer}
+    input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#fff;border:2px solid rgba(20,20,20,.1);box-shadow:0 4px 12px rgba(0,0,0,.15);cursor:pointer}
+    input[type=range]:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+    details.adv{margin-top:10px;border-top:1px solid var(--line);padding-top:12px}
+    details.adv summary{cursor:pointer;font-weight:700;font-size:14px;color:var(--gold-dark)}
+
+    .toggle{display:inline-flex;background:var(--white);border:1px solid var(--line);border-radius:999px;padding:4px;margin-bottom:18px}
+    .toggle button{border:0;background:transparent;padding:8px 18px;border-radius:999px;font:inherit;font-weight:700;font-size:14px;cursor:pointer;color:var(--muted)}
+    .toggle button[aria-pressed="true"]{background:var(--black);color:#fff}
+
+    .hero-result{background:var(--black);color:#fff;border-radius:22px;padding:26px 28px}
+    .hero-result small{display:block;color:#cfc7b6;font-size:14px;margin-bottom:8px}
+    .hero-result strong{display:block;font-size:clamp(2.2rem,5vw,3.6rem);letter-spacing:-.04em;line-height:1.05;color:#f0c35a}
+    .hero-result p{margin:10px 0 0;color:#e6dfd0;line-height:1.55;font-size:15px}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+    .stat{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:16px}
+    .stat small{display:block;color:var(--muted);font-size:13px;line-height:1.35;min-height:34px}
+    .stat strong{display:block;font-size:clamp(1.3rem,2.4vw,1.8rem);letter-spacing:-.03em;margin-top:6px}
+    .stat strong.pos{color:var(--green)} .stat strong.neg{color:var(--red)}
+
+    .compare{margin-top:16px;background:var(--white);border:1px solid var(--line);border-radius:18px;padding:18px}
+    .compare h3{margin:0 0 14px;font-size:15px}
+    .row{display:grid;grid-template-columns:130px 1fr 110px;gap:12px;align-items:center;margin:10px 0;font-size:14px}
+    .row .val{text-align:right;font-weight:800}
+    .bar{height:18px;border-radius:999px;background:#ebe2d1;overflow:hidden}
+    .bar span{display:block;height:100%;width:0;border-radius:999px;transition:width .35s ease}
+    .bar .now{background:linear-gradient(90deg,#b9b2a3,#9d968a)}
+    .bar .with{background:linear-gradient(90deg,#d3a13b,#c38d1e)}
+
+    .table-wrap{margin-top:16px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--white)}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:12px 16px;text-align:right;font-size:14px;border-bottom:1px solid var(--line)}
+    th:first-child,td:first-child{text-align:left}
+    thead th{background:#faf7f1;color:var(--muted);font-size:13px}
+    tfoot td{font-weight:800;background:#fcfaf6;border-bottom:0}
+    .note{margin-top:16px;padding:14px 16px;border-radius:14px;background:#fff8ea;border:1px solid #f0ddad;color:#5f4c1b;font-size:14px;line-height:1.6}
+
+    .section{padding:36px 0}
+    .section h2{margin:0 0 8px;font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.035em}
+    .section .intro{margin:0 0 22px;max-width:680px;color:var(--muted);line-height:1.7}
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .step{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:20px}
+    .num{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:#fff5dc;color:#7b5c13;font-weight:800;margin-bottom:12px}
+    .step h3{margin:0 0 6px;font-size:18px}
+    .step p{margin:0;color:#514b44;line-height:1.6;font-size:14px}
+    .cta-box{margin:12px 0 56px;background:var(--black);color:#fff;border-radius:28px;padding:36px;display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .cta-box h2{margin:0 0 6px;font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:-.03em}
+    .cta-box p{margin:0;color:#d8d1c1;max-width:560px;line-height:1.6}
+    .actions{display:flex;gap:12px;flex-wrap:wrap}
+    .cta-box .btn.ghost{color:#fff;border-color:#fff}
+    .cta-box .btn.ghost:hover{background:#fff;color:var(--black)}
+    .footer{padding:0 0 56px;color:var(--muted);font-size:13px;line-height:1.7}
+
+    @media (max-width:960px){
+      .tool{grid-template-columns:1fr}
+      .steps{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:600px){
+      .wrap{padding:0 16px}
+      .panel{padding:20px;border-radius:22px}
+      .stats{grid-template-columns:1fr}
+      .stat small{min-height:0}
+      .steps{grid-template-columns:1fr}
+      .row{grid-template-columns:1fr 90px}
+      .row .bar{grid-column:1 / -1;order:3}
+      .cta-box{padding:26px}
+      .btn{width:100%}
+      .nav .btn{width:auto}
+    }
+    @media print{
+      *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .topbar,.presets,.actions,.cta-box,.no-print{display:none!important}
+      body{background:#fff}
+      .tool{grid-template-columns:1fr 1fr}
+      .panel{box-shadow:none}
+      .section{padding:16px 0}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="/">Termijn<span>Partner</span></a>
+      <a class="btn small" href="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm" target="_blank" rel="noopener noreferrer">Plan een demo</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <div class="eyebrow">Voor partners</div>
+      <h1 class="serif">Zie in een minuut wat <em>betalen in termijnen</em> uw bedrijf oplevert.</h1>
+      <p class="lead">Vul uw eigen cijfers in. Het model rekent direct uit hoeveel extra opdrachten, extra omzet en welk rendement u kunt verwachten. Tijdens het gesprek past u de aannames live aan.</p>
+    </section>
+
+    <section class="wrap tool" id="model" aria-label="Rekenmodel">
+      <div class="panel">
+        <h2>Uw situatie</h2>
+        <p class="sub">Kies een voorbeeld of stel de schuiven zelf in.</p>
+
+        <div class="presets" role="group" aria-label="Voorbeelden">
+          <button type="button" class="chip" data-preset="dak" aria-pressed="false">Dakdekker</button>
+          <button type="button" class="chip" data-preset="renovatie" aria-pressed="false">Renovatie</button>
+          <button type="button" class="chip" data-preset="warmtepomp" aria-pressed="false">Warmtepomp</button>
+          <button type="button" class="chip" data-preset="zonnepanelen" aria-pressed="false">Zonnepanelen</button>
+        </div>
+
+        <div class="control">
+          <label for="leads">Offerteaanvragen per maand <output id="leadsOut"></output></label>
+          <input id="leads" type="range" min="5" max="300" step="5" value="40">
+        </div>
+        <div class="control">
+          <label for="close">Huidige sluitingspercentage <output id="closeOut"></output></label>
+          <input id="close" type="range" min="5" max="80" step="1" value="30">
+          <p class="hint">Hoeveel procent van de offertes wordt nu een opdracht?</p>
+        </div>
+        <div class="control">
+          <label for="order">Gemiddelde factuurwaarde excl. btw <output id="orderOut"></output></label>
+          <input id="order" type="range" min="2500" max="100000" step="500" value="15000">
+        </div>
+        <div class="control">
+          <label for="uplift">Extra opdrachten door termijnbetaling <output id="upliftOut"></output></label>
+          <input id="uplift" type="range" min="0" max="60" step="1" value="20">
+          <p class="hint">Relatieve stijging van uw sluitingspercentage. Dit is een aanname, geen garantie. Bespreek hier een voorzichtige waarde.</p>
+        </div>
+
+        <details class="adv">
+          <summary>Kosten en voorwaarden aanpassen</summary>
+          <div class="control">
+            <label for="share">Aandeel opdrachten in termijnen <output id="shareOut"></output></label>
+            <input id="share" type="range" min="0" max="100" step="5" value="30">
+          </div>
+          <div class="control">
+            <label for="monthly">Pakketprijs per maand excl. btw <output id="monthlyOut"></output></label>
+            <input id="monthly" type="range" min="0" max="4000" step="50" value="1500">
+          </div>
+          <div class="control">
+            <label for="fee">Transactievergoeding <output id="feeOut"></output></label>
+            <input id="fee" type="range" min="0" max="20" step="0.5" value="10">
+            <p class="hint">Over de factuurwaarde excl. btw van opdrachten die in termijnen lopen.</p>
+          </div>
+        </details>
+
+        <div class="actions no-print" style="margin-top:20px">
+          <button type="button" class="btn ghost small" id="reset">Terug naar standaard</button>
+          <button type="button" class="btn ghost small" id="copy">Kopieer link met deze cijfers</button>
+          <button type="button" class="btn ghost small" onclick="window.print()">Afdrukken / PDF</button>
+        </div>
+      </div>
+
+      <div class="panel" aria-live="polite">
+        <div class="toggle" role="group" aria-label="Periode">
+          <button type="button" id="perMonth" aria-pressed="true">Per maand</button>
+          <button type="button" id="perYear" aria-pressed="false">Per jaar</button>
+        </div>
+
+        <div class="hero-result">
+          <small>Netto extra omzet <span class="periodLabel">per maand</span>, na kosten</small>
+          <strong id="net">€ 0</strong>
+          <p id="verdict"></p>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><small>Extra opdrachten</small><strong id="extraOrders">0</strong></div>
+          <div class="stat"><small>Extra omzet</small><strong id="extraRevenue">€ 0</strong></div>
+          <div class="stat"><small>Totale kosten</small><strong id="costs">€ 0</strong></div>
+          <div class="stat"><small>Opbrengst per € 1 kosten</small><strong id="roi">0×</strong></div>
+          <div class="stat"><small>Break-even</small><strong id="breakeven">–</strong></div>
+          <div class="stat"><small>Omzet totaal</small><strong id="revAfter">€ 0</strong></div>
+        </div>
+
+        <div class="compare">
+          <h3>Omzet <span class="periodLabel">per maand</span>: nu en met termijnbetaling</h3>
+          <div class="row"><span>Nu</span><div class="bar"><span class="now" id="barNow"></span></div><span class="val" id="valNow"></span></div>
+          <div class="row"><span>Met termijnbetaling</span><div class="bar"><span class="with" id="barWith"></span></div><span class="val" id="valWith"></span></div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Specificatie</th><th>Nu</th><th>Met TermijnPartner</th></tr></thead>
+            <tbody>
+              <tr><td>Opdrachten</td><td id="tOrdersNow"></td><td id="tOrdersWith"></td></tr>
+              <tr><td>Sluitingspercentage</td><td id="tCloseNow"></td><td id="tCloseWith"></td></tr>
+              <tr><td>Omzet</td><td id="tRevNow"></td><td id="tRevWith"></td></tr>
+              <tr><td>Pakketkosten</td><td>–</td><td id="tPackage"></td></tr>
+              <tr><td>Transactievergoeding</td><td>–</td><td id="tFee"></td></tr>
+            </tbody>
+            <tfoot><tr><td>Omzet na kosten</td><td id="tNetNow"></td><td id="tNetWith"></td></tr></tfoot>
+          </table>
+        </div>
+
+        <div class="note">
+          <strong>Let op:</strong> dit is een indicatieve berekening op basis van uw eigen aannames en geen garantie op resultaat. Het model rekent met omzet, niet met winst. Houd bij een eigen afweging ook rekening met uw marge.
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="werkwijze">
+      <h2 class="serif">Zo werkt het</h2>
+      <p class="intro">Uw klant kiest een maandbedrag, u ziet de opdracht binnenkomen. Prijs wordt daarmee minder vaak een bezwaar.</p>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><h3>Kennismaking</h3><p>We bespreken uw branche, uw gemiddelde opdracht en uw huidige sluitingspercentage.</p></div>
+        <div class="step"><div class="num">2</div><h3>Aansluiten</h3><p>Uw bedrijf wordt aangesloten. U biedt termijnbetaling aan naast uw bestaande offerte.</p></div>
+        <div class="step"><div class="num">3</div><h3>Aanbieden</h3><p>Uw klant ziet direct het maandbedrag en kan sneller ja zeggen.</p></div>
+        <div class="step"><div class="num">4</div><h3>Meten</h3><p>We kijken samen naar aantal opdrachten, conversie en omzet en scherpen aan.</p></div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="cta-box">
+        <div>
+          <h2 class="serif">Benieuwd wat dit voor u betekent?</h2>
+          <p>Plan een vrijblijvende demo. We rekenen uw situatie samen door met uw eigen cijfers.</p>
+        </div>
+        <div class="actions">
+          <a class="btn" href="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm" target="_blank" rel="noopener noreferrer">Plan een demo</a>
+          <a class="btn ghost" href="https://wa.me/31611081317?text=Hallo%20Termijnpartner.nl%0A%0AIk%20heb%20de%20rekentool%20bekeken%20en%20wil%20graag%20meer%20informatie." target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer wrap">
+      TermijnPartner · Alle bedragen exclusief btw. Resultaten zijn afhankelijk van uw aanbod, doelgroep en opvolging.
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      var $ = function (id) { return document.getElementById(id); };
+      var eur = function (n) { return new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n); };
+      var num = function (n, d) { return new Intl.NumberFormat('nl-NL', { maximumFractionDigits: d == null ? 1 : d }).format(n); };
+
+      var KEYS = ['leads', 'close', 'order', 'uplift', 'share', 'monthly', 'fee'];
+      var DEFAULTS = { leads: 40, close: 30, order: 15000, uplift: 20, share: 30, monthly: 1500, fee: 10 };
+      // Indicatieve voorbeelden: alleen om het gesprek te starten, geen branchecijfers.
+      var PRESETS = {
+        dak:          { leads: 40, close: 30, order: 15000 },
+        renovatie:    { leads: 30, close: 25, order: 35000 },
+        warmtepomp:   { leads: 50, close: 30, order: 12000 },
+        zonnepanelen: { leads: 80, close: 25, order: 9000 }
+      };
+      var period = 'month';
+
+      function read() {
+        var v = {};
+        KEYS.forEach(function (k) { v[k] = +$(k).value; });
+        return v;
+      }
+
+      function write(values) {
+        KEYS.forEach(function (k) { if (values[k] != null) $(k).value = values[k]; });
+      }
+
+      function calc(v) {
+        var ordersNow = v.leads * v.close / 100;
+        var closeWith = Math.min(v.close * (1 + v.uplift / 100), 100);
+        var ordersWith = v.leads * closeWith / 100;
+        var extraOrders = ordersWith - ordersNow;
+        var revNow = ordersNow * v.order;
+        var revWith = ordersWith * v.order;
+        var extraRev = revWith - revNow;
+        var feeCost = ordersWith * (v.share / 100) * v.order * (v.fee / 100);
+        var costs = v.monthly + feeCost;
+        return {
+          ordersNow: ordersNow, ordersWith: ordersWith, closeWith: closeWith, extraOrders: extraOrders,
+          revNow: revNow, revWith: revWith, extraRev: extraRev,
+          pkg: v.monthly, feeCost: feeCost, costs: costs,
+          net: extraRev - costs,
+          roi: costs > 0 ? extraRev / costs : null,
+          breakeven: v.order > 0 ? costs / v.order : null
+        };
+      }
+
+      function render() {
+        var v = read();
+        var r = calc(v);
+        var f = period === 'year' ? 12 : 1;
+
+        $('leadsOut').textContent = v.leads;
+        $('closeOut').textContent = v.close + '%';
+        $('orderOut').textContent = eur(v.order);
+        $('upliftOut').textContent = '+' + v.uplift + '%';
+        $('shareOut').textContent = v.share + '%';
+        $('monthlyOut').textContent = eur(v.monthly);
+        $('feeOut').textContent = num(v.fee) + '%';
+
+        document.querySelectorAll('.periodLabel').forEach(function (e) { e.textContent = period === 'year' ? 'per jaar' : 'per maand'; });
+
+        var net = r.net * f;
+        $('net').textContent = (net < 0 ? '− ' : '') + eur(Math.abs(net));
+        $('extraOrders').textContent = num(r.extraOrders * f, 1);
+        $('extraRevenue').textContent = eur(r.extraRev * f);
+        $('costs').textContent = eur(r.costs * f);
+        $('roi').textContent = r.roi == null ? '–' : num(r.roi, 1) + '×';
+        $('revAfter').textContent = eur(r.revWith * f);
+
+        var be = r.breakeven;
+        $('breakeven').textContent = be == null ? '–' : num(be, 1) + ' opdracht' + (num(be, 1) === '1' ? '' : 'en') + '/mnd';
+
+        var net$ = $('net');
+        net$.style.color = net < 0 ? '#ff9a8a' : '#f0c35a';
+
+        var verdict;
+        if (r.extraOrders <= 0) {
+          verdict = 'Bij deze aannames komen er geen extra opdrachten bij. Verhoog de verwachte stijging om het effect te zien.';
+        } else if (r.net < 0) {
+          verdict = 'Bij deze aannames dekt de extra omzet de kosten nog niet. U heeft ' + num(r.breakeven, 1) + ' extra opdrachten per maand nodig om break-even te draaien, en dit scenario levert er ' + num(r.extraOrders, 1) + '.';
+        } else {
+          verdict = num(r.extraOrders, 1) + ' extra opdrachten per maand betekent ' + eur(r.extraRev * f) + ' extra omzet ' + (period === 'year' ? 'per jaar' : 'per maand') + '. U heeft er ' + num(r.breakeven, 1) + ' per maand nodig om de kosten te dekken.';
+        }
+        $('verdict').textContent = verdict;
+
+        var max = Math.max(r.revNow, r.revWith, 1);
+        $('barNow').style.width = (r.revNow / max * 100) + '%';
+        $('barWith').style.width = (r.revWith / max * 100) + '%';
+        $('valNow').textContent = eur(r.revNow * f);
+        $('valWith').textContent = eur(r.revWith * f);
+
+        $('tOrdersNow').textContent = num(r.ordersNow * f, 1);
+        $('tOrdersWith').textContent = num(r.ordersWith * f, 1);
+        $('tCloseNow').textContent = num(v.close, 1) + '%';
+        $('tCloseWith').textContent = num(r.closeWith, 1) + '%';
+        $('tRevNow').textContent = eur(r.revNow * f);
+        $('tRevWith').textContent = eur(r.revWith * f);
+        $('tPackage').textContent = '− ' + eur(r.pkg * f);
+        $('tFee').textContent = '− ' + eur(r.feeCost * f);
+        $('tNetNow').textContent = eur(r.revNow * f);
+        $('tNetWith').textContent = eur((r.revWith - r.costs) * f);
+
+        $('perMonth').setAttribute('aria-pressed', period === 'month');
+        $('perYear').setAttribute('aria-pressed', period === 'year');
+
+        syncPresetChips(v);
+        syncHash(v);
+      }
+
+      function syncPresetChips(v) {
+        document.querySelectorAll('.chip').forEach(function (c) {
+          var p = PRESETS[c.dataset.preset];
+          var on = p && v.leads === p.leads && v.close === p.close && v.order === p.order;
+          c.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+      }
+
+      var hashTimer;
+      function syncHash(v) {
+        clearTimeout(hashTimer);
+        hashTimer = setTimeout(function () {
+          try {
+            var p = KEYS.filter(function (k) { return v[k] !== DEFAULTS[k]; }).map(function (k) { return k + '=' + v[k]; });
+            if (period === 'year') p.push('p=year');
+            history.replaceState(null, '', p.length ? '#' + p.join('&') : location.pathname + location.search);
+          } catch (e) { /* bijv. file:// — niet erg */ }
+        }, 200);
+      }
+
+      function loadHash() {
+        var h = location.hash.replace(/^#/, '');
+        if (!h) return;
+        h.split('&').forEach(function (pair) {
+          var kv = pair.split('=');
+          if (kv[0] === 'p') { period = kv[1] === 'year' ? 'year' : 'month'; return; }
+          if (KEYS.indexOf(kv[0]) > -1 && isFinite(+kv[1])) {
+            var el = $(kv[0]);
+            var n = Math.min(Math.max(+kv[1], +el.min), +el.max);
+            el.value = n;
+          }
+        });
+      }
+
+      KEYS.forEach(function (k) { $(k).addEventListener('input', render); });
+      document.querySelectorAll('.chip').forEach(function (c) {
+        c.addEventListener('click', function () { write(PRESETS[c.dataset.preset]); render(); });
+      });
+      $('reset').addEventListener('click', function () { write(DEFAULTS); period = 'month'; render(); });
+      $('perMonth').addEventListener('click', function () { period = 'month'; render(); });
+      $('perYear').addEventListener('click', function () { period = 'year'; render(); });
+      $('copy').addEventListener('click', function () {
+        var btn = $('copy');
+        var done = function (t) { var o = btn.textContent; btn.textContent = t; setTimeout(function () { btn.textContent = o; }, 1800); };
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(location.href).then(function () { done('Link gekopieerd'); }, function () { done('Kopiëren mislukt'); });
+        } else { done('Kopiëren niet mogelijk'); }
+      });
+
+      loadHash();
+      render();
+    })();
+  </script>
+</body>
+</html>
