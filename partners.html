@@ -44,9 +44,6 @@
     .panel{background:var(--card);border:1px solid rgba(20,20,20,.08);border-radius:28px;padding:28px;box-shadow:var(--shadow)}
     .panel h2{margin:0 0 4px;font-size:22px;letter-spacing:-.02em}
     .panel .sub{margin:0 0 18px;color:var(--muted);font-size:14px;line-height:1.5}
-    .presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
-    .chip{padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--white);font:inherit;font-weight:700;font-size:13px;cursor:pointer;color:#312d28}
-    .chip[aria-pressed="true"]{background:var(--black);color:#fff;border-color:var(--black)}
     .control{padding:8px 0 10px}
     .control label{display:flex;justify-content:space-between;gap:12px;margin-bottom:10px;font-size:15px;font-weight:700}
     .control output{font-weight:800;white-space:nowrap}
@@ -123,7 +120,7 @@
     }
     @media print{
       *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-      .topbar,.presets,.actions,.cta-box,.no-print{display:none!important}
+      .topbar,.actions,.cta-box,.no-print{display:none!important}
       body{background:#fff}
       .tool{grid-template-columns:1fr 1fr}
       .panel{box-shadow:none}
@@ -149,14 +146,7 @@
     <section class="wrap tool" id="model" aria-label="Rekenmodel">
       <div class="panel">
         <h2>Uw situatie</h2>
-        <p class="sub">Kies een voorbeeld of stel de schuiven zelf in.</p>
-
-        <div class="presets" role="group" aria-label="Voorbeelden">
-          <button type="button" class="chip" data-preset="dak" aria-pressed="false">Dakdekker</button>
-          <button type="button" class="chip" data-preset="renovatie" aria-pressed="false">Renovatie</button>
-          <button type="button" class="chip" data-preset="warmtepomp" aria-pressed="false">Warmtepomp</button>
-          <button type="button" class="chip" data-preset="zonnepanelen" aria-pressed="false">Zonnepanelen</button>
-        </div>
+        <p class="sub">Stel de schuiven in op de situatie van uw bedrijf.</p>
 
         <div class="control">
           <label for="leads">Offerteaanvragen per maand <output id="leadsOut"></output></label>
@@ -285,13 +275,6 @@
 
       var KEYS = ['leads', 'close', 'order', 'uplift', 'share', 'monthly', 'fee'];
       var DEFAULTS = { leads: 40, close: 30, order: 15000, uplift: 20, share: 30, monthly: 1500, fee: 10 };
-      // Indicatieve voorbeelden: alleen om het gesprek te starten, geen branchecijfers.
-      var PRESETS = {
-        dak:          { leads: 40, close: 30, order: 15000 },
-        renovatie:    { leads: 30, close: 25, order: 35000 },
-        warmtepomp:   { leads: 50, close: 30, order: 12000 },
-        zonnepanelen: { leads: 80, close: 25, order: 9000 }
-      };
       var period = 'month';
 
       function read() {
@@ -383,16 +366,7 @@
         $('perMonth').setAttribute('aria-pressed', period === 'month');
         $('perYear').setAttribute('aria-pressed', period === 'year');
 
-        syncPresetChips(v);
         syncHash(v);
-      }
-
-      function syncPresetChips(v) {
-        document.querySelectorAll('.chip').forEach(function (c) {
-          var p = PRESETS[c.dataset.preset];
-          var on = p && v.leads === p.leads && v.close === p.close && v.order === p.order;
-          c.setAttribute('aria-pressed', on ? 'true' : 'false');
-        });
       }
 
       var hashTimer;
@@ -422,9 +396,6 @@
       }
 
       KEYS.forEach(function (k) { $(k).addEventListener('input', render); });
-      document.querySelectorAll('.chip').forEach(function (c) {
-        c.addEventListener('click', function () { write(PRESETS[c.dataset.preset]); render(); });
-      });
       $('reset').addEventListener('click', function () { write(DEFAULTS); period = 'month'; render(); });
       $('perMonth').addEventListener('click', function () { period = 'month'; render(); });
       $('perYear').addEventListener('click', function () { period = 'year'; render(); });
