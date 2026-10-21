@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Partners | TermijnPartner</title>
-  <meta name="description" content="Rekenmodel voor partners van TermijnPartner: kosten en opbrengsten per maand, en wat de eindklant per maand betaalt.">
+  <meta name="description" content="Rekenmodel voor partners van TermijnPartner: wat het bouwbedrijf per maand betaalt, wat wij ontvangen en wat de eindklant per maand betaalt.">
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#f6f2ea; --card:#fbf8f2; --soft:#f8f5ef; --text:#141414; --muted:#6b665f;
+      --bg:#f6f2ea; --card:#fbf8f2; --text:#141414; --muted:#6b665f;
       --line:#e6dece; --gold:#c99a2e; --gold-dark:#b6871f; --black:#121212; --white:#fff;
       --shadow:0 14px 40px rgba(20,20,20,.08);
     }
@@ -39,57 +39,54 @@
     h1 em{color:var(--gold);font-weight:500}
     .lead{max-width:700px;margin:0 auto;color:var(--muted);font-size:clamp(1rem,1.5vw,1.15rem);line-height:1.7}
 
-    .offer{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:28px 0 0}
-    .offer div{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
-    .offer small{display:block;color:var(--muted);font-size:13px;margin-bottom:6px}
-    .offer strong{display:block;font-size:26px;letter-spacing:-.03em}
-    .offer p{margin:6px 0 0;font-size:13px;line-height:1.5;color:#4d4740}
-
     .tool{display:grid;grid-template-columns:5fr 7fr;gap:24px;margin:28px 0 24px;align-items:start}
     .panel{background:var(--card);border:1px solid rgba(20,20,20,.08);border-radius:28px;padding:28px;box-shadow:var(--shadow)}
     .panel h2{margin:0 0 4px;font-size:22px;letter-spacing:-.02em}
-    .panel .sub{margin:0 0 16px;color:var(--muted);font-size:14px;line-height:1.5}
-    .control{padding:7px 0 9px}
-    .control label{display:flex;justify-content:space-between;gap:12px;margin-bottom:9px;font-size:15px;font-weight:700}
-    .control output{font-weight:800;white-space:nowrap}
-    .control .hint{margin:6px 0 0;font-size:12px;color:var(--muted);line-height:1.4}
-    .control[hidden]{display:none}
+    .panel .sub{margin:0 0 14px;color:var(--muted);font-size:14px;line-height:1.5}
+    .control{padding:10px 0 12px;border-bottom:1px solid var(--line)}
+    .control:last-of-type{border-bottom:0}
+    .control label.q{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px;font-size:16px;font-weight:800;line-height:1.3}
+    .control output{font-weight:800;white-space:nowrap;color:var(--gold-dark);font-size:18px}
+    .control .hint{margin:7px 0 0;font-size:13px;color:var(--muted);line-height:1.45}
+    .switch{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-weight:700;font-size:14px;cursor:pointer}
+    .switch input{width:20px;height:20px;accent-color:var(--gold)}
     input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:10px;border-radius:999px;background:#e8e0d0;outline:none}
     input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;border:2px solid rgba(20,20,20,.1);box-shadow:0 4px 12px rgba(0,0,0,.15);cursor:pointer}
     input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#fff;border:2px solid rgba(20,20,20,.1);box-shadow:0 4px 12px rgba(0,0,0,.15);cursor:pointer}
     input[type=range]:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+    input[type=range]:disabled{opacity:.4;cursor:not-allowed}
     select{font:inherit;font-weight:700;padding:6px 10px;border-radius:10px;border:1px solid var(--line);background:#fff}
-    .divider{height:1px;background:var(--line);margin:14px 0}
 
-    .toggle{display:inline-flex;background:var(--white);border:1px solid var(--line);border-radius:999px;padding:4px;margin:0 8px 16px 0}
+    .toggle{display:inline-flex;background:var(--white);border:1px solid var(--line);border-radius:999px;padding:4px;margin:0 0 16px}
     .toggle button{border:0;background:transparent;padding:8px 18px;border-radius:999px;font:inherit;font-weight:700;font-size:14px;cursor:pointer;color:var(--muted)}
     .toggle button[aria-pressed="true"]{background:var(--black);color:#fff}
 
-    .hero-result{background:var(--black);color:#fff;border-radius:22px;padding:24px 26px}
-    .hero-result small{display:block;color:#cfc7b6;font-size:14px;margin-bottom:8px}
-    .hero-result strong{display:block;font-size:clamp(2.1rem,5vw,3.4rem);letter-spacing:-.04em;line-height:1.05;color:#f0c35a}
-    .hero-result p{margin:10px 0 0;color:#e6dfd0;line-height:1.55;font-size:14px}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .result{border-radius:22px;padding:22px 24px}
+    .result.dark{background:var(--black);color:#fff}
+    .result.light{background:var(--white);border:1px solid var(--line)}
+    .result small{display:block;font-size:14px;margin-bottom:8px;line-height:1.35}
+    .result.dark small{color:#cfc7b6}
+    .result.light small{color:var(--muted)}
+    .result strong{display:block;font-size:clamp(1.9rem,4vw,2.9rem);letter-spacing:-.04em;line-height:1.05}
+    .result.dark strong{color:#f0c35a}
+    .result p{margin:10px 0 0;font-size:14px;line-height:1.55}
+    .result.dark p{color:#e6dfd0}
+    .result.light p{color:#4d4740}
     .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
-    .stats.four{grid-template-columns:repeat(2,1fr)}
     .stat{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:16px}
     .stat small{display:block;color:var(--muted);font-size:13px;line-height:1.35;min-height:34px}
     .stat strong{display:block;font-size:clamp(1.25rem,2.3vw,1.7rem);letter-spacing:-.03em;margin-top:6px}
 
     .table-wrap{margin-top:14px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--white)}
     table{width:100%;border-collapse:collapse}
-    th,td{padding:12px 16px;text-align:right;font-size:14px;border-bottom:1px solid var(--line)}
+    th,td{padding:12px 16px;text-align:right;font-size:14px;border-bottom:1px solid var(--line);vertical-align:top}
     th:first-child,td:first-child{text-align:left}
+    td .calc{display:block;font-size:12px;color:var(--muted);font-weight:500;margin-top:2px}
     thead th{background:#faf7f1;color:var(--muted);font-size:13px}
-    tfoot td{font-weight:800;background:#fcfaf6;border-bottom:0}
-    .split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-    .split-card{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:18px}
-    .split-card .label{font-size:13px;color:var(--muted);margin-bottom:8px}
-    .split-card .value{font-size:clamp(1.6rem,3vw,2.3rem);font-weight:800;letter-spacing:-.04em}
-    .bar{margin-top:14px;height:16px;background:#ebe2d1;border-radius:999px;overflow:hidden}
-    .bar span{display:block;height:100%;border-radius:999px;transition:width .3s ease;background:linear-gradient(90deg,#d3a13b,#c38d1e)}
-    .bar.green span{background:linear-gradient(90deg,#9cc48f,#6da26a)}
+    tfoot td{font-weight:800;background:#fcfaf6}
+    tfoot tr:last-child td{border-bottom:0}
     .note{margin-top:14px;padding:14px 16px;border-radius:14px;background:#fff8ea;border:1px solid #f0ddad;color:#5f4c1b;font-size:14px;line-height:1.6}
-    .note .small{font-size:13px;color:#7a6528}
 
     .klant{margin:0 0 24px}
     .klant .panel{display:grid;grid-template-columns:5fr 7fr;gap:28px;align-items:start}
@@ -123,14 +120,13 @@
     @media (max-width:960px){
       .tool,.klant .panel{grid-template-columns:1fr}
       .steps{grid-template-columns:1fr 1fr}
-      .offer{grid-template-columns:1fr 1fr}
     }
     @media (max-width:600px){
       .wrap{padding:0 16px}
       .panel{padding:20px;border-radius:22px}
-      .stats,.stats.four,.split{grid-template-columns:1fr}
+      .two,.stats{grid-template-columns:1fr}
       .stat small{min-height:0}
-      .steps,.offer{grid-template-columns:1fr}
+      .steps{grid-template-columns:1fr}
       .terms{grid-template-columns:repeat(3,1fr)}
       .cta-box{padding:26px}
       .cta-box .btn{width:100%}
@@ -155,48 +151,39 @@
   <main>
     <section class="hero wrap">
       <div class="eyebrow">Voor partners</div>
-      <h1 class="serif">Laat bouwbedrijven groeien met <em>betalen in termijnen</em>.</h1>
-      <p class="lead">Stel de cijfers samen in het gesprek in. U ziet direct wat het bouwbedrijf per maand kwijt is, wat het oplevert voor TermijnPartner en de marketingpartner, en wat de eindklant per maand betaalt.</p>
-
-      <div class="offer" aria-label="Kern van het aanbod">
-        <div><small>Gezamenlijk pakket</small><strong>€ 1.500</strong><p>per maand excl. btw, per bedrijf.</p></div>
-        <div><small>Transactievergoeding</small><strong>10%</strong><p>over de factuurwaarde excl. btw van een gerealiseerde opdracht.</p></div>
-        <div><small>Advertentiebudget</small><strong>Klant</strong><p>wordt door het bouwbedrijf zelf betaald, los van de pakketprijs.</p></div>
-        <div><small>Extra salesdienst</small><strong>+ 5%</strong><p>optioneel: salesbelteam dat leads opvolgt tot opdracht.</p></div>
-      </div>
+      <h1 class="serif">Rekenmodel: <em>betalen in termijnen</em> voor uw klanten.</h1>
+      <p class="lead">Stel vijf dingen in. U ziet direct wat het bouwbedrijf per maand betaalt, wat TermijnPartner ontvangt en wat de eindklant per maand betaalt.</p>
     </section>
 
     <section class="wrap tool" id="model" aria-label="Rekenmodel">
       <div class="panel">
-        <h2>Cijfers instellen</h2>
-        <p class="sub">Standaard staan de afspraken uit het voorstel ingesteld. Alle bedragen zijn per maand en exclusief btw.</p>
+        <h2>Stel in</h2>
+        <p class="sub">Alle bedragen zijn per maand en exclusief btw.</p>
 
-        <div class="control" id="companiesBox" hidden>
-          <label for="companies">Aangesloten bedrijven <output id="companiesOut"></output></label>
-          <input id="companies" type="range" min="1" max="100" step="1" value="10">
-        </div>
         <div class="control">
-          <label for="deals">Gefinancierde opdrachten per bedrijf <output id="dealsOut"></output></label>
-          <input id="deals" type="range" min="0" max="15" step="1" value="2">
+          <label class="q" for="deals">Hoeveel opdrachten financieren wij per maand? <output id="dealsOut"></output></label>
+          <input id="deals" type="range" min="0" max="30" step="1" value="2">
           <p class="hint">Opdrachten per maand die de klant in termijnen betaalt.</p>
         </div>
         <div class="control">
-          <label for="order">Gemiddelde factuurwaarde excl. btw <output id="orderOut"></output></label>
-          <input id="order" type="range" min="5000" max="100000" step="1000" value="15000">
-          <p class="hint">Commercieel startpunt: opdrachten vanaf € 5.000.</p>
+          <label class="q" for="order">Gemiddelde factuurwaarde excl. btw <output id="orderOut"></output></label>
+          <input id="order" type="range" min="2500" max="100000" step="500" value="15000">
         </div>
         <div class="control">
-          <label for="monthly">Pakketprijs per bedrijf <output id="monthlyOut"></output></label>
-          <input id="monthly" type="range" min="500" max="4000" step="50" value="1500">
+          <label class="q" for="monthly">Maandelijkse kosten (CRM en Finance) <output id="monthlyOut"></output></label>
+          <input id="monthly" type="range" min="0" max="3000" step="50" value="1000">
+          <p class="hint">Standaard € 1.000 per maand, ongeacht het aantal opdrachten.</p>
         </div>
         <div class="control">
-          <label for="commission">Transactievergoeding <output id="commissionOut"></output></label>
-          <input id="commission" type="range" min="0" max="20" step="0.5" value="10">
+          <label class="q" for="commission">Transactievergoeding per deal <output id="commissionOut"></output></label>
+          <input id="commission" type="range" min="0" max="100" step="0.5" value="10">
+          <p class="hint">Percentage van de factuurwaarde excl. btw, per gefinancierde opdracht.</p>
         </div>
         <div class="control">
-          <label for="sales">Opdrachten met extra salesdienst <output id="salesOut"></output></label>
-          <input id="sales" type="range" min="0" max="100" step="5" value="0">
-          <p class="hint">Extra vergoeding van 5% over de factuurwaarde van die opdrachten.</p>
+          <label class="q" for="saleFee">Extra als wij de sale doen <output id="saleFeeOut"></output></label>
+          <label class="switch"><input type="checkbox" id="saleOn"> Wij doen de sale</label>
+          <input id="saleFee" type="range" min="0" max="20" step="0.5" value="5">
+          <p class="hint">Extra percentage van de factuurwaarde excl. btw, alleen als de schakelaar aan staat.</p>
         </div>
 
         <div class="actions no-print" style="margin-top:18px">
@@ -207,90 +194,46 @@
       </div>
 
       <div class="panel" aria-live="polite">
-        <div class="no-print">
-          <div class="toggle" role="group" aria-label="Weergave">
-            <button type="button" id="tabCompany" aria-pressed="true">Voor het bouwbedrijf</button>
-            <button type="button" id="tabPartner" aria-pressed="false">Voor de partners</button>
+        <div class="toggle no-print" role="group" aria-label="Periode">
+          <button type="button" id="perMonth" aria-pressed="true">Per maand</button>
+          <button type="button" id="perYear" aria-pressed="false">Per jaar</button>
+        </div>
+
+        <div class="two">
+          <div class="result light">
+            <small>Het bouwbedrijf betaalt <span class="periodLabel"></span></small>
+            <strong id="total"></strong>
+            <p id="verdict"></p>
           </div>
-          <div class="toggle" role="group" aria-label="Periode">
-            <button type="button" id="perMonth" aria-pressed="true">Per maand</button>
-            <button type="button" id="perYear" aria-pressed="false">Per jaar</button>
+          <div class="result dark">
+            <small>TermijnPartner ontvangt <span class="periodLabel"></span></small>
+            <strong id="totalUs"></strong>
+            <p>Dit is hetzelfde bedrag: wat het bedrijf betaalt, ontvangen wij.</p>
           </div>
         </div>
 
-        <!-- Weergave: bouwbedrijf (per bedrijf) -->
-        <div id="viewCompany">
-          <div class="hero-result">
-            <small>Totale kosten per bedrijf <span class="periodLabel"></span></small>
-            <strong id="cTotal"></strong>
-            <p id="cVerdict"></p>
-          </div>
-          <div class="stats">
-            <div class="stat"><small>Gefinancierde omzet</small><strong id="cRevenue"></strong></div>
-            <div class="stat"><small>Kosten als % van gefinancierde omzet</small><strong id="cPct"></strong></div>
-            <div class="stat"><small>Kosten per gefinancierde opdracht</small><strong id="cPerDeal"></strong></div>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Specificatie per bedrijf</th><th id="cPeriodHead"></th></tr></thead>
-              <tbody>
-                <tr><td>Gefinancierde omzet (opdrachten × factuurwaarde)</td><td id="tRevenue"></td></tr>
-                <tr><td id="tPkgLabel">Gezamenlijk pakket</td><td id="tPkg"></td></tr>
-                <tr><td id="tTransLabel">Transactievergoeding</td><td id="tTrans"></td></tr>
-                <tr><td>Extra salesvergoeding (5%)</td><td id="tSales"></td></tr>
-              </tbody>
-              <tfoot>
-                <tr><td>Totale kosten</td><td id="tCosts"></td></tr>
-                <tr><td>Gefinancierde omzet na kosten</td><td id="tAfter"></td></tr>
-              </tfoot>
-            </table>
-          </div>
-          <div class="note">
-            Het bouwbedrijf ontvangt het volledige bedrag van elke opdracht vooraf. De klant betaalt in termijnen terug aan de financieringspartner. Het advertentiebudget komt voor rekening van het bouwbedrijf en staat niet in deze kosten.
-          </div>
+        <div class="stats">
+          <div class="stat"><small>Gefinancierde omzet van het bedrijf</small><strong id="revenue"></strong></div>
+          <div class="stat"><small>Kosten als % van die omzet</small><strong id="pct"></strong></div>
+          <div class="stat"><small>Kosten per gefinancierde opdracht</small><strong id="perDeal"></strong></div>
         </div>
 
-        <!-- Weergave: partners (TermijnPartner en marketingpartner) -->
-        <div id="viewPartner" hidden>
-          <div class="hero-result">
-            <small>Totale opbrengst <span class="periodLabel"></span>, exclusief extra salesvergoeding</small>
-            <strong id="jointTotal"></strong>
-            <p id="pVerdict"></p>
-          </div>
-          <div class="stats four">
-            <div class="stat"><small>Omzet bouwbedrijven</small><strong id="volume"></strong></div>
-            <div class="stat"><small>Totale pakketinkomsten</small><strong id="packages"></strong></div>
-            <div class="stat"><small id="transLabel">Transactievergoedingen</small><strong id="transactions"></strong></div>
-            <div class="stat"><small>Extra salesvergoeding 5%</small><strong id="salesFees"></strong></div>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Opbrengstverdeling</th><th>TermijnPartner</th><th>Marketingpartner</th><th>Totaal</th></tr></thead>
-              <tbody>
-                <tr><td id="pkgRowLabel">Pakketinkomsten (verdeling 1/3 – 2/3)</td><td id="tpPackages"></td><td id="dmPackages"></td><td id="packageTotal"></td></tr>
-                <tr><td id="transRowLabel">Transactievergoeding (verdeling 2/3 – 1/3)</td><td id="tpTrans"></td><td id="dmTrans"></td><td id="transTotal"></td></tr>
-              </tbody>
-              <tfoot>
-                <tr><td>Totaal exclusief extra salesvergoeding</td><td id="tpTotal"></td><td id="dmTotal"></td><td id="jointTotal2"></td></tr>
-              </tfoot>
-            </table>
-          </div>
-          <div class="split">
-            <div class="split-card">
-              <div class="label">TermijnPartner · totaal excl. extra salesvergoeding</div>
-              <div class="value" id="tpBig"></div>
-              <div class="bar"><span id="tpBar"></span></div>
-            </div>
-            <div class="split-card">
-              <div class="label">Marketingpartner · totaal excl. extra salesvergoeding</div>
-              <div class="value" id="dmBig"></div>
-              <div class="bar green"><span id="dmBar"></span></div>
-            </div>
-          </div>
-          <div class="note">
-            <strong>Controle:</strong> <span id="check"></span><br>
-            <span class="small">De extra 5% salesvergoeding staat apart, omdat de onderlinge verdeling daarvan nog nader moet worden afgesproken.</span>
-          </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Waar bestaat het uit?</th><th id="periodHead"></th></tr></thead>
+            <tbody>
+              <tr><td>Maandelijkse kosten (CRM en Finance)</td><td id="rMonthly"></td></tr>
+              <tr><td>Transactievergoeding <span class="calc" id="cTrans"></span></td><td id="rTrans"></td></tr>
+              <tr><td>Extra voor de sale <span class="calc" id="cSale"></span></td><td id="rSale"></td></tr>
+            </tbody>
+            <tfoot>
+              <tr><td>Totaal: kosten voor het bedrijf en opbrengst voor ons</td><td id="rTotal"></td></tr>
+              <tr><td>Gefinancierde omzet van het bedrijf na deze kosten</td><td id="rAfter"></td></tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="note">
+          Het bouwbedrijf ontvangt het volledige bedrag van elke opdracht vooraf. De klant betaalt in termijnen terug aan de financieringspartner.
         </div>
       </div>
     </section>
@@ -299,10 +242,10 @@
       <div class="panel">
         <div>
           <h2 class="serif">Voorbeeld voor de eindklant</h2>
-          <p class="sub">Wat betaalt de klant per maand voor één project met de gemiddelde factuurwaarde uit het model?</p>
+          <p class="sub">Wat betaalt de klant per maand voor één project met de gemiddelde factuurwaarde hierboven?</p>
 
           <div class="control">
-            <label for="vat">Btw-tarief</label>
+            <label class="q" for="vat">Btw-tarief</label>
             <select id="vat" aria-label="Btw-tarief">
               <option value="21">21%</option>
               <option value="9">9%</option>
@@ -310,16 +253,16 @@
             </select>
           </div>
           <div class="control">
-            <label for="down">Aanbetaling <output id="downOut"></output></label>
+            <label class="q" for="down">Aanbetaling <output id="downOut"></output></label>
             <input id="down" type="range" min="0" max="50" step="5" value="0">
           </div>
           <div class="control">
-            <label for="term">Looptijd <output id="termOut"></output></label>
+            <label class="q" for="term">Looptijd <output id="termOut"></output></label>
             <input id="term" type="range" min="12" max="180" step="6" value="84">
             <p class="hint">Tot maximaal 180 maanden. Het maximum verschilt per branche.</p>
           </div>
           <div class="control">
-            <label for="rate">Indicatieve rente per jaar <output id="rateOut"></output></label>
+            <label class="q" for="rate">Indicatieve rente per jaar <output id="rateOut"></output></label>
             <input id="rate" type="range" min="0" max="15" step="0.5" value="8">
             <p class="hint">Voorbeeldwaarde. De rente verschilt per klant en wordt vooraf door de financieringspartner besproken.</p>
           </div>
@@ -338,7 +281,7 @@
           </div>
           <div class="terms" id="terms" aria-label="Maandbedrag bij andere looptijden"></div>
           <div class="note">
-            Indicatieve berekening met vast maandbedrag. De definitieve rente, voorwaarden en toetsing bepaalt de financieringspartner, die dit altijd vooraf met de klant bespreekt. De klant kiest zelf het maandbedrag en de looptijd. Het bouwbedrijf ontvangt het volledige bedrag vooraf.
+            Indicatieve berekening met een vast maandbedrag. De definitieve rente, voorwaarden en toetsing bepaalt de financieringspartner, die dit altijd vooraf met de klant bespreekt. De klant kiest zelf het maandbedrag en de looptijd.
           </div>
         </div>
       </div>
@@ -346,12 +289,12 @@
 
     <section class="section wrap" id="werkwijze">
       <h2 class="serif">Zo werkt het</h2>
-      <p class="intro">De eerste focus ligt op de bouw- en verduurzamingsmarkt: dakdekkers, renovatiebedrijven, airco, warmtepompen en zonnepanelen.</p>
+      <p class="intro">Uw klant kiest een maandbedrag, u ziet de opdracht binnenkomen. Prijs wordt daarmee minder vaak een bezwaar.</p>
       <div class="steps">
-        <div class="step"><div class="num">1</div><h3>Acquisitie</h3><p>Bouwbedrijven worden benaderd via leadlijsten, het belteam en het netwerk.</p></div>
-        <div class="step"><div class="num">2</div><h3>Onboarding</h3><p>Geïnteresseerde bedrijven stromen in het gezamenlijke pakket van marketing en betalen in termijnen.</p></div>
-        <div class="step"><div class="num">3</div><h3>Leadgeneratie</h3><p>Het bouwbedrijf betaalt het advertentiebudget en ontvangt campagnes, aanvragen en opvolging.</p></div>
-        <div class="step"><div class="num">4</div><h3>Conversie en omzet</h3><p>Betalen in termijnen vergroot de koopbereidheid. Een extra salesdienst kan de conversie verder verhogen.</p></div>
+        <div class="step"><div class="num">1</div><h3>Kennismaking</h3><p>We bespreken uw branche, uw gemiddelde opdracht en hoeveel opdrachten u per maand wilt financieren.</p></div>
+        <div class="step"><div class="num">2</div><h3>Aansluiten</h3><p>Uw bedrijf wordt aangesloten op CRM en Finance. U biedt termijnbetaling aan naast uw offerte.</p></div>
+        <div class="step"><div class="num">3</div><h3>Aanbieden</h3><p>Uw klant kiest zelf het maandbedrag, de looptijd en of er een aanbetaling komt.</p></div>
+        <div class="step"><div class="num">4</div><h3>Uitbetaling</h3><p>U ontvangt het volledige bedrag vooraf. De klant betaalt in termijnen terug aan de financieringspartner.</p></div>
       </div>
     </section>
 
@@ -369,7 +312,7 @@
     </section>
 
     <footer class="footer wrap">
-      TermijnPartner · Conceptvoorstel ter bespreking, geen overeenkomst. Alle bedragen exclusief btw, tenzij anders vermeld. Berekeningen zijn indicatief en geen garantie op resultaat.
+      TermijnPartner · Alle bedragen exclusief btw, tenzij anders vermeld. Berekeningen zijn indicatief en geen garantie op resultaat.
     </footer>
   </main>
 
@@ -380,46 +323,27 @@
       var eur2 = function (n) { return new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n); };
       var num = function (n, d) { return new Intl.NumberFormat('nl-NL', { maximumFractionDigits: d == null ? 1 : d }).format(n); };
 
-      var KEYS = ['companies', 'deals', 'order', 'monthly', 'commission', 'sales', 'down', 'term', 'rate'];
-      var DEFAULTS = { companies: 10, deals: 2, order: 15000, monthly: 1500, commission: 10, sales: 0, down: 0, term: 84, rate: 8, vat: 21 };
-      var SALES_FEE = 0.05;           // extra salesvergoeding
-      var PKG_TP = 1 / 3;             // pakketprijs: aandeel TermijnPartner
-      var TRANS_TP = 2 / 3;           // transactievergoeding: aandeel TermijnPartner
+      var KEYS = ['deals', 'order', 'monthly', 'commission', 'saleFee', 'down', 'term', 'rate'];
+      var DEFAULTS = { deals: 2, order: 15000, monthly: 1000, commission: 10, saleFee: 5, down: 0, term: 84, rate: 8, vat: 21, saleOn: 0 };
       var period = 'month';
-      var tab = 'company';
 
       function read() {
         var v = {};
         KEYS.forEach(function (k) { v[k] = +$(k).value; });
         v.vat = +$('vat').value;
+        v.saleOn = $('saleOn').checked ? 1 : 0;
         return v;
       }
 
       function calc(v) {
-        var deals = v.deals, order = v.order;
-        var perCompanyRevenue = deals * order;
-        var perCompanyPkg = v.monthly;
-        var perCompanyTrans = perCompanyRevenue * v.commission / 100;
-        var perCompanySales = perCompanyRevenue * (v.sales / 100) * SALES_FEE;
-        var perCompanyCosts = perCompanyPkg + perCompanyTrans + perCompanySales;
-
-        var volume = v.companies * perCompanyRevenue;
-        var packageRevenue = v.companies * v.monthly;
-        var transactionRevenue = volume * v.commission / 100;
-        var salesFees = volume * (v.sales / 100) * SALES_FEE;
-        var tpPackages = packageRevenue * PKG_TP;
-        var dmPackages = packageRevenue * (1 - PKG_TP);
-        var tpTrans = transactionRevenue * TRANS_TP;
-        var dmTrans = transactionRevenue * (1 - TRANS_TP);
+        var revenue = v.deals * v.order;
+        var trans = revenue * v.commission / 100;
+        var sale = v.saleOn ? revenue * v.saleFee / 100 : 0;
+        var total = v.monthly + trans + sale;
         return {
-          perCompanyRevenue: perCompanyRevenue, perCompanyPkg: perCompanyPkg, perCompanyTrans: perCompanyTrans,
-          perCompanySales: perCompanySales, perCompanyCosts: perCompanyCosts,
-          pct: perCompanyRevenue > 0 ? perCompanyCosts / perCompanyRevenue * 100 : null,
-          perDeal: deals > 0 ? perCompanyCosts / deals : null,
-          volume: volume, packageRevenue: packageRevenue, transactionRevenue: transactionRevenue, salesFees: salesFees,
-          tpPackages: tpPackages, dmPackages: dmPackages, tpTrans: tpTrans, dmTrans: dmTrans,
-          tpTotal: tpPackages + tpTrans, dmTotal: dmPackages + dmTrans,
-          jointTotal: tpPackages + tpTrans + dmPackages + dmTrans
+          revenue: revenue, trans: trans, sale: sale, total: total,
+          pct: revenue > 0 ? total / revenue * 100 : null,
+          perDeal: v.deals > 0 ? total / v.deals : null
         };
       }
 
@@ -439,59 +363,34 @@
         var f = period === 'year' ? 12 : 1;
         var pl = period === 'year' ? 'per jaar' : 'per maand';
 
-        setText('companiesOut', v.companies);
+        $('saleFee').disabled = !v.saleOn;
+
         setText('dealsOut', v.deals);
         setText('orderOut', eur(v.order));
         setText('monthlyOut', eur(v.monthly));
         setText('commissionOut', num(v.commission) + '%');
-        setText('salesOut', v.sales + '%');
+        setText('saleFeeOut', v.saleOn ? '+ ' + num(v.saleFee) + '%' : 'uit');
         setText('downOut', v.down + '%');
         setText('termOut', v.term + ' mnd');
         setText('rateOut', num(v.rate) + '%');
         document.querySelectorAll('.periodLabel').forEach(function (e) { e.textContent = pl; });
 
-        // Weergave bouwbedrijf
-        setText('cTotal', eur(r.perCompanyCosts * f));
-        setText('cRevenue', eur(r.perCompanyRevenue * f));
-        setText('cPct', r.pct == null ? '–' : num(r.pct, 1) + '%');
-        setText('cPerDeal', r.perDeal == null ? '–' : eur(r.perDeal));
-        setText('cPeriodHead', period === 'year' ? 'Per jaar' : 'Per maand');
-        setText('tRevenue', eur(r.perCompanyRevenue * f));
-        setText('tPkgLabel', 'Gezamenlijk pakket (' + eur(v.monthly) + ' per maand)');
-        setText('tPkg', eur(r.perCompanyPkg * f));
-        setText('tTransLabel', 'Transactievergoeding (' + num(v.commission) + '% over factuurwaarde)');
-        setText('tTrans', eur(r.perCompanyTrans * f));
-        setText('tSales', eur(r.perCompanySales * f));
-        setText('tCosts', eur(r.perCompanyCosts * f));
-        setText('tAfter', eur((r.perCompanyRevenue - r.perCompanyCosts) * f));
-        setText('cVerdict', v.deals === 0
-          ? 'Zonder gefinancierde opdrachten betaalt het bedrijf alleen de pakketprijs.'
-          : v.deals + (v.deals === 1 ? ' gefinancierde opdracht' : ' gefinancierde opdrachten') + ' van ' + eur(v.order) + ' per maand: de kosten zijn ' + num(r.pct, 1) + '% van de gefinancierde omzet, ' + eur(r.perDeal) + ' per opdracht.');
-
-        // Weergave partners
-        setText('volume', eur(r.volume * f));
-        setText('packages', eur(r.packageRevenue * f));
-        setText('transLabel', 'Transactievergoedingen ' + num(v.commission) + '%');
-        setText('transactions', eur(r.transactionRevenue * f));
-        setText('salesFees', eur(r.salesFees * f));
-        setText('pkgRowLabel', 'Pakketinkomsten (' + eur(v.monthly) + ' per bedrijf, verdeling 1/3 – 2/3)');
-        setText('transRowLabel', 'Transactievergoeding (' + num(v.commission) + '%, verdeling 2/3 – 1/3)');
-        setText('tpPackages', eur(r.tpPackages * f));
-        setText('dmPackages', eur(r.dmPackages * f));
-        setText('packageTotal', eur(r.packageRevenue * f));
-        setText('tpTrans', eur(r.tpTrans * f));
-        setText('dmTrans', eur(r.dmTrans * f));
-        setText('transTotal', eur(r.transactionRevenue * f));
-        setText('tpTotal', eur(r.tpTotal * f));
-        setText('dmTotal', eur(r.dmTotal * f));
-        setText('jointTotal', eur(r.jointTotal * f));
-        setText('jointTotal2', eur(r.jointTotal * f));
-        setText('tpBig', eur(r.tpTotal * f));
-        setText('dmBig', eur(r.dmTotal * f));
-        $('tpBar').style.width = r.jointTotal ? (r.tpTotal / r.jointTotal * 100) + '%' : '0%';
-        $('dmBar').style.width = r.jointTotal ? (r.dmTotal / r.jointTotal * 100) + '%' : '0%';
-        setText('check', eur(r.tpTotal * f) + ' + ' + eur(r.dmTotal * f) + ' = ' + eur(r.jointTotal * f) + ' = ' + eur(r.packageRevenue * f) + ' pakketinkomsten + ' + eur(r.transactionRevenue * f) + ' transactievergoedingen');
-        setText('pVerdict', v.companies + (v.companies === 1 ? ' aangesloten bedrijf' : ' aangesloten bedrijven') + ' met ' + v.deals + ' gefinancierde opdrachten van ' + eur(v.order) + ' per bedrijf per maand.');
+        setText('total', eur(r.total * f));
+        setText('totalUs', eur(r.total * f));
+        setText('revenue', eur(r.revenue * f));
+        setText('pct', r.pct == null ? '–' : num(r.pct, 1) + '%');
+        setText('perDeal', r.perDeal == null ? '–' : eur(r.perDeal));
+        setText('periodHead', period === 'year' ? 'Per jaar' : 'Per maand');
+        setText('rMonthly', eur(v.monthly * f));
+        setText('cTrans', v.deals + ' × ' + eur(v.order) + ' × ' + num(v.commission) + '%');
+        setText('rTrans', eur(r.trans * f));
+        setText('cSale', v.saleOn ? v.deals + ' × ' + eur(v.order) + ' × ' + num(v.saleFee) + '%' : 'wij doen de sale niet');
+        setText('rSale', eur(r.sale * f));
+        setText('rTotal', eur(r.total * f));
+        setText('rAfter', eur((r.revenue - r.total) * f));
+        setText('verdict', v.deals === 0
+          ? 'Zonder gefinancierde opdrachten betaalt het bedrijf alleen de maandelijkse kosten.'
+          : v.deals + (v.deals === 1 ? ' opdracht' : ' opdrachten') + ' van ' + eur(v.order) + ' per maand: ' + num(r.pct, 1) + '% van de gefinancierde omzet, ' + eur(r.perDeal) + ' per opdracht.');
 
         // Voorbeeld eindklant: 1 project, gemiddelde factuurwaarde
         var gross = v.order * (1 + v.vat / 100);
@@ -513,15 +412,8 @@
           return '<div class="' + (m === v.term ? 'on' : '') + '"><small>' + m + ' mnd</small><strong>' + eur2(payment(principal, v.rate, m)) + '</strong></div>';
         }).join('');
 
-        // Tabs
-        $('viewCompany').hidden = tab !== 'company';
-        $('viewPartner').hidden = tab !== 'partner';
-        $('companiesBox').hidden = tab !== 'partner';
-        $('tabCompany').setAttribute('aria-pressed', tab === 'company');
-        $('tabPartner').setAttribute('aria-pressed', tab === 'partner');
         $('perMonth').setAttribute('aria-pressed', period === 'month');
         $('perYear').setAttribute('aria-pressed', period === 'year');
-
         syncHash(v);
       }
 
@@ -530,9 +422,8 @@
         clearTimeout(hashTimer);
         hashTimer = setTimeout(function () {
           try {
-            var p = KEYS.concat(['vat']).filter(function (k) { return v[k] !== DEFAULTS[k]; }).map(function (k) { return k + '=' + v[k]; });
+            var p = KEYS.concat(['vat', 'saleOn']).filter(function (k) { return v[k] !== DEFAULTS[k]; }).map(function (k) { return k + '=' + v[k]; });
             if (period === 'year') p.push('p=year');
-            if (tab === 'partner') p.push('t=partner');
             history.replaceState(null, '', p.length ? '#' + p.join('&') : location.pathname + location.search);
           } catch (e) { /* bijv. file:// */ }
         }, 200);
@@ -544,7 +435,7 @@
         h.split('&').forEach(function (pair) {
           var kv = pair.split('=');
           if (kv[0] === 'p') { period = kv[1] === 'year' ? 'year' : 'month'; return; }
-          if (kv[0] === 't') { tab = kv[1] === 'partner' ? 'partner' : 'company'; return; }
+          if (kv[0] === 'saleOn') { $('saleOn').checked = kv[1] === '1'; return; }
           if (kv[0] === 'vat') { if (['21', '9', '0'].indexOf(kv[1]) > -1) $('vat').value = kv[1]; return; }
           if (KEYS.indexOf(kv[0]) > -1 && isFinite(+kv[1])) {
             var el = $(kv[0]);
@@ -555,14 +446,13 @@
 
       KEYS.forEach(function (k) { $(k).addEventListener('input', render); });
       $('vat').addEventListener('change', render);
+      $('saleOn').addEventListener('change', render);
       $('reset').addEventListener('click', function () {
         KEYS.forEach(function (k) { $(k).value = DEFAULTS[k]; });
-        $('vat').value = DEFAULTS.vat; period = 'month'; render();
+        $('vat').value = DEFAULTS.vat; $('saleOn').checked = false; period = 'month'; render();
       });
       $('perMonth').addEventListener('click', function () { period = 'month'; render(); });
       $('perYear').addEventListener('click', function () { period = 'year'; render(); });
-      $('tabCompany').addEventListener('click', function () { tab = 'company'; render(); });
-      $('tabPartner').addEventListener('click', function () { tab = 'partner'; render(); });
       $('copy').addEventListener('click', function () {
         var btn = $('copy');
         var done = function (t) { var o = btn.textContent; btn.textContent = t; setTimeout(function () { btn.textContent = o; }, 1800); };
