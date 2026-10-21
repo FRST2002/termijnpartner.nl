@@ -315,7 +315,7 @@
       var signed = function (n) { return (n < 0 ? '− ' : n > 0 ? '+ ' : '') + eur(Math.abs(n)); };
 
       var DEALS = 1; // gefinancierde opdrachten per maand (vast)
-      var TERM = 180; // looptijd in maanden; maandbedrag = prijs / 180, zonder rente
+      var TERM = 180; // looptijd in maanden; maandbedrag = prijs / 180
       var MONTHLY = 1000; // maandelijkse kosten CRM en Finance (vast)
       var COMMISSION = 10; // transactievergoeding per deal in % (vast)
       var SALE_FEE = 5; // extra % als TermijnPartner de sale doet (vast)
@@ -408,7 +408,7 @@
         setText('lDiff', (markup > 0 ? '+ ' : '') + eur(markup));
         setText('lDiffText', markup > 0 ? '+ ' + num(diffPct, 1) + '% boven de prijs zonder termijnen' : 'geen verschil voor de klant');
         setText('lMonthly', eur2(r.price / TERM));
-        setText('lMonthlyText', eur(r.price) + ' ÷ ' + TERM + ' maanden, zonder rente');
+        setText('lMonthlyText', eur(r.price) + ' ÷ ' + TERM + ' maanden');
 
         // Wie betaalt en ontvangt wat (bij 1 gefinancierde opdracht per maand)
         var overBedrijf = r.revenue - r.total;
