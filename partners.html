@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Partners | TermijnPartner</title>
-  <meta name="description" content="Rekenmodel voor partners van TermijnPartner: wat het bouwbedrijf per maand betaalt, wat wij ontvangen en wat het bedrijf overhoudt.">
+  <meta name="description" content="Rekenmodel voor partners van TermijnPartner: wat het bouwbedrijf per maand betaalt, wat TermijnPartner ontvangt en wat het bedrijf overhoudt.">
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,6 +50,7 @@
     .control label.q{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px;font-size:16px;font-weight:800;line-height:1.3}
     .control output{font-weight:800;white-space:nowrap;color:var(--gold-dark);font-size:18px}
     .control .hint{margin:7px 0 0;font-size:13px;color:var(--muted);line-height:1.45}
+    .total-line{margin:12px 0 0;padding:10px 14px;border-radius:12px;background:#fff5dc;border:1px solid #f0ddad;font-weight:800;font-size:15px;color:#5f4c1b}
     .switch{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-weight:700;font-size:14px;cursor:pointer}
     .switch input{width:20px;height:20px;accent-color:var(--gold)}
     input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:10px;border-radius:999px;background:#e8e0d0;outline:none}
@@ -171,7 +172,7 @@
       <h2 class="serif">Zo werkt het</h2>
       <p class="intro">Uw klant kiest een maandbedrag, u ziet de opdracht binnenkomen. Prijs wordt daarmee minder vaak een bezwaar.</p>
       <div class="steps">
-        <div class="step"><div class="num">1</div><h3>Kennismaking</h3><p>We bespreken uw branche en uw gemiddelde opdracht.</p></div>
+        <div class="step"><div class="num">1</div><h3>Kennismaking</h3><p>TermijnPartner bespreekt uw branche en uw gemiddelde opdracht.</p></div>
         <div class="step"><div class="num">2</div><h3>Aansluiten</h3><p>Uw bedrijf wordt aangesloten op CRM en Finance. U biedt termijnbetaling aan naast uw offerte.</p></div>
         <div class="step"><div class="num">3</div><h3>Aanbieden</h3><p>Uw klant kiest zelf het maandbedrag, de looptijd en of er een aanbetaling komt.</p></div>
         <div class="step"><div class="num">4</div><h3>Uitbetaling</h3><p>U ontvangt het volledige bedrag vooraf. De klant betaalt in termijnen terug aan de financieringspartner.</p></div>
@@ -194,10 +195,11 @@
           <p class="hint">Percentage van de factuurwaarde excl. btw, per gefinancierde opdracht.</p>
         </div>
         <div class="control">
-          <label class="q" for="saleFee">Extra als wij de sale doen <output id="saleFeeOut"></output></label>
-          <label class="switch"><input type="checkbox" id="saleOn"> Wij doen de sale</label>
+          <label class="q" for="saleFee">Extra als TermijnPartner de sale doet <output id="saleFeeOut"></output></label>
+          <label class="switch"><input type="checkbox" id="saleOn"> TermijnPartner doet de sale</label>
           <input id="saleFee" type="range" min="0" max="20" step="0.5" value="5">
           <p class="hint">Extra percentage van de factuurwaarde excl. btw, alleen als de schakelaar aan staat.</p>
+          <p class="total-line" id="feeTotal"></p>
         </div>
         <div class="control">
           <label class="q" for="pass">Hoe gaat het bouwbedrijf om met de vergoeding? <output id="passOut"></output></label>
@@ -275,7 +277,7 @@
               <tr><td>Extra voor de sale <span class="calc" id="cSale"></span></td><td id="rSale"></td></tr>
             </tbody>
             <tfoot>
-              <tr><td>Totaal kosten voor het bedrijf, opbrengst voor ons</td><td id="rTotal"></td></tr>
+              <tr><td>Totaal kosten voor het bedrijf, opbrengst voor TermijnPartner</td><td id="rTotal"></td></tr>
               <tr><td>Extra omzet na deze kosten</td><td id="rAfter"></td></tr>
             </tfoot>
           </table>
@@ -291,7 +293,7 @@
       <div class="cta-box">
         <div>
           <h2 class="serif">Benieuwd wat dit betekent voor uw bedrijf?</h2>
-          <p>Plan een vrijblijvende demo. We rekenen uw situatie samen door met uw eigen cijfers.</p>
+          <p>Plan een vrijblijvende demo. TermijnPartner rekent uw situatie samen met u door, met uw eigen cijfers.</p>
         </div>
         <div class="actions">
           <a class="btn" href="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm" target="_blank" rel="noopener noreferrer">Plan een demo</a>
@@ -377,8 +379,10 @@
         setText('orderOut', eur(v.order));
         setText('commissionOut', num(v.commission) + '%');
         setText('saleFeeOut', v.saleOn ? '+ ' + num(v.saleFee) + '%' : 'uit');
-        setText('passOut', v.pass + '% erbovenop');
-        setText('passHint', v.pass + '% van de vergoeding komt bovenop de prijs voor de klant, ' + (100 - v.pass) + '% neemt het bouwbedrijf in de eigen marge.');
+        setText('passOut', (100 - v.pass) + '% marge · ' + v.pass + '% erbovenop');
+        var fTot = feeRate(v) * 100;
+        setText('feeTotal', 'Totaal per deal: ' + (v.saleOn ? num(v.commission) + '% transactievergoeding + ' + num(v.saleFee) + '% sale = ' : '') + num(fTot) + '%');
+        setText('passHint', 'Van de ' + num(fTot) + '% per deal: ' + num(fTot * (100 - v.pass) / 100) + '% in de eigen marge (' + (100 - v.pass) + '%) en ' + num(fTot * v.pass / 100) + '% erbovenop de prijs (' + v.pass + '%).');
         renderOptions(v);
 
         setText('revenue', eur(r.revenue));
@@ -387,7 +391,7 @@
         setText('rMonthly', eur(v.monthly));
         setText('cTrans', v.deals + ' × ' + eur(r.price) + ' × ' + num(v.commission) + '%');
         setText('rTrans', eur(r.trans));
-        setText('cSale', v.saleOn ? v.deals + ' × ' + eur(r.price) + ' × ' + num(v.saleFee) + '%' : 'wij doen de sale niet');
+        setText('cSale', v.saleOn ? v.deals + ' × ' + eur(r.price) + ' × ' + num(v.saleFee) + '%' : 'TermijnPartner doet de sale niet');
         setText('rSale', eur(r.sale));
         setText('rTotal', eur(r.total));
         setText('rAfter', eur(r.revenue - r.total));
@@ -409,7 +413,7 @@
         setText('wClient', eur2(r.price / TERM));
         setText('wClientText', 'Betaalt ' + eur(r.price) + ' excl. btw in ' + TERM + ' maanden terug aan de financieringspartner (' + eur(r.price) + ' ÷ ' + TERM + ').');
         setText('wCompany', eur(r.price));
-        setText('wCompanyText', 'Krijgt het volledige bedrag vooraf. Betaalt daarvan ' + eur(r.trans + r.sale) + ' vergoeding aan ons en ' + eur(v.monthly) + ' voor CRM en Finance. Houdt deze maand over: ' + eur(overBedrijf) + ' (' + signed(overBedrijf - v.order * v.deals) + ' t.o.v. de normale prijs).');
+        setText('wCompanyText', 'Krijgt het volledige bedrag vooraf. Betaalt daarvan ' + eur(r.trans + r.sale) + ' vergoeding aan TermijnPartner en ' + eur(v.monthly) + ' voor CRM en Finance. Houdt deze maand over: ' + eur(overBedrijf) + ' (' + signed(overBedrijf - v.order * v.deals) + ' t.o.v. de normale prijs).');
         setText('wUs', eur(r.total));
         setText('wUsText', eur(r.trans) + ' transactievergoeding' + (v.saleOn ? ' + ' + eur(r.sale) + ' voor de sale' : '') + ' + ' + eur(v.monthly) + ' CRM en Finance.');
 
