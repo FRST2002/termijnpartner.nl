@@ -67,7 +67,7 @@
     .opt em{display:block;font-style:normal;font-weight:800;font-size:17px;margin-top:6px}
     .opt[aria-pressed="true"]{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,154,46,.2)}
 
-    .who{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .who{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
     .who-card{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:18px}
     .who-card.dark{background:var(--black);border-color:var(--black);color:#fff}
     .who-card .tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:10px}
@@ -140,6 +140,7 @@
       .wrap{padding:0 16px}
       .panel{padding:20px;border-radius:22px}
       .stats,.ladder{grid-template-columns:1fr}
+      .control .q,.control label.q{flex-direction:column;align-items:flex-start;gap:4px}
       .step-box small{min-height:0}
       .stat small{min-height:0}
       .steps{grid-template-columns:1fr}
@@ -230,12 +231,6 @@
             <small>ontvangt vooraf</small>
             <strong id="wCompany"></strong>
             <p id="wCompanyText"></p>
-          </div>
-          <div class="who-card dark">
-            <span class="tag">3. TermijnPartner</span>
-            <small>ontvangt per maand</small>
-            <strong id="wUs"></strong>
-            <p id="wUsText"></p>
           </div>
         </div>
 
@@ -419,8 +414,6 @@
         setText('wClientText', 'Betaalt ' + eur(r.price) + ' excl. btw in ' + TERM + ' maanden terug aan de financieringspartner (' + eur(r.price) + ' ÷ ' + TERM + ').');
         setText('wCompany', eur(r.price));
         setText('wCompanyText', 'Krijgt het volledige bedrag vooraf. Betaalt daarvan ' + eur(r.trans + r.sale) + ' vergoeding aan TermijnPartner en ' + eur(v.monthly) + ' voor CRM en Finance. Houdt deze maand over: ' + eur(overBedrijf) + ' (' + signed(overBedrijf - v.order * v.deals) + ' t.o.v. de normale prijs).');
-        setText('wUs', eur(r.total));
-        setText('wUsText', eur(r.trans) + ' transactievergoeding' + (v.saleOn ? ' + ' + eur(r.sale) + ' voor de sale' : '') + ' + ' + eur(v.monthly) + ' CRM en Finance.');
 
         syncHash(v);
       }
