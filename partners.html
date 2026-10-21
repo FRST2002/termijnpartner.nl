@@ -64,6 +64,7 @@
     .opt{text-align:left;font:inherit;background:var(--white);border:2px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;line-height:1.4}
     .opt b{display:block;font-size:14px}
     .opt span{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+    .opt em{display:block;font-style:normal;font-weight:800;font-size:17px;margin-top:6px}
     .opt[aria-pressed="true"]{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,154,46,.2)}
 
     .who{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
@@ -360,16 +361,14 @@
       function renderOptions(v) {
         var f = feeRate(v) * 100;
         var choices = [
-          { p: 0,   t: 'Alles in eigen marge', d: num(f) + '% in de eigen marge. De klant betaalt de normale prijs, dus de goedkoopste van de markt.' },
-          { p: 50,  t: 'Half-half', d: num(f / 2) + '% in de eigen marge en ' + num(f / 2) + '% erbovenop. De klant betaalt iets meer, het bedrijf houdt meer over.' },
-          { p: 100, t: 'Alles erbovenop', d: num(f) + '% bovenop de prijs. De klant betaalt meer, de eigen marge blijft gelijk.' }
+          { p: 0,   t: 'Alles in eigen marge', d: num(f) + '% in eigen marge' },
+          { p: 50,  t: 'Half-half', d: num(f / 2) + '% in eigen marge · ' + num(f / 2) + '% erbovenop' },
+          { p: 100, t: 'Alles erbovenop', d: num(f) + '% erbovenop' }
         ];
         $('opts').innerHTML = choices.map(function (c) {
           var on = v.pass === c.p;
-          var price = clientPrice(v, c.p);
-          var keep = price * (1 - feeRate(v));
           return '<button type="button" class="opt" data-pass="' + c.p + '" aria-pressed="' + on + '"><b>' + c.t + '</b><span>' + c.d +
-            ' Klantprijs ' + eur(price) + ' (' + eur2(price / TERM) + ' per maand), verschil voor het bedrijf per opdracht ' + signed(keep - v.order) + '.</span></button>';
+            '</span><em>' + eur2(clientPrice(v, c.p) / TERM) + ' per maand</em></button>';
         }).join('');
       }
 
@@ -384,7 +383,7 @@
         setText('passOut', (100 - v.pass) + '% marge · ' + v.pass + '% erbovenop');
         var fTot = feeRate(v) * 100;
         setText('feeTotal', 'Totaal per deal: ' + (v.saleOn ? num(v.commission) + '% transactievergoeding + ' + num(v.saleFee) + '% sale = ' : '') + num(fTot) + '%');
-        setText('passHint', 'Van de ' + num(fTot) + '% per deal: ' + num(fTot * (100 - v.pass) / 100) + '% in de eigen marge (' + (100 - v.pass) + '%) en ' + num(fTot * v.pass / 100) + '% erbovenop de prijs (' + v.pass + '%).');
+        setText('passHint', num(fTot * (100 - v.pass) / 100) + '% in eigen marge · ' + num(fTot * v.pass / 100) + '% erbovenop de prijs');
         renderOptions(v);
 
         setText('revenue', eur(r.revenue));
