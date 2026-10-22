@@ -169,128 +169,96 @@
         name: 'Bouw',
         image: 'branch-bouw.png',
         alt: 'Dakkapel wordt geplaatst op een woning',
-        orderValue: '€20.000 – €100.000+',
-        monthly: 'vanaf €199 p/m',
         benefits: ['Grote projecten worden haalbaar', 'Klant kiest zelf looptijd', 'Jij ontvangt 100% vooraf'],
       },
       {
         name: 'Keukens',
         image: 'branch-keukens.png',
         alt: 'Moderne keuken',
-        orderValue: '€10.000 – €25.000',
-        monthly: 'vanaf €149 p/m',
         benefits: ['Snellere ja-beslissingen', 'Hogere upsell naar premium', 'Meer showroomconversie'],
       },
       {
         name: 'Badkamers',
         image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80&auto=format',
         alt: 'Badkamer renovatie',
-        orderValue: '€8.000 – €20.000',
-        monthly: 'vanaf €129 p/m',
         benefits: ['Droombadkamer wordt bereikbaar', 'Minder prijsbezwaren', 'Meer akkoord op offertes'],
       },
       {
         name: 'Dakkapellen',
         image: 'branch-bouw.png',
         alt: 'Dakkapel installatie',
-        orderValue: '€8.000 – €18.000',
-        monthly: 'vanaf €119 p/m',
         benefits: ['Direct plaatsbaar uit voorraad', 'Meer akkoord op offertes', 'Hogere marge per project'],
       },
       {
         name: "Veranda's",
         image: 'branch-veranda.png',
         alt: 'Glazen veranda met schuifwanden',
-        orderValue: '€10.000 – €25.000',
-        monthly: 'vanaf €149 p/m',
         benefits: ['Premium projecten toegankelijk', 'Seizoensgebonden verkoop boost', 'Meer volledige tuinprojecten'],
       },
       {
         name: 'Kozijnen',
         image: 'branch-kozijnen.png',
         alt: 'Nieuw kozijn in woning',
-        orderValue: '€6.000 – €15.000',
-        monthly: 'vanaf €119 p/m',
         benefits: ['Complete woningrenovaties', 'Minder afgewezen offertes', 'Hogere orderwaarde per klant'],
       },
       {
         name: 'Haartransplantaties',
         image: 'branch-haartransplantaties.png',
         alt: 'Haartransplantatie behandeling',
-        orderValue: '€4.000 – €12.000',
-        monthly: 'vanaf €99 p/m',
         benefits: ['Behandeling toegankelijker', 'Minder uitstelgedrag', 'Meer ingeplande trajecten'],
       },
       {
         name: 'Vloeren',
         image: 'branch-vloeren.png',
         alt: 'Nieuwe vloer in woonkamer',
-        orderValue: '€5.000 – €15.000',
-        monthly: 'vanaf €99 p/m',
         benefits: ['Complete woning vloeren', 'Lagere drempel per m²', 'Meer volledige projecten'],
       },
       {
         name: "Auto's",
         image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80&auto=format',
         alt: 'Autodealer showroom',
-        orderValue: '€15.000 – €50.000+',
-        monthly: 'vanaf €199 p/m',
         benefits: ['Occasions en nieuwe modellen', 'Concurrentievoordeel', 'Snellere dealclosing'],
       },
       {
         name: 'Tanden facings / bleken',
         image: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&q=80&auto=format',
         alt: 'Tandartspraktijk',
-        orderValue: '€3.000 – €15.000',
-        monthly: 'vanaf €99 p/m',
         benefits: ['Implantaten en cosmetiek', 'Patiënten zeggen vaker ja', 'Behandelingen direct starten'],
       },
          {
         name: 'Zonnepanelen',
         image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&q=80&auto=format',
         alt: 'Zonnepanelen installatie',
-        orderValue: '€6.000 – €12.000',
-        monthly: 'vanaf €99 p/m',
         benefits: ['Investering spreiden', 'Snellere ROI-beslissing', 'Meer installaties per maand'],
       },
       {
         name: 'Warmtepompen',
         image: 'branch-warmtepomp.png',
         alt: 'Warmtepomp en cv-installatie',
-        orderValue: '€4.000 – €10.000',
-        monthly: 'vanaf €89 p/m',
         benefits: ['Energiebesparing toegankelijk', 'Combinatie met isolatie', 'Meer complete energieprojecten'],
       },
          {
         name: "Airco's",
         image: 'branch-airco.png',
         alt: 'Airconditioning unit aan de muur',
-        orderValue: '€3.000 – €8.000',
-        monthly: 'vanaf €79 p/m',
         benefits: ['Seizoenspieken benutten', 'Meerdere units per klant', 'Snelle beslissing in warme periodes'],
       },
       {
         name: 'Thuisbatterijen',
         image: 'branch-thuisbatterij.png',
         alt: 'Thuisbatterij systeem',
-        orderValue: '€5.000 – €12.000',
-        monthly: 'vanaf €99 p/m',
         benefits: ['Combineer met zonnepanelen', 'Hogere projectwaarde', 'Snellere investeringsbeslissing'],
       },
       {
         name: 'Tuinhuizen & serres',
         image: 'branch-tuinhuis.png',
         alt: 'Tuinhuis in de tuin',
-        orderValue: '€5.000 – €20.000',
-        monthly: 'vanaf €99 p/m',
         benefits: ['Premium tuinprojecten', 'Combinatie met veranda', 'Meer complete buitenverbouwingen'],
       },
       {
         name: 'Scootmobielen',
         image: 'branch-scootmobiel.png',
         alt: 'Scootmobiel',
-        orderValue: '€3.000 – €8.000',
-        monthly: 'vanaf €79 p/m',
         benefits: ['Mobiliteit direct geregeld', 'Minder drempel voor ouderen', 'Snellere aankoopbeslissing'],
       }
     ];
@@ -322,10 +290,6 @@
             </div>
             <div class="p-5 sm:p-6">
               <h3 class="font-extrabold text-white text-lg">${b.name}</h3>
-              <div class="mt-3 flex flex-wrap gap-2">
-                <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white/10 text-white/80">${b.orderValue}</span>
-                <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-brand-gold/20 text-brand-gold">${b.monthly}</span>
-              </div>
               <ul class="mt-4 space-y-2">
                 ${b.benefits.map((benefit) => `<li class="flex items-start gap-2 text-sm text-white/60"><svg class="w-4 h-4 text-brand-gold mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>${benefit}</li>`).join('')}
               </ul>
