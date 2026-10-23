@@ -211,10 +211,8 @@
         <div class="control">
           <h3 class="choice-title">Hoe ga jij als ondernemer om met onze transactievergoeding?</h3>
           <p class="choice-sub">Kies uit drie mogelijkheden hoe je onze vergoeding verwerkt in jouw verkoopprijs.</p>
-          <output id="passOut" class="pill"></output>
           <div class="opts" id="opts"></div>
-          <input id="pass" type="range" min="0" max="100" step="5" value="0" aria-label="Percentage van de vergoeding dat boven op de prijs komt">
-          <p class="hint" id="passHint"></p>
+          <input id="pass" type="hidden" min="0" max="100" value="0">
         </div>
 
         <div class="actions no-print" style="margin-top:18px">
@@ -383,11 +381,9 @@
         setText('orderOut', eur(v.order));
         setText('commissionOut', num(v.commission) + '% + btw');
         setText('saleFeeOut', v.saleOn ? '+ ' + num(v.saleFee) + '%' : 'uit');
-        setText('passOut', (100 - v.pass) + '% marge · ' + v.pass + '% erbovenop');
-        var fTot = feeRate(v) * 100;
+                var fTot = feeRate(v) * 100;
         setText('feeTotal', 'Totaal per deal: ' + (v.saleOn ? num(v.commission) + '% transactievergoeding + ' + num(v.saleFee) + '% sale = ' : '') + num(fTot) + '%');
-        setText('passHint', num(fTot * (100 - v.pass) / 100) + '% in eigen marge · ' + num(fTot * v.pass / 100) + '% erbovenop de prijs');
-        renderOptions(v);
+                renderOptions(v);
 
         setText('revenue', eur(r.revenue));
         setText('cRevenue', v.deals + ' × ' + eur(r.price));
