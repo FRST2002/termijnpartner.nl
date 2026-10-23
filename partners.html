@@ -395,10 +395,10 @@
         $('payGrid').innerHTML = pay.map(function (o) {
           return '<div class="pay-card' + (v.pass === o.p ? ' on' : '') + '"><span class="pill-opt">' + o.k + '</span><span class="desc">' + o.t + '</span><strong>' + eur2(o.m) + '</strong><small>per maand</small></div>';
         }).join('') +
-          '<div class="pay-diff"><b>Verschil per maand tussen de opties</b>' +
-          '<div class="row"><span>Optie B t.o.v. A</span><span>' + sg(pay[1].m - pay[0].m) + '</span></div>' +
-          '<div class="row"><span>Optie C t.o.v. A</span><span>' + sg(pay[2].m - pay[0].m) + '</span></div>' +
-          '<div class="row"><span>Optie C t.o.v. B</span><span>' + sg(pay[2].m - pay[1].m) + '</span></div></div>';
+          '<div class="pay-diff"><b>Verschil per maand</b>' +
+          '<div class="row"><span>Optie A kost</span><span>' + eur2(pay[0].m) + '</span></div>' +
+          '<div class="row"><span>Optie B kost extra</span><span>' + sg(pay[1].m - pay[0].m) + '</span></div>' +
+          '<div class="row"><span>Optie C kost extra</span><span>' + sg(pay[2].m - pay[0].m) + '</span></div></div>';
 
         // Wie betaalt en ontvangt wat (bij 1 gefinancierde opdracht per maand)
         setText('wClient', eur2(r.price / TERM));
