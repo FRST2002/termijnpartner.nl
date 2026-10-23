@@ -197,7 +197,7 @@
         </div>
         <div class="control">
           <div class="q">Transactievergoeding per deal <output id="commissionOut"></output></div>
-          <p class="hint">Vast percentage van de factuurwaarde excl. btw, per gefinancierde opdracht.</p>
+          <p class="hint">Berekend over het totale gefinancierde bedrag van jouw klant.</p>
         </div>
         <div class="control">
           <div class="q">Extra als TermijnPartner de sale doet <output id="saleFeeOut"></output></div>
@@ -380,7 +380,7 @@
 
 
         setText('orderOut', eur(v.order));
-        setText('commissionOut', num(v.commission) + '%');
+        setText('commissionOut', num(v.commission) + '% + btw');
         setText('saleFeeOut', v.saleOn ? '+ ' + num(v.saleFee) + '%' : 'uit');
         setText('passOut', (100 - v.pass) + '% marge · ' + v.pass + '% erbovenop');
         var fTot = feeRate(v) * 100;
