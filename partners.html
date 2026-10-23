@@ -86,6 +86,7 @@
     .who-card.dark strong{color:#f0c35a}
     .who-card p{margin:0;font-size:13px;line-height:1.55;color:#4d4740}
     .who-card.dark p{color:#e6dfd0}
+    .who-card p.who-note{font-size:12px;color:var(--muted);margin-top:-2px}
     .result{border-radius:22px;padding:22px 24px}
     .result.dark{background:var(--black);color:#fff}
     .result.light{background:var(--white);border:1px solid var(--line)}
@@ -228,16 +229,15 @@
         <h3 style="margin-top:0">Wie betaalt en ontvangt wat?</h3>
         <div class="who">
           <div class="who-card">
-            <span class="tag">1. Eindklant</span>
-            <small>betaalt per maand</small>
+            <span class="tag">1. Jouw eindklant</span>
+            <small>Betaalt per maand</small>
             <strong id="wClient"></strong>
-            <p id="wClientText"></p>
           </div>
           <div class="who-card">
-            <span class="tag">2. Bouwbedrijf</span>
-            <small>ontvangt vooraf</small>
+            <span class="tag">2. Jouw bouwbedrijf</span>
+            <small>Ontvangt vooraf</small>
             <strong id="wCompany"></strong>
-            <p id="wCompanyText"></p>
+            <p class="who-note">Jij ontvangt 100% van het bedrag vooraf.</p>
           </div>
         </div>
 
@@ -413,11 +413,8 @@
         setText('lMonthlyText', eur(r.price) + ' ÷ ' + TERM + ' maanden');
 
         // Wie betaalt en ontvangt wat (bij 1 gefinancierde opdracht per maand)
-        var overBedrijf = r.revenue - r.total;
         setText('wClient', eur2(r.price / TERM));
-        setText('wClientText', 'Betaalt ' + eur(r.price) + ' excl. btw in ' + TERM + ' maanden terug aan de financieringspartner (' + eur(r.price) + ' ÷ ' + TERM + ').');
         setText('wCompany', eur(r.price));
-        setText('wCompanyText', 'Krijgt het volledige bedrag vooraf. Betaalt daarvan ' + eur(r.trans + r.sale) + ' vergoeding aan TermijnPartner en ' + eur(v.monthly) + ' voor CRM en Finance. Houdt deze maand over: ' + eur(overBedrijf) + ' (' + signed(overBedrijf - v.order * v.deals) + ' t.o.v. de normale prijs).');
 
         syncHash(v);
       }
