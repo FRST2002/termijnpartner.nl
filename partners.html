@@ -87,6 +87,7 @@
     .who-card p{margin:0;font-size:13px;line-height:1.55;color:#4d4740}
     .who-card.dark p{color:#e6dfd0}
     .who-card p.who-note{font-size:12px;color:var(--muted);margin-top:-2px}
+    .who-card p.who-note.xs{font-size:11px}
     .result{border-radius:22px;padding:22px 24px}
     .result.dark{background:var(--black);color:#fff}
     .result.light{background:var(--white);border:1px solid var(--line)}
@@ -98,20 +99,23 @@
     .result p{margin:10px 0 0;font-size:14px;line-height:1.55}
     .result.dark p{color:#e6dfd0}
     .result.light p{color:#4d4740}
-    .pay-grid{display:grid;grid-template-columns:repeat(3,1fr) 1.15fr;gap:10px}
-    .pay-card{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:14px;text-align:center}
+    .pay-section{margin:0 auto 24px}
+    .pay-section h2{margin:0 0 16px;font-size:clamp(1.4rem,2.6vw,1.8rem);letter-spacing:-.02em}
+    .pay-grid{display:grid;grid-template-columns:repeat(3,1fr) 1.15fr;gap:14px}
+    .pay-card{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:18px;text-align:center}
     .pay-card.on{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,154,46,.2)}
-    .pay-card .pill-opt{display:block;margin:0 0 8px;padding:4px 8px;border-radius:8px;background:#fff5dc;border:1px solid #f0ddad;font-size:13px;font-weight:700;color:var(--gold-dark)}
-    .pay-card .desc{display:block;font-size:12px;line-height:1.35;color:var(--text);min-height:32px;margin-bottom:6px}
-    .pay-card strong{display:block;font-size:clamp(1.15rem,2.2vw,1.55rem);letter-spacing:-.03em;line-height:1.1}
-    .pay-card small{display:block;font-size:12px;color:var(--muted);margin-top:4px}
+    .pay-card .pill-opt{display:block;margin:0 0 12px;padding:8px 10px;border-radius:10px;background:#fff5dc;border:1px solid #f0ddad;font-size:13px;font-weight:700;color:var(--gold-dark)}
+    .pay-card .desc{display:block;font-size:14px;line-height:1.4;color:var(--text);min-height:42px;padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid var(--line)}
+    .pay-card strong{display:block;font-size:clamp(1.5rem,2.8vw,2.1rem);letter-spacing:-.03em;line-height:1.1}
+    .pay-card small{display:block;font-size:13px;color:var(--muted);margin-top:4px}
     .pay-card small.vanaf{margin:0 0 2px}
     .who-card .vanaf{display:block;margin-top:8px;font-size:12px;color:var(--muted)}
     .vanaf-note{margin:8px 0 0;font-size:12px;color:var(--muted)}
-    .pay-diff{background:var(--black);color:#fff;border-radius:18px;padding:14px}
-    .pay-diff b{display:block;font-size:13px;line-height:1.3;margin-bottom:10px}
-    .pay-diff .row{display:flex;justify-content:space-between;gap:8px;padding:7px 8px;margin-top:6px;border-radius:8px;background:rgba(255,255,255,.08);font-size:12px}
-    .pay-diff .row span:last-child{font-weight:800;color:#f0c35a;white-space:nowrap}
+    .pay-diff{background:var(--black);color:#fff;border-radius:20px;padding:18px}
+    .pay-diff b{display:block;font-size:15px;line-height:1.35;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.18)}
+    .pay-diff .row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 4px;border-top:1px solid rgba(255,255,255,.12);font-size:13px}
+    .pay-diff b + .row{border-top:0}
+    .pay-diff .row span:last-child{font-weight:800;font-size:15px;color:#f0c35a;white-space:nowrap}
     .stats{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
     .stat{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:16px}
     .stat small{display:block;color:var(--muted);font-size:13px;line-height:1.35;min-height:34px}
@@ -239,6 +243,7 @@
             <small>Betaalt per maand</small>
             <span class="vanaf">vanaf</span>
             <strong id="wClient"></strong>
+            <p class="who-note xs">Zonder aanbetaling</p>
           </div>
           <div class="who-card">
             <span class="tag">2. Jouw bouwbedrijf</span>
@@ -247,10 +252,6 @@
             <p class="who-note">Jij ontvangt 100% van het bedrag vooraf.</p>
           </div>
         </div>
-
-        <h3>Wat betaalt de eindklant per maand?</h3>
-        <div class="pay-grid" id="payGrid"></div>
-        <p class="vanaf-note">Alle maandbedragen zijn vanaf-bedragen (180 maanden), exclusief btw.</p>
 
         <div class="stats">
           <div class="stat"><small>Extra omzet voor bouwbedrijf via TermijnPartner</small><strong id="revenue"></strong></div>
@@ -276,6 +277,14 @@
         <div class="note">
           Het bouwbedrijf ontvangt het volledige bedrag van elke opdracht vooraf. De klant betaalt in termijnen terug aan de financieringspartner.
         </div>
+      </div>
+    </section>
+
+    <section class="wrap pay-section" id="maandbedragen" aria-label="Wat betaalt de eindklant per maand">
+      <div class="panel">
+        <h2 class="serif">Wat betaalt de eindklant per maand?</h2>
+        <div class="pay-grid" id="payGrid"></div>
+        <p class="vanaf-note">Alle maandbedragen zijn vanaf-bedragen (180 maanden), exclusief btw.</p>
       </div>
     </section>
 
