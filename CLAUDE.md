@@ -53,7 +53,7 @@ Vaste uitgangspunten (zo bedoeld door Freek, niet "per ongeluk"):
 - **Sale door TermijnPartner:** schakelaar, geeft **+5%** (dus 15% per deal). Vast percentage.
 - **Maandelijkse kosten (CRM en Finance): vast €1.000** per maand.
 - **1 gefinancierde opdracht per maand** (vaste waarde `DEALS` in het script; de slider is bewust weggehaald).
-- **Maandbedrag voor de klant = prijs ÷ 180 maanden**, zonder rente, excl. btw. Rente wordt op deze pagina bewust niet genoemd.
+- **Maandbedrag voor de klant = prijs ÷ 180 maanden**, zonder rente, excl. btw. Rente wordt op deze pagina bewust niet genoemd. Alle maandbedragen zijn **vanaf-bedragen** (kleine "vanaf" erboven, plus een toelichting onder de kaarten).
 - Enige slider: **gemiddelde factuurwaarde excl. btw**. Daarnaast de keuze hoe het bouwbedrijf met de vergoeding omgaat.
 
 De drie opties (teksten door Freek aangeleverd, kort houden):
