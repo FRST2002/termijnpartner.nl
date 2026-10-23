@@ -46,7 +46,7 @@ Marketingsite van **TermijnPartner** (https://termijnpartner.nl): een platform w
 
 ## Pagina `partners.html` — rekenmodel
 
-Doel: in een gesprek met een ondernemer laten zien wat termijnbetaling kost en wat de klant per maand betaalt. De ondernemer ziet de pagina zelf ook, dus de teksten spreken **"u"** aan en blijven kort. De pagina heeft `noindex` en staat niet in de sitemap (alleen via directe link).
+Doel: in een gesprek met een ondernemer laten zien wat termijnbetaling kost en wat de klant per maand betaalt. De ondernemer ziet de pagina zelf ook, dus de teksten spreken **"je/jouw"** aan (nooit "u/uw") en blijven kort. De pagina heeft `noindex` en staat niet in de sitemap (alleen via directe link).
 
 Vaste uitgangspunten (zo bedoeld door Freek, niet "per ongeluk"):
 - **Transactievergoeding: vast 10%** per deal, over de factuurwaarde excl. btw.

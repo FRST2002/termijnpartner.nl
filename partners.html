@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
   <title>Partners | TermijnPartner</title>
-  <meta name="description" content="Rekenmodel van TermijnPartner: wat uw klant per maand betaalt en wat u overhoudt.">
+  <meta name="description" content="Rekenmodel van TermijnPartner: wat jouw klant per maand betaalt en wat je overhoudt.">
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -173,8 +173,8 @@
   <main>
     <section class="hero wrap">
       <div class="eyebrow">Voor partners</div>
-      <h1 class="serif">Rekenmodel: <em>betalen in termijnen</em> voor uw klanten.</h1>
-      <p class="lead">Stel de cijfers in voor uw situatie. U ziet direct wat uw klant per maand betaalt en wat u overhoudt.</p>
+      <h1 class="serif">Rekenmodel: <em>betalen in termijnen</em> voor jouw klanten.</h1>
+      <p class="lead">Stel de cijfers in voor jouw situatie. Je ziet direct wat jouw klant per maand betaalt en wat je overhoudt.</p>
     </section>
 
     <section class="section wrap" id="werkwijze">
@@ -213,7 +213,6 @@
           <p class="choice-sub">Kies uit drie mogelijkheden hoe je onze vergoeding verwerkt in jouw verkoopprijs.</p>
           <output id="passOut" class="pill"></output>
           <div class="opts" id="opts"></div>
-          <p class="hint" id="optDiff"></p>
           <input id="pass" type="range" min="0" max="100" step="5" value="0" aria-label="Percentage van de vergoeding dat boven op de prijs komt">
           <p class="hint" id="passHint"></p>
         </div>
@@ -296,8 +295,8 @@
     <section class="wrap">
       <div class="cta-box">
         <div>
-          <h2 class="serif">Benieuwd wat dit betekent voor uw bedrijf?</h2>
-          <p>Plan een vrijblijvende demo. TermijnPartner rekent uw situatie samen met u door, met uw eigen cijfers.</p>
+          <h2 class="serif">Benieuwd wat dit betekent voor jouw bedrijf?</h2>
+          <p>Plan een vrijblijvende demo. TermijnPartner rekent jouw situatie samen met je door, met jouw eigen cijfers.</p>
         </div>
         <div class="actions">
           <a class="btn" href="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm" target="_blank" rel="noopener noreferrer">Plan een demo</a>
@@ -366,17 +365,14 @@
         var f = feeRate(v) * 100;
         var h = num(f / 2);
         var choices = [
-          { p: 0,   t: 'Optie A – ' + num(f) + '% volledig uit eigen marge', d: 'De klant betaalt de normale prijs. De ' + num(f) + '% van TermijnPartner wordt uit jouw marge betaald.' },
-          { p: 50,  t: 'Optie B – 50/50 verdeling', d: h + '% betaal je uit je eigen marge en ' + h + '% wordt bovenop de klantprijs berekend.' },
-          { p: 100, t: 'Optie C – ' + num(f) + '% volledig bovenop de prijs', d: 'Jouw marge blijft volledig behouden. De ' + num(f) + '% van TermijnPartner wordt bovenop de klantprijs berekend.' }
+          { p: 0,   t: 'Optie A – ' + num(f) + '% volledig uit eigen marge', d: 'De klant betaalt de normale verkoopprijs. Onze ' + num(f) + '% vergoeding wordt volledig uit jouw marge betaald.' },
+          { p: 50,  t: 'Optie B – 50/50 verdeling', d: 'Je betaalt ' + h + '% uit je eigen marge en berekent de overige ' + h + '% bovenop de verkoopprijs.' },
+          { p: 100, t: 'Optie C – ' + num(f) + '% volledig bovenop de prijs', d: 'Jouw marge blijft volledig behouden. Onze ' + num(f) + '% vergoeding wordt bovenop de verkoopprijs berekend.' }
         ];
         $('opts').innerHTML = choices.map(function (c) {
           var on = v.pass === c.p;
-          return '<button type="button" class="opt" data-pass="' + c.p + '" aria-pressed="' + on + '"><b>' + c.t + '</b><span>' + c.d +
-            '</span><em>Maandbedrag voor de klant: ' + eur2(clientPrice(v, c.p) / TERM) + '</em></button>';
+          return '<button type="button" class="opt" data-pass="' + c.p + '" aria-pressed="' + on + '"><b>' + c.t + '</b><span>' + c.d + '</span></button>';
         }).join('');
-        var diff = (clientPrice(v, 100) - clientPrice(v, 0)) / TERM;
-        setText('optDiff', 'Verschil voor de klant per maand tussen optie A en C: ' + eur2(diff));
       }
 
       function render() {
