@@ -113,6 +113,10 @@
     .pay-diff b + .row{border-top:0}
     .pay-diff .row span:last-child{font-weight:800;font-size:12px;color:#f0c35a;white-space:nowrap}
     .stats{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
+    .stats.two{grid-template-columns:1fr 1fr}
+    .stats.three{grid-template-columns:repeat(3,1fr);margin-top:8px}
+    .gain-title{margin:16px 0 0;font-size:13px;font-weight:700;color:var(--muted)}
+    .pkg-note{margin:12px 0 0;font-size:12px;color:var(--muted)}
     .stat{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:16px}
     .stat small{display:block;color:var(--muted);font-size:13px;line-height:1.35;min-height:34px}
     .stat strong{display:block;font-size:clamp(1.25rem,2.3vw,1.7rem);letter-spacing:-.03em;margin-top:6px}
@@ -154,7 +158,7 @@
     @media (max-width:600px){
       .wrap{padding:0 16px}
       .panel{padding:20px;border-radius:22px}
-      .stats,.pay-grid{grid-template-columns:1fr}
+      .stats,.stats.two,.stats.three,.pay-grid{grid-template-columns:1fr}
       .control .q,.control label.q{flex-direction:column;align-items:flex-start;gap:4px}
       .pay-card .desc{min-height:0}
       .stat small{min-height:0}
@@ -253,30 +257,14 @@
         <div class="pay-grid" id="payGrid"></div>
         <p class="vanaf-note">Alle maandbedragen zijn vanaf-bedragen (180 maanden), exclusief btw.</p>
 
-        <div class="stats">
+        <h3>Wat levert het jou op?</h3>
+        <div class="stats two">
           <div class="stat"><small>Extra omzet voor bouwbedrijf via TermijnPartner</small><strong id="revenue"></strong></div>
+          <div class="stat"><small>Jij ontvangt het bedrag</small><strong>100% vooraf</strong></div>
         </div>
-
-        <h3>Per maand, bij 1 gefinancierde opdracht</h3>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Waar bestaat het uit?</th><th>Per maand</th></tr></thead>
-            <tbody>
-              <tr><td>Extra omzet voor bouwbedrijf via TermijnPartner <span class="calc" id="cRevenue"></span></td><td id="rRevenue"></td></tr>
-              <tr><td>Maandelijkse kosten (CRM en Finance) <span class="calc">vast bedrag per maand</span></td><td id="rMonthly"></td></tr>
-              <tr><td>Transactievergoeding <span class="calc" id="cTrans"></span></td><td id="rTrans"></td></tr>
-              <tr><td>Extra voor de sale <span class="calc" id="cSale"></span></td><td id="rSale"></td></tr>
-            </tbody>
-            <tfoot>
-              <tr><td>Totaal kosten voor het bedrijf, opbrengst voor TermijnPartner</td><td id="rTotal"></td></tr>
-              <tr><td>Extra omzet na deze kosten</td><td id="rAfter"></td></tr>
-            </tfoot>
-          </table>
-        </div>
-
-        <div class="note">
-          Het bouwbedrijf ontvangt het volledige bedrag van elke opdracht vooraf. De klant betaalt in termijnen terug aan de financieringspartner.
-        </div>
+        <p class="gain-title">Extra omzet per jaar, als dit je extra opdrachten oplevert</p>
+        <div class="stats three" id="gainGrid"></div>
+        <p class="pkg-note" id="pkgNote"></p>
       </div>
     </section>
 
@@ -378,15 +366,10 @@
                 renderOptions(v);
 
         setText('revenue', eur(r.revenue));
-        setText('cRevenue', v.deals + ' × ' + eur(r.price));
-        setText('rRevenue', eur(r.revenue));
-        setText('rMonthly', eur(v.monthly));
-        setText('cTrans', v.deals + ' × ' + eur(r.price) + ' × ' + num(v.commission) + '%');
-        setText('rTrans', eur(r.trans));
-        setText('cSale', v.saleOn ? v.deals + ' × ' + eur(r.price) + ' × ' + num(v.saleFee) + '%' : 'TermijnPartner doet de sale niet');
-        setText('rSale', eur(r.sale));
-        setText('rTotal', eur(r.total));
-        setText('rAfter', eur(r.revenue - r.total));
+        $('gainGrid').innerHTML = [2, 5, 10].map(function (n) {
+          return '<div class="stat"><small>Bij ' + n + ' extra opdrachten per jaar</small><strong>' + eur(n * r.price) + '</strong></div>';
+        }).join('');
+        setText('pkgNote', 'Inclusief CRM en Finance: ' + eur(v.monthly) + ' per maand.');
 
         var markup = r.price - v.order;
 

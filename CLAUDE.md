@@ -20,6 +20,7 @@ Marketingsite van **TermijnPartner** (https://termijnpartner.nl): een platform w
 - Vercel deployt **traag**: meestal 3–5 minuten, soms langer. Zeg dus niet "over een minuut live". Controleer eventueel `https://api.github.com/repos/FRST2002/termijnpartner.nl/commits/<sha>/status`.
 - Eindgebruikers zijn ondernemers/installateurs, **geen rekenwonders**: kort, simpel, weinig tekst. Geen jargon, **geen rentes noemen** op de partnerspagina.
 - Noem het bedrijf altijd **"TermijnPartner"**, nooit "wij" of "ons".
+- Toon op de partnerspagina **nooit de opbrengst van TermijnPartner** (de ondernemer en diens concurrenten kunnen meekijken). Laat zien wat het de **ondernemer oplevert**: extra omzet, 100% vooraf, maandbedrag voor de klant. De kosten die de ondernemer betaalt (10% + btw, € 1.000 CRM en Finance) blijven wel zichtbaar, maar als prijs, niet als inkomsten van TermijnPartner.
 - Wijzig niets buiten wat gevraagd is. Als iets onduidelijk is: korte vraag, niet raden.
 - Ik (Claude) zie niet wat jij op je scherm ziet. Vraag bij opmaakproblemen om een screenshot (en welk toestel: iPhone/Android/desktop).
 
