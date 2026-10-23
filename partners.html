@@ -70,6 +70,8 @@
     .opt{text-align:left;font:inherit;color:var(--text);-webkit-text-fill-color:var(--text);background:var(--white);border:2px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;line-height:1.4}
     .opt b{display:block;font-size:14px}
     .opt span{display:block;font-size:13px;color:var(--muted);-webkit-text-fill-color:var(--muted);margin-top:2px}
+    .chosen{margin:2px 0 0;font-size:13px;color:var(--muted)}
+    .chosen b{color:var(--text)}
     .opt em{display:block;font-style:normal;font-weight:800;font-size:17px;margin-top:6px}
     .opt[aria-pressed="true"]{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,154,46,.2)}
 
@@ -212,6 +214,7 @@
           <h3 class="choice-title">Hoe ga jij als ondernemer om met onze transactievergoeding?</h3>
           <p class="choice-sub">Kies uit drie mogelijkheden hoe je onze vergoeding verwerkt in jouw verkoopprijs.</p>
           <div class="opts" id="opts"></div>
+          <p class="chosen" id="chosen"></p>
           <input id="pass" type="hidden" min="0" max="100" value="0">
         </div>
 
@@ -367,6 +370,8 @@
           { p: 50,  t: 'Optie B – 50/50 verdeling', d: 'Je betaalt ' + h + '% uit je eigen marge en berekent de overige ' + h + '% bovenop de verkoopprijs.' },
           { p: 100, t: 'Optie C – ' + num(f) + '% volledig bovenop de prijs', d: 'Jouw marge blijft volledig behouden. Onze ' + num(f) + '% vergoeding wordt bovenop de verkoopprijs berekend.' }
         ];
+        var picked = choices.filter(function (c) { return c.p === v.pass; })[0];
+        $('chosen').innerHTML = picked ? 'Gekozen: <b>' + picked.t + '</b>' : '';
         $('opts').innerHTML = choices.map(function (c) {
           var on = v.pass === c.p;
           return '<button type="button" class="opt" data-pass="' + c.p + '" aria-pressed="' + on + '"><b>' + c.t + '</b><span>' + c.d + '</span></button>';
