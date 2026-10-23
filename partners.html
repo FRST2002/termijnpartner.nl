@@ -219,7 +219,6 @@
         </div>
 
         <div class="actions no-print" style="margin-top:18px">
-          <button type="button" class="btn ghost small" id="reset">Standaardwaarden</button>
           <button type="button" class="btn ghost small" id="copy">Kopieer link met deze cijfers</button>
           <button type="button" class="btn ghost small" onclick="window.print()">Afdrukken / PDF</button>
         </div>
@@ -454,10 +453,6 @@
         if (!b) return;
         $('pass').value = b.getAttribute('data-pass');
         render();
-      });
-      $('reset').addEventListener('click', function () {
-        KEYS.forEach(function (k) { $(k).value = DEFAULTS[k]; });
-        $('saleOn').checked = false; render();
       });
       $('copy').addEventListener('click', function () {
         var btn = $('copy');
