@@ -54,6 +54,9 @@
     .control label.q{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px;font-size:16px;font-weight:800;line-height:1.3}
     .control output{font-weight:800;white-space:nowrap;color:var(--gold-dark);font-size:18px}
     .control .hint{margin:7px 0 0;font-size:13px;color:var(--muted);line-height:1.45}
+    .panel .choice-title{margin:6px 0 10px;padding:2px 0 2px 14px;border-left:4px solid var(--gold);font-family:Fraunces,Georgia,serif;font-size:clamp(1.2rem,2.4vw,1.45rem);font-weight:700;line-height:1.25;letter-spacing:-.01em}
+    .panel .choice-sub{margin:0 0 12px 18px;font-size:14px;line-height:1.5;color:var(--muted)}
+    .control output.pill{display:inline-block;margin:0 0 12px 18px;padding:4px 12px;border-radius:999px;background:#fff5dc;border:1px solid #f0ddad;font-size:14px;font-weight:800;color:var(--gold-dark)}
     .total-line{margin:12px 0 0;padding:10px 14px;border-radius:12px;background:#fff5dc;border:1px solid #f0ddad;font-weight:800;font-size:15px;color:#5f4c1b}
     .switch{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-weight:700;font-size:14px;cursor:pointer}
     .switch input{width:20px;height:20px;accent-color:var(--gold)}
@@ -206,7 +209,9 @@
           <p class="total-line" id="feeTotal"></p>
         </div>
         <div class="control">
-          <label class="q" for="pass">Hoe gaat het bouwbedrijf om met de vergoeding? <output id="passOut"></output></label>
+          <h3 class="choice-title">Hoe ga jij als ondernemer om met onze transactievergoeding?</h3>
+          <p class="choice-sub">Kies uit drie mogelijkheden hoe je onze vergoeding verwerkt in jouw verkoopprijs.</p>
+          <output id="passOut" class="pill"></output>
           <div class="opts" id="opts"></div>
           <p class="hint" id="optDiff"></p>
           <input id="pass" type="range" min="0" max="100" step="5" value="0" aria-label="Percentage van de vergoeding dat boven op de prijs komt">
