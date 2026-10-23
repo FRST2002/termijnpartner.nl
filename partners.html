@@ -99,23 +99,19 @@
     .result p{margin:10px 0 0;font-size:14px;line-height:1.55}
     .result.dark p{color:#e6dfd0}
     .result.light p{color:#4d4740}
-    .pay-section{margin:0 auto 24px}
-    .pay-section h2{margin:0 0 16px;font-size:clamp(1.4rem,2.6vw,1.8rem);letter-spacing:-.02em}
-    .pay-grid{display:grid;grid-template-columns:repeat(3,1fr) 1.15fr;gap:14px}
-    .pay-card{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:18px;text-align:center}
+    .pay-grid{display:grid;grid-template-columns:repeat(3,1fr) 1.2fr;gap:8px}
+    .pay-card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:12px 10px;text-align:center}
     .pay-card.on{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,154,46,.2)}
-    .pay-card .pill-opt{display:block;margin:0 0 12px;padding:8px 10px;border-radius:10px;background:#fff5dc;border:1px solid #f0ddad;font-size:13px;font-weight:700;color:var(--gold-dark)}
-    .pay-card .desc{display:block;font-size:14px;line-height:1.4;color:var(--text);min-height:42px;padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid var(--line)}
-    .pay-card strong{display:block;font-size:clamp(1.5rem,2.8vw,2.1rem);letter-spacing:-.03em;line-height:1.1}
-    .pay-card small{display:block;font-size:13px;color:var(--muted);margin-top:4px}
+    .pay-card .pill-opt{display:block;margin:0 0 8px;padding:5px 6px;border-radius:8px;background:#fff5dc;border:1px solid #f0ddad;font-size:12px;font-weight:700;color:var(--gold-dark)}
+    .pay-card .desc{display:block;font-size:12px;line-height:1.35;color:var(--text);min-height:34px;padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid var(--line)}
+    .pay-card strong{display:block;font-size:clamp(1.1rem,1.9vw,1.4rem);letter-spacing:-.03em;line-height:1.1}
+    .pay-card small{display:block;font-size:11px;color:var(--muted);margin-top:3px}
     .pay-card small.vanaf{margin:0 0 2px}
-    .who-card .vanaf{display:block;margin-top:8px;font-size:12px;color:var(--muted)}
-    .vanaf-note{margin:8px 0 0;font-size:12px;color:var(--muted)}
-    .pay-diff{background:var(--black);color:#fff;border-radius:20px;padding:18px}
-    .pay-diff b{display:block;font-size:15px;line-height:1.35;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.18)}
-    .pay-diff .row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 4px;border-top:1px solid rgba(255,255,255,.12);font-size:13px}
+    .pay-diff{background:var(--black);color:#fff;border-radius:16px;padding:12px}
+    .pay-diff b{display:block;font-size:12px;line-height:1.35;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.18)}
+    .pay-diff .row{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:7px 2px;border-top:1px solid rgba(255,255,255,.12);font-size:11px}
     .pay-diff b + .row{border-top:0}
-    .pay-diff .row span:last-child{font-weight:800;font-size:15px;color:#f0c35a;white-space:nowrap}
+    .pay-diff .row span:last-child{font-weight:800;font-size:12px;color:#f0c35a;white-space:nowrap}
     .stats{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
     .stat{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:16px}
     .stat small{display:block;color:var(--muted);font-size:13px;line-height:1.35;min-height:34px}
@@ -253,6 +249,10 @@
           </div>
         </div>
 
+        <h3>Wat betaalt de eindklant per maand?</h3>
+        <div class="pay-grid" id="payGrid"></div>
+        <p class="vanaf-note">Alle maandbedragen zijn vanaf-bedragen (180 maanden), exclusief btw.</p>
+
         <div class="stats">
           <div class="stat"><small>Extra omzet voor bouwbedrijf via TermijnPartner</small><strong id="revenue"></strong></div>
         </div>
@@ -277,14 +277,6 @@
         <div class="note">
           Het bouwbedrijf ontvangt het volledige bedrag van elke opdracht vooraf. De klant betaalt in termijnen terug aan de financieringspartner.
         </div>
-      </div>
-    </section>
-
-    <section class="wrap pay-section" id="maandbedragen" aria-label="Wat betaalt de eindklant per maand">
-      <div class="panel">
-        <h2 class="serif">Wat betaalt de eindklant per maand?</h2>
-        <div class="pay-grid" id="payGrid"></div>
-        <p class="vanaf-note">Alle maandbedragen zijn vanaf-bedragen (180 maanden), exclusief btw.</p>
       </div>
     </section>
 
