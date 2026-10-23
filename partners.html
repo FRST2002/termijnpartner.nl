@@ -382,7 +382,7 @@
         setText('commissionOut', num(v.commission) + '% + btw');
         setText('saleFeeOut', v.saleOn ? '+ ' + num(v.saleFee) + '%' : 'uit');
                 var fTot = feeRate(v) * 100;
-        setText('feeTotal', 'Totaal per deal: ' + (v.saleOn ? num(v.commission) + '% transactievergoeding + ' + num(v.saleFee) + '% sale = ' : '') + num(fTot) + '%');
+        setText('feeTotal', 'Totaal per deal: ' + (v.saleOn ? num(v.commission) + '% transactievergoeding + ' + num(v.saleFee) + '% sale = ' : '') + num(fTot) + '% + btw');
                 renderOptions(v);
 
         setText('revenue', eur(r.revenue));
