@@ -42,8 +42,8 @@ Marketingsite van **TermijnPartner** (https://termijnpartner.nl): een platform w
 `lib/markdown-content.mjs` bevat een **kopie van de paginatekst** voor AI-crawlers. Verander je tekst in een HTML-pagina (bijv. prijzen), pas dan **ook** dat bestand aan, anders spreken de twee elkaar tegen. Controleer na bewerken met `node --check lib/markdown-content.mjs`.
 
 ### Routes (`vercel.json`)
-`/about` → over-ons, `/privacy` → privacybeleid, `/marketing` → `marketing.html`.
-`/partners` is **niet** ingesteld: alleen `/partners.html` werkt. (Toe te voegen als gewenst.)
+`/about` → over-ons, `/privacy` → privacybeleid, `/marketing` → `marketing.html`, `/partners` → `partners.html`.
+`/partners` → `partners.html` (ook `/partners.html` werkt nog). Een redirect van `.html` naar `/partners` is bewust niet ingesteld om een redirect-lus te vermijden; eerst testen als dat gewenst is.
 
 ## Pagina `partners.html` — rekenmodel
 

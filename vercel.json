@@ -4,6 +4,7 @@
   "rewrites": [
     { "source": "/about", "destination": "/over-ons.html" },
     { "source": "/privacy", "destination": "/privacybeleid.html" },
-    { "source": "/marketing", "destination": "/marketing.html" }
+    { "source": "/marketing", "destination": "/marketing.html" },
+    { "source": "/partners", "destination": "/partners.html" }
   ]
 }
