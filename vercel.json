@@ -2,9 +2,45 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "outputDirectory": ".",
   "rewrites": [
-    { "source": "/about", "destination": "/over-ons.html" },
-    { "source": "/privacy", "destination": "/privacybeleid.html" },
-    { "source": "/marketing", "destination": "/marketing.html" },
-    { "source": "/partners", "destination": "/partners.html" }
+    {
+      "source": "/about",
+      "destination": "/over-ons.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacybeleid.html"
+    },
+    {
+      "source": "/marketing",
+      "destination": "/marketing.html"
+    },
+    {
+      "source": "/partners",
+      "destination": "/partners.html"
+    },
+    {
+      "source": "/intern",
+      "destination": "/intern.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/intern",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/intern.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    }
   ]
 }

@@ -34,6 +34,7 @@ Marketingsite van **TermijnPartner** (https://termijnpartner.nl): een platform w
 | `blog*.html`, `over-ons.html`, `privacybeleid.html`, `algemene-voorwaarden.html`, `disclaimer.html` | Overige pagina's |
 | `partners.html` | **Rekenmodel voor partners/ondernemers** (zie hieronder) |
 | `marketing.html` | Interne presentatie voor een marketingpartner (zie hieronder) |
+| `intern.html` | Interne scenario-/partnercalculator (verdienmodel). Staat op `/intern`, **niet beveiligd**, wel met `noindex`-header. Op uitdrukkelijk verzoek van Freek live gezet; wijzig of verspreid de inhoud niet zonder overleg |
 | `middleware.js`, `lib/markdown-content.mjs` | Levert een Markdown-versie van pagina's aan AI-crawlers (`Accept: text/markdown`) |
 | `llms.txt`, `robots.txt`, `sitemap.xml` | Voor zoekmachines en AI-agents |
 | `vercel.json` | Routes (zie hieronder) |
@@ -43,7 +44,7 @@ Marketingsite van **TermijnPartner** (https://termijnpartner.nl): een platform w
 
 ### Routes (`vercel.json`)
 `/about` → over-ons, `/privacy` → privacybeleid, `/marketing` → `marketing.html`, `/partners` → `partners.html`.
-`/partners` → `partners.html` (ook `/partners.html` werkt nog). Een redirect van `.html` naar `/partners` is bewust niet ingesteld om een redirect-lus te vermijden; eerst testen als dat gewenst is.
+`/intern` → `intern.html` (met `X-Robots-Tag: noindex`), `/partners` → `partners.html` (ook `/partners.html` werkt nog). Een redirect van `.html` naar `/partners` is bewust niet ingesteld om een redirect-lus te vermijden; eerst testen als dat gewenst is.
 
 ## Pagina `partners.html` — rekenmodel
 
