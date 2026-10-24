@@ -46,6 +46,15 @@ Marketingsite van **TermijnPartner** (https://termijnpartner.nl): een platform w
 `/about` → over-ons, `/privacy` → privacybeleid, `/marketing` → `marketing.html`, `/partners` → `partners.html`.
 `/intern` → `intern.html` (met `X-Robots-Tag: noindex`), `/partners` → `partners.html` (ook `/partners.html` werkt nog). Een redirect van `.html` naar `/partners` is bewust niet ingesteld om een redirect-lus te vermijden; eerst testen als dat gewenst is.
 
+## Wachtwoord op /partners, /marketing en /intern
+
+Deze drie pagina's (en hun `.html`-adressen) zitten achter een wachtwoordscherm. Dat zit in `middleware.js` (server-side, draait vóór de pagina wordt uitgeleverd) en zet na een juist wachtwoord een cookie (`tp_auth`, 24 uur).
+- Het wachtwoord staat **niet** in de code, alleen de SHA-256-hash. Het wachtwoord is bij Freek bekend.
+- Ander wachtwoord instellen: zet in Vercel (Project → Settings → Environment Variables) `PARTNER_PASSWORD` en deploy opnieuw. De variabele wint van de ingebouwde waarde en maakt de hash in de code onbruikbaar.
+- Nieuwe beveiligde pagina: voeg het pad (met en zonder `.html`) toe aan `PROTECTED_PATHS` in `middleware.js`.
+- **Beperkingen (eerlijk zijn hierover):** de repo is openbaar, dus de bronbestanden (`partners.html`, `marketing.html`, `intern.html`) en de hash zijn op GitHub te lezen; het wachtwoord is kort en daardoor te raden. Dit houdt toevallige bezoekers tegen, geen vastberaden mensen. Echte afscherming vraagt een privé-repo of een andere hostingvorm.
+- Test na elke wijziging aan `middleware.js` met een nagebootste `next()` (zie hoe dit eerder is gedaan) en controleer op de live site dat `/` en de andere pagina's gewoon open blijven.
+
 ## Pagina `partners.html` — rekenmodel
 
 Doel: in een gesprek met een ondernemer laten zien wat termijnbetaling kost en wat de klant per maand betaalt. De ondernemer ziet de pagina zelf ook, dus de teksten spreken **"je/jouw"** aan (nooit "u/uw") en blijven kort. De pagina heeft `noindex` en staat niet in de sitemap (alleen via directe link).
