@@ -231,7 +231,7 @@
         <div class="control">
           <div class="q">Als TermijnPartner ook voor jou de sales doet? <output id="saleFeeOut"></output></div>
           <label class="switch"><input type="checkbox" id="saleOn"> TermijnPartner doet de sale</label>
-          <p class="hint">Onvoldoende salescapaciteit? Geen zorgen! TermijnPartner neemt de verkoop direct voor je uit handen.</p>
+          <p class="hint">Onvoldoende salescapaciteit? Geen zorgen! <br> TermijnPartner neemt de verkoop direct voor je uit handen.</p>
           <p class="total-line" id="feeTotal"></p>
         </div>
         <div class="control">
@@ -370,10 +370,10 @@
 
 
         setText('orderOut', eur(v.order));
-        setText('commissionOut', num(v.commission) + '% + btw');
+        setText('commissionOut', num(v.commission) + '% ex btw');
         setText('saleFeeOut', v.saleOn ? '+ ' + num(v.saleFee) + '%' : 'uit');
                 var fTot = feeRate(v) * 100;
-        setText('feeTotal', 'Totaal per deal: ' + (v.saleOn ? num(v.commission) + '% transactievergoeding + ' + num(v.saleFee) + '% sale = ' : '') + num(fTot) + '% + btw');
+        setText('feeTotal', 'Totaal per deal: ' + (v.saleOn ? num(v.commission) + '% transactievergoeding + ' + num(v.saleFee) + '% sale = ' : '') + num(fTot) + '% ex btw');
                 renderOptions(v);
 
         setText('revenue', eur(r.revenue));
