@@ -1011,11 +1011,22 @@
         src="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm"
         style="width:100%;border:none;overflow:hidden;min-height:850px;"
         scrolling="no"
-        loading="lazy"
         id="9FMYDV2YsBBCcbMCHCcm_1781020103975">
       </iframe>
 
       <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+      <p id="agenda-fallback" class="text-center text-brand-dark-grey/70" style="display:none;margin:1rem 0 .5rem;">
+        Laadt de agenda niet? <a href="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm" target="_blank" rel="noopener noreferrer" class="text-brand-gold font-semibold underline">Open de agenda in een nieuw venster</a>
+      </p>
+      <script>
+        // Reserve: als de agenda na 8 seconden nog verborgen is, toon een directe link.
+        setTimeout(function () {
+          var f = document.getElementById('9FMYDV2YsBBCcbMCHCcm_1781020103975');
+          if (!f || f.style.visibility === 'hidden' || f.offsetHeight < 100) {
+            document.getElementById('agenda-fallback').style.display = 'block';
+          }
+        }, 8000);
+      </script>
     </div>
 
   </div>
