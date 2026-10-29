@@ -178,7 +178,8 @@ h1 em, h2 em, .font-display em {
    intended translucent bg-white/5 treatment on dark sections isn't masked. */
 .branch-card.card,
 .metric-card.card {
-  background: rgba(255, 255, 255, 0.05);
+  background: #FBF8F2;
+  border-color: rgba(201, 151, 43, 0.18);
 }
 
 /* --- Gold accent line --- */
