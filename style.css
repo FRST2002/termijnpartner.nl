@@ -1440,3 +1440,8 @@ a.whatsapp-float svg {
   text-decoration: underline;
   text-underline-offset: 2px;
 }
+/* Mobiel: minder witruimte tussen hero en 'Waarom TermijnPartner bestaat' */
+@media (max-width: 1023px) {
+  #hero { padding-bottom: 2.5rem; }
+  #missie { padding-top: 2.5rem; }
+}
