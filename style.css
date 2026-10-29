@@ -826,6 +826,7 @@ h1 em, h2 em, .font-display em {
   align-self: center;
   width: 190px;
   aspect-ratio: 317 / 272;
+  top: 24px;
   animation: tp-float 6s ease-in-out 1.6s infinite;
 }
 
