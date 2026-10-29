@@ -291,7 +291,7 @@ h1 em, h2 em, .font-display em {
 
 /* Missie-foto bevat eigen tekst: hele afbeelding tonen, zonder grijsfilter. */
 .missie-photo {
-  aspect-ratio: 673 / 749;
+  aspect-ratio: 673 / 724;
   max-width: 480px;
   margin: 0 auto;
 }
