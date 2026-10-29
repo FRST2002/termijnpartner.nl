@@ -60,6 +60,9 @@
     .total-line{margin:12px 0 0;padding:10px 14px;border-radius:12px;background:#fff5dc;border:1px solid #f0ddad;font-weight:800;font-size:15px;color:#5f4c1b}
     .switch{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-weight:700;font-size:14px;cursor:pointer}
     .switch input{width:20px;height:20px;accent-color:var(--gold)}
+    input[type=text]{width:100%;font:inherit;font-size:16px;color:var(--text);background:var(--white);border:2px solid var(--line);border-radius:12px;padding:11px 14px;outline:none}
+    input[type=text]:focus{border-color:var(--gold)}
+    .for-company{display:none;margin:10px 0 0;font-weight:800;font-size:18px;color:var(--gold-dark)}
     input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:10px;border-radius:999px;background:#e8e0d0;outline:none}
     input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;border:2px solid rgba(20,20,20,.1);box-shadow:0 4px 12px rgba(0,0,0,.15);cursor:pointer}
     input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#fff;border:2px solid rgba(20,20,20,.1);box-shadow:0 4px 12px rgba(0,0,0,.15);cursor:pointer}
@@ -238,6 +241,7 @@
       h1,h2,h3,.choice-title,.choice-sub{break-after:avoid;page-break-after:avoid}
       .section,.slogan,.step,.control,.opt,.who,.who-card,.pay-grid,.pay-card,.pay-diff,.stats,.stat,.video-grid,.video-item,.vanaf-note{break-inside:avoid;page-break-inside:avoid}
       .tool > .panel{break-inside:avoid;page-break-inside:avoid}
+      .for-company.on{display:block}
       .slogan{break-before:avoid;page-break-before:avoid;margin:8px auto 0}
       .videos{padding-bottom:8px}
     }
@@ -256,6 +260,7 @@
       <div class="eyebrow">Voor partners</div>
       <h1 class="serif">Rekenmodel: <em>betalen in termijnen</em> voor jouw klanten.</h1>
       <p class="lead">Stel de cijfers in voor jouw situatie. Je ziet direct wat jouw klant per maand betaalt en wat je overhoudt.</p>
+      <p class="for-company" id="forCompany"></p>
     </section>
 
     <section class="section wrap" id="werkwijze">
@@ -283,6 +288,12 @@
       <div class="panel">
         <h2>Stel in</h2>
         <p class="sub">Alle bedragen zijn per maand en exclusief btw.</p>
+
+        <div class="control">
+          <label class="q" for="company">Bedrijfsnaam</label>
+          <input id="company" type="text" maxlength="60" autocomplete="organization" placeholder="Naam van jouw bedrijf">
+          <p class="hint">Komt bovenaan de PDF en in de bestandsnaam.</p>
+        </div>
 
         <div class="control">
           <label class="q" for="order">Gemiddelde factuurwaarde excl. btw <output id="orderOut"></output></label>
@@ -481,9 +492,19 @@
         hashTimer = setTimeout(function () {
           try {
             var p = KEYS.concat(['saleOn']).filter(function (k) { return v[k] !== DEFAULTS[k]; }).map(function (k) { return k + '=' + v[k]; });
+            if (company()) p.push('company=' + encodeURIComponent(company()));
             history.replaceState(null, '', p.length ? '#' + p.join('&') : location.pathname + location.search);
           } catch (e) { /* bijv. file:// */ }
         }, 200);
+      }
+
+      var BASE_TITLE = document.title;
+      function company() { return $('company').value.trim(); }
+      function renderCompany() {
+        var c = company();
+        document.title = c ? 'TermijnPartner rekenmodel – ' + c : BASE_TITLE;
+        $('forCompany').textContent = c ? 'Rekenmodel voor ' + c : '';
+        $('forCompany').className = 'for-company' + (c ? ' on' : '');
       }
 
       function loadHash() {
@@ -492,6 +513,7 @@
         h.split('&').forEach(function (pair) {
           var kv = pair.split('=');
           if (kv[0] === 'saleOn') { $('saleOn').checked = kv[1] === '1'; return; }
+          if (kv[0] === 'company') { try { $('company').value = decodeURIComponent(kv[1] || '').slice(0, 60); } catch (e) {} return; }
           if (KEYS.indexOf(kv[0]) > -1 && isFinite(+kv[1])) {
             var el = $(kv[0]);
             el.value = Math.min(Math.max(+kv[1], +el.min), +el.max);
@@ -501,6 +523,7 @@
 
       KEYS.forEach(function (k) { $(k).addEventListener('input', render); });
       $('saleOn').addEventListener('change', render);
+      $('company').addEventListener('input', function () { renderCompany(); syncHash(read()); });
       $('opts').addEventListener('click', function (e) {
         var b = e.target.closest ? e.target.closest('.opt') : null;
         if (!b) return;
@@ -516,6 +539,7 @@
       });
 
       loadHash();
+      renderCompany();
       render();
     })();
   </script>
