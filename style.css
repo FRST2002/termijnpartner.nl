@@ -176,7 +176,11 @@ h1 em, h2 em, .font-display em {
 
 /* Dark-section cards: override the default white .card background so the
    intended translucent bg-white/5 treatment on dark sections isn't masked. */
-.branch-card.card,
+.branch-card.card {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Resultaten-sectie staat nu op wit: lichte kaarten. */
 .metric-card.card {
   background: #FBF8F2;
   border-color: rgba(201, 151, 43, 0.18);
