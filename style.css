@@ -364,6 +364,12 @@ h1 em, h2 em, .font-display em {
   margin: 0 auto;
 }
 
+.oplossing-photo {
+  aspect-ratio: 1236 / 1241;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
 .missie-photo .photo-bg,
 .plain-photo .photo-bg {
   filter: none;
@@ -375,7 +381,7 @@ h1 em, h2 em, .font-display em {
   }
 
   .photo-bg-oplossing {
-    background-image: url('oplossing-maandbedrag.jpg');
+    background-image: url('oplossing-maandbedrag.jpg?v=2');
   }
 }
 
