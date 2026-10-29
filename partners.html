@@ -212,8 +212,22 @@
       .topbar,.actions,.cta-box,.no-print{display:none!important}
       body{background:#fff}
       .panel{box-shadow:none}
-      .section{padding:14px 0}
-      .hero,.section{padding-left:0;padding-right:0}
+      @page{margin:14mm 12mm}
+      .wrap{max-width:none;padding-left:2px;padding-right:2px}
+      .hero{padding-top:0;padding-bottom:8px}
+      .section{padding-top:14px;padding-bottom:14px}
+      .tool{margin:14px 0}
+      .step,.panel,.who-card,.pay-card,.stat,.video-item .logo{box-shadow:none}
+      #projecten .steps{grid-template-columns:repeat(4,1fr);gap:10px}
+      .panel{padding:18px}
+      #projecten .step{padding:12px}
+      #projecten .step img{height:100px}
+      .who{grid-template-columns:1fr 1fr}
+      h1,h2,h3,.choice-title,.choice-sub{break-after:avoid;page-break-after:avoid}
+      .section,.slogan,.step,.control,.opt,.who,.who-card,.pay-grid,.pay-card,.pay-diff,.stats,.stat,.video-grid,.video-item,.vanaf-note{break-inside:avoid;page-break-inside:avoid}
+      .tool > .panel{break-inside:avoid;page-break-inside:avoid}
+      .slogan{break-before:avoid;page-break-before:avoid;margin:8px auto 0}
+      .videos{padding-bottom:8px}
     }
   </style>
 </head>
