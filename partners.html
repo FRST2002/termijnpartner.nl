@@ -188,7 +188,7 @@
       .hero{padding-top:36px;padding-bottom:8px}
       #werkwijze{padding-top:12px}
       #projecten{padding-top:16px}
-      #werkwijze .step{display:grid;grid-template-columns:auto 1fr;column-gap:12px;align-items:center}
+      #werkwijze .step{display:grid;grid-template-columns:auto 1fr;column-gap:12px;align-items:center;align-content:start}
       #werkwijze .num{margin-bottom:0}
       #werkwijze .step h3{margin:0}
       #werkwijze .step p{grid-column:1 / -1;margin-top:10px}
@@ -215,13 +215,25 @@
       @page{margin:14mm 12mm}
       .wrap{max-width:none;padding-left:2px;padding-right:2px}
       .hero{padding-top:0;padding-bottom:8px}
-      .section{padding-top:14px;padding-bottom:14px}
+      .section{padding-top:10px;padding-bottom:10px}
+      h1{font-size:2.3rem;margin:8px auto}
+      .lead{font-size:14px;line-height:1.5}
+      .section .intro{font-size:14px;line-height:1.55}
       .tool{margin:14px 0}
       .step,.panel,.who-card,.pay-card,.stat,.video-item .logo{box-shadow:none}
-      #projecten .steps{grid-template-columns:repeat(4,1fr);gap:10px}
+      #werkwijze .step{display:grid;grid-template-columns:auto 1fr;column-gap:12px;align-items:center;align-content:start;padding:14px 16px}
+      #werkwijze .num{margin-bottom:0}
+      #werkwijze .step h3{margin:0}
+      #werkwijze .step p{grid-column:1 / -1;margin-top:8px}
+      .steps{gap:10px}
+      .section h2{font-size:1.8rem}
+      .section .intro{margin-bottom:14px}
+      #projecten .steps{grid-template-columns:repeat(4,1fr)}
       .panel{padding:18px}
       #projecten .step{padding:12px}
-      #projecten .step img{height:100px}
+      #projecten .step img{height:80px;margin-bottom:8px}
+      #projecten .step h3{font-size:16px}
+      #projecten .step p{font-size:12px;line-height:1.45}
       .who{grid-template-columns:1fr 1fr}
       h1,h2,h3,.choice-title,.choice-sub{break-after:avoid;page-break-after:avoid}
       .section,.slogan,.step,.control,.opt,.who,.who-card,.pay-grid,.pay-card,.pay-diff,.stats,.stat,.video-grid,.video-item,.vanaf-note{break-inside:avoid;page-break-inside:avoid}
