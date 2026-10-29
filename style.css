@@ -804,6 +804,289 @@ h1 em, h2 em, .font-display em {
 }
 
 /* --- Reduced motion --- */
+/* --- Klanten: donkere case-sectie met video's --- */
+.cs-section {
+  position: relative;
+  overflow: hidden;
+  background: #111111;
+  color: #ffffff;
+}
+
+.cs-section::before,
+.cs-section::after {
+  content: '';
+  position: absolute;
+  width: 640px;
+  height: 640px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 151, 43, 0.18) 0%, rgba(201, 151, 43, 0) 65%);
+  pointer-events: none;
+}
+
+.cs-section::before { top: -260px; left: -200px; }
+.cs-section::after { bottom: -300px; right: -220px; }
+
+.cs-section > div { position: relative; z-index: 1; }
+
+.cs-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #C9972B;
+}
+
+.cs-eyebrow span {
+  width: 2rem;
+  height: 1px;
+  background: #C9972B;
+}
+
+.cs-title {
+  font-family: var(--font-display, Fraunces, Georgia, serif);
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.cs-intro {
+  margin-top: 1.25rem;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.cs-kpis {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  margin: 3rem auto 0;
+  max-width: 64rem;
+  border: 1px solid rgba(201, 151, 43, 0.35);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background: rgba(201, 151, 43, 0.35);
+}
+
+.cs-kpis > div {
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  background: #161616;
+}
+
+.cs-kpi-num {
+  font-family: var(--font-display, Fraunces, Georgia, serif);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  line-height: 1;
+  color: #C9972B;
+}
+
+.cs-kpi-label {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.cs-cases {
+  display: grid;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.cs-case {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(201, 151, 43, 0.28);
+  border-radius: 1.5rem;
+  background: linear-gradient(160deg, #1b1b1b 0%, #141414 100%);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+}
+
+.cs-video {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.cs-video iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border: 0;
+  border-radius: 1.1rem;
+  background: #000000;
+}
+
+.cs-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.25rem 0.25rem 0.5rem;
+}
+
+.cs-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.cs-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 170px;
+  height: 84px;
+  border-radius: 0.9rem;
+  overflow: hidden;
+}
+
+.cs-logo--dark { background: #16392d; }
+.cs-logo--light { background: #ffffff; }
+
+.cs-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cs-logo--dark img { object-fit: cover; }
+
+.cs-tag {
+  padding: 0.35rem 0.8rem;
+  border: 1px solid rgba(201, 151, 43, 0.4);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #E3BE6A;
+}
+
+.cs-badge {
+  display: inline-flex;
+  align-self: flex-start;
+  margin-top: 1.5rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 0.5rem;
+  background: rgba(201, 151, 43, 0.14);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.cs-badge span { color: #C9972B; }
+
+.cs-name {
+  margin-top: 0.9rem;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.cs-story {
+  margin-top: 0.75rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.cs-story a {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cs-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+  margin-top: 1.5rem;
+}
+
+.cs-stat {
+  padding: 1.1rem 1rem;
+  border: 1px solid rgba(201, 151, 43, 0.25);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.cs-stat-num {
+  font-family: var(--font-display, Fraunces, Georgia, serif);
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  line-height: 1;
+  color: #C9972B;
+}
+
+.cs-stat-label {
+  margin-top: 0.45rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.cs-stat-sub {
+  margin-top: 0.2rem;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.cs-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.cs-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #C9972B;
+  transition: color 0.2s ease;
+}
+
+.cs-links a:hover { color: #E3BE6A; }
+
+.cs-cta {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.cs-cta p {
+  margin-bottom: 1.5rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@media (min-width: 768px) {
+  .cs-kpis { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .cs-case {
+    grid-template-columns: 320px 1fr;
+    gap: 3rem;
+    padding: 1.5rem 3rem 1.5rem 1.5rem;
+  }
+
+  .cs-case--flip {
+    grid-template-columns: 1fr 320px;
+    padding: 1.5rem 1.5rem 1.5rem 3rem;
+  }
+
+  .cs-case--flip .cs-video { order: 2; }
+}
+
 /* Vergelijking: betalen in één keer (licht rood) */
 .payment-option-card.payment-option-card--negative {
   background: #FDF4F2;

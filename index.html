@@ -127,7 +127,7 @@
   <link rel="stylesheet" href="tailwind-built.css">
 
   <!-- Custom Styles -->
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body class="bg-brand-white text-brand-dark-grey antialiased">
 
@@ -741,115 +741,87 @@
     </section>
 
     <!-- ========== SUCCESS STORIES ========== -->
-    <section id="klanten" class="py-16 lg:py-24 bg-white">
+    <section id="klanten" class="cs-section py-16 lg:py-24">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto reveal">
-          <p class="inline-flex items-center gap-2 text-sm font-semibold text-brand-gold uppercase tracking-wider mb-4">
-            <span class="w-8 h-px bg-brand-gold"></span>
-            Bewezen in de praktijk
-            <span class="w-8 h-px bg-brand-gold"></span>
-          </p>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-black tracking-tight gold-accent mx-auto">
-            Onze klanten.
-          </h2>
-          <p class="mt-6 text-lg text-brand-dark-grey/80 leading-relaxed">
-            Ontdek hoe bedrijven zoals Holland's Totaalbouw en Roley Termijn hun klanten laten betalen in termijnen en daardoor meer verkopen realiseren.
-          </p>
+          <p class="cs-eyebrow"><span></span>Bewezen in de praktijk<span></span></p>
+          <h2 class="cs-title">Wil je gelijk even zien hoe dit in de praktijk voor jou kan werken?</h2>
+          <p class="cs-intro">Bekijk een van deze video's. Ondernemers die met TermijnPartner hun klanten in termijnen laten betalen, en wat dat ze oplevert.</p>
         </div>
 
-        <div class="mt-14 grid lg:grid-cols-2 gap-8">
-          <!-- Roley Termijn -->
-          <article class="case-study-card card rounded-2xl p-6 sm:p-8 reveal">
-            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
-              <div class="case-study-logo w-full sm:w-auto">
-                <img src="roleytermijn.png" alt="Roley Termijn logo" width="280" height="104">
-              </div>
-              <span class="inline-flex self-start px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-brand-black text-white">Luxe horloges</span>
+        <div class="cs-kpis reveal">
+          <div><p class="cs-kpi-num">€300.000</p><p class="cs-kpi-label">omzet in 90 dagen bij Holland's Totaal Bouw</p></div>
+          <div><p class="cs-kpi-num">90%</p><p class="cs-kpi-label">van de klanten van Roley Termijn betaalt in termijnen</p></div>
+          <div><p class="cs-kpi-num">100%</p><p class="cs-kpi-label">vooraf voor de ondernemer, via TermijnPartner</p></div>
+        </div>
+
+        <div class="cs-cases">
+          <article class="cs-case  reveal">
+            <div class="cs-video">
+              <iframe src="https://www.tiktok.com/player/v1/7699076800986615072?rel=0" title="Video van Roley Termijn op TikTok" loading="lazy" allow="fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
             </div>
-            <h3 class="text-xl font-extrabold text-brand-black">Roleytermijn.nl</h3>
-            <p class="mt-3 text-brand-dark-grey/80 leading-relaxed">
-              Roley Termijn verkoopt Rolex-horloges in termijnen. Sinds de samenwerking met TermijnPartner draait het bedrijf uitstekend — klanten kiezen vaker voor een aankoop wanneer het maandbedrag overzichtelijk is.
-            </p>
-            <div class="mt-6 grid sm:grid-cols-2 gap-4">
-              <div class="case-study-stat rounded-xl p-4 text-center">
-                <p class="font-display text-3xl text-brand-gold">90%</p>
-                <p class="mt-1 text-sm font-semibold text-brand-black">van de klanten</p>
-                <p class="text-xs text-brand-dark-grey/60 mt-1">betaalt de Rolex af in termijnen</p>
+            <div class="cs-body">
+              <div class="cs-head">
+                <div class="cs-logo cs-logo--dark"><img src="roleytermijn.png" alt="Roley Termijn logo" width="280" height="104" loading="lazy"></div>
+                <span class="cs-tag">Luxe horloges</span>
               </div>
-              <div class="case-study-stat rounded-xl p-4 text-center">
-                <p class="text-3xl font-extrabold text-brand-gold">↗</p>
-                <p class="mt-1 text-sm font-semibold text-brand-black">Sterke groei</p>
-                <p class="text-xs text-brand-dark-grey/60 mt-1">sinds de start met TermijnPartner</p>
+              <p class="cs-badge">Gerealiseerd met Termijn<span>Partner</span></p>
+              <h3 class="cs-name">Roleytermijn.nl</h3>
+              <p class="cs-story">Roley Termijn verkoopt Rolex-horloges in termijnen. Sinds de samenwerking met TermijnPartner draait het bedrijf uitstekend: klanten kiezen vaker voor een aankoop wanneer het maandbedrag overzichtelijk is.</p>
+              <div class="cs-stats">
+                <div class="cs-stat">
+                  <p class="cs-stat-num">90%</p>
+                  <p class="cs-stat-label">van de klanten</p>
+                  <p class="cs-stat-sub">betaalt de Rolex af in termijnen</p>
+                </div>
+                <div class="cs-stat">
+                  <p class="cs-stat-num">↗</p>
+                  <p class="cs-stat-label">Sterke groei</p>
+                  <p class="cs-stat-sub">sinds de start met TermijnPartner</p>
+                </div>
+              </div>
+              <div class="cs-links">
+                <a href="https://www.tiktok.com/@roleytermijn.nl/video/7699076800986615072" target="_blank" rel="noopener noreferrer">Bekijk de video op TikTok <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5h5v5M19 5l-8 8M10 5H6a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4"/></svg></a>
+                <a href="https://roleytermijn.nl" target="_blank" rel="noopener noreferrer">Bekijk roleytermijn.nl <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5h5v5M19 5l-8 8M10 5H6a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4"/></svg></a>
               </div>
             </div>
-            <a href="https://roleytermijn.nl" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-brand-gold hover:text-brand-gold-dark transition-colors">
-              Bekijk roleytermijn.nl
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-            </a>
           </article>
 
-          <!-- Holland's Totaal Bouw -->
-          <article class="case-study-card card rounded-2xl p-6 sm:p-8 reveal reveal-delay-2">
-            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
-              <div class="case-study-logo w-full sm:w-auto">
-                <img src="hollandstotaalbouw.png" alt="Holland's Totaal Bouw logo" width="280" height="104">
-              </div>
-              <span class="inline-flex self-start px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-brand-gold/10 text-brand-gold border border-brand-gold/20">Dakkapellen &amp; veranda's</span>
+          <article class="cs-case cs-case--flip reveal reveal-delay-2">
+            <div class="cs-video">
+              <iframe src="https://www.tiktok.com/player/v1/7506828306927389974?rel=0" title="Video van Holland's Totaal Bouw op TikTok" loading="lazy" allow="fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
             </div>
-            <h3 class="text-xl font-extrabold text-brand-black">Holland's Totaal Bouw</h3>
-            <p class="mt-3 text-brand-dark-grey/80 leading-relaxed">
-              Holland's Totaal Bouw verkoopt <a href="branche-bouw.html" class="text-brand-black underline underline-offset-2 hover:text-brand-gold transition-colors">dakkapellen en veranda's</a>. In de eerste 90 dagen met termijnbetalingen via TermijnPartner realiseerden zij alleen al aan termijnbetalingen een omzet van €300.000. Het bewijs dat termijnbetalingen direct omzet opleveren.
-            </p>
-            <div class="mt-6 grid sm:grid-cols-2 gap-4">
-              <div class="case-study-stat rounded-xl p-4 text-center sm:col-span-2">
-                <p class="font-display text-3xl sm:text-4xl text-brand-gold">€300.000</p>
-                <p class="mt-1 text-sm font-semibold text-brand-black">omzet in de eerste 90 dagen</p>
-                <p class="text-xs text-brand-dark-grey/60 mt-1">alleen via termijnbetalingen</p>
+            <div class="cs-body">
+              <div class="cs-head">
+                <div class="cs-logo cs-logo--light"><img src="hollandstotaalbouw.png" alt="Holland's Totaal Bouw logo" width="280" height="104" loading="lazy"></div>
+                <span class="cs-tag">Dakkapellen &amp; veranda's</span>
+              </div>
+              <p class="cs-badge">Gerealiseerd met Termijn<span>Partner</span></p>
+              <h3 class="cs-name">Holland's Totaal Bouw</h3>
+              <p class="cs-story">Holland's Totaal Bouw verkoopt <a href="branche-bouw.html">dakkapellen en veranda's</a>. In de eerste 90 dagen met termijnbetalingen via TermijnPartner realiseerden zij alleen al aan termijnbetalingen een omzet van €300.000.</p>
+              <div class="cs-stats">
+                <div class="cs-stat">
+                  <p class="cs-stat-num">€300.000</p>
+                  <p class="cs-stat-label">omzet in de eerste 90 dagen</p>
+                  <p class="cs-stat-sub">alleen via termijnbetalingen</p>
+                </div>
+                <div class="cs-stat">
+                  <p class="cs-stat-num">Dag 1</p>
+                  <p class="cs-stat-label">direct meetbaar resultaat</p>
+                  <p class="cs-stat-sub">vanaf de start met TermijnPartner</p>
+                </div>
+              </div>
+              <div class="cs-links">
+                <a href="https://www.tiktok.com/@hollandstotaalbouw/video/7506828306927389974" target="_blank" rel="noopener noreferrer">Bekijk de video op TikTok <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5h5v5M19 5l-8 8M10 5H6a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4"/></svg></a>
+                <a href="https://www.hollandstotaalbouw.nl" target="_blank" rel="noopener noreferrer">Bekijk hollandstotaalbouw.nl <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5h5v5M19 5l-8 8M10 5H6a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4"/></svg></a>
               </div>
             </div>
-            <p class="mt-6 text-sm font-semibold text-brand-black flex items-center gap-2">
-              <svg class="w-5 h-5 text-brand-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              Direct meetbaar resultaat vanaf dag één
-            </p>
-            <a href="https://www.hollandstotaalbouw.nl" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-brand-gold hover:text-brand-gold-dark transition-colors">
-              Bekijk hollandstotaalbouw.nl
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-            </a>
           </article>
         </div>
 
-        <div class="mt-12 text-center reveal">
-          <p class="text-brand-dark-grey/70 mb-6">Wil jij ook zulke resultaten? Ontdek wat TermijnPartner voor jouw bedrijf kan betekenen.</p>
+        <div class="cs-cta reveal">
+          <p>Wil jij ook zulke resultaten? Ontdek wat TermijnPartner voor jouw bedrijf kan betekenen.</p>
           <a href="https://api.leadconnectorhq.com/widget/booking/9FMYDV2YsBBCcbMCHCcm" target="_blank" rel="noopener noreferrer" class="btn-primary inline-flex items-center justify-center px-7 py-3.5 rounded-lg font-bold">Plan een gratis demo</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== COMPARISON ========== -->
-    <section id="vergelijking" class="py-16 lg:py-24 bg-brand-light-grey">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto reveal">
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-black tracking-tight gold-accent mx-auto">Waarom TermijnPartner anders is.</h2>
-        </div>
-        <div class="mt-14 reveal overflow-x-auto">
-          <table class="comparison-table w-full text-left border-collapse">
-            <thead>
-              <tr class="border-b-2 border-brand-black/10">
-                <th class="font-bold text-brand-black text-sm sm:text-base">Functie</th>
-                <th class="font-bold text-brand-dark-grey/60 text-sm sm:text-base">Traditionele financieringspartij</th>
-                <th class="font-bold text-brand-gold text-sm sm:text-base">TermijnPartner</th>
-              </tr>
-            </thead>
-            <tbody class="text-sm sm:text-base">
-              <tr class="border-b border-black/5"><td class="font-semibold text-brand-black py-4">Financiering</td><td class="text-brand-dark-grey/70">Alleen financiering</td><td class="text-brand-black font-semibold">Termijnbetalingen</td></tr>
-              <tr class="border-b border-black/5"><td class="font-semibold text-brand-black py-4">CRM</td><td class="text-brand-dark-grey/70"><span class="text-red-400">✕</span> Geen CRM</td><td class="text-brand-black font-semibold"><span class="text-brand-gold">✓</span> CRM inbegrepen</td></tr>
-              <tr class="border-b border-black/5"><td class="font-semibold text-brand-black py-4">Communicatie</td><td class="text-brand-dark-grey/70"><span class="text-red-400">✕</span> Geen WhatsApp</td><td class="text-brand-black font-semibold"><span class="text-brand-gold">✓</span> WhatsApp en telefonie</td></tr>
-              <tr class="border-b border-black/5"><td class="font-semibold text-brand-black py-4">AI</td><td class="text-brand-dark-grey/70"><span class="text-red-400">✕</span> Geen AI</td><td class="text-brand-black font-semibold"><span class="text-brand-gold">✓</span> AI medewerkers</td></tr>
-              <tr class="border-b border-black/5"><td class="font-semibold text-brand-black py-4">Opvolging</td><td class="text-brand-dark-grey/70"><span class="text-red-400">✕</span> Geen automatische opvolging</td><td class="text-brand-black font-semibold"><span class="text-brand-gold">✓</span> Automatiseringen</td></tr>
-              <tr class="border-b border-black/5"><td class="font-semibold text-brand-black py-4">Marketing</td><td class="text-brand-dark-grey/70"><span class="text-red-400">✕</span> Geen marketingondersteuning</td><td class="text-brand-black font-semibold"><span class="text-brand-gold">✓</span> Marketingmodules</td></tr>
-              <tr><td class="font-semibold text-brand-black py-4">Focus</td><td class="text-brand-dark-grey/70">Kredietverstrekking</td><td class="text-brand-black font-semibold">Gericht op meer omzet</td></tr>
-            </tbody>
-          </table>
         </div>
       </div>
     </section>
