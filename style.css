@@ -275,6 +275,10 @@ h1 em, h2 em, .font-display em {
   padding: 1.75rem;
 }
 
+.feature-group--white {
+  background: #ffffff;
+}
+
 .feature-group-icon {
   width: 32px;
   height: 32px;
