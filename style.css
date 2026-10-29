@@ -1462,3 +1462,8 @@ a.whatsapp-float svg {
     transition: none;
   }
 }
+
+/* Laptop/desktop: twee witte secties onder elkaar kregen dubbele witruimte (96px + 96px) */
+@media (min-width: 1024px) {
+  section.bg-white + section.bg-white { padding-top: 1.5rem; }
+}
