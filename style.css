@@ -1445,3 +1445,11 @@ a.whatsapp-float svg {
   #hero { padding-bottom: 2.5rem; }
   #missie { padding-top: 2.5rem; }
 }
+
+/* Mobiel: minder witruimte tussen alle secties (was 64px boven + 64px onder) */
+@media (max-width: 1023px) {
+  section.py-16 {
+    padding-top: 2.75rem;
+    padding-bottom: 2.75rem;
+  }
+}
