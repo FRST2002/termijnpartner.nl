@@ -144,8 +144,14 @@
     .step h3{margin:0 0 6px;font-size:18px}
     .step p{margin:0;color:#514b44;line-height:1.6;font-size:14px}
     .step img{display:block;width:100%;height:170px;object-fit:cover;border-radius:14px;margin-bottom:12px}
-    .video{display:flex;justify-content:center;padding:8px 0 40px}
-    .video iframe{width:100%;max-width:340px;aspect-ratio:9/16;border:0;border-radius:20px;background:var(--black);box-shadow:var(--shadow)}
+    .videos{padding-bottom:40px}
+    .video-grid{display:grid;grid-template-columns:repeat(2,minmax(0,340px));justify-content:center;gap:24px}
+    .video-item{display:flex;flex-direction:column;gap:12px}
+    .video-item .logo{display:block;width:100%;height:120px;border-radius:16px;border:1px solid var(--line)}
+    .video-item .logo.cover{object-fit:cover}
+    .video-item .logo.contain{object-fit:contain;background:#fff}
+    .video-item iframe{width:100%;aspect-ratio:9/16;border:0;border-radius:20px;background:var(--black);box-shadow:var(--shadow)}
+    .video-item a{font-size:13px;color:var(--gold-dark);word-break:break-all}
     .cta-box{margin:12px 0 48px;background:var(--black);color:#fff;border-radius:28px;padding:34px;display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap}
     .cta-box h2{margin:0 0 6px;font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:-.03em}
     .cta-box p{margin:0;color:#d8d1c1;max-width:560px;line-height:1.6}
@@ -168,6 +174,7 @@
       .pay-card .desc{min-height:0}
       .stat small{min-height:0}
       .steps{grid-template-columns:1fr}
+      .video-grid{grid-template-columns:minmax(0,340px)}
       .cta-box{padding:26px}
       .cta-box .btn{width:100%}
     }
@@ -280,8 +287,21 @@
       </div>
     </section>
 
-    <section class="wrap video no-print" aria-label="Video">
-      <iframe src="https://www.tiktok.com/player/v1/7699076800986615072?rel=0" title="Video van TermijnPartner op TikTok" loading="lazy" allow="fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    <section class="section wrap videos" aria-label="Video's">
+      <h2 class="serif">Wil je gelijk even zien hoe dit in de praktijk voor jou kan werken?</h2>
+      <p class="intro">Bekijk een van deze video's:</p>
+      <div class="video-grid">
+        <div class="video-item">
+          <img class="logo cover" src="/roleytermijn.png" alt="RoleyTermijn" loading="lazy">
+          <iframe class="no-print" src="https://www.tiktok.com/player/v1/7699076800986615072?rel=0" title="Video van RoleyTermijn op TikTok" loading="lazy" allow="fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+          <a href="https://www.tiktok.com/@roleytermijn.nl/video/7699076800986615072" target="_blank" rel="noopener noreferrer">tiktok.com/@roleytermijn.nl/video/7699076800986615072</a>
+        </div>
+        <div class="video-item">
+          <img class="logo contain" src="/hollandstotaalbouw.png" alt="Holland's Totaal Bouw" loading="lazy">
+          <iframe class="no-print" src="https://www.tiktok.com/player/v1/7506828306927389974?rel=0" title="Video van Holland's Totaal Bouw op TikTok" loading="lazy" allow="fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+          <a href="https://www.tiktok.com/@hollandstotaalbouw/video/7506828306927389974" target="_blank" rel="noopener noreferrer">tiktok.com/@hollandstotaalbouw/video/7506828306927389974</a>
+        </div>
+      </div>
     </section>
     <footer class="footer wrap">
       TermijnPartner · Alle bedragen exclusief btw, tenzij anders vermeld. Berekeningen zijn indicatief en geen garantie op resultaat.
