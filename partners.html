@@ -88,6 +88,8 @@
     .who-card.dark p{color:#e6dfd0}
     .who-card p.who-note{font-size:12px;color:var(--muted);margin-top:-2px}
     .who-card p.who-note.xs{font-size:11px}
+    .who-card .price-line{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+    .who-card .price-line .vanaf{font-size:14px;color:var(--muted)}
     .result{border-radius:22px;padding:22px 24px}
     .result.dark{background:var(--black);color:#fff}
     .result.light{background:var(--white);border:1px solid var(--line)}
@@ -252,9 +254,8 @@
           <div class="who-card">
             <span class="tag">1. Jouw eindklant</span>
             <small>Betaalt per maand</small>
-            <span class="vanaf">vanaf</span>
-            <strong id="wClient"></strong>
-            <p class="who-note xs">Zonder aanbetaling</p>
+            <div class="price-line"><span class="vanaf">vanaf</span><strong id="wClient"></strong></div>
+            <p class="who-note xs">Doet jouw klant een aanbetaling? Dan wordt het maandbedrag lager.</p>
           </div>
           <div class="who-card">
             <span class="tag">2. Jouw bouwbedrijf</span>
