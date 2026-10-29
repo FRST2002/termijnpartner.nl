@@ -296,7 +296,8 @@ h1 em, h2 em, .font-display em {
   margin: 0 auto;
 }
 
-.missie-photo .photo-bg {
+.missie-photo .photo-bg,
+.plain-photo .photo-bg {
   filter: none;
 }
 
@@ -306,7 +307,7 @@ h1 em, h2 em, .font-display em {
   }
 
   .photo-bg-oplossing {
-    background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80&auto=format');
+    background-image: url('oplossing-maandbedrag.jpg');
   }
 }
 
