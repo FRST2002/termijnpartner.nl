@@ -1453,3 +1453,12 @@ a.whatsapp-float svg {
     padding-bottom: 2.75rem;
   }
 }
+
+/* Mobiel: blokken staan direct stil in beeld, alleen de hero bovenaan fadet nog in. */
+@media (max-width: 1023px) {
+  .reveal:not(#hero .reveal) {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
