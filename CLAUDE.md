@@ -15,8 +15,8 @@ Marketingsite van **TermijnPartner** (https://termijnpartner.nl): een platform w
 
 ## Werkafspraken (belangrijk)
 
-- **Pushen alleen na expliciete opdracht** ("push"). Elke push naar `main` gaat live. Niet pushen "omdat het klaar is".
-- Na een wijziging eerst laten zien wat er veranderd is en vragen: "Zal ik pushen?".
+- **Altijd direct pushen** (op verzoek van Freek): na elke doorgevoerde wijziging meteen committen en pushen naar `main`, zonder eerst "Zal ik pushen?" te vragen. Elke push gaat live, dus controleer de wijziging vóór het pushen goed.
+- Laat na het pushen kort zien wat er veranderd is en noem de commit.
 - Vercel deployt **traag**: meestal 3–5 minuten, soms langer. Zeg dus niet "over een minuut live". Controleer eventueel `https://api.github.com/repos/FRST2002/termijnpartner.nl/commits/<sha>/status`.
 - Eindgebruikers zijn ondernemers/installateurs, **geen rekenwonders**: kort, simpel, weinig tekst. Geen jargon, **geen rentes noemen** op de partnerspagina.
 - Noem het bedrijf altijd **"TermijnPartner"**, nooit "wij" of "ons".
