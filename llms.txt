@@ -16,7 +16,6 @@
 - [Homepage](https://termijnpartner.nl/): product overview, pricing (Basis plan + optional add-ons), industries served, FAQ.
 - [Over ons / About](https://termijnpartner.nl/over-ons.html): who TermijnPartner is and why it exists.
 - [Blog](https://termijnpartner.nl/blog.html): articles on installment payments, financing comparisons, AFM/compliance, onboarding speed, and sales psychology.
-- [Privacybeleid / Privacy policy](https://termijnpartner.nl/privacybeleid.html)
 - [Algemene voorwaarden / Terms](https://termijnpartner.nl/algemene-voorwaarden.html)
 - [Disclaimer](https://termijnpartner.nl/disclaimer.html)
 - [Sitemap](https://termijnpartner.nl/sitemap.xml): full list of pages, including industry-specific landing pages (construction, kitchens, bathrooms, car dealers, solar panels, heat pumps, dental practices).

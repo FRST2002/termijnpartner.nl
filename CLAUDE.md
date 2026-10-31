@@ -31,7 +31,7 @@ Marketingsite van **TermijnPartner** (https://termijnpartner.nl): een platform w
 | `index.html` | Homepage |
 | `style.css`, `tailwind-built.css`, `main.js` | Opmaak en gedrag (menu, FAQ, branches-carrousel, scroll-reveal). Tailwind is **vooraf gebouwd**; nieuwe Tailwind-klassen werken dus niet zomaar |
 | `branche-*.html` | Pagina per branche (bouw, keukens, badkamers, auto's, zonnepanelen, warmtepompen, tandartsen) |
-| `blog*.html`, `over-ons.html`, `privacybeleid.html`, `algemene-voorwaarden.html`, `disclaimer.html` | Overige pagina's |
+| `blog*.html`, `over-ons.html`, `algemene-voorwaarden.html` (versie 1.0, 30-10-2026; er is nog geen privacybeleid, die pagina is op verzoek weggehaald), `disclaimer.html` | Overige pagina's |
 | `partners.html` | **Rekenmodel voor partners/ondernemers** (zie hieronder) |
 | `marketing.html` | Interne presentatie voor een marketingpartner (zie hieronder) |
 | `intern.html` | Interne scenario-/partnercalculator (verdienmodel). Staat op `/intern`, **niet beveiligd**, wel met `noindex`-header. Op uitdrukkelijk verzoek van Freek live gezet; wijzig of verspreid de inhoud niet zonder overleg |
@@ -43,7 +43,7 @@ Marketingsite van **TermijnPartner** (https://termijnpartner.nl): een platform w
 `lib/markdown-content.mjs` bevat een **kopie van de paginatekst** voor AI-crawlers. Verander je tekst in een HTML-pagina (bijv. prijzen), pas dan **ook** dat bestand aan, anders spreken de twee elkaar tegen. Controleer na bewerken met `node --check lib/markdown-content.mjs`.
 
 ### Routes (`vercel.json`)
-`/about` → over-ons, `/privacy` → privacybeleid, `/marketing` → `marketing.html`, `/partners` → `partners.html`.
+`/about` → over-ons, `/marketing` → `marketing.html`, `/partners` → `partners.html`.
 `/intern` → `intern.html` (met `X-Robots-Tag: noindex`), `/partners` → `partners.html` (ook `/partners.html` werkt nog). Een redirect van `.html` naar `/partners` is bewust niet ingesteld om een redirect-lus te vermijden; eerst testen als dat gewenst is.
 
 ## Wachtwoord op /partners, /marketing en /intern
