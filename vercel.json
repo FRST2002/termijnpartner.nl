@@ -7,6 +7,10 @@
       "destination": "/over-ons.html"
     },
     {
+      "source": "/privacy",
+      "destination": "/privacybeleid.html"
+    },
+    {
       "source": "/marketing",
       "destination": "/marketing.html"
     },
