@@ -21,6 +21,10 @@
     {
       "source": "/intern",
       "destination": "/intern.html"
+    },
+    {
+      "source": "/welkom",
+      "destination": "/welkom.html"
     }
   ],
   "headers": [
@@ -35,6 +39,15 @@
     },
     {
       "source": "/intern.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/welkom",
       "headers": [
         {
           "key": "X-Robots-Tag",
