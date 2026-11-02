@@ -32,6 +32,8 @@ Marketingsite van **TermijnPartner** (https://termijnpartner.nl): een platform w
 | `style.css`, `tailwind-built.css`, `main.js` | Opmaak en gedrag (menu, FAQ, branches-carrousel, scroll-reveal). Tailwind is **vooraf gebouwd**; nieuwe Tailwind-klassen werken dus niet zomaar |
 | `branche-*.html` | Pagina per branche (bouw, keukens, badkamers, auto's, zonnepanelen, warmtepompen, tandartsen) |
 | `blog*.html`, `over-ons.html`, `privacybeleid.html` (31-10-2026, door Claude opgesteld; laten controleren), `algemene-voorwaarden.html` (versie 1.0, 30-10-2026), `disclaimer.html` | Overige pagina's |
+| `welkom.html` | Bedankpagina op `/welkom`, waar Stripe naartoe stuurt na een betaling. `noindex`, staat niet in menu of sitemap |
+| `retourbeleid.html` | Retour- en terugbetalingsbeleid (concept). `noindex`, **nog niet** in footer, sitemap of Markdown-spiegel; wacht op een "go" van Freek. Wel al gekoppeld in Stripe (zie hieronder) |
 | `partners.html` | **Rekenmodel voor partners/ondernemers** (zie hieronder) |
 | `marketing.html` | Interne presentatie voor een marketingpartner (zie hieronder) |
 | `intern.html` | Interne scenario-/partnercalculator (verdienmodel). Staat op `/intern`, **niet beveiligd**, wel met `noindex`-header. Op uitdrukkelijk verzoek van Freek live gezet; wijzig of verspreid de inhoud niet zonder overleg |
@@ -43,7 +45,7 @@ Marketingsite van **TermijnPartner** (https://termijnpartner.nl): een platform w
 `lib/markdown-content.mjs` bevat een **kopie van de paginatekst** voor AI-crawlers. Verander je tekst in een HTML-pagina (bijv. prijzen), pas dan **ook** dat bestand aan, anders spreken de twee elkaar tegen. Controleer na bewerken met `node --check lib/markdown-content.mjs`.
 
 ### Routes (`vercel.json`)
-`/about` → over-ons, `/privacy` → privacybeleid, `/marketing` → `marketing.html`, `/partners` → `partners.html`.
+`/about` → over-ons, `/privacy` → privacybeleid, `/welkom` → `welkom.html` (met `X-Robots-Tag: noindex`), `/marketing` → `marketing.html`, `/partners` → `partners.html`.
 `/intern` → `intern.html` (met `X-Robots-Tag: noindex`), `/partners` → `partners.html` (ook `/partners.html` werkt nog). Een redirect van `.html` naar `/partners` is bewust niet ingesteld om een redirect-lus te vermijden; eerst testen als dat gewenst is.
 
 ## Wachtwoord op /partners, /marketing en /intern
@@ -93,7 +95,34 @@ Overweeg een `noindex`-header of de repo/pagina privé te maken als de inhoud ni
 
 - Branches-carrousel (`main.js`): **prijzen weggehaald** (orderwaarde en "vanaf €x p/m"); alleen branche, foto en USP's blijven.
 - "Vanaf €99 per maand" weggehaald uit de intro bij "Hoe werken termijnbetalingen", de lijst "Betalen in termijnen", de Rolex-casus en de vergelijkingen (vervangen door "Een laag maandbedrag").
+- Voorbeeldblokken: "Vanaf €85 per maand" (€15.000) en "Vanaf €55 per maand" (€10.000). Roley-kaart: "+200% groei".
+- Overal "gratis" weg: alle knoppen heten **"Plan een demo"**; "Gratis & vrijblijvend" is "Exclusief voor ondernemers".
+- "Let op! Geld lenen kost geld" is op uitdrukkelijk verzoek van Freek van **alle** pagina's gehaald (de ondernemer leent zelf niet). Niet terugzetten.
+- "Geld vooraf" bij de 100%-vermeldingen.
+- Agenda (LeadConnector-iframe): **geen `loading="lazy"`** gebruiken (dan laadt de widget soms niet). Na 8 seconden verschijnt een reservelink als de agenda niet zichtbaar is. De widget werkt alleen op het echte domein, niet lokaal.
+- `style.css`: op desktop krijgen twee witte secties onder elkaar minder tussenruimte (`section.bg-white + section.bg-white`). CSS wordt geladen met `?v=11`; verhoog dat nummer na een CSS-wijziging.
 - Nog **wel** aanwezig: voorbeeldbedragen (€15.000 / €10.000), pakketprijs (€300 p/m), en "vanaf €…" op de branchepagina's auto's, badkamers, bouw, keukens, warmtepompen, plus teksten op tandartsen/zonnepanelen en in twee blogs. Pas alleen aan als Freek dat vraagt.
+
+## Juridische pagina's
+
+- `algemene-voorwaarden.html`: tekst van Freek (versie 1.0, 30-10-2026), letterlijk overgenomen.
+- `privacybeleid.html`: door Claude opgesteld (31-10-2026). Er staat nog geen vestigingsadres in; laat het juridisch controleren.
+- `retourbeleid.html`: door Claude opgesteld. Streng, maar binnen de wet: alleen voor zakelijke klanten (B2B), dus geen 14 dagen bedenktijd. Geen terugbetaling van abonnement of vergoedingen, behalve bij een fout van TermijnPartner. Bij storneren blijft het bedrag verschuldigd.
+- Lange juridische pagina's hebben **geen `reveal`**-klasse op de inhoud: die haalt de zichtbaarheidsdrempel niet en blijft dan onzichtbaar.
+
+## Stripe (betalingen, buiten deze repo)
+
+- Het live account is actief (niet meer in sandbox). Abonnement "CRM & Finance": **€ 1.500 per maand excl. btw** via **SEPA-incasso**. Er zijn geen opstartkosten. De btw (21%) berekent Stripe Tax.
+- Transactievergoedingen zet Freek **per deal handmatig** in Stripe; die worden betaald via iDEAL.
+- Betaallink: https://buy.stripe.com/cNifZg6SMe7G1fv0jR3sI00. Na betalen gaat de klant naar `/welkom`.
+- Op de link worden alleen e-mail en bedrijfsnaam gevraagd: geen btw-nummer en geen telefoon, zodat betalen zo makkelijk mogelijk is. Er is een vinkje voor de algemene voorwaarden.
+- Onder de knop staat een korte tekst over de incasso en de opzegging na 3 maanden.
+- In de checkout-footer staan links naar Juridisch (AV en privacy) en Retouren (`retourbeleid.html`).
+- **Nooit** API-sleutels in de repo of in bestanden zetten. Werk alleen met een tijdelijke beperkte sleutel (`rk_live`) en laat Freek die daarna verwijderen.
+- Open punten:
+  - `partners.html` en de tekst hierboven noemen nog € 1.000 per maand.
+  - De AV noemen 7 dagen betaaltermijn, Stripe-facturen 14.
+  - Het telefoonnummer in Stripe wijkt af van dat op de site.
 
 ## Feiten over het product (uit de site, niet verzinnen)
 
