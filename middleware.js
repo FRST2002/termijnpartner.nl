@@ -39,7 +39,7 @@ const PROTECTED_PATHS = new Set([
   '/marketing', '/marketing.html',
   '/intern', '/intern.html',
 ]);
-const DEFAULT_PASSWORD_HASH = 'a6006e38a3ea45ba052049c9d562eda6e91a8556b0775c716cc53967e65ef9df';
+const DEFAULT_PASSWORD_HASH = '1cab9d3839cba833fba50d6d1a816d99720240737c09b6a83e218ae05f66ccdd';
 const AUTH_COOKIE = 'tp_auth';
 const AUTH_MAX_AGE = 60 * 60 * 24; // 24 uur
 
