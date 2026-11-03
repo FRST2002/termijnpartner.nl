@@ -105,7 +105,7 @@ Overweeg een `noindex`-header of de repo/pagina privé te maken als de inhoud ni
 
 ## Juridische pagina's
 
-- `algemene-voorwaarden.html`: tekst van Freek (versie 1.0, 30-10-2026), letterlijk overgenomen.
+- `algemene-voorwaarden.html`: tekst van Freek (versie 1.0, 30-10-2026), letterlijk overgenomen. Op 03-11-2026 is op verzoek van Freek **Artikel 32** toegevoegd (aanmelding via de Stripe-betaallink, minimaal 3 maanden vast, daarna opzeggen, anders automatische incasso), met `id="betaallink"` zodat je ernaar kunt linken (`algemene-voorwaarden.html#betaallink`). De bestaande artikelen zijn niet aangeraakt; ook de Markdown-spiegel is bijgewerkt. Het versienummer en de datum bovenaan (1.0, 30-10-2026) zijn bewust **niet** aangepast; bespreek met Freek of dat 1.1 moet worden. Let op: Artikel 17.5 geeft ook ná de 3 maanden nog **1 maand opzegtermijn** (zo staat het ook in het retourbeleid).
 - `privacybeleid.html`: door Claude opgesteld (31-10-2026). Er staat nog geen vestigingsadres in; laat het juridisch controleren.
 - `retourbeleid.html`: door Claude opgesteld. Streng, maar binnen de wet: alleen voor zakelijke klanten (B2B), dus geen 14 dagen bedenktijd. Geen terugbetaling van abonnement of vergoedingen, behalve bij een fout van TermijnPartner. Bij storneren blijft het bedrag verschuldigd.
 - Lange juridische pagina's hebben **geen `reveal`**-klasse op de inhoud: die haalt de zichtbaarheidsdrempel niet en blijft dan onzichtbaar.
