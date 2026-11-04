@@ -96,10 +96,12 @@ Overweeg een `noindex`-header of de repo/pagina privé te maken als de inhoud ni
 - Branches-carrousel (`main.js`): **prijzen weggehaald** (orderwaarde en "vanaf €x p/m"); alleen branche, foto en USP's blijven.
 - "Vanaf €99 per maand" weggehaald uit de intro bij "Hoe werken termijnbetalingen", de lijst "Betalen in termijnen", de Rolex-casus en de vergelijkingen (vervangen door "Een laag maandbedrag").
 - Voorbeeldblokken: "Vanaf €85 per maand" (€15.000) en "Vanaf €55 per maand" (€10.000). Roley-kaart: "+200% groei".
-- Overal "gratis" weg: alle knoppen heten **"Plan een demo"**; "Gratis & vrijblijvend" is "Exclusief voor ondernemers".
+- Overal "gratis" weg; "Gratis & vrijblijvend" is "Exclusief voor ondernemers".
+- **Demo-knoppen (04-11-2026, op verzoek van Freek):** er wordt geen demo meer via de website ingepland, want het salesteam belt zelf. Alle knoppen heten nu **"Vraag informatie aan"** en openen het aanvraagformulier `https://api.leadconnectorhq.com/widget/form/bYDlvExK6tucU9AsZyhD` (LeadConnector). De oude agenda (booking-widget `.../widget/booking/9FMYDV2YsBBCcbMCHCcm`) is overal weggehaald; **niet terugzetten**. De knoppen "Ontdek wat jouw lijst oplevert" hebben hun tekst behouden maar openen ook het formulier. Nieuwe knop? Gebruik dezelfde tekst en link.
+- Bewust **niet** aangepast (alleen knoppen en agenda zijn gewijzigd): lopende teksten met het woord "demo" (blog-CTA's "Plan een vrijblijvende demo…", "Stap 1: Plan een demo" in `blog-hoe-snel-starten.html`, de eyebrow "Demo" en "Persoonlijke demo" in de formuliersectie op de homepage, de privacytekst over "demo plannen"). Bespreek met Freek of die ook moeten worden aangepast. Let op: onderaan de homepage-footer staat een restant "Plan een demo in op de documenten te ontvangen" (`href="#"`); dat is waarschijnlijk een foutje.
 - "Let op! Geld lenen kost geld" is op uitdrukkelijk verzoek van Freek van **alle** pagina's gehaald (de ondernemer leent zelf niet). Niet terugzetten.
 - "Geld vooraf" bij de 100%-vermeldingen.
-- Agenda (LeadConnector-iframe): **geen `loading="lazy"`** gebruiken (dan laadt de widget soms niet). Na 8 seconden verschijnt een reservelink als de agenda niet zichtbaar is. De widget werkt alleen op het echte domein, niet lokaal.
+- Formulier (LeadConnector-iframe, in de sectie `#contact` van de homepage, voorheen de agenda): **geen `loading="lazy"`** gebruiken (dan laadt de widget soms niet). Het iframe heeft `id="inline-bYDlvExK6tucU9AsZyhD"` en `form_embed.js` zorgt voor de hoogte. Na 8 seconden verschijnt een reservelink (`#form-fallback`) als het formulier niet zichtbaar is. De widget werkt alleen op het echte domein, niet lokaal.
 - `style.css`: op desktop krijgen twee witte secties onder elkaar minder tussenruimte (`section.bg-white + section.bg-white`). CSS wordt geladen met `?v=11`; verhoog dat nummer na een CSS-wijziging.
 - Nog **wel** aanwezig: voorbeeldbedragen (€15.000 / €10.000), pakketprijs (€300 p/m), en "vanaf €…" op de branchepagina's auto's, badkamers, bouw, keukens, warmtepompen, plus teksten op tandartsen/zonnepanelen en in twee blogs. Pas alleen aan als Freek dat vraagt.
 
@@ -129,7 +131,7 @@ Overweeg een `noindex`-header of de repo/pagina privé te maken als de inhoud ni
 - Klant kiest zelf maandbedrag en looptijd; **tot 180 maanden**, maximum verschilt per branche. Aanbetaling is optioneel.
 - Het bedrijf krijgt **100% van het bedrag vooraf**; de klant betaalt terug aan de financieringspartner.
 - Rente verschilt per klant en wordt door de financieringspartner vooraf besproken. TermijnPartner zelf verstrekt het krediet niet.
-- Demo boeken en WhatsApp-links staan in de header/CTA's van de pagina's; hergebruik die zoals ze er staan.
+- De knop "Vraag informatie aan" (aanvraagformulier) en de WhatsApp-links staan in de header/CTA's van de pagina's; hergebruik die zoals ze er staan.
 
 ## Techniek en valkuilen
 
