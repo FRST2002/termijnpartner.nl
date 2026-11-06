@@ -105,7 +105,7 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
 <body>
 <header>
   <div class="logo">Termijn<span>Partner</span></div>
-  <div class="tag">Dakkapel configurator &middot; eerste versie</div>
+  <div class="tag">Dakkapel configurator &middot; eerste versie</div><div class="tag" id="adTag" style="display:none;color:#a67d22">Beheer</div>
 </header>
 <main>
   <section id="stage">
@@ -223,6 +223,21 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
       </div>
     </div>
     <div id="done"><h2>Bedankt!</h2><p>We nemen snel contact met je op over je offerte.</p><button class="cta" id="close">Sluiten</button></div>
+  </div>
+</dialog>
+
+<dialog id="adlg">
+  <div class="dlg">
+    <h2>Offerte opslaan</h2>
+    <div style="font-size:14px;margin-bottom:10px">Totaal incl. btw: <b id="atot"></b></div>
+    <input type="text" id="afn" placeholder="Naam klant"><input type="email" id="afe" placeholder="E-mailadres"><input type="tel" id="afp" placeholder="Telefoonnummer">
+    <span class="flbl">Korting of toeslag (in &euro;, korting met min)</span>
+    <div class="row" style="margin:0 0 10px"><input type="text" id="aadjL" placeholder="Omschrijving" style="margin:0"><input type="text" id="aadj" inputmode="decimal" placeholder="-250" style="margin:0;max-width:110px"></div>
+    <span class="flbl">Opmerking voor de klant</span>
+    <textarea id="anote" style="width:100%;font:500 14px Manrope;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;min-height:70px;margin-bottom:10px"></textarea>
+    <div id="aerr" style="font-size:13px;font-weight:600;margin-bottom:8px"></div>
+    <div id="alink" style="display:none;margin-bottom:10px"><span class="flbl">Link voor de klant</span><div class="row" style="margin:0"><input type="text" id="alinkv" readonly style="margin:0"><button class="ghost" id="acopy" type="button" style="white-space:nowrap">Kopieer link</button></div><a id="alinko" target="_blank" style="font-size:13px;font-weight:700;color:#a67d22">Bekijk offerte &rarr;</a></div>
+    <div class="row"><button class="ghost" id="aclose" type="button">Sluiten</button><button class="ghost" id="asave" type="button" style="flex:1">Opslaan (concept)</button><button class="cta" id="arel" type="button" style="flex:1.4">Vrijgeven aan klant</button></div>
   </div>
 </dialog>
 
@@ -950,17 +965,100 @@ $('send').onclick = async () => {
   if (!birth || birth > new Date().toISOString().slice(0, 10)) { alert('Vul een geldige geboortedatum in.'); return; }
   if (!sex) { alert('Kies man of vrouw.'); return; }
   const { lines, total } = summaryText();
-  const payload = { name, email, phone, birthdate: birth, gender: sex, income: incVals(), incomeLabels: incVals().map(v => INCTXT[v]), total, timing: whenVal(), timingLabel: WHENTXT[whenVal()], payment: payVal(), paymentLabel: PAYTXT[payVal()], monthlyFrom: Math.round(monthly() * 100) / 100, config: { ...S, material: CONFIG.materials[S.mat].label, claddingColor: COLORS.cladding[S.col].n, frameColor: COLORS.frame[S.frame].n }, lines, screenshot: renderer.domElement.toDataURL('image/jpeg', 0.7) };
-  if (CONFIG.webhookUrl) {
-    try { await fetch(CONFIG.webhookUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); }
-    catch { alert('Versturen mislukt. Probeer het later opnieuw.'); return; }
-  } else console.log('Offerte-aanvraag (geen webhook ingesteld):', payload);
+  const payload = {
+    customer: { name, email, phone, birthdate: birth, gender: sex, income: incVals(), incomeLabels: incVals().map(v => INCTXT[v]) },
+    timing: whenVal(), timingLabel: WHENTXT[whenVal()], payment: payVal(), paymentLabel: PAYTXT[payVal()],
+    config: cfgSnapshot(), lines, total, shots: captureShots(),
+  };
+  $('send').disabled = true;
+  try {
+    const r = await fetch('/api/quote', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || 'Mislukt');
+  } catch (e) {
+    $('send').disabled = false;
+    if (location.protocol === 'file:') console.log('Offerte-aanvraag (lokaal, geen server):', payload);
+    else { alert('Versturen mislukt. Probeer het later opnieuw.'); return; }
+  }
+  $('send').disabled = false;
   showStep('done');
 };
+
+
+/* ---------- offerte-helpers + beheer (TermijnPartner) ---------- */
+function cfgSnapshot() { return { ...S, material: CONFIG.materials[S.mat].label, claddingColor: COLORS.cladding[S.col].n, frameColor: COLORS.frame[S.frame].n }; }
+function captureShots() {
+  const keep = curView.slice(), out = [];
+  const full = S.face === 'back' ? -1 : 1;
+  for (const v of ['angle', 'front']) { views(v, full, true); renderer.render(scene, camera); out.push(renderer.domElement.toDataURL('image/jpeg', 0.72)); }
+  views(keep[0], keep[1], true); renderer.render(scene, camera);
+  return out;
+}
+const QP = new URLSearchParams(location.search);
+const ADM = { id: QP.get('edit'), on: QP.has('edit') || QP.has('admin'), key: '', q: null };
+function loadConfig(c) {
+  for (const k of Object.keys(S)) if (c[k] !== undefined) S[k] = c[k];
+  $('w').value = S.w;
+  for (const [id, k] of [['xRol', 'rol'], ['xVent', 'vent'], ['xIso', 'iso'], ['xHor', 'hor'], ['xAir', 'ac']]) $(id).checked = !!S[k];
+  sync(); buildDormer(); views('angle', S.face === 'back' ? -1 : 1, true);
+}
+async function api(method, qs, body) {
+  const r = await fetch('/api/quote' + qs, { method, headers: { 'Content-Type': 'application/json', 'x-admin-key': ADM.key }, body: body ? JSON.stringify(body) : undefined });
+  const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(j.error || 'Mislukt'); return j;
+}
+async function initAdmin() {
+  try { ADM.key = sessionStorage.getItem('tpk') || ''; } catch { }
+  for (let tries = 0; tries < 3; tries++) {
+    if (!ADM.key) { ADM.key = prompt('Beheerwachtwoord TermijnPartner:') || ''; if (!ADM.key) return alert('Geen toegang.'); }
+    try {
+      if (ADM.id) { ADM.q = await api('GET', `?id=${ADM.id}&admin=1`); }
+      else await api('GET', '?list=1');
+      try { sessionStorage.setItem('tpk', ADM.key); } catch { }
+      break;
+    } catch (e) { if (/toegang/i.test(e.message)) { ADM.key = ''; try { sessionStorage.removeItem('tpk'); } catch { } if (tries === 2) return alert('Onjuist wachtwoord.'); } else return alert(e.message); }
+  }
+  $('cta').textContent = ADM.id ? 'Offerte bewerken & opslaan' : 'Nieuwe offerte opslaan';
+  $('cta').onclick = openAdm;
+  $('adTag').style.display = '';
+  if (ADM.q) {
+    loadConfig(ADM.q.config || {});
+    $('afn').value = ADM.q.customer?.name || ''; $('afe').value = ADM.q.customer?.email || ''; $('afp').value = ADM.q.customer?.phone || '';
+    if (ADM.q.adjust) { $('aadjL').value = ADM.q.adjust.label || ''; $('aadj').value = ADM.q.adjust.amount || ''; }
+    $('anote').value = ADM.q.note || '';
+    $('adTag').textContent = `${ADM.q.nummer} · ${ADM.q.status} · v${ADM.q.version}`;
+  }
+}
+function admCalc() {
+  const { lines, total } = calc(); const amt = parseFloat(String($('aadj').value).replace(',', '.')) || 0;
+  const L = lines.slice(); if (amt) L.push([$('aadjL').value.trim() || (amt < 0 ? 'Korting' : 'Toeslag'), amt]);
+  return { lines: L, total: total + amt, adjust: amt ? { label: $('aadjL').value.trim(), amount: amt } : null };
+}
+function openAdm() { const c = admCalc(); $('atot').textContent = eur(c.total); $('alink').style.display = 'none'; $('aerr').textContent = ''; $('adlg').showModal(); }
+['aadj', 'aadjL'].forEach(id => $(id).oninput = () => { $('atot').textContent = eur(admCalc().total); });
+$('aclose').onclick = () => $('adlg').close();
+async function admSave(release) {
+  const name = $('afn').value.trim(), email = $('afe').value.trim();
+  if (!name || !/^\S+@\S+\.\S+$/.test(email)) { $('aerr').textContent = 'Vul naam en geldig e-mailadres in.'; return; }
+  const c = admCalc(); $('aerr').textContent = 'Opslaan…';
+  const body = { customer: { name, email, phone: $('afp').value.trim() }, config: cfgSnapshot(), lines: c.lines, total: c.total, adjust: c.adjust, note: $('anote').value, shots: captureShots(), status: release ? 'verstuurd' : (ADM.q ? ADM.q.status : 'concept') };
+  try {
+    let j;
+    if (ADM.id) j = await api('PUT', `?id=${ADM.id}`, body);
+    else { j = await api('POST', '', body); ADM.id = j.id; history.replaceState(null, '', `?edit=${j.id}`); }
+    ADM.q = await api('GET', `?id=${ADM.id}&admin=1`);
+    $('adTag').textContent = `${ADM.q.nummer} · ${ADM.q.status} · v${ADM.q.version}`;
+    const link = `${location.origin}/offerte?id=${ADM.id}`;
+    $('alinkv').value = link; $('alinko').href = link; $('alink').style.display = '';
+    $('aerr').textContent = (release ? 'Vrijgegeven aan klant. ' : 'Opgeslagen. ') + (j.ghlError ? 'Let op: GoHighLevel gaf een fout.' : 'GoHighLevel bijgewerkt.');
+  } catch (e) { $('aerr').textContent = e.message; }
+}
+$('asave').onclick = () => admSave(false);
+$('arel').onclick = () => admSave(true);
+$('acopy').onclick = () => { $('alinkv').select(); navigator.clipboard?.writeText($('alinkv').value); $('acopy').textContent = 'Gekopieerd'; setTimeout(() => $('acopy').textContent = 'Kopieer link', 1500); };
 
 /* ---------- start ---------- */
 sync(); buildDormer();
 $('loading').remove();
+if (ADM.on) initAdmin();
 (function loop() { stepTween(); camera.lookAt(controls.target); renderer.render(scene, camera); requestAnimationFrame(loop); })();
 </script>
 </body>

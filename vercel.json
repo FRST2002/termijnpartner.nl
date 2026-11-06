@@ -29,6 +29,10 @@
     {
       "source": "/dakkapel-config",
       "destination": "/dakkapel-config.html"
+    },
+    {
+      "source": "/offerte",
+      "destination": "/offerte.html"
     }
   ],
   "headers": [
@@ -61,6 +65,15 @@
     },
     {
       "source": "/dakkapel-config",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/offerte",
       "headers": [
         {
           "key": "X-Robots-Tag",
