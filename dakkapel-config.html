@@ -1,0 +1,950 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dakkapel configurator | TermijnPartner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#111111; --ink:#1C1B19; --gold:#C9972B; --gold-light:#d4a84a; --gold-dark:#a67d22;
+  --paper:#FAF7F1; --white:#fff; --grey:#3A3733; --line:#e6dfd0;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{font-family:Manrope,system-ui,sans-serif;color:var(--grey);background:var(--paper);display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+header{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:var(--white);border-bottom:1px solid var(--line)}
+.logo{font-weight:800;font-size:22px;letter-spacing:-.02em;color:var(--black)}
+.logo span{color:var(--gold)}
+header .tag{font-size:13px;font-weight:600;color:var(--grey)}
+main{flex:1;display:grid;grid-template-columns:1fr 400px;min-height:0}
+#stage{position:relative;min-height:380px;background:linear-gradient(#bcd3e6,#bcd3e6)}
+#c{width:100%;height:100%;display:block;outline:none;touch-action:auto}
+.hint{position:absolute;left:16px;bottom:14px;font-size:12px;font-weight:600;background:rgba(255,255,255,.85);padding:6px 12px;border-radius:99px;color:var(--grey)}
+.views{position:absolute;left:16px;top:14px;display:flex;gap:6px}
+.views button{font:600 12px Manrope;border:1px solid var(--line);background:rgba(255,255,255,.9);padding:7px 12px;border-radius:99px;cursor:pointer;color:var(--ink)}
+.views button:hover{border-color:var(--gold)}
+#loading{position:absolute;inset:0;display:grid;place-items:center;font-weight:700;color:var(--gold-dark)}
+aside{background:var(--white);border-left:1px solid var(--line);overflow-y:auto;display:flex;flex-direction:column}
+.panel{padding:20px 24px;flex:1}
+h1{font:600 26px Fraunces,serif;color:var(--black);margin:0 0 4px;letter-spacing:-.01em}
+.sub{margin:0 0 18px;font-size:14px}
+.grp{padding:14px 0;border-top:1px solid var(--line)}
+.grp>label,.lbl{display:flex;justify-content:space-between;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:10px}
+.lbl b{color:var(--gold-dark);letter-spacing:0;text-transform:none;font-size:14px}
+input[type=range]{width:100%;accent-color:var(--gold)}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opt{flex:1;min-width:76px;font:600 13px Manrope;padding:10px 8px;border:1.5px solid var(--line);background:var(--white);border-radius:10px;cursor:pointer;color:var(--ink);text-align:center}
+.opt small{display:block;font-weight:500;color:#7a7468;font-size:11px;margin-top:2px}
+.opt:hover{border-color:var(--gold-light)}
+.opt.on{border-color:var(--gold);background:#fbf3df}
+.sw{display:flex;gap:10px}
+.sw button{width:36px;height:36px;border-radius:50%;border:2px solid var(--white);box-shadow:0 0 0 1.5px var(--line);cursor:pointer;padding:0}
+.sw button.on{box-shadow:0 0 0 2.5px var(--gold)}
+.tog{display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:600;color:var(--ink);padding:6px 0}
+.tog small{color:#7a7468;font-weight:500}
+.tog input{width:20px;height:20px;accent-color:var(--gold)}
+.summary{border-top:1px solid var(--line);background:var(--paper);padding:18px 24px 22px;position:sticky;bottom:0}
+.price{display:flex;align-items:baseline;justify-content:space-between}
+.price .big{font:700 32px Fraunces,serif;color:var(--black)}
+.price .mnd{font-size:14px;font-weight:700;color:var(--gold-dark)}
+.note{font-size:12px;color:#7a7468;margin:4px 0 14px}
+.cta{width:100%;font:800 15px Manrope;background:var(--gold);color:var(--black);border:0;border-radius:10px;padding:14px;cursor:pointer;transition:.15s}
+.cta:hover{background:var(--gold-light)}
+dialog{max-height:92vh;overflow:auto;border:0;border-radius:16px;padding:0;max-width:440px;width:92vw;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+dialog::backdrop{background:rgba(17,17,17,.55)}
+.dlg{padding:26px}
+.dlg h2{font:600 24px Fraunces,serif;color:var(--black);margin:0 0 6px}
+.dlg ul{margin:12px 0;padding:12px 16px;background:var(--paper);border-radius:10px;font-size:13px;list-style:none;line-height:1.7}
+.dlg input[type=text],.dlg input[type=email],.dlg input[type=tel]{width:100%;font:500 14px Manrope;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;margin-bottom:10px}
+.dlg input:focus{outline:none;border-color:var(--gold)}
+.dlg .row{display:flex;gap:10px;margin-top:6px}
+.pay{display:block;border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0;cursor:pointer;font-size:14px;font-weight:600;color:var(--ink);position:relative;padding-left:46px}
+.pay input[type=checkbox]{border-radius:6px}
+.seg{display:flex;gap:10px;margin:2px 0 12px}
+.seg label{flex:1;text-align:center;font:600 14px Manrope;border:1.5px solid var(--line);border-radius:10px;padding:11px;cursor:pointer;color:var(--ink)}
+.seg label:has(input:checked){border-color:var(--gold);background:#fbf3df}
+.seg input{display:none}
+.flbl{display:block;font:700 12px Manrope;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);margin:4px 0 6px}
+.dlg input[type=date]{width:100%;font:500 14px Manrope;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;margin-bottom:12px}
+.pay input{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:20px;height:20px;accent-color:var(--gold);margin:0}
+.pay small{display:block;font-weight:500;color:#7a7468;font-size:13px;margin-top:2px}
+.pay:has(input:checked){border-color:var(--gold);background:#fbf3df}
+.dlg .qhead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.badge{font-size:12px;font-weight:700;background:#f0eee9;border-radius:99px;padding:4px 12px;color:var(--grey);white-space:nowrap}
+.ghost{flex:0 0 auto;font:700 14px Manrope;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:0 18px;cursor:pointer}
+#done{display:none;text-align:center;padding:10px 0}
+@media(max-width:900px){
+  main{grid-template-columns:1fr;grid-template-rows:46vh auto}
+  aside{border-left:0;border-top:1px solid var(--line)}
+}
+.viewopt{position:absolute;right:16px;top:14px;display:flex;align-items:center;gap:8px;font:600 12px Manrope;background:rgba(255,255,255,.92);border:1px solid var(--line);padding:7px 12px;border-radius:99px;color:var(--ink);cursor:pointer}
+.viewopt input{accent-color:var(--gold);width:15px;height:15px}
+.tog.dis{opacity:.4}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Termijn<span>Partner</span></div>
+  <div class="tag">Dakkapel configurator &middot; eerste versie</div>
+</header>
+<main>
+  <section id="stage">
+    <canvas id="c"></canvas>
+    <div class="views">
+      <button data-v="front" data-f="1">Voorkant</button>
+      <button data-v="angle">Schuin</button>
+      <button data-v="side">Zijkant</button>
+    </div>
+    <div id="loading">3D-model laden&hellip;</div>
+  </section>
+  <aside>
+    <div class="panel">
+      <h1>Stel je dakkapel samen</h1>
+      <p class="sub">Kies de opties en zie direct het resultaat en een richtprijs.</p>
+
+      <div class="grp">
+        <div class="lbl">Plaatsing dakkapel</div>
+        <div class="opts" id="gFace"></div>
+      </div>
+      <div class="grp">
+        <div class="lbl">Breedte <b id="vW"></b></div>
+        <input type="range" id="w" min="1.5" max="9" step="0.1" value="2.2">
+      </div>
+      <div class="grp">
+        <div class="lbl">Hoogte</div>
+        <div class="opts" id="gH"></div>
+      </div>
+      <div class="grp">
+        <div class="lbl">Aantal ramen</div>
+        <div class="opts" id="gWin"></div>
+      </div>
+      <div class="grp">
+        <div class="lbl">Raamtype</div>
+        <div class="opts" id="gType"></div>
+      </div>
+      <div class="grp">
+        <div class="lbl">Bekleding</div>
+        <div class="opts" id="gMat"></div>
+      </div>
+      <div class="grp">
+        <div class="lbl">Kleur bekleding</div>
+        <div class="sw" id="gCol"></div>
+      </div>
+      <div class="grp">
+        <div class="lbl">Kleur kozijnen</div>
+        <div class="sw" id="gFrame"></div>
+      </div>
+      <div class="grp">
+        <div class="lbl">Extra's</div>
+        <label class="tog"><span>Rolluiken <small>&nbsp;per raam</small></span><input type="checkbox" id="xRol"></label>
+        <label class="tog"><span>Ventilatieroosters</span><input type="checkbox" id="xVent"></label>
+        <label class="tog" id="lHor"><span>Horren in de kiepramen <small>&nbsp;per raam</small></span><input type="checkbox" id="xHor"></label>
+        <label class="tog"><span>Airco-aansluiting <small>&nbsp;buitenunit + leidingkoker</small></span><input type="checkbox" id="xAir"></label>
+        <label class="tog"><span>Extra isolatie (Rc 6,0)</span><input type="checkbox" id="xIso"></label>
+      </div>
+    </div>
+    <div class="summary">
+      <div class="price"><div class="big" id="pTot">&euro; 0</div><div class="mnd" id="pMnd"></div></div>
+      <div class="note">Richtprijs incl. btw, inclusief plaatsing. Maandbedrag bij financiering via TermijnPartner (indicatief).</div>
+      <button class="cta" id="cta">Offerte aanvragen</button>
+    </div>
+  </aside>
+</main>
+
+<dialog id="dlg">
+  <div class="dlg">
+    <div id="whenq">
+      <div class="qhead"><h2>Wanneer moet jouw DroomDakkapel geplaatst worden?</h2><span class="badge">Verplicht</span></div>
+      <label class="pay"><input type="radio" name="when" value="asap">Zo snel mogelijk!</label>
+      <label class="pay"><input type="radio" name="when" value="2-4w">Tussen 2/4 weken</label>
+      <label class="pay"><input type="radio" name="when" value="2m">Binnen 2 maanden</label>
+      <label class="pay"><input type="radio" name="when" value="orient">Ik ben aan het oriënteren</label>
+      <div class="row" style="margin-top:16px">
+        <button class="ghost" id="whenBack" type="button" aria-label="Annuleer">&larr;</button>
+        <button class="cta" id="whenNext" type="button" disabled style="opacity:.5">Volgende &rarr;</button>
+      </div>
+    </div>
+    <div id="payq" style="display:none">
+      <div class="qhead"><h2>Achteraf in termijnen betalen?</h2><span class="badge">Verplicht</span></div>
+      <div style="font-size:14px;margin-bottom:8px">Wil je een offerte ontvangen met de optie om de dakkapel achteraf in termijnen te betalen?</div>
+      <label class="pay"><input type="radio" name="pay" value="termijn">Ja ik wil een offerte voor termijn betalingen ontvangen<small>Vanaf <span id="payM"></span> per maand</small></label>
+      <label class="pay"><input type="radio" name="pay" value="eenmalig">Nee<small>Graag in 1x betalen</small></label>
+      <label class="pay"><input type="radio" name="pay" value="beide">Beide mogelijkheden zijn prima!</label>
+      <div class="row" style="margin-top:16px">
+        <button class="ghost" id="payBack" type="button" aria-label="Terug">&larr;</button>
+        <button class="cta" id="payNext" type="button" disabled style="opacity:.5">Volgende &rarr;</button>
+      </div>
+    </div>
+    <div id="incomeq" style="display:none">
+      <div class="qhead"><h2>Manier van inkomen?</h2><span class="badge">Verplicht</span></div>
+      <label class="pay"><input type="checkbox" name="inc" value="loondienst">Loondienst</label>
+      <label class="pay"><input type="checkbox" name="inc" value="ondernemer">Ondernemer<small>Zzp'er/B.V./Eenmanszaak/V.O.F/Freelancer/etc..</small></label>
+      <label class="pay"><input type="checkbox" name="inc" value="uitkering">Uitkering/ziektewet</label>
+      <label class="pay"><input type="checkbox" name="inc" value="geen">Geen inkomsten</label>
+      <div class="row" style="margin-top:16px">
+        <button class="ghost" id="incBack" type="button" aria-label="Terug">&larr;</button>
+        <button class="cta" id="incNext" type="button" disabled style="opacity:.5">Volgende &rarr;</button>
+      </div>
+    </div>
+    <div id="form" style="display:none">
+      <h2>Offerte aanvragen</h2>
+      <div style="font-size:14px">Je configuratie wordt meegestuurd.</div>
+      <ul id="sum"></ul>
+      <input type="text" id="fn" placeholder="Naam" autocomplete="name">
+      <input type="email" id="fe" placeholder="E-mailadres" autocomplete="email">
+      <input type="tel" id="fp" placeholder="Telefoonnummer" autocomplete="tel">
+      <label class="flbl" for="fb">Geboortedatum</label>
+      <input type="date" id="fb" autocomplete="bday">
+      <span class="flbl">Geslacht</span>
+      <div class="seg"><label><input type="radio" name="sex" value="man">Man</label><label><input type="radio" name="sex" value="vrouw">Vrouw</label></div>
+      <div class="row">
+        <button class="ghost" id="cancel" type="button" aria-label="Terug">&larr;</button>
+        <button class="cta" id="send" type="button">Verstuur aanvraag</button>
+      </div>
+    </div>
+    <div id="done"><h2>Bedankt!</h2><p>We nemen snel contact met je op over je offerte.</p><button class="cta" id="close">Sluiten</button></div>
+  </div>
+</dialog>
+
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+
+/* ============ INSTELLINGEN (per bouwbedrijf aan te passen) ============ */
+const CONFIG = {
+  // Webhook (bijv. GoHighLevel inbound webhook). Leeg = alleen tonen, niets versturen.
+  webhookUrl: '',
+  financeDivisor: 180,          // maandbedrag = prijs / 180 (TermijnPartner)
+  basePrice: 2600,              // basis dakkapel
+  perMeterWidth: 1900,          // per meter breedte
+  perHeightStep: 600,           // per extra meter voorhoogte boven 1,2 m
+  windowPrice: { draai: 480, vast: 260 },
+  rolluikPerWindow: 390,
+  ventPrice: 140,
+  horPerWindow: 95,              // horren in de kiepramen, per draai-kiepraam
+  aircoPrice: 650,               // airco-aansluiting (buitenunit-plek + leidingkoker)
+  isoBase: 300, isoPerMeter: 110,
+  materials: {
+    kunststof: { label: 'Kunststof', perM: 0,   sub: 'standaard' },
+    keralit:   { label: 'Keralit',   perM: 180, sub: '+ per m' },
+    trespa:    { label: 'Trespa',    perM: 380, sub: '+ per m' },
+    zink:      { label: 'Zink',      perM: 260, sub: '+ per m' },
+    hout:      { label: 'Hout',      perM: 340, sub: '+ per m' },
+    alu:       { label: 'Aluminium', perM: 420, sub: '+ per m' },
+  },
+};
+const COLORS = {
+  cladding: [
+    { n: 'Lichtgrijs', c: '#dcdcd9' }, { n: 'Wit', c: '#f2f0ea' }, { n: 'Antraciet', c: '#383c40' }, { n: 'Zwart', c: '#1a1a1a' },
+    { n: 'Zand', c: '#cdbd9c' }, { n: 'Groen', c: '#4d6a55' },
+  ],
+  frame: [
+    { n: 'Wit', c: '#f4f3ef' }, { n: 'Antraciet', c: '#2f3337' }, { n: 'Creme', c: '#e6dcc3' },
+  ],
+};
+/* ====================================================================== */
+
+const S = { w: 2.2, h: 1.75, wins: 2, type: 'draai', mat: 'kunststof', col: 0, frame: 0, rol: false, vent: false, iso: false, hor: false, ac: false, house: true, face: 'front' };
+const $ = id => document.getElementById(id);
+const eur = n => '€ ' + Math.round(n).toLocaleString('nl-NL');
+
+/* ---------- scene ---------- */
+const canvas = $('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio * 1.25, 2.5));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.92;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+const MAXANI = renderer.capabilities.getMaxAnisotropy();
+const scene = new THREE.Scene();
+const FOG = new THREE.Fog('#bcd3e6', 45, 95);
+scene.fog = FOG;
+const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 300);
+const controls = new OrbitControls(camera, canvas);
+controls.enabled = false; controls.enableDamping = false;
+controls.target.set(0, 6.9, 3);
+controls.minDistance = 2.5; controls.maxDistance = 34;
+controls.maxPolarAngle = Math.PI * 0.53;
+
+/* lucht met wolken (ook gebruikt voor reflecties) */
+const skyTex = (() => {
+  const W = 2048, H = 1024, c = document.createElement('canvas'); c.width = W; c.height = H;
+  const g = c.getContext('2d');
+  const grd = g.createLinearGradient(0, 0, 0, H * 0.55);
+  grd.addColorStop(0, '#2f6fb8'); grd.addColorStop(0.55, '#5f9bd6'); grd.addColorStop(1, '#bcd6ee');
+  g.fillStyle = grd; g.fillRect(0, 0, W, H);
+  g.fillStyle = '#cddcea'; g.fillRect(0, H * 0.5, W, H * 0.5);
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for (let k = 0; k < 46; k++) {
+    const cx = rnd() * W, cy = 60 + rnd() * H * 0.36, sc = 0.6 + rnd() * 1.4;
+    for (let i = 0; i < 26; i++) {
+      const x = cx + (rnd() - 0.5) * 220 * sc, y = cy + (rnd() - 0.6) * 46 * sc, r = (28 + rnd() * 52) * sc;
+      const rg = g.createRadialGradient(x, y, 0, x, y, r);
+      rg.addColorStop(0, 'rgba(255,255,255,0.85)'); rg.addColorStop(0.55, 'rgba(255,255,255,0.4)'); rg.addColorStop(1, 'rgba(255,255,255,0)');
+      g.fillStyle = rg; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill();
+    }
+  }
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.mapping = THREE.EquirectangularReflectionMapping; return t;
+})();
+scene.background = skyTex;
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromEquirectangular(skyTex).texture;
+scene.environmentIntensity = 0.8;
+
+scene.add(new THREE.HemisphereLight('#dbe9ff', '#a89c82', 0.15));
+const sun = new THREE.DirectionalLight('#fff1d6', 3.8);
+sun.position.set(11, 17, 12);
+sun.castShadow = true;
+sun.shadow.mapSize.set(4096, 4096);
+Object.assign(sun.shadow.camera, { left: -15, right: 15, top: 15, bottom: -15, near: 1, far: 60 });
+sun.shadow.bias = -0.0003; sun.shadow.normalBias = 0.02; sun.shadow.radius = 3;
+scene.add(sun);
+
+// Echte lucht met wolken (Poly Haven, CC0). Zonrichting wordt uit het beeld gehaald zodat licht en reflecties kloppen.
+const HDR_URL = 'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/2k/kloofendal_48d_partly_cloudy_puresky_2k.hdr';
+new RGBELoader().load(HDR_URL, tx => {
+  tx.mapping = THREE.EquirectangularReflectionMapping;
+  const d = tx.image.data, W = tx.image.width, H = tx.image.height;
+  let best = -1, bi = 0;
+  for (let i = 0; i < W * H; i++) { const v = THREE.DataUtils.fromHalfFloat(d[i * 4]); if (v > best) { best = v; bi = i; } }
+  const sx = bi % W, sy = Math.floor(bi / W);
+  const elev = Math.abs(sy / H - 0.5) * Math.PI, az0 = ((sx + 0.5) / W - 0.5) * 2 * Math.PI;
+  const rot = Math.atan2(0.62, 0.5) - az0;                 // zon schuin voor-rechts, zoals in de voorbeeldfoto
+  scene.backgroundRotation.y = rot; scene.environmentRotation.y = rot;
+  const R = new THREE.Matrix4().makeRotationY(rot);
+  const e = new THREE.Vector3(Math.cos(elev) * Math.cos(az0), Math.sin(elev), Math.cos(elev) * Math.sin(az0)).applyMatrix4(R);
+  sun.position.copy(e.multiplyScalar(26));
+  scene.background = tx;
+  scene.environment = pmrem.fromEquirectangular(tx).texture;
+  scene.environmentIntensity = 0.6;
+  window.__sun = sun.position.clone();
+}, undefined, () => { /* offline: terugval op de procedurele lucht */ });
+
+let viewFace = 1, tween = null;                 // 1 = voorkant woning, -1 = achterkant
+let curView = ['angle', 1];
+function viewTarget(name, face) {
+  const p = { front: [0, 7.0, 13], angle: [3.8, 6.9, 12.6], side: [14, 7.2, 9], detail: [2.2, 6.9, 8.4] }[name];
+  const P = new THREE.Vector3(p[0] * face, p[1], p[2] * face), T = new THREE.Vector3(0, 6.9, 3 * face);
+  // afstand zo kiezen dat de hele dakkapel (plus marge) in beeld past, ook bij 9 m en op smalle schermen
+  const halfV = THREE.MathUtils.degToRad(camera.fov / 2);
+  const need = Math.max(7, (S.w / 2 + 1.2) / (Math.tan(halfV) * Math.max(0.8, camera.aspect)) + 2.5);
+  if (P.distanceTo(T) < need) { const dir = P.clone().sub(T).normalize(); P.copy(T).addScaledVector(dir, need); }
+  return { P, T };
+}
+function views(name, face = viewFace, instant = false) {
+  viewFace = face; curView = [name, face];
+  const { P, T } = viewTarget(name, face);
+  if (instant) { camera.position.copy(P); controls.target.copy(T); tween = null; return; }
+  tween = { t0: performance.now(), dur: 750, p0: camera.position.clone(), tg0: controls.target.clone(), P, T };
+}
+function fitDistance() { views(curView[0], curView[1], true); }
+function stepTween() {
+  if (!tween) return;
+  let k = Math.min(1, (performance.now() - tween.t0) / tween.dur); k = k * k * (3 - 2 * k);
+  camera.position.lerpVectors(tween.p0, tween.P, k); controls.target.lerpVectors(tween.tg0, tween.T, k);
+  if (k >= 1) tween = null;
+}
+function fit() {
+  const r = $('stage').getBoundingClientRect();
+  renderer.setSize(r.width, r.height, false);
+  camera.aspect = r.width / r.height;
+  camera.updateProjectionMatrix();
+}
+addEventListener('resize', () => { fit(); fitDistance(); }); fit();
+
+/* ---------- procedurele texturen (kleur + reliëf als normal map) ---------- */
+function tex(c, rep, srgb = true) {
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = MAXANI;
+  if (srgb) t.colorSpace = THREE.SRGBColorSpace;
+  if (rep) t.repeat.set(rep[0], rep[1]);
+  return t;
+}
+function cv(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
+// hoogtekaart (grijs) -> normal map
+function normalFromHeight(src, strength, rep) {
+  const N = src.width, M = src.height, sd = src.getContext('2d').getImageData(0, 0, N, M).data;
+  const out = cv(N, M), og = out.getContext('2d'), od = og.createImageData(N, M);
+  const H = (x, y) => sd[((((y % M) + M) % M) * N + (((x % N) + N) % N)) * 4] / 255;
+  for (let y = 0; y < M; y++) for (let x = 0; x < N; x++) {
+    const dx = (H(x + 1, y) - H(x - 1, y)) * strength, dy = (H(x, y + 1) - H(x, y - 1)) * strength;
+    const l = Math.hypot(dx, dy, 1), i = (y * N + x) * 4;
+    od.data[i] = (-dx / l * 0.5 + 0.5) * 255; od.data[i + 1] = (dy / l * 0.5 + 0.5) * 255; od.data[i + 2] = (1 / l * 0.5 + 0.5) * 255; od.data[i + 3] = 255;
+  }
+  og.putImageData(od, 0, 0);
+  return tex(out, rep, false);
+}
+
+// S-pannen: glad antraciet geglazuurd, met overlap en golfprofiel
+function tileMaps(rep) {
+  const N = 1024, cols = 8, rows = 7, tw = N / cols, th = N / rows;
+  const col = cv(N, N), hc = cv(N, N);
+  const cg = col.getContext('2d'), hg = hc.getContext('2d');
+  const ci = cg.createImageData(N, N), hi = hg.createImageData(N, N);
+  let seed = 3; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const tint = []; for (let i = 0; i < cols * rows * 2; i++) tint.push(0.8 + rnd() * 0.42);
+  for (let y = 0; y < N; y++) {
+    const row = Math.floor(y / th), v = (y % th) / th;
+    for (let x = 0; x < N; x++) {
+      const xo = x - (row % 2 ? tw / 2 : 0);
+      const tcol = Math.floor(((xo % N) + N) % N / tw);
+      const u = ((xo % tw) + tw) % tw / tw;
+      const s = Math.pow(0.5 - 0.5 * Math.cos(2 * Math.PI * u), 0.8);        // golf
+      const h = s * 0.5 + Math.pow(v, 1.4) * 0.5;                              // overlap: onderkant hoogst
+      const ao = (1 - 0.6 * Math.exp(-v * 14)) * (1 - 0.4 * Math.exp(-u * 36)) * (1 - 0.3 * Math.exp(-(1 - u) * 36));
+      const spec = Math.pow(s, 4) * 20 + (v > 0.88 ? 40 * (v - 0.88) * (v - 0.88) * 60 : 0);   // glans op kam en rand
+      const base = 21 * tint[row * cols + tcol] * (0.55 + 0.9 * h) * ao + spec + (rnd() - 0.5) * 3.5;
+      const i = (y * N + x) * 4;
+      ci.data[i] = base * 0.9; ci.data[i + 1] = base * 0.98; ci.data[i + 2] = base * 1.15; ci.data[i + 3] = 255;
+      const b = h * 255; hi.data[i] = hi.data[i + 1] = hi.data[i + 2] = b; hi.data[i + 3] = 255;
+    }
+  }
+  cg.putImageData(ci, 0, 0); hg.putImageData(hi, 0, 0);
+  return { map: tex(col, rep), normal: normalFromHeight(hc, 22, rep) };
+}
+
+function brickMaps(rep) {
+  const N = 1024, bw = 108, bh = 34;
+  const col = cv(N, N), hc = cv(N, N), g = col.getContext('2d'), b = hc.getContext('2d');
+  g.fillStyle = '#cfc6b6'; g.fillRect(0, 0, N, N);
+  b.fillStyle = '#1a1a1a'; b.fillRect(0, 0, N, N);
+  let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for (let r = 0; r * bh < N; r++) for (let i = -1; i * bw < N + bw; i++) {
+    const x = i * bw + (r % 2 ? bw / 2 : 0), y = r * bh;
+    g.fillStyle = `hsl(${14 + rnd() * 14},${34 + rnd() * 16}%,${38 + rnd() * 16}%)`;
+    g.fillRect(x + 3, y + 3, bw - 6, bh - 6);
+    for (let k = 0; k < 60; k++) {
+      g.fillStyle = `rgba(${rnd() > 0.5 ? '255,235,215' : '60,30,20'},${0.08 + rnd() * 0.12})`;
+      g.fillRect(x + 3 + rnd() * (bw - 8), y + 3 + rnd() * (bh - 8), 2, 2);
+    }
+    b.fillStyle = '#d0d0d0'; b.fillRect(x + 3, y + 3, bw - 6, bh - 6);
+  }
+  return { map: tex(col, rep), normal: normalFromHeight(hc, 1.6, rep) };
+}
+
+function plasterBump(rep) {
+  const N = 256, c = cv(N, N), g = c.getContext('2d'), im = g.createImageData(N, N);
+  for (let i = 0; i < N * N; i++) { const v = 118 + Math.random() * 20; im.data[i * 4] = im.data[i * 4 + 1] = im.data[i * 4 + 2] = v; im.data[i * 4 + 3] = 255; }
+  g.putImageData(im, 0, 0); return tex(c, rep, false);
+}
+function woodMap() {                                      // 1 tegel = 1 m, verticale delen van 12,5 cm
+  const N = 512, c = cv(N, N), g = c.getContext('2d');
+  g.fillStyle = '#9a6b3f'; g.fillRect(0, 0, N, N);
+  for (let i = 0; i < 220; i++) {
+    g.strokeStyle = `rgba(${60 + Math.random() * 50},35,15,${0.06 + Math.random() * 0.16})`;
+    g.lineWidth = 1 + Math.random() * 2.5;
+    const y = Math.random() * N; g.beginPath(); g.moveTo(0, y);
+    g.bezierCurveTo(N / 3, y + Math.random() * 8 - 4, N * 2 / 3, y + Math.random() * 8 - 4, N, y); g.stroke();
+  }
+  g.strokeStyle = 'rgba(0,0,0,.5)'; g.lineWidth = 3;
+  for (let x = 0; x < N; x += 64) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, N); g.stroke(); }
+  return tex(c, [1, 1]);
+}
+// Keralit: horizontale kunststof delen met schaduwnaad (1 tegel = 1 m, 5 delen)
+function keralitMaps() {
+  const N = 512, n = 5, bh = N / n;
+  const col = cv(N, N), hc = cv(N, N), g = col.getContext('2d'), h = hc.getContext('2d');
+  for (let i = 0; i < n; i++) {
+    const y = i * bh;
+    const gr = g.createLinearGradient(0, y, 0, y + bh);
+    gr.addColorStop(0, '#8d8d8d'); gr.addColorStop(0.07, '#d9d9d9'); gr.addColorStop(0.3, '#ffffff'); gr.addColorStop(1, '#efefef');
+    g.fillStyle = gr; g.fillRect(0, y, N, bh);
+    const hg = h.createLinearGradient(0, y, 0, y + bh);
+    hg.addColorStop(0, '#000'); hg.addColorStop(0.07, '#2a2a2a'); hg.addColorStop(0.18, '#a0a0a0'); hg.addColorStop(1, '#e8e8e8');
+    h.fillStyle = hg; h.fillRect(0, y, N, bh);
+  }
+  return { map: tex(col, [1, 1]), normal: normalFromHeight(hc, 5, [1, 1]) };
+}
+// Trespa: vlakke gevelplaten met nette naden (platen van 1 m)
+function trespaMap() {
+  const N = 512, c = cv(N, N), g = c.getContext('2d');
+  const gr = g.createLinearGradient(0, 0, N, N); gr.addColorStop(0, '#ffffff'); gr.addColorStop(1, '#f1f1f1');
+  g.fillStyle = gr; g.fillRect(0, 0, N, N);
+  g.fillStyle = '#6f6f6f'; g.fillRect(0, 0, N, 3); g.fillRect(0, 0, 3, N);
+  g.fillStyle = 'rgba(255,255,255,.7)'; g.fillRect(0, 3, N, 2); g.fillRect(3, 0, 2, N);
+  return tex(c, [1, 1]);
+}
+function zincNormal() {
+  const N = 256, c = cv(N, N), g = c.getContext('2d');
+  for (let y = 0; y < N; y += 32) {
+    const gr = g.createLinearGradient(0, y, 0, y + 32); gr.addColorStop(0, '#111'); gr.addColorStop(0.5, '#fff'); gr.addColorStop(1, '#111');
+    g.fillStyle = gr; g.fillRect(0, y, N, 32);
+  }
+  return normalFromHeight(c, 3, [4, 4]);
+}
+function curtainTex() {
+  const W = 256, H = 256, c = cv(W, H), g = c.getContext('2d'), im = g.createImageData(W, H);
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    const p = 0.5 + 0.5 * Math.sin((x / W) * Math.PI * 2 * 5 + Math.sin(y / 40) * 0.3);
+    const l = 196 + p * 30, i = (y * W + x) * 4;
+    im.data[i] = l; im.data[i + 1] = l - 6; im.data[i + 2] = l - 18; im.data[i + 3] = 215 - (1 - p) * 20;
+  }
+  g.putImageData(im, 0, 0); return tex(c);
+}
+function screenTex() {                                    // fijn horgaas
+  const N = 32, c = cv(N, N), g = c.getContext('2d');
+  g.fillStyle = 'rgba(20,22,24,0.0)'; g.fillRect(0, 0, N, N);
+  g.fillStyle = 'rgba(30,32,34,0.55)'; g.fillRect(0, 0, N, 3); g.fillRect(0, 0, 3, N);
+  const t = tex(c, [60, 60], false); return t;
+}
+
+/* ---------- huis (breedte volgt de dakkapel) ---------- */
+const HD = 8, WALL = 5, PITCH = 0.9;               // diepte, gevelhoogte, helling (tan)
+let HW = 8;                                        // huisbreedte, wordt bij elke wijziging bepaald
+const houseWidth = w => Math.max(6.4, Math.round((w + 1.6) * 10) / 10);   // dakkapel + 0,8 m aan beide kanten
+const RISE = (HD / 2) * PITCH;
+const house = new THREE.Group(); scene.add(house);
+const body = new THREE.Group(); house.add(body);   // alles behalve het dak (kan aan/uit)
+const roofG = new THREE.Group(); house.add(roofG);
+const brickM = brickMaps([1, 2.4]);
+const mWall = new THREE.MeshStandardMaterial({ map: brickM.map, normalMap: brickM.normal, normalScale: new THREE.Vector2(1, 1), roughness: 0.92 });
+const mRoofBase = new THREE.MeshStandardMaterial({ color: '#1c1e21', roughness: 0.7 });
+const mRoofSide = new THREE.MeshStandardMaterial({ color: '#1d1d1c', roughness: 0.7 });
+const mWhite = new THREE.MeshStandardMaterial({ color: '#f1efe9', roughness: 0.5 });
+const sh = m => { m.castShadow = m.receiveShadow = true; return m; };
+
+const grass = (() => {
+  const c = cv(256, 256), g = c.getContext('2d'); g.fillStyle = '#7f9d63'; g.fillRect(0, 0, 256, 256);
+  for (let i = 0; i < 3500; i++) { g.fillStyle = `hsla(${85 + Math.random() * 30},35%,${30 + Math.random() * 25}%,.55)`; g.fillRect(Math.random() * 256, Math.random() * 256, 2, 3); }
+  return tex(c, [24, 24]);
+})();
+const ground = sh(new THREE.Mesh(new THREE.PlaneGeometry(160, 160), new THREE.MeshStandardMaterial({ map: grass, roughness: 1 })));
+ground.rotation.x = -Math.PI / 2; ground.castShadow = false; scene.add(ground);
+
+const slopeLen = Math.hypot(HD / 2, RISE), ang = Math.atan(PITCH), COS = Math.cos(ang), SIN = Math.sin(ang);
+const roofMats = [mRoofSide, mRoofSide, mRoofBase, mRoofSide, mRoofSide, mRoofSide];   // +x,-x,+y(top),-y,+z,-z
+const ridgeM = new THREE.MeshStandardMaterial({ color: '#202120', roughness: 0.28, metalness: 0.2, envMapIntensity: 1.3 });
+const seamM = new THREE.MeshStandardMaterial({ color: '#0c0c0c', roughness: 0.9 });
+const mDecorFrame = new THREE.MeshStandardMaterial({ color: '#f4f3ef', roughness: 0.45 });
+const mGlassDecor = new THREE.MeshStandardMaterial({ color: '#33485a', roughness: 0.04, metalness: 0.35, envMapIntensity: 1.6 });
+const mDoor = new THREE.MeshStandardMaterial({ color: '#2f3337', roughness: .45 });
+
+function tri(x) {
+  const g = new THREE.BufferGeometry();
+  const p = [x, WALL, -HD / 2, x, WALL, HD / 2, x, WALL + RISE, 0];
+  if (x > 0) { [p[0], p[1], p[2], p[3], p[4], p[5]] = [p[3], p[4], p[5], p[0], p[1], p[2]]; }
+  g.setAttribute('position', new THREE.Float32BufferAttribute(p, 3));
+  g.setAttribute('uv', new THREE.Float32BufferAttribute([0, 0, 3, 0, 1.5, 2], 2));
+  g.computeVertexNormals(); return sh(new THREE.Mesh(g, mWall));
+}
+function decorWindow(x, y, w, h, sd = 1) {
+  const f = sh(new THREE.Mesh(new THREE.BoxGeometry(w + 0.16, h + 0.16, 0.14), mDecorFrame)); f.position.set(x, y, sd * (HD / 2 + 0.05));
+  const g = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.16), mGlassDecor); g.position.set(x, y, sd * (HD / 2 + 0.06));
+  body.add(f, g);
+}
+function clearGroup(g) { g.traverse(o => { if (o.geometry) o.geometry.dispose(); }); g.clear(); }
+
+function buildHouse() {
+  clearGroup(body); clearGroup(roofG);
+  // texturen meeschalen met de breedte
+  for (const t of [brickM.map, brickM.normal]) t.repeat.x = HW / 2.4;
+  const walls = sh(new THREE.Mesh(new THREE.BoxGeometry(HW, WALL, HD), mWall)); walls.position.y = WALL / 2; body.add(walls);
+  body.add(tri(-HW / 2 - 0.001), tri(HW / 2 + 0.001));
+  for (const side of [1, -1]) {
+    const m = sh(new THREE.Mesh(new THREE.BoxGeometry(HW + 0.5, 0.12, slopeLen + 0.35), roofMats));
+    m.position.set(0, WALL + RISE / 2 + 0.06, side * (HD / 4 + 0.08));
+    m.rotation.x = side * ang;
+    roofG.add(m);
+  }
+  // nokvorsten: afgeronde, geglazuurde caps met naden
+  const yR = WALL + RISE + 0.17;
+  const ridge = sh(new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, HW + 0.52, 28, 1), ridgeM));
+  ridge.rotation.z = Math.PI / 2; ridge.position.set(0, yR, 0); roofG.add(ridge);
+  for (let x = -HW / 2 + 0.5; x < HW / 2 + 0.25; x += 0.5) {
+    const seam = new THREE.Mesh(new THREE.CylinderGeometry(0.153, 0.153, 0.012, 28), seamM);
+    seam.rotation.z = Math.PI / 2; seam.position.set(x, yR, 0); roofG.add(seam);
+  }
+  // boeiboord, goot en regenpijp (voor- en achterzijde)
+  for (const sd of [1, -1]) {
+    const board = sh(new THREE.Mesh(new THREE.BoxGeometry(HW + 0.5, 0.26, 0.07), mWhite)); board.position.set(0, 4.8, sd * (HD / 2 + 0.28)); roofG.add(board);
+    const gutter = sh(new THREE.Mesh(new THREE.BoxGeometry(HW + 0.5, 0.12, 0.16), mWhite)); gutter.position.set(0, 4.64, sd * (HD / 2 + 0.34)); roofG.add(gutter);
+    const spout = sh(new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 4.6, 20), mWhite)); spout.position.set(sd * (HW / 2 - 0.5), 2.3, sd * (HD / 2 + 0.12)); body.add(spout);
+  }
+  // ramen en deur op de begane grond
+  const wx = Math.max(1.9, HW * 0.3);
+  decorWindow(-wx, 1.7, 1.4, 1.5); decorWindow(wx, 1.7, 1.4, 1.5);
+  decorWindow(-wx, 1.9, 1.4, 1.5, -1); decorWindow(wx, 1.9, 1.4, 1.5, -1); decorWindow(0, 1.9, 1.0, 1.5, -1);
+  const door = sh(new THREE.Mesh(new THREE.BoxGeometry(1.1, 2.3, 0.14), mDoor));
+  door.position.set(0, 1.15, HD / 2 + 0.05); body.add(door);
+}
+/* ---------- dakpannen: echte 3D-geometrie (S-profiel, overlap, afgeronde rand) ---------- */
+const tileGeos = {};
+function makeTileGeo(dir) {
+  const tw = 0.21, tl = 0.3, nx = 14, nz = 10, amp = 0.017, lift = 0.025;
+  const pos = [], idx = [];
+  for (let j = 0; j <= nz; j++) for (let i = 0; i <= nx; i++) {
+    const u = i / nx, v = j / nz;
+    const wave = 0.5 - 0.5 * Math.cos(2 * Math.PI * u) + 0.1 * Math.sin(4 * Math.PI * u);
+    const sm = Math.min(1, Math.max(0, (v - 0.2) / 0.75)), rise = lift * sm * sm * (3 - 2 * sm);
+    pos.push((u - 0.5) * tw, 0.006 + amp * wave * (0.35 + 0.65 * v) + rise, dir * (v - 0.5) * tl);
+  }
+  for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) {
+    const a = j * (nx + 1) + i, b = a + 1, c = a + nx + 1, d = c + 1;
+    if (dir === 1) idx.push(a, c, b, b, c, d); else idx.push(a, b, c, b, d, c);
+  }
+  const s0 = pos.length / 3;                               // dikte van de onderrand
+  for (let i = 0; i <= nx; i++) {
+    const k = (nz * (nx + 1) + i) * 3;
+    pos.push(pos[k], pos[k + 1], pos[k + 2], pos[k], 0, pos[k + 2]);
+  }
+  for (let i = 0; i < nx; i++) {
+    const t0 = s0 + 2 * i, b0 = t0 + 1, t1 = t0 + 2, b1 = t0 + 3;
+    if (dir === 1) idx.push(t0, b0, t1, t1, b0, b1); else idx.push(t0, t1, b0, t1, b1, b0);
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  g.setIndex(idx); g.computeVertexNormals();
+  return g;
+}
+const tileMat = new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.34, metalness: 0.05, envMapIntensity: 0.85 });
+let tilesG = null;
+function buildTiles(w, zb) {
+  if (tilesG) { roofG.remove(tilesG); tilesG.traverse(o => { if (o.isInstancedMesh) o.dispose(); }); }
+  tilesG = new THREE.Group(); roofG.add(tilesG);
+  const L = slopeLen + 0.35, tl = 0.3, pitchZ = 0.215, pitchX = 0.2, halfW = (HW + 0.5) / 2;
+  const rows = Math.floor((L - tl + 0.03) / pitchZ) + 1, cols = Math.ceil((HW + 0.5) / pitchX) + 2;
+  const m = new THREE.Matrix4(), col = new THREE.Color();
+  let seed = 5; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for (const side of [1, -1]) {
+    const slabZ = side * (HD / 4 + 0.08), slabY = WALL + RISE / 2 + 0.06;
+    const cutOn = side === 1 ? S.face !== 'back' : S.face !== 'front';
+    const items = [];
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+      const lz = side * (L / 2 - tl / 2 + 0.03 - r * pitchZ);
+      const x = (c - (cols - 1) / 2) * pitchX + (r % 2 ? pitchX / 2 : 0);
+      if (Math.abs(x) > halfW) continue;
+      const wz = (slabZ + lz * COS) * side;
+      if (cutOn && Math.abs(x) < w / 2 + 0.27 && wz > zb - 0.15 && wz < ZF + 0.44) continue;   // plek voor dakkapel en zink
+      items.push([x, lz]);
+    }
+    if (!tileGeos[side]) tileGeos[side] = makeTileGeo(side);
+    const im = new THREE.InstancedMesh(tileGeos[side], tileMat, items.length);
+    items.forEach(([x, lz], k) => {
+      m.makeTranslation(x, 0.06, lz); im.setMatrixAt(k, m);
+      col.setHSL(0.61, 0.12 + rnd() * 0.05, 0.05 + rnd() * 0.03); im.setColorAt(k, col);
+    });
+    im.castShadow = im.receiveShadow = true;
+    const g = new THREE.Group(); g.position.set(0, slabY, slabZ); g.rotation.x = side * ang; g.add(im);
+    tilesG.add(g);
+  }
+}
+function ensureHouse() { const n = houseWidth(S.w); if (Math.abs(n - HW) > 1e-6 || !body.children.length) { HW = n; buildHouse(); } }
+
+function setHouse(on) { body.visible = on; ground.visible = on; scene.fog = on ? FOG : null; }
+
+/* ---------- dakkapel (parametrisch) ---------- */
+const dormer = new THREE.Group(); house.add(dormer);
+const dormerB = new THREE.Group(); dormerB.rotation.y = Math.PI; house.add(dormerB);   // achterzijde = voorzijde 180 graden gedraaid
+const SURF = 0.19;                                        // bovenkant dakpannen t.o.v. rekenlijn
+const slopeY = z => WALL + (HD / 2 - z) * PITCH + SURF;
+const ZF = 3.05;                                          // voorvlak dakkapel (z)
+const FASC = 0.27;                                        // dikte dakrand
+const WT = 0.16;                                          // wanddikte
+
+const plaster = plasterBump([3, 3]);
+const wood = woodMap(), keralit = keralitMaps(), trespa = trespaMap();
+const mClad = new THREE.MeshStandardMaterial({ roughness: 0.7, side: THREE.DoubleSide, envMapIntensity: 0.6 });
+const mFrame = new THREE.MeshStandardMaterial({ roughness: 0.4, envMapIntensity: 0.7 });
+const mDeck = new THREE.MeshStandardMaterial({ color: '#232523', roughness: 0.5, metalness: 0.35 });
+const mMetal = new THREE.MeshStandardMaterial({ color: '#b9b4a8', metalness: 0.85, roughness: 0.3 });
+const mRol = new THREE.MeshStandardMaterial({ color: '#4a4e53', roughness: 0.5, metalness: 0.35 });
+const mZinc = new THREE.MeshStandardMaterial({ color: '#b4bcc1', metalness: 0.9, roughness: 0.32, normalMap: zincNormal(), normalScale: new THREE.Vector2(1.2, 1.2), envMapIntensity: 1.5 });
+// spiegelglas: reflecteert de lucht, je kunt er niet doorheen kijken
+const mGlass = new THREE.MeshPhysicalMaterial({ color: '#9fb4c4', roughness: 0.03, metalness: 1, clearcoat: 1, clearcoatRoughness: 0.02, envMapIntensity: 1.6 });
+const mRoom = new THREE.MeshBasicMaterial({ color: '#8d8579' });
+const mCurtain = new THREE.MeshBasicMaterial({ map: curtainTex(), transparent: true, side: THREE.DoubleSide });
+const mScreen = new THREE.MeshBasicMaterial({ map: screenTex(), transparent: true, depthWrite: false, side: THREE.DoubleSide });
+const mAC = new THREE.MeshStandardMaterial({ color: '#eceae4', roughness: 0.45 });
+const mACdark = new THREE.MeshStandardMaterial({ color: '#2a2c2e', roughness: 0.6 });
+
+// UV's in meters: texturen (Keralit, Trespa, hout) lopen zo netjes door op elk vlak
+function metricUV(geo) {
+  const { width: w, height: h, depth: d } = geo.parameters;
+  const dims = [[d, h], [d, h], [w, d], [w, d], [w, h], [w, h]];
+  const uv = geo.attributes.uv;
+  for (let f = 0; f < 6; f++) for (let k = 0; k < 4; k++) {
+    const i = f * 4 + k; uv.setXY(i, uv.getX(i) * dims[f][0], uv.getY(i) * dims[f][1]);
+  }
+  return geo;
+}
+function cheek(x, zf, zb, y0, y1) {
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute([x, y0, zf, x, y1, zf, x, y1, zb], 3));
+  g.setAttribute('uv', new THREE.Float32BufferAttribute([0, y0, 0, y1, zf - zb, y1], 2));
+  g.computeVertexNormals(); return sh(new THREE.Mesh(g, mClad));
+}
+function mk(geo, mat, x, y, z, parent = dormer) { const m = sh(new THREE.Mesh(geo, mat)); m.position.set(x, y, z); parent.add(m); return m; }
+const clad = (w, h, d, x, y, z) => mk(metricUV(new THREE.BoxGeometry(w, h, d)), mClad, x, y, z);
+// plaat plat op het dakvlak (zinken loodslab)
+function roofPlate(xc, wid, zA, zB, lift = 0.012) {
+  const zc = (zA + zB) / 2, L = Math.abs(zA - zB) / COS, off = lift + 0.008;
+  const m = mk(metricUV(new THREE.BoxGeometry(wid, 0.016, L)), mZinc, xc, slopeY(zc) + off * COS, zc + off * SIN);
+  m.rotation.x = ang; return m;
+}
+
+function setCladding(mt, hex) {
+  const tint = new THREE.Color(hex);
+  const reset = { map: null, normalMap: null, bumpMap: null };
+  Object.assign(mClad, reset);
+  mClad.color.copy(tint); mClad.metalness = 0; mClad.roughness = 0.72;
+  if (mt === 'kunststof') { mClad.bumpMap = plaster; mClad.bumpScale = 0.5; }
+  else if (mt === 'keralit') { mClad.map = keralit.map; mClad.normalMap = keralit.normal; mClad.normalScale.set(1, 1); mClad.roughness = 0.5; }
+  else if (mt === 'trespa') { mClad.map = trespa; mClad.roughness = 0.34; mClad.metalness = 0.04; }
+  else if (mt === 'hout') { mClad.map = wood; mClad.color.set('#ffffff'); mClad.roughness = 0.8; }
+  else if (mt === 'zink') { mClad.color.lerp(new THREE.Color('#8d949a'), 0.4); mClad.metalness = 0.55; mClad.roughness = 0.42; mClad.bumpMap = plaster; mClad.bumpScale = 0.25; }
+  else if (mt === 'alu') { mClad.metalness = 0.6; mClad.roughness = 0.3; mClad.bumpMap = plaster; mClad.bumpScale = 0.15; }
+  mClad.needsUpdate = true;
+}
+
+function buildAirco(w, y0, hw, yWT) {
+  // buitenunit op de rechterwang, met beugels en een leidingkoker naar de gevel
+  const uh = 0.44, ul = 0.58, ud = 0.27;
+  const bottom = Math.min(y0 + 0.7, yWT - uh - 0.05), cy = bottom + uh / 2;
+  const zA = ZF - 0.72, zc = zA + ul / 2, xc = w / 2 + 0.1 + ud / 2;
+  mk(new THREE.BoxGeometry(ud, uh, ul), mAC, xc, cy, zc);
+  mk(new THREE.BoxGeometry(ud - 0.02, 0.025, ul - 0.02), mAC, xc, cy + uh / 2 + 0.012, zc);   // dekplaat
+  // ventilatorrooster (cirkel met spijlen) aan de zijkant
+  const grille = mk(new THREE.CylinderGeometry(0.17, 0.17, 0.012, 32), mACdark, xc + ud / 2 + 0.004, cy, zc);
+  grille.rotation.z = Math.PI / 2;
+  for (let k = -3; k <= 3; k++) mk(new THREE.BoxGeometry(0.014, 0.012, 0.36), mAC, xc + ud / 2 + 0.012, cy + k * 0.045, zc);
+  for (const z of [zA + 0.1, zA + ul - 0.1]) {
+    mk(new THREE.BoxGeometry(0.1, 0.03, 0.05), mMetal, w / 2 + 0.05, bottom - 0.02, z);
+    mk(new THREE.BoxGeometry(0.03, 0.14, 0.05), mMetal, w / 2 + 0.05, bottom - 0.08, z);
+  }
+  // leidingkoker: uit de unit langs de wang naar de voorgevel
+  const ty = bottom + 0.08, tl = (zA + ul) - (ZF - 0.04);
+  mk(new THREE.BoxGeometry(0.07, 0.07, Math.abs(tl) + 0.08), mWhite, w / 2 + 0.035, ty, ZF - 0.12 + 0.04);
+  mk(new THREE.BoxGeometry(0.13, 0.13, 0.03), mWhite, w / 2 - 0.12, ty, ZF + 0.012);
+}
+
+function buildDormer() {
+  ensureHouse();
+  dormerB.clear();
+  dormer.traverse(o => { if (o.geometry) o.geometry.dispose(); });
+  dormer.clear();
+  const { w, h } = S;
+  const hw = h - FASC;                                     // wandhoogte onder de dakrand
+  const y0 = slopeY(ZF), yWT = y0 + hw, yTop = yWT + FASC;
+  const zb = ZF - hw / PITCH;
+
+  setCladding(S.mat, COLORS.cladding[S.col].c);
+  mFrame.color.set(COLORS.frame[S.frame].c);
+
+  dormer.add(cheek(-w / 2, ZF, zb, y0, yWT), cheek(w / 2, ZF, zb, y0, yWT));
+
+  // voorvlak met raamopeningen
+  const n = S.wins, gap = 0.16, side = 0.24, topB = 0.08, botB = 0.2;
+  const ww = (w - 2 * side - (n - 1) * gap) / n;
+  const wh = hw - topB - botB;
+  const zc = ZF - WT / 2;
+  clad(w, botB, WT, 0, y0 + botB / 2, zc);
+  clad(w, topB, WT, 0, yWT - topB / 2, zc);
+  clad(side, wh, WT, -w / 2 + side / 2, y0 + botB + wh / 2, zc);
+  clad(side, wh, WT, w / 2 - side / 2, y0 + botB + wh / 2, zc);
+  const room = new THREE.Mesh(new THREE.PlaneGeometry(w, hw), mRoom); room.position.set(0, y0 + hw / 2, ZF - 0.55); dormer.add(room);
+
+  for (let i = 0; i < n; i++) {
+    const cx = -w / 2 + side + ww / 2 + i * (ww + gap);
+    const cy = y0 + botB + wh / 2, fz = ZF - 0.075, fr = 0.075;
+    if (i < n - 1) clad(gap, wh, WT, cx + ww / 2 + gap / 2, cy, zc);
+    mk(new THREE.BoxGeometry(ww, fr, 0.1), mFrame, cx, cy + wh / 2 - fr / 2, fz);
+    mk(new THREE.BoxGeometry(ww, fr, 0.1), mFrame, cx, cy - wh / 2 + fr / 2, fz);
+    mk(new THREE.BoxGeometry(fr, wh, 0.1), mFrame, cx - ww / 2 + fr / 2, cy, fz);
+    mk(new THREE.BoxGeometry(fr, wh, 0.1), mFrame, cx + ww / 2 - fr / 2, cy, fz);
+    const iw = ww - 2 * fr, ih = wh - 2 * fr, f2 = 0.035;
+    mk(new THREE.BoxGeometry(iw, f2, 0.06), mFrame, cx, cy + ih / 2 - f2 / 2, fz + 0.03);
+    mk(new THREE.BoxGeometry(iw, f2, 0.06), mFrame, cx, cy - ih / 2 + f2 / 2, fz + 0.03);
+    mk(new THREE.BoxGeometry(f2, ih, 0.06), mFrame, cx - iw / 2 + f2 / 2, cy, fz + 0.03);
+    mk(new THREE.BoxGeometry(f2, ih, 0.06), mFrame, cx + iw / 2 - f2 / 2, cy, fz + 0.03);
+    const gl = new THREE.Mesh(new THREE.BoxGeometry(iw, ih, 0.012), mGlass); gl.position.set(cx, cy, fz + 0.002); dormer.add(gl);
+    if (S.type === 'draai') {
+      mk(new THREE.BoxGeometry(iw, 0.05, 0.075), mFrame, cx, cy + ih * 0.24, fz + 0.025);
+      mk(new THREE.BoxGeometry(0.03, 0.12, 0.05), mMetal, cx + iw / 2 - 0.05, cy - ih * 0.1, fz + 0.06);
+      if (S.hor) {                                         // horren in de kiepramen: gaas + dun aluminium kader
+        const hz = fz + 0.022, hf = 0.022;
+        const sc = new THREE.Mesh(new THREE.PlaneGeometry(iw - 0.04, ih - 0.04), mScreen); sc.position.set(cx, cy, hz); dormer.add(sc);
+        mk(new THREE.BoxGeometry(iw - 0.04, hf, 0.02), mMetal, cx, cy + (ih - 0.04) / 2 - hf / 2, hz);
+        mk(new THREE.BoxGeometry(iw - 0.04, hf, 0.02), mMetal, cx, cy - (ih - 0.04) / 2 + hf / 2, hz);
+        mk(new THREE.BoxGeometry(hf, ih - 0.04, 0.02), mMetal, cx - (iw - 0.04) / 2 + hf / 2, cy, hz);
+        mk(new THREE.BoxGeometry(hf, ih - 0.04, 0.02), mMetal, cx + (iw - 0.04) / 2 - hf / 2, cy, hz);
+      }
+    }
+    mk(new THREE.BoxGeometry(ww + 0.12, 0.04, 0.17), mFrame, cx, cy - wh / 2 - 0.025, ZF + 0.03);
+    if (S.rol) {
+      mk(new THREE.BoxGeometry(ww, 0.17, 0.17), mRol, cx, cy + wh / 2 + 0.085, ZF + 0.04);
+      for (const s of [-1, 1]) mk(new THREE.BoxGeometry(0.03, wh, 0.03), mRol, cx + s * (ww / 2 - 0.02), cy, ZF + 0.03);
+    }
+    if (S.vent) mk(new THREE.BoxGeometry(Math.min(0.5, ww * 0.6), 0.05, 0.05), mRol, cx, cy + wh / 2 - 0.1, fz + 0.06);
+  }
+
+  // dikke dakrand (overstek) + donkere dakbedekking, met schaduwvoeg eronder
+  const zFront = ZF + 0.2, zBack = zb - 0.12, depth = zFront - zBack;
+  clad(w + 0.34, FASC, depth, 0, yWT + FASC / 2, (zFront + zBack) / 2);
+  mk(new THREE.BoxGeometry(w + 0.2, 0.03, depth - 0.1), new THREE.MeshStandardMaterial({ color: '#111', roughness: 1 }), 0, yWT - 0.004, (zFront + zBack) / 2 - 0.05);
+  mk(new THREE.BoxGeometry(w + 0.4, 0.05, depth + 0.04), mDeck, 0, yTop + 0.025, (zFront + zBack) / 2);
+
+  // zinken aansluitingen: schort onder de dakkapel en strips langs de wangen
+  roofPlate(0, w + 0.5, ZF + 0.5, ZF - 0.02);
+  for (const s of [-1, 1]) roofPlate(s * (w / 2 + 0.11), 0.24, ZF + 0.5, zb - 0.1);
+
+  if (S.ac) buildAirco(w, y0, hw, yWT);
+  buildTiles(w, zb);
+  dormer.children.forEach(c => dormerB.add(c.clone()));
+  dormer.visible = S.face !== 'back'; dormerB.visible = S.face !== 'front';
+  updatePrice();
+}
+
+views('angle', 1, true);
+
+/* ---------- prijs ---------- */
+function calc() {
+  const C = CONFIG, mat = C.materials[S.mat];
+  const lines = [];
+  const add = (l, v) => lines.push([l, v]);
+  add('Basis dakkapel', C.basePrice);
+  add(`Breedte ${S.w.toFixed(1).replace('.', ',')} m`, S.w * C.perMeterWidth);
+  add('Voorhoogte', Math.max(0, S.h - 1.2) * C.perHeightStep);
+  add(`${S.wins} × ${S.type === 'draai' ? 'draai-kiep' : 'vast'} raam`, S.wins * C.windowPrice[S.type]);
+  if (mat.perM) add(`Bekleding ${mat.label.toLowerCase()}`, mat.perM * S.w);
+  if (S.rol) add('Rolluiken', S.wins * C.rolluikPerWindow);
+  if (S.vent) add('Ventilatieroosters', C.ventPrice);
+  if (S.hor && S.type === 'draai') add('Horren in kiepramen', S.wins * C.horPerWindow);
+  if (S.ac) add('Airco-aansluiting', C.aircoPrice);
+  if (S.iso) add('Extra isolatie', C.isoBase + C.isoPerMeter * S.w);
+  if (S.face === 'both') add('Tweede dakkapel (achterzijde)', lines.reduce((a, l) => a + l[1], 0));
+  return { lines, total: lines.reduce((a, l) => a + l[1], 0) };
+}
+function updatePrice() {
+  const { total } = calc();
+  $('pTot').textContent = eur(total);
+  $('pMnd').textContent = '± ' + eur(total / CONFIG.financeDivisor) + ' p/m';
+}
+
+/* ---------- UI ---------- */
+function group(id, items, key, fmt) {
+  const el = $(id); el.innerHTML = '';
+  items.forEach(it => {
+    const b = document.createElement('button'); b.className = 'opt'; b.type = 'button';
+    b.innerHTML = it.html; b.dataset.v = it.v;
+    b.onclick = () => { S[key] = it.v; sync(); buildDormer(); };
+    el.appendChild(b);
+  });
+}
+function swatches(id, list, key) {
+  const el = $(id); el.innerHTML = '';
+  list.forEach((c, i) => {
+    const b = document.createElement('button'); b.type = 'button'; b.title = c.n; b.style.background = c.c;
+    b.onclick = () => { S[key] = i; sync(); buildDormer(); };
+    el.appendChild(b);
+  });
+}
+group('gFace', [{ v: 'front', html: 'Voorkant<small>woning</small>' }, { v: 'back', html: 'Achterkant<small>woning</small>' }, { v: 'both', html: 'Beide<small>zijden</small>' }], 'face');
+document.querySelectorAll('#gFace .opt').forEach(b => { const o = b.onclick; b.onclick = () => { o(); if (b.dataset.v === 'front') views('angle', 1); else if (b.dataset.v === 'back') views('angle', -1); }; });
+group('gH', [{ v: 1.5, html: '1500<small>in millimeters</small>' }, { v: 1.75, html: '1750<small>in millimeters</small>' }], 'h');
+group('gType', [{ v: 'draai', html: 'Draai-kiep' }, { v: 'vast', html: 'Vast glas' }], 'type');
+group('gMat', Object.entries(CONFIG.materials).map(([v, m]) => ({ v, html: `${m.label}<small>${m.perM ? '+ € ' + m.perM + ' /m' : m.sub}</small>` })), 'mat');
+swatches('gCol', COLORS.cladding, 'col');
+swatches('gFrame', COLORS.frame, 'frame');
+
+function maxWins() { return Math.min(6, S.w < 2.2 ? 1 : S.w < 3.6 ? 2 : S.w < 5.2 ? 3 : S.w < 6.8 ? 4 : S.w < 8.2 ? 5 : 6); }
+function renderWins() {
+  const mx = maxWins(); if (S.wins > mx) S.wins = mx;
+  const el = $('gWin'); el.innerHTML = '';
+  for (let i = 1; i <= 6; i++) {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'opt'; b.textContent = i;
+    if (i > mx) { b.disabled = true; b.style.opacity = .35; b.style.cursor = 'not-allowed'; }
+    if (i === S.wins) b.classList.add('on');
+    b.onclick = () => { S.wins = i; renderWins(); buildDormer(); };
+    el.appendChild(b);
+  }
+}
+function sync() {
+  $('xHor').disabled = S.type !== 'draai'; $('lHor').classList.toggle('dis', S.type !== 'draai');
+  $('vW').textContent = S.w.toFixed(1).replace('.', ',') + ' m';
+  document.querySelectorAll('#gH .opt').forEach(b => b.classList.toggle('on', +b.dataset.v === S.h));
+  document.querySelectorAll('#gFace .opt').forEach(b => b.classList.toggle('on', b.dataset.v === S.face));
+  document.querySelectorAll('#gType .opt').forEach(b => b.classList.toggle('on', b.dataset.v === S.type));
+  document.querySelectorAll('#gMat .opt').forEach(b => b.classList.toggle('on', b.dataset.v === S.mat));
+  document.querySelectorAll('#gCol button').forEach((b, i) => b.classList.toggle('on', i === S.col));
+  document.querySelectorAll('#gFrame button').forEach((b, i) => b.classList.toggle('on', i === S.frame));
+  $('gCol').parentElement.style.display = S.mat === 'hout' ? 'none' : '';
+  renderWins();
+}
+$('w').oninput = e => { S.w = +e.target.value; sync(); buildDormer(); fitDistance(); };
+for (const [id, k] of [['xRol', 'rol'], ['xVent', 'vent'], ['xIso', 'iso'], ['xHor', 'hor'], ['xAir', 'ac']]) $(id).onchange = e => { S[k] = e.target.checked; buildDormer(); };
+document.querySelectorAll('.views button').forEach(b => b.onclick = () => views(b.dataset.v, b.dataset.f ? +b.dataset.f : viewFace));
+
+/* ---------- offerte ---------- */
+function summaryText() {
+  const { lines, total } = calc();
+  return { lines, total, txt: lines.map(([l, v]) => `${l}: ${eur(v)}`).join('\n') + `\nTotaal: ${eur(total)}` };
+}
+const PAYTXT = { termijn: 'Termijnbetaling', eenmalig: 'In 1x betalen', beide: 'Termijn of 1x (beide prima)' };
+const monthly = () => calc().total / CONFIG.financeDivisor;
+const eur2 = n => '€' + n.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const payVal = () => (document.querySelector('input[name=pay]:checked') || {}).value;
+function showStep(step) { for (const [id, k] of [['whenq', 'when'], ['payq', 'pay'], ['incomeq', 'income'], ['form', 'form']]) $(id).style.display = step === k ? '' : 'none'; $('done').style.display = step === 'done' ? 'block' : 'none'; }
+const WHENTXT = { asap: 'Zo snel mogelijk', '2-4w': 'Tussen 2 en 4 weken', '2m': 'Binnen 2 maanden', orient: 'Ik ben aan het oriënteren' };
+const whenVal = () => (document.querySelector('input[name=when]:checked') || {}).value;
+const enable = (btn, on) => { btn.disabled = !on; btn.style.opacity = on ? 1 : 0.5; };
+$('cta').onclick = () => {
+  $('payM').textContent = eur2(monthly());
+  enable($('whenNext'), !!whenVal()); enable($('payNext'), !!payVal()); enable($('incNext'), incVals().length > 0);
+  showStep('when'); $('dlg').showModal();
+};
+document.querySelectorAll('input[name=when]').forEach(r => r.onchange = () => enable($('whenNext'), true));
+document.querySelectorAll('input[name=pay]').forEach(r => r.onchange = () => enable($('payNext'), true));
+$('whenBack').onclick = () => $('dlg').close();
+$('whenNext').onclick = () => { if (whenVal()) showStep('pay'); };
+$('payBack').onclick = () => showStep('when');
+$('payNext').onclick = () => { if (payVal()) showStep('income'); };
+const INCTXT = { loondienst: 'Loondienst', ondernemer: 'Ondernemer', uitkering: 'Uitkering/ziektewet', geen: 'Geen inkomsten' };
+const incVals = () => [...document.querySelectorAll('input[name=inc]:checked')].map(i => i.value);
+document.querySelectorAll('input[name=inc]').forEach(c => c.onchange = () => {
+  if (c.checked) document.querySelectorAll('input[name=inc]').forEach(o => { if (o !== c && ((c.value === 'geen') || o.value === 'geen')) o.checked = false; });
+  enable($('incNext'), incVals().length > 0);
+});
+$('incBack').onclick = () => showStep('pay');
+$('incNext').onclick = () => {
+  if (!incVals().length) return;
+  const { lines, total } = summaryText();
+  $('sum').innerHTML = lines.map(([l, v]) => `<li>${l} <span style="float:right">${eur(v)}</span></li>`).join('') +
+    `<li style="border-top:1px solid #e6dfd0;margin-top:6px;padding-top:6px"><b>Totaal <span style="float:right">${eur(total)}</span></b></li>` +
+    `<li>Betaling <span style="float:right">${PAYTXT[payVal()]}</span></li>` +
+    `<li>Plaatsing gewenst <span style="float:right">${WHENTXT[whenVal()]}</span></li>` +
+    `<li>Manier van inkomen <span style="float:right;text-align:right">${incVals().map(v => INCTXT[v]).join(', ')}</span></li>`;
+  showStep('form');
+};
+$('cancel').onclick = () => showStep('income');
+$('close').onclick = () => $('dlg').close();
+$('send').onclick = async () => {
+  const name = $('fn').value.trim(), email = $('fe').value.trim(), phone = $('fp').value.trim();
+  const birth = $('fb').value, sex = (document.querySelector('input[name=sex]:checked') || {}).value;
+  if (!name || !/^\S+@\S+\.\S+$/.test(email)) { alert('Vul je naam en een geldig e-mailadres in.'); return; }
+  if (!birth || birth > new Date().toISOString().slice(0, 10)) { alert('Vul een geldige geboortedatum in.'); return; }
+  if (!sex) { alert('Kies man of vrouw.'); return; }
+  const { lines, total } = summaryText();
+  const payload = { name, email, phone, birthdate: birth, gender: sex, income: incVals(), incomeLabels: incVals().map(v => INCTXT[v]), total, timing: whenVal(), timingLabel: WHENTXT[whenVal()], payment: payVal(), paymentLabel: PAYTXT[payVal()], monthlyFrom: Math.round(monthly() * 100) / 100, config: { ...S, material: CONFIG.materials[S.mat].label, claddingColor: COLORS.cladding[S.col].n, frameColor: COLORS.frame[S.frame].n }, lines, screenshot: renderer.domElement.toDataURL('image/jpeg', 0.7) };
+  if (CONFIG.webhookUrl) {
+    try { await fetch(CONFIG.webhookUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); }
+    catch { alert('Versturen mislukt. Probeer het later opnieuw.'); return; }
+  } else console.log('Offerte-aanvraag (geen webhook ingesteld):', payload);
+  showStep('done');
+};
+
+/* ---------- start ---------- */
+sync(); buildDormer();
+$('loading').remove();
+(function loop() { stepTween(); camera.lookAt(controls.target); renderer.render(scene, camera); requestAnimationFrame(loop); })();
+</script>
+</body>
+</html>
