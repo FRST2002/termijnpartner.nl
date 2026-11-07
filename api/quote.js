@@ -55,6 +55,10 @@ async function syncGhl(q, req, noteTitle) {
       source: 'Dakkapel-configurator',
       tags: ['dakkapel-configurator', STATUS_TAG[q.status] || 'offerte'],
     };
+    if (c.address && c.address.straat) {
+      body.address1 = `${c.address.straat} ${c.address.huisnummer}${c.address.toevoeging ? ' ' + c.address.toevoeging : ''}`;
+      body.postalCode = c.address.postcode; body.city = c.address.plaats; body.country = 'NL';
+    }
     if (c.birthdate) body.dateOfBirth = c.birthdate;
     if (c.gender) body.gender = c.gender === 'man' ? 'male' : 'female';
     if (process.env.GHL_PRICE_FIELD_ID) body.customFields = [{ id: process.env.GHL_PRICE_FIELD_ID, field_value: String(Math.round(q.total)) }];
@@ -66,14 +70,20 @@ async function syncGhl(q, req, noteTitle) {
     const old = Object.values(STATUS_TAG).filter((t) => t !== STATUS_TAG[q.status]);
     await ghl(`/contacts/${contactId}/tags`, 'DELETE', { tags: old }).catch(() => {});
     const cfg = q.config || {};
+    const sides = (cfg.sides || []).map((x) => `${x.side === 'back' ? 'Achterkant' : 'Voorkant'}: ${String(x.w).replace('.', ',')} m breed, ${x.h} m hoog, ${x.wins} ramen, ${x.material || ''}`);
     const note = [
       `${noteTitle} (versie ${q.version})`,
       `Status: ${q.status}`,
       `Totaal: ${eur(q.total)} incl. btw, vanaf ${eur(q.total / 180)} p/m`,
-      `Dakkapel: ${String(cfg.w).replace('.', ',')} m breed, ${cfg.h} m hoog, ${cfg.wins} ramen, ${cfg.material || ''}`,
+      ...sides,
       q.timingLabel ? `Plaatsing gewenst: ${q.timingLabel}` : '',
       q.paymentLabel ? `Betaling: ${q.paymentLabel}` : '',
       (c.incomeLabels || []).length ? `Inkomen: ${c.incomeLabels.join(', ')}` : '',
+      c.woonsituatie ? `Woonsituatie: ${c.woonsituatie === 'koop' ? 'koopwoning' : 'huurwoning'}` : '',
+      c.afval ? `Afval opruimen: ${c.afval === 'zelf' ? 'klant zelf' : 'bouwbedrijf'}` : '',
+      c.opmerking ? `Opmerking klant: ${c.opmerking}` : '',
+      q.photoCount ? `Foto's: ${q.photoCount} bijgevoegd (zichtbaar bij beheer in de configurator)` : '',
+      c.voorwaardenAt ? `Akkoord algemene voorwaarden: ${c.voorwaardenAt.slice(0, 10)}` : '',
       '',
       `Offerte (klantlink): ${SITE(req)}/offerte?id=${q.id}`,
       `Aanpassen (intern): ${SITE(req)}/dakkapel-config?edit=${q.id}`,
@@ -94,7 +104,7 @@ function publicView(q) {
   const { id, status, version, config, lines, total, adjust, note, customer, shots, createdAt, sentAt, decision, history } = q;
   return {
     id, status, version, config, lines, total, adjust, note, shots, createdAt, sentAt, decision,
-    customer: { name: customer?.name, email: customer?.email },
+    customer: { name: customer?.name, email: customer?.email, address: customer?.address, woonsituatie: customer?.woonsituatie, afval: customer?.afval },
     nummer: q.nummer,
   };
 }
@@ -137,6 +147,11 @@ export default async function handler(req, res) {
       if (!id) return res.status(400).json({ error: 'id ontbreekt' });
       const q = await load(id);
       if (!q) return res.status(404).json({ error: 'Offerte niet gevonden' });
+      if (url.searchParams.get('photos')) {
+        if (!admin) return res.status(401).json({ error: 'Geen toegang' });
+        const p = await redis('GET', `p:${id}`);
+        return res.json({ photos: p ? JSON.parse(p) : [] });
+      }
       if (url.searchParams.get('admin')) {
         if (!admin) return res.status(401).json({ error: 'Geen toegang' });
         return res.json(q);
@@ -177,8 +192,16 @@ export default async function handler(req, res) {
       applyFields(q, body);
       q.customer = {
         name: clean(c.name, 120), email: clean(c.email, 160), phone: clean(c.phone, 40),
-        ...(admin ? {} : { birthdate: clean(c.birthdate, 10), gender: clean(c.gender, 10), income: (c.income || []).slice(0, 4), incomeLabels: (c.incomeLabels || []).slice(0, 4).map((x) => clean(x, 40)) }),
+        ...(admin ? {} : {
+          birthdate: clean(c.birthdate, 10), gender: clean(c.gender, 10), income: (c.income || []).slice(0, 4), incomeLabels: (c.incomeLabels || []).slice(0, 4).map((x) => clean(x, 40)),
+          address: { postcode: clean(c.address?.postcode, 8), huisnummer: clean(c.address?.huisnummer, 10), toevoeging: clean(c.address?.toevoeging, 10), straat: clean(c.address?.straat, 80), plaats: clean(c.address?.plaats, 60) },
+          woonsituatie: c.woonsituatie === 'huur' ? 'huur' : 'koop', afval: c.afval === 'zelf' ? 'zelf' : 'bouwbedrijf', opmerking: clean(c.opmerking, 1500),
+          voorwaardenAt: c.voorwaarden ? nowIso() : null,
+        }),
       };
+      const photos = (Array.isArray(body.photos) ? body.photos : []).filter((p) => typeof p === 'string' && p.startsWith('data:image/') && p.length < 300000).slice(0, 4);
+      q.photoCount = photos.length;
+      if (photos.length) await redis('SET', `p:${q.id}`, JSON.stringify(photos));
       if (q.status === 'verstuurd') q.sentAt = nowIso();
       q.history.push({ t: nowIso(), e: q.source === 'intern' ? `Aangemaakt door TermijnPartner (${q.status})` : 'Aanvraag via configurator' });
       await syncGhl(q, req, q.source === 'intern' ? 'Offerte aangemaakt' : 'NIEUWE AANVRAAG via dakkapel-configurator');
@@ -210,7 +233,7 @@ export default async function handler(req, res) {
     if (req.method === 'DELETE') {
       if (!admin) return res.status(401).json({ error: 'Geen toegang' });
       if (!id) return res.status(400).json({ error: 'id ontbreekt' });
-      await redis('DEL', `q:${id}`); await redis('SREM', 'qidx', id);
+      await redis('DEL', `q:${id}`); await redis('DEL', `p:${id}`); await redis('SREM', 'qidx', id);
       return res.json({ ok: true });
     }
     return res.status(405).json({ error: 'Methode niet toegestaan' });

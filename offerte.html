@@ -109,8 +109,8 @@ function frontDrawing(c) {
   s += dimV(X(w) + 26, Y(FASC + topB), Y(FASC + topB + wh), mm(wh));
   return s + '</svg>';
 }
-function roofDrawing(c) {
-  const w = c.w, HW = Math.max(6.4, Math.round((w + 1.6) * 10) / 10), m = (HW - w) / 2;
+function roofDrawing(c, wMax) {
+  const w = c.w, HW = Math.max(7, Math.round(((wMax || w) + 1.0) * 10) / 10), m = (HW - w) / 2;
   const VW = 560, VH = 360, padL = 30, padR = 30, padT = 40, padB = 100;
   const rw = HW + .5, k = Math.min((VW - padL - padR) / rw, 190 / 3.2);
   const ox = (VW - rw * k) / 2, oy = padT;
@@ -145,20 +145,25 @@ function render(q) {
 
   if (q.shots && q.shots.length) h += `<div class="card"><h2>Zo ziet je dakkapel eruit</h2><div class="shots">${q.shots.map(s => `<img src="${s}" alt="3D-impressie van je dakkapel">`).join('')}</div></div>`;
 
-  h += `<div class="card"><h2>Specificaties</h2><div class="spec">
-    <div><span>Breedte</span><b>${mm(c.w)} mm</b></div><div><span>Voorhoogte</span><b>${mm(c.h)} mm</b></div>
-    <div><span>Aantal ramen</span><b>${c.wins}</b></div><div><span>Raamtype</span><b>${c.type === 'draai' ? 'Draai-kiep' : 'Vast glas'}</b></div>
-    <div><span>Bekleding</span><b>${esc(c.material)}</b></div><div><span>Kleur bekleding</span><b>${esc(c.claddingColor)}</b></div>
-    <div><span>Kleur kozijnen</span><b>${esc(c.frameColor)}</b></div><div><span>Plaatsing</span><b>${c.face === 'both' ? 'Voor- en achterzijde' : c.face === 'back' ? 'Achterzijde' : 'Voorzijde'}</b></div>
-    <div><span>Rolluiken</span><b>${c.rol ? 'Ja' : 'Nee'}</b></div><div><span>Ventilatieroosters</span><b>${c.vent ? 'Ja' : 'Nee'}</b></div>
-    <div><span>Horren in kiepramen</span><b>${c.hor && c.type === 'draai' ? 'Ja' : 'Nee'}</b></div><div><span>Airco-aansluiting</span><b>${c.ac ? 'Ja' : 'Nee'}</b></div>
-    <div><span>Extra isolatie (Rc 6,0)</span><b>${c.iso ? 'Ja' : 'Nee'}</b></div><div><span>Glas</span><b>HR++ isolatieglas</b></div></div></div>`;
+  const sides = c.sides || [], wMax = Math.max(...sides.map(x => x.w));
+  const SN = { front: 'Voorkant woning', back: 'Achterkant woning' };
+  const specOf = x => `<div class="spec">
+    <div><span>Breedte</span><b>${mm(x.w)} mm</b></div><div><span>Voorhoogte</span><b>${mm(x.h)} mm</b></div>
+    <div><span>Aantal ramen</span><b>${x.wins}</b></div><div><span>Raamtype</span><b>${x.type === 'draai' ? 'Draai-kiep' : 'Vast glas'}</b></div>
+    <div><span>Bekleding</span><b>${esc(x.material)}</b></div><div><span>Kleur bekleding</span><b>${esc(x.claddingColor)}</b></div>
+    <div><span>Kleur kozijnen</span><b>${esc(x.frameColor)}</b></div><div><span>Glas</span><b>HR++ spiegelglas</b></div>
+    <div><span>Rolluiken</span><b>${x.rol ? 'Ja' : 'Nee'}</b></div><div><span>Ventilatieroosters</span><b>${x.vent ? 'Ja' : 'Nee'}</b></div>
+    <div><span>Horren in kiepramen</span><b>${x.hor && x.type === 'draai' ? 'Ja' : 'Nee'}</b></div><div><span>Airco-aansluiting</span><b>${x.ac ? 'Ja' : 'Nee'}</b></div>
+    <div><span>Extra isolatie (Rc 6,0)</span><b>${x.iso ? 'Ja' : 'Nee'}</b></div><div></div></div>`;
+  const cu = q.customer || {}, ad = cu.address || {};
+  h += `<div class="card"><h2>Specificaties</h2>${sides.map(x => (sides.length > 1 ? `<div class="eyebrow" style="margin:14px 0 2px">${SN[x.side]}</div>` : '') + specOf(x)).join('')}
+    ${ad.straat || cu.afval ? `<div class="spec" style="margin-top:14px">${ad.straat ? `<div><span>Adres</span><b>${esc(ad.straat)} ${esc(ad.huisnummer)}${ad.toevoeging ? ' ' + esc(ad.toevoeging) : ''}, ${esc(ad.postcode)} ${esc(ad.plaats)}</b></div>` : '<div></div>'}${cu.afval ? `<div><span>Afval opruimen</span><b>${cu.afval === 'zelf' ? 'Door jou zelf' : 'Door het bouwbedrijf'}</b></div>` : '<div></div>'}</div>` : ''}</div>`;
 
-  h += `<div class="card"><h2>Tekening met maten</h2><div class="draw"><figure>${frontDrawing(c)}<figcaption>Vooraanzicht (maten in mm)</figcaption></figure><figure>${roofDrawing(c)}<figcaption>Dakvlak (maten in mm)</figcaption></figure></div>
-    <p style="font-size:12.5px;color:var(--muted);margin:10px 0 0">Maten zijn indicatief. Na akkoord wordt alles opgemeten en definitief vastgelegd.</p></div>`;
+  h += `<div class="card"><h2>Tekening met maten</h2>${sides.map(x => `${sides.length > 1 ? `<div class="eyebrow" style="margin:6px 0 8px">${SN[x.side]}</div>` : ''}<div class="draw" style="margin-bottom:14px"><figure>${frontDrawing(x)}<figcaption>Vooraanzicht (maten in mm)</figcaption></figure><figure>${roofDrawing(x, wMax)}<figcaption>Dakvlak (maten in mm)</figcaption></figure></div>`).join('')}
+    <p style="font-size:12.5px;color:var(--muted);margin:0">Maten zijn indicatief. Na akkoord wordt alles opgemeten en definitief vastgelegd.</p></div>`;
 
   const excl = q.total / 1.21;
-  h += `<div class="card"><h2>Prijs</h2><table>${(q.lines || []).map(([l, v]) => `<tr><td>${esc(l)}</td><td class="r">${v < 0 ? '− ' + eur(-v) : eur(v)}</td></tr>`).join('')}
+  h += `<div class="card"><h2>Prijs</h2><table>${(q.lines || []).map(([l, v]) => v === null ? `<tr><td colspan="2" style="font-weight:800;color:var(--ink);padding-top:16px">${esc(l)}</td></tr>` : `<tr><td>${esc(l)}</td><td class="r">${v < 0 ? '− ' + eur(-v) : eur(v)}</td></tr>`).join('')}
     <tr class="sub"><td>Totaal excl. btw</td><td class="r">${eur(excl)}</td></tr><tr class="sub"><td>Btw 21%</td><td class="r">${eur(q.total - excl)}</td></tr>
     <tr class="tot"><td>Totaal incl. btw</td><td class="r"><span class="big">${eur(q.total)}</span></td></tr></table>
     <div class="mnd">Liever in termijnen betalen? Dat kan achteraf, vanaf <b>${eur2(q.total / 180)} per maand</b> (indicatief).</div>
@@ -200,7 +205,6 @@ function render(q) {
     const r = await fetch('/api/quote?id=' + encodeURIComponent(id));
     if (!r.ok) throw 0;
     const q = await r.json();
-    if (q.config) { const cfg = q.config; cfg.claddingHex = ({ Lichtgrijs: '#dcdcd9', Wit: '#f2f0ea', Antraciet: '#383c40', Zwart: '#1a1a1a', Zand: '#cdbd9c', Groen: '#4d6a55' })[cfg.claddingColor]; }
     render(q);
   } catch { $('app').innerHTML = '<p style="padding:40px 0">Deze offerte is niet gevonden. Controleer de link of neem contact op met TermijnPartner.</p>'; }
 })();

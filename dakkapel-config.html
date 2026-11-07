@@ -40,8 +40,9 @@ input[type=range]{width:100%;accent-color:var(--gold)}
 .opt small{display:block;font-weight:500;color:#7a7468;font-size:11px;margin-top:2px}
 .opt:hover{border-color:var(--gold-light)}
 .opt.on{border-color:var(--gold);background:#fbf3df}
-.sw{display:flex;gap:10px}
-.sw button{width:36px;height:36px;border-radius:50%;border:2px solid var(--white);box-shadow:0 0 0 1.5px var(--line);cursor:pointer;padding:0}
+.sw{display:flex;flex-wrap:wrap;gap:14px 8px}.swi{display:flex;flex-direction:column;align-items:center;width:66px;gap:6px;font-size:12px;font-weight:700;text-align:center;color:var(--ink)}.swi small{display:block;font-weight:500;color:#7a7468;font-size:11px}.hintline{font-size:12.5px;color:#7a7468;margin-top:8px}
+.stepbar{display:none;margin:0 0 6px;padding:10px 12px;background:#fbf3df;border:1px solid #efdca6;border-radius:12px;font-size:13px;font-weight:700;color:var(--gold-dark);align-items:center;justify-content:space-between;gap:8px}.stepbar button{font:700 12px Manrope;border:1px solid #e3c978;background:#fff;border-radius:99px;padding:5px 12px;cursor:pointer;color:var(--ink)}
+.sw button{width:52px;height:52px;border-radius:50%;border:2px solid var(--white);box-shadow:0 0 0 1.5px var(--line);cursor:pointer;padding:0}
 .sw button.on{box-shadow:0 0 0 2.5px var(--gold)}
 .tog{display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:600;color:var(--ink);padding:6px 0}
 .tog small{color:#7a7468;font-weight:500}
@@ -89,7 +90,7 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
   h1{font-size:22px}.sub{margin-bottom:8px;font-size:13px}
   .grp{padding:12px 0}
   .opt{min-width:64px;padding:12px 6px}
-  .sw button{width:42px;height:42px}
+  .sw button{width:48px;height:48px}.swi{width:62px}
   .tog{padding:10px 0}
   .summary{position:sticky;bottom:0;z-index:6;padding:10px 16px calc(10px + env(safe-area-inset-bottom));box-shadow:0 -4px 14px rgba(0,0,0,.1)}
   .price .big{font-size:24px}.note{display:none}.price{margin-bottom:8px}
@@ -120,7 +121,8 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
   <aside>
     <div class="panel">
       <h1>Stel je dakkapel samen</h1>
-      <p class="sub">Kies de opties en zie direct het resultaat en een richtprijs.</p>
+      <p class="sub">Kies de opties en zie direct het resultaat en je maandbedrag.</p>
+      <div class="stepbar" id="stepbar"><span id="stepTxt"></span><button type="button" id="stepBack">&larr; Voorkant</button></div>
 
       <div class="grp">
         <div class="lbl">Plaatsing dakkapel</div>
@@ -141,6 +143,7 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
       <div class="grp">
         <div class="lbl">Raamtype</div>
         <div class="opts" id="gType"></div>
+        <div class="hintline">Tijdens de inmeting kun je de opmaak/indeling altijd nog aanpassen.</div>
       </div>
       <div class="grp">
         <div class="lbl">Bekleding</div>
@@ -155,7 +158,7 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
         <div class="sw" id="gFrame"></div>
       </div>
       <div class="grp">
-        <div class="lbl">Extra's</div>
+        <div class="lbl">Extra's <b style="font-weight:600;font-size:12px">(optioneel)</b></div>
         <label class="tog"><span>Rolluiken <small>&nbsp;per raam</small></span><input type="checkbox" id="xRol"></label>
         <label class="tog"><span>Ventilatieroosters</span><input type="checkbox" id="xVent"></label>
         <label class="tog" id="lHor"><span>Horren in de kiepramen <small>&nbsp;per raam</small></span><input type="checkbox" id="xHor"></label>
@@ -165,7 +168,7 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
     </div>
     <div class="summary">
       <div class="price"><div class="big" id="pTot">&euro; 0</div><div class="mnd" id="pMnd"></div></div>
-      <div class="note">Richtprijs incl. btw, inclusief plaatsing. Maandbedrag bij financiering via TermijnPartner (indicatief).</div>
+      <div class="note">Maandbedrag bij termijnbetaling via TermijnPartner (indicatief), incl. btw en plaatsing.</div>
       <button class="cta" id="cta">Offerte aanvragen</button>
     </div>
   </aside>
@@ -207,18 +210,38 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
       </div>
     </div>
     <div id="form" style="display:none">
-      <h2>Offerte aanvragen</h2>
+      <h2>Jouw gegevens</h2>
       <div style="font-size:14px">Je configuratie wordt meegestuurd.</div>
       <ul id="sum"></ul>
       <input type="text" id="fn" placeholder="Naam" autocomplete="name">
       <input type="email" id="fe" placeholder="E-mailadres" autocomplete="email">
       <input type="tel" id="fp" placeholder="Telefoonnummer" autocomplete="tel">
       <label class="flbl" for="fb">Geboortedatum</label>
-      <input type="date" id="fb" autocomplete="bday">
+      <input type="text" id="fb" inputmode="numeric" placeholder="dd-mm-jjjj" maxlength="10" autocomplete="bday">
       <span class="flbl">Geslacht</span>
       <div class="seg"><label><input type="radio" name="sex" value="man">Man</label><label><input type="radio" name="sex" value="vrouw">Vrouw</label></div>
       <div class="row">
         <button class="ghost" id="cancel" type="button" aria-label="Terug">&larr;</button>
+        <button class="cta" id="formNext" type="button">Volgende &rarr;</button>
+      </div>
+    </div>
+    <div id="addr" style="display:none">
+      <h2>Adres van de woning</h2>
+      <div class="row" style="margin:0 0 10px"><input type="text" id="apc" placeholder="Postcode" autocomplete="postal-code" style="margin:0"><input type="text" id="ahn" placeholder="Huisnr." inputmode="numeric" style="margin:0;max-width:96px"><input type="text" id="aht" placeholder="Toev." style="margin:0;max-width:84px"></div>
+      <input type="text" id="ast" placeholder="Straat" autocomplete="address-line1">
+      <input type="text" id="apl" placeholder="Plaats" autocomplete="address-level2">
+      <span class="flbl">Woonsituatie</span>
+      <div class="seg"><label><input type="radio" name="woon" value="koop">Koopwoning</label><label><input type="radio" name="woon" value="huur">Huurwoning</label></div>
+      <span class="flbl">Afval opruimen</span>
+      <div class="seg"><label><input type="radio" name="afval" value="bouwbedrijf">Door het bouwbedrijf</label><label><input type="radio" name="afval" value="zelf">Ik doe dit zelf</label></div>
+      <span class="flbl">Opmerkingen (optioneel)</span>
+      <textarea id="aop" style="width:100%;font:500 16px Manrope;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;min-height:76px;margin-bottom:10px" placeholder="Bijvoorbeeld: bijzonderheden aan je dak of wensen"></textarea>
+      <span class="flbl">Foto&rsquo;s van je woning (optioneel)</span>
+      <label class="ghost" style="display:block;text-align:center;padding:12px;margin-bottom:8px;font-size:14px">+ Foto toevoegen<input type="file" id="fph" accept="image/*" multiple style="display:none"></label>
+      <div id="phl" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px"></div>
+      <label class="chk" style="display:flex;gap:10px;align-items:flex-start;font-size:13.5px;margin:6px 0 14px"><input type="checkbox" id="avw" style="margin-top:3px;width:18px;height:18px;accent-color:var(--gold)"><span>Ik ga akkoord met de <a href="/algemene-voorwaarden.html" target="_blank" style="color:var(--gold-dark);font-weight:700">algemene voorwaarden</a>.</span></label>
+      <div class="row">
+        <button class="ghost" id="addrBack" type="button" aria-label="Terug">&larr;</button>
         <button class="cta" id="send" type="button">Verstuur aanvraag</button>
       </div>
     </div>
@@ -235,6 +258,8 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
     <div class="row" style="margin:0 0 10px"><input type="text" id="aadjL" placeholder="Omschrijving" style="margin:0"><input type="text" id="aadj" inputmode="decimal" placeholder="-250" style="margin:0;max-width:110px"></div>
     <span class="flbl">Opmerking voor de klant</span>
     <textarea id="anote" style="width:100%;font:500 14px Manrope;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;min-height:70px;margin-bottom:10px"></textarea>
+    <div id="ainfo" style="display:none;font-size:13px;background:var(--paper);border-radius:10px;padding:10px 12px;margin-bottom:10px;line-height:1.6"></div>
+    <div id="aph" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px"></div>
     <div id="aerr" style="font-size:13px;font-weight:600;margin-bottom:8px"></div>
     <div id="alink" style="display:none;margin-bottom:10px"><span class="flbl">Link voor de klant</span><div class="row" style="margin:0"><input type="text" id="alinkv" readonly style="margin:0"><button class="ghost" id="acopy" type="button" style="white-space:nowrap">Kopieer link</button></div><a id="alinko" target="_blank" style="font-size:13px;font-weight:700;color:#a67d22">Bekijk offerte &rarr;</a></div>
     <div class="row"><button class="ghost" id="aclose" type="button">Sluiten</button><button class="ghost" id="asave" type="button" style="flex:1">Opslaan (concept)</button><button class="cta" id="arel" type="button" style="flex:1.4">Vrijgeven aan klant</button></div>
@@ -274,16 +299,16 @@ const CONFIG = {
 };
 const COLORS = {
   cladding: [
-    { n: 'Lichtgrijs', c: '#dcdcd9' }, { n: 'Wit', c: '#f2f0ea' }, { n: 'Antraciet', c: '#383c40' }, { n: 'Zwart', c: '#1a1a1a' },
-    { n: 'Zand', c: '#cdbd9c' }, { n: 'Groen', c: '#4d6a55' },
+    { n: 'Lichtgrijs', ral: 7035, c: '#dcdcd9' }, { n: 'Wit', ral: 9016, c: '#f2f0ea' }, { n: 'Antraciet', ral: 7016, c: '#383c40' }, { n: 'Zwart', ral: 9005, c: '#1a1a1a' },
+    { n: 'Zand', ral: 1015, c: '#cdbd9c' }, { n: 'Groen', ral: 6011, c: '#587246' },
   ],
   frame: [
-    { n: 'Wit', c: '#f4f3ef' }, { n: 'Antraciet', c: '#2f3337' }, { n: 'Creme', c: '#e6dcc3' },
+    { n: 'Wit', ral: 9016, c: '#f4f3ef' }, { n: 'Antraciet', ral: 7016, c: '#2f3337' }, { n: 'Creme', ral: 9001, c: '#e6dcc3' },
   ],
 };
 /* ====================================================================== */
 
-const S = { w: 2.2, h: 1.75, wins: 2, type: 'draai', mat: 'kunststof', col: 0, frame: 0, rol: false, vent: false, iso: false, hor: false, ac: false, house: true, face: 'front' };
+const S = { w: 2.2, h: 1.5, wins: 2, type: 'draai', mat: 'kunststof', col: 0, frame: 0, rol: false, vent: false, iso: false, hor: false, ac: false, house: true, face: 'front' };
 const $ = id => document.getElementById(id);
 const eur = n => '€ ' + Math.round(n).toLocaleString('nl-NL');
 
@@ -532,7 +557,7 @@ function screenTex() {                                    // fijn horgaas
 /* ---------- huis (breedte volgt de dakkapel) ---------- */
 const HD = 8, WALL = 5, PITCH = 0.9;               // diepte, gevelhoogte, helling (tan)
 let HW = 8;                                        // huisbreedte, wordt bij elke wijziging bepaald
-const houseWidth = w => Math.max(6.4, Math.round((w + 1.6) * 10) / 10);   // dakkapel + 0,8 m aan beide kanten
+const houseWidth = w => Math.max(7, Math.round((w + 1.0) * 10) / 10);   // standaard 7 m; altijd minimaal 0,5 m vrij aan elke kant
 const RISE = (HD / 2) * PITCH;
 const house = new THREE.Group(); scene.add(house);
 const body = new THREE.Group(); house.add(body);   // alles behalve het dak (kan aan/uit)
@@ -573,6 +598,27 @@ function decorWindow(x, y, w, h, sd = 1) {
   const g = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.16), mGlassDecor); g.position.set(x, y, sd * (HD / 2 + 0.06));
   body.add(f, g);
 }
+const NW = 7;                                              // breedte buurwoning
+const mConc = new THREE.MeshStandardMaterial({ color: '#cfcdc6', roughness: 0.9 });
+const mWallN = mWall.clone();
+mWallN.map = brickM.map.clone(); mWallN.normalMap = brickM.normal.clone();
+mWallN.map.needsUpdate = mWallN.normalMap.needsUpdate = true;
+mWallN.map.repeat.x = mWallN.normalMap.repeat.x = NW / 2.4;
+const mRoofN = new THREE.MeshStandardMaterial({ color: '#3a1812', roughness: 0.6 });
+const ridgeRed = new THREE.MeshStandardMaterial({ color: '#7c2f21', roughness: 0.35, metalness: 0.1 });
+const roofMatsN = [mRoofSide, mRoofSide, mRoofN, mRoofSide, mRoofSide, mRoofSide];
+function facade(cx, ww) {
+  const xs = [cx - ww / 2 + 1.5, cx - ww / 2 + 3.3];
+  for (const x of xs) {
+    decorWindow(x, 1.5, 1.4, 1.5); decorWindow(x, 3.7, 1.4, 1.2);
+    decorWindow(x, 1.5, 1.4, 1.5, -1); decorWindow(x, 3.7, 1.4, 1.2, -1);
+  }
+  const dx = cx + ww / 2 - 1.0;
+  const sur = sh(new THREE.Mesh(new THREE.BoxGeometry(1.5, 2.9, 0.1), mConc)); sur.position.set(dx, 1.45, HD / 2 + 0.03); body.add(sur);
+  const door = sh(new THREE.Mesh(new THREE.BoxGeometry(1.0, 2.35, 0.14), mDoor)); door.position.set(dx, 1.18, HD / 2 + 0.07); body.add(door);
+  decorWindow(dx, 3.7, 0.7, 1.2);
+  decorWindow(dx, 1.5, 1.4, 1.5, -1);
+}
 function clearGroup(g) { g.traverse(o => { if (o.geometry) o.geometry.dispose(); }); g.clear(); }
 
 function buildHouse() {
@@ -580,16 +626,15 @@ function buildHouse() {
   // texturen meeschalen met de breedte
   for (const t of [brickM.map, brickM.normal]) t.repeat.x = HW / 2.4;
   const walls = sh(new THREE.Mesh(new THREE.BoxGeometry(HW, WALL, HD), mWall)); walls.position.y = WALL / 2; body.add(walls);
-  body.add(tri(-HW / 2 - 0.001), tri(HW / 2 + 0.001));
   for (const side of [1, -1]) {
-    const m = sh(new THREE.Mesh(new THREE.BoxGeometry(HW + 0.5, 0.12, slopeLen + 0.35), roofMats));
+    const m = sh(new THREE.Mesh(new THREE.BoxGeometry(HW, 0.12, slopeLen + 0.35), roofMats));
     m.position.set(0, WALL + RISE / 2 + 0.06, side * (HD / 4 + 0.08));
     m.rotation.x = side * ang;
     roofG.add(m);
   }
   // nokvorsten: afgeronde, geglazuurde caps met naden
   const yR = WALL + RISE + 0.17;
-  const ridge = sh(new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, HW + 0.52, 28, 1), ridgeM));
+  const ridge = sh(new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, HW + 0.02, 28, 1), ridgeM));
   ridge.rotation.z = Math.PI / 2; ridge.position.set(0, yR, 0); roofG.add(ridge);
   for (let x = -HW / 2 + 0.5; x < HW / 2 + 0.25; x += 0.5) {
     const seam = new THREE.Mesh(new THREE.CylinderGeometry(0.153, 0.153, 0.012, 28), seamM);
@@ -597,21 +642,31 @@ function buildHouse() {
   }
   // boeiboord, goot en regenpijp (voor- en achterzijde)
   for (const sd of [1, -1]) {
-    const board = sh(new THREE.Mesh(new THREE.BoxGeometry(HW + 0.5, 0.26, 0.07), mWhite)); board.position.set(0, 4.8, sd * (HD / 2 + 0.28)); roofG.add(board);
-    const gutter = sh(new THREE.Mesh(new THREE.BoxGeometry(HW + 0.5, 0.12, 0.16), mWhite)); gutter.position.set(0, 4.64, sd * (HD / 2 + 0.34)); roofG.add(gutter);
-    const spout = sh(new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 4.6, 20), mWhite)); spout.position.set(sd * (HW / 2 - 0.5), 2.3, sd * (HD / 2 + 0.12)); body.add(spout);
+    const board = sh(new THREE.Mesh(new THREE.BoxGeometry(HW, 0.26, 0.07), mWhite)); board.position.set(0, 4.8, sd * (HD / 2 + 0.28)); roofG.add(board);
+    const gutter = sh(new THREE.Mesh(new THREE.BoxGeometry(HW, 0.12, 0.16), mWhite)); gutter.position.set(0, 4.64, sd * (HD / 2 + 0.34)); roofG.add(gutter);
+    const spout = sh(new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 4.6, 20), mWhite)); spout.position.set(sd * (HW / 2 - 0.3), 2.3, sd * (HD / 2 + 0.12)); body.add(spout);
   }
-  // ramen en deur op de begane grond
-  const wx = Math.max(1.9, HW * 0.3);
-  decorWindow(-wx, 1.7, 1.4, 1.5); decorWindow(wx, 1.7, 1.4, 1.5);
-  decorWindow(-wx, 1.9, 1.4, 1.5, -1); decorWindow(wx, 1.9, 1.4, 1.5, -1); decorWindow(0, 1.9, 1.0, 1.5, -1);
-  const door = sh(new THREE.Mesh(new THREE.BoxGeometry(1.1, 2.3, 0.14), mDoor));
-  door.position.set(0, 1.15, HD / 2 + 0.05); body.add(door);
+  facade(0, HW);
+  // rij: buurwoningen links en rechts
+  for (const sx of [-1, 1]) {
+    const cx = sx * (HW / 2 + NW / 2);
+    const nb = sh(new THREE.Mesh(new THREE.BoxGeometry(NW, WALL, HD), mWallN)); nb.position.set(cx, WALL / 2, 0); body.add(nb);
+    body.add(tri(sx * (HW / 2 + NW) + sx * 0.001));
+    for (const sd of [1, -1]) {
+      const m = sh(new THREE.Mesh(new THREE.BoxGeometry(NW, 0.12, slopeLen + 0.35), roofMatsN));
+      m.position.set(cx, WALL + RISE / 2 + 0.06, sd * (HD / 4 + 0.08)); m.rotation.x = sd * ang; roofG.add(m);
+      const board = sh(new THREE.Mesh(new THREE.BoxGeometry(NW, 0.26, 0.07), mWhite)); board.position.set(cx, 4.8, sd * (HD / 2 + 0.28)); roofG.add(board);
+      const gutter = sh(new THREE.Mesh(new THREE.BoxGeometry(NW, 0.12, 0.16), mWhite)); gutter.position.set(cx, 4.64, sd * (HD / 2 + 0.34)); roofG.add(gutter);
+    }
+    const rg = sh(new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, NW, 28, 1), ridgeRed));
+    rg.rotation.z = Math.PI / 2; rg.position.set(cx, yR, 0); roofG.add(rg);
+    facade(cx, NW);
+  }
 }
 /* ---------- dakpannen: echte 3D-geometrie (S-profiel, overlap, afgeronde rand) ---------- */
 const tileGeos = {};
-function makeTileGeo(dir) {
-  const tw = 0.21, tl = 0.3, nx = 14, nz = 10, amp = 0.017, lift = 0.025;
+function makeTileGeo(dir, lod) {
+  const tw = 0.21, tl = 0.3, nx = lod ? 8 : 14, nz = lod ? 5 : 10, amp = 0.017, lift = 0.025;
   const pos = [], idx = [];
   for (let j = 0; j <= nz; j++) for (let i = 0; i <= nx; i++) {
     const u = i / nx, v = j / nz;
@@ -639,42 +694,47 @@ function makeTileGeo(dir) {
 }
 const tileMat = new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.34, metalness: 0.05, envMapIntensity: 0.85 });
 let tilesG = null;
-function buildTiles(w, zb) {
+function buildTiles(cuts) {
   if (tilesG) { roofG.remove(tilesG); tilesG.traverse(o => { if (o.isInstancedMesh) o.dispose(); }); }
   tilesG = new THREE.Group(); roofG.add(tilesG);
-  const L = slopeLen + 0.35, tl = 0.3, pitchZ = 0.215, pitchX = 0.2, halfW = (HW + 0.5) / 2;
-  const rows = Math.floor((L - tl + 0.03) / pitchZ) + 1, cols = Math.ceil((HW + 0.5) / pitchX) + 2;
+  const L = slopeLen + 0.35, tl = 0.3, pitchZ = 0.215, pitchX = 0.2;
+  const rows = Math.floor((L - tl + 0.03) / pitchZ) + 1;
   const m = new THREE.Matrix4(), col = new THREE.Color();
   let seed = 5; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const zones = [{ cx: 0, w: HW, red: false }, { cx: -(HW / 2 + NW / 2), w: NW, red: true }, { cx: HW / 2 + NW / 2, w: NW, red: true }];
   for (const side of [1, -1]) {
     const slabZ = side * (HD / 4 + 0.08), slabY = WALL + RISE / 2 + 0.06;
-    const cutOn = side === 1 ? S.face !== 'back' : S.face !== 'front';
-    const items = [];
-    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
-      const lz = side * (L / 2 - tl / 2 + 0.03 - r * pitchZ);
-      const x = (c - (cols - 1) / 2) * pitchX + (r % 2 ? pitchX / 2 : 0);
-      if (Math.abs(x) > halfW) continue;
-      const wz = (slabZ + lz * COS) * side;
-      if (cutOn && Math.abs(x) < w / 2 + 0.27 && wz > zb - 0.15 && wz < ZF + 0.44) continue;   // plek voor dakkapel en zink
-      items.push([x, lz]);
+    for (const z of zones) {
+      const cut = z.red ? null : cuts[side], cols = Math.ceil(z.w / pitchX) + 2, items = [];
+      for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+        const lz = side * (L / 2 - tl / 2 + 0.03 - r * pitchZ);
+        const x = (c - (cols - 1) / 2) * pitchX + (r % 2 ? pitchX / 2 : 0);
+        if (Math.abs(x) > z.w / 2) continue;
+        const wz = (slabZ + lz * COS) * side;
+        if (cut && Math.abs(x) < cut.w / 2 + 0.27 && wz > cut.zb - 0.15 && wz < ZF + 0.44) continue;   // plek voor dakkapel en zink
+        items.push([x + z.cx, lz]);
+      }
+      const key = side + (z.red ? 'r' : '');
+      if (!tileGeos[key]) tileGeos[key] = makeTileGeo(side, z.red);
+      const im = new THREE.InstancedMesh(tileGeos[key], tileMat, items.length);
+      items.forEach(([x, lz], k) => {
+        m.makeTranslation(x, 0.06, lz); im.setMatrixAt(k, m);
+        if (z.red) col.setHSL(0.03 + rnd() * 0.012, 0.62 + rnd() * 0.1, 0.17 + rnd() * 0.04); else col.setHSL(0.61, 0.12 + rnd() * 0.05, 0.05 + rnd() * 0.03);
+        im.setColorAt(k, col);
+      });
+      im.castShadow = im.receiveShadow = true;
+      const g = new THREE.Group(); g.position.set(0, slabY, slabZ); g.rotation.x = side * ang; g.add(im);
+      tilesG.add(g);
     }
-    if (!tileGeos[side]) tileGeos[side] = makeTileGeo(side);
-    const im = new THREE.InstancedMesh(tileGeos[side], tileMat, items.length);
-    items.forEach(([x, lz], k) => {
-      m.makeTranslation(x, 0.06, lz); im.setMatrixAt(k, m);
-      col.setHSL(0.61, 0.12 + rnd() * 0.05, 0.05 + rnd() * 0.03); im.setColorAt(k, col);
-    });
-    im.castShadow = im.receiveShadow = true;
-    const g = new THREE.Group(); g.position.set(0, slabY, slabZ); g.rotation.x = side * ang; g.add(im);
-    tilesG.add(g);
   }
 }
-function ensureHouse() { const n = houseWidth(S.w); if (Math.abs(n - HW) > 1e-6 || !body.children.length) { HW = n; buildHouse(); } }
+function ensureHouse(wMax) { const n = houseWidth(wMax); if (Math.abs(n - HW) > 1e-6 || !body.children.length) { HW = n; buildHouse(); } }
 
 function setHouse(on) { body.visible = on; ground.visible = on; scene.fog = on ? FOG : null; }
 
 /* ---------- dakkapel (parametrisch) ---------- */
-const dormer = new THREE.Group(); house.add(dormer);
+const dormer = new THREE.Group();                                       // werkgroep tijdens het bouwen
+const dormerF = new THREE.Group(); house.add(dormerF);
 const dormerB = new THREE.Group(); dormerB.rotation.y = Math.PI; house.add(dormerB);   // achterzijde = voorzijde 180 graden gedraaid
 const SURF = 0.19;                                        // bovenkant dakpannen t.o.v. rekenlijn
 const slopeY = z => WALL + (HD / 2 - z) * PITCH + SURF;
@@ -758,10 +818,7 @@ function buildAirco(w, y0, hw, yWT) {
   mk(new THREE.BoxGeometry(0.13, 0.13, 0.03), mWhite, w / 2 - 0.12, ty, ZF + 0.012);
 }
 
-function buildDormer() {
-  ensureHouse();
-  dormerB.clear();
-  dormer.traverse(o => { if (o.geometry) o.geometry.dispose(); });
+function buildDormerBody(sd, cuts) {
   dormer.clear();
   const { w, h } = S;
   const hw = h - FASC;                                     // wandhoogte onder de dakrand
@@ -829,36 +886,81 @@ function buildDormer() {
   for (const s of [-1, 1]) roofPlate(s * (w / 2 + 0.11), 0.24, ZF + 0.5, zb - 0.1);
 
   if (S.ac) buildAirco(w, y0, hw, yWT);
-  buildTiles(w, zb);
-  dormer.children.forEach(c => dormerB.add(c.clone()));
-  dormer.visible = S.face !== 'back'; dormerB.visible = S.face !== 'front';
+  cuts[sd === 'front' ? 1 : -1] = { w, zb };
+}
+/* per kant een eigen configuratie (voorkant en achterkant kunnen verschillen) */
+const PS = ['w', 'h', 'wins', 'type', 'mat', 'col', 'frame', 'rol', 'vent', 'iso', 'hor', 'ac'];
+const CFG = { front: null, back: null };
+let side = 'front';
+const pick = () => Object.fromEntries(PS.map(k => [k, S[k]]));
+const shownSides = () => (S.face === 'both' ? ['front', 'back'] : [S.face]);
+function buildDormer() {
+  CFG[side] = pick();
+  const shown = shownSides();
+  for (const sd of shown) if (!CFG[sd]) CFG[sd] = { ...pick() };
+  ensureHouse(Math.max(...shown.map(sd => CFG[sd].w)));
+  for (const g of [dormerF, dormerB]) { g.traverse(o => { if (o.geometry) o.geometry.dispose(); }); g.clear(); }
+  const keep = pick(), cuts = { 1: null, '-1': null };
+  for (const sd of shown) {
+    Object.assign(S, CFG[sd]);
+    buildDormerBody(sd, cuts);
+    const target = sd === 'front' ? dormerF : dormerB;
+    [...dormer.children].forEach(c => target.add(c));
+  }
+  Object.assign(S, keep);
+  buildTiles(cuts);
   updatePrice();
+}
+function applyControls() {
+  $('w').value = S.w;
+  for (const [id, k] of [['xRol', 'rol'], ['xVent', 'vent'], ['xIso', 'iso'], ['xHor', 'hor'], ['xAir', 'ac']]) $(id).checked = !!S[k];
+}
+function switchSide(ns) {
+  CFG[side] = pick();
+  if (!CFG[ns]) CFG[ns] = { ...CFG[side] };
+  side = ns; Object.assign(S, CFG[ns]); applyControls();
+}
+function setFace(f) {
+  CFG[side] = pick();
+  S.face = f;
+  if (f !== 'front' && !CFG.back) CFG.back = { ...CFG[side] };
+  switchSide(f === 'back' ? 'back' : 'front');
+  sync(); buildDormer(); fitDistance();
+  views('angle', side === 'back' ? -1 : 1);
 }
 
 views('angle', 1, true);
 
 /* ---------- prijs ---------- */
-function calc() {
-  const C = CONFIG, mat = C.materials[S.mat];
+function calcSide(c) {
+  const C = CONFIG, mat = C.materials[c.mat];
   const lines = [];
   const add = (l, v) => lines.push([l, v]);
   add('Basis dakkapel', C.basePrice);
-  add(`Breedte ${S.w.toFixed(1).replace('.', ',')} m`, S.w * C.perMeterWidth);
-  add('Voorhoogte', Math.max(0, S.h - 1.2) * C.perHeightStep);
-  add(`${S.wins} × ${S.type === 'draai' ? 'draai-kiep' : 'vast'} raam`, S.wins * C.windowPrice[S.type]);
-  if (mat.perM) add(`Bekleding ${mat.label.toLowerCase()}`, mat.perM * S.w);
-  if (S.rol) add('Rolluiken', S.wins * C.rolluikPerWindow);
-  if (S.vent) add('Ventilatieroosters', C.ventPrice);
-  if (S.hor && S.type === 'draai') add('Horren in kiepramen', S.wins * C.horPerWindow);
-  if (S.ac) add('Airco-aansluiting', C.aircoPrice);
-  if (S.iso) add('Extra isolatie', C.isoBase + C.isoPerMeter * S.w);
-  if (S.face === 'both') add('Tweede dakkapel (achterzijde)', lines.reduce((a, l) => a + l[1], 0));
-  return { lines, total: lines.reduce((a, l) => a + l[1], 0) };
+  add(`Breedte ${c.w.toFixed(1).replace('.', ',')} m`, c.w * C.perMeterWidth);
+  add('Voorhoogte', Math.max(0, c.h - 1.2) * C.perHeightStep);
+  add(`${c.wins} × ${c.type === 'draai' ? 'draai-kiep' : 'vast'} raam`, c.wins * C.windowPrice[c.type]);
+  if (mat.perM) add(`Bekleding ${mat.label.toLowerCase()}`, mat.perM * c.w);
+  if (c.rol) add('Rolluiken', c.wins * C.rolluikPerWindow);
+  if (c.vent) add('Ventilatieroosters', C.ventPrice);
+  if (c.hor && c.type === 'draai') add('Horren in kiepramen', c.wins * C.horPerWindow);
+  if (c.ac) add('Airco-aansluiting', C.aircoPrice);
+  if (c.iso) add('Extra isolatie', C.isoBase + C.isoPerMeter * c.w);
+  return lines;
+}
+function calc() {
+  CFG[side] = pick();
+  const sides = shownSides(), lines = [];
+  for (const sd of sides) {
+    if (sides.length > 1) lines.push([sd === 'front' ? 'Voorkant' : 'Achterkant', null]);
+    lines.push(...calcSide(CFG[sd] || pick()));
+  }
+  return { lines, total: lines.reduce((a, l) => a + (l[1] || 0), 0) };
 }
 function updatePrice() {
   const { total } = calc();
-  $('pTot').textContent = eur(total);
-  $('pMnd').textContent = '± ' + eur(total / CONFIG.financeDivisor) + ' p/m';
+  $('pTot').textContent = 'Vanaf ' + eur2(total / CONFIG.financeDivisor) + ' p/m';
+  $('pMnd').textContent = '';
 }
 
 /* ---------- UI ---------- */
@@ -874,14 +976,17 @@ function group(id, items, key, fmt) {
 function swatches(id, list, key) {
   const el = $(id); el.innerHTML = '';
   list.forEach((c, i) => {
-    const b = document.createElement('button'); b.type = 'button'; b.title = c.n; b.style.background = c.c;
+    const w = document.createElement('div'); w.className = 'swi';
+    const b = document.createElement('button'); b.type = 'button'; b.title = `${c.n} (RAL ${c.ral})`; b.style.background = c.c;
     b.onclick = () => { S[key] = i; sync(); buildDormer(); };
-    el.appendChild(b);
+    const t = document.createElement('span'); t.innerHTML = `${c.n}<small>RAL ${c.ral}</small>`;
+    w.append(b, t); el.appendChild(w);
   });
 }
 group('gFace', [{ v: 'front', html: 'Voorkant<small>woning</small>' }, { v: 'back', html: 'Achterkant<small>woning</small>' }, { v: 'both', html: 'Beide<small>zijden</small>' }], 'face');
-document.querySelectorAll('#gFace .opt').forEach(b => { const o = b.onclick; b.onclick = () => { o(); if (b.dataset.v === 'front') views('angle', 1); else if (b.dataset.v === 'back') views('angle', -1); }; });
-group('gH', [{ v: 1.5, html: '1500<small>in millimeters</small>' }, { v: 1.75, html: '1750<small>in millimeters</small>' }], 'h');
+document.querySelectorAll('#gFace .opt').forEach(b => { b.onclick = () => setFace(b.dataset.v); });
+$('stepBack').onclick = () => { switchSide('front'); sync(); buildDormer(); fitDistance(); views('angle', 1); };
+group('gH', [{ v: 1.5, html: '1500<small>vergunningvrij</small>' }, { v: 1.75, html: '1750<small>niet vergunningvrij</small>' }], 'h');
 group('gType', [{ v: 'draai', html: 'Draai-kiep' }, { v: 'vast', html: 'Vast glas' }], 'type');
 group('gMat', Object.entries(CONFIG.materials).map(([v, m]) => ({ v, html: `${m.label}<small>${m.perM ? '+ € ' + m.perM + ' /m' : m.sub}</small>` })), 'mat');
 swatches('gCol', COLORS.cladding, 'col');
@@ -910,6 +1015,11 @@ function sync() {
   document.querySelectorAll('#gFrame button').forEach((b, i) => b.classList.toggle('on', i === S.frame));
   $('gCol').parentElement.style.display = S.mat === 'hout' ? 'none' : '';
   renderWins();
+  const both = S.face === 'both';
+  $('stepbar').style.display = both ? 'flex' : 'none';
+  $('stepTxt').textContent = side === 'front' ? 'Stap 1 van 2 · Voorkant instellen' : 'Stap 2 van 2 · Achterkant instellen';
+  $('stepBack').style.display = side === 'back' ? '' : 'none';
+  $('cta').textContent = ADM.ready ? (ADM.id ? 'Offerte bewerken & opslaan' : 'Nieuwe offerte opslaan') : (both && side === 'front' ? 'Volgende: achterkant instellen \u2192' : 'Offerte aanvragen');
 }
 $('w').oninput = e => { S.w = +e.target.value; sync(); buildDormer(); fitDistance(); };
 for (const [id, k] of [['xRol', 'rol'], ['xVent', 'vent'], ['xIso', 'iso'], ['xHor', 'hor'], ['xAir', 'ac']]) $(id).onchange = e => { S[k] = e.target.checked; buildDormer(); };
@@ -924,11 +1034,12 @@ const PAYTXT = { termijn: 'Termijnbetaling', eenmalig: 'In 1x betalen', beide: '
 const monthly = () => calc().total / CONFIG.financeDivisor;
 const eur2 = n => '€' + n.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const payVal = () => (document.querySelector('input[name=pay]:checked') || {}).value;
-function showStep(step) { for (const [id, k] of [['whenq', 'when'], ['payq', 'pay'], ['incomeq', 'income'], ['form', 'form']]) $(id).style.display = step === k ? '' : 'none'; $('done').style.display = step === 'done' ? 'block' : 'none'; }
+function showStep(step) { for (const [id, k] of [['whenq', 'when'], ['payq', 'pay'], ['incomeq', 'income'], ['form', 'form'], ['addr', 'addr']]) $(id).style.display = step === k ? '' : 'none'; $('done').style.display = step === 'done' ? 'block' : 'none'; }
 const WHENTXT = { asap: 'Zo snel mogelijk', '2-4w': 'Tussen 2 en 4 weken', '2m': 'Binnen 2 maanden', orient: 'Ik ben aan het oriënteren' };
 const whenVal = () => (document.querySelector('input[name=when]:checked') || {}).value;
 const enable = (btn, on) => { btn.disabled = !on; btn.style.opacity = on ? 1 : 0.5; };
 $('cta').onclick = () => {
+  if (S.face === 'both' && side === 'front') { switchSide('back'); sync(); buildDormer(); fitDistance(); views('angle', -1); scrollTo(0, 0); return; }
   $('payM').textContent = eur2(monthly());
   enable($('whenNext'), !!whenVal()); enable($('payNext'), !!payVal()); enable($('incNext'), incVals().length > 0);
   showStep('when'); $('dlg').showModal();
@@ -938,7 +1049,16 @@ document.querySelectorAll('input[name=pay]').forEach(r => r.onchange = () => ena
 $('whenBack').onclick = () => $('dlg').close();
 $('whenNext').onclick = () => { if (whenVal()) showStep('pay'); };
 $('payBack').onclick = () => showStep('when');
-$('payNext').onclick = () => { if (payVal()) showStep('income'); };
+function goForm() {
+  const { lines, total } = summaryText();
+  $('sum').innerHTML = lines.map(([l, v]) => v === null ? `<li><b>${l}</b></li>` : `<li>${l} <span style="float:right">${eur(v)}</span></li>`).join('') +
+    `<li style="border-top:1px solid #e6dfd0;margin-top:6px;padding-top:6px"><b>Totaal <span style="float:right">${eur(total)}</span></b></li>` +
+    `<li>Betaling <span style="float:right">${PAYTXT[payVal()]}</span></li>` +
+    `<li>Plaatsing gewenst <span style="float:right">${WHENTXT[whenVal()]}</span></li>` +
+    (payVal() !== 'eenmalig' && incVals().length ? `<li>Manier van inkomen <span style="float:right;text-align:right">${incVals().map(v => INCTXT[v]).join(', ')}</span></li>` : '');
+  showStep('form');
+}
+$('payNext').onclick = () => { if (!payVal()) return; if (payVal() === 'eenmalig') goForm(); else showStep('income'); };
 const INCTXT = { loondienst: 'Loondienst', ondernemer: 'Ondernemer', uitkering: 'Uitkering/ziektewet', geen: 'Geen inkomsten' };
 const incVals = () => [...document.querySelectorAll('input[name=inc]:checked')].map(i => i.value);
 document.querySelectorAll('input[name=inc]').forEach(c => c.onchange = () => {
@@ -946,29 +1066,76 @@ document.querySelectorAll('input[name=inc]').forEach(c => c.onchange = () => {
   enable($('incNext'), incVals().length > 0);
 });
 $('incBack').onclick = () => showStep('pay');
-$('incNext').onclick = () => {
-  if (!incVals().length) return;
-  const { lines, total } = summaryText();
-  $('sum').innerHTML = lines.map(([l, v]) => `<li>${l} <span style="float:right">${eur(v)}</span></li>`).join('') +
-    `<li style="border-top:1px solid #e6dfd0;margin-top:6px;padding-top:6px"><b>Totaal <span style="float:right">${eur(total)}</span></b></li>` +
-    `<li>Betaling <span style="float:right">${PAYTXT[payVal()]}</span></li>` +
-    `<li>Plaatsing gewenst <span style="float:right">${WHENTXT[whenVal()]}</span></li>` +
-    `<li>Manier van inkomen <span style="float:right;text-align:right">${incVals().map(v => INCTXT[v]).join(', ')}</span></li>`;
-  showStep('form');
-};
-$('cancel').onclick = () => showStep('income');
+$('incNext').onclick = () => { if (incVals().length) goForm(); };
+$('cancel').onclick = () => showStep(payVal() === 'eenmalig' ? 'pay' : 'income');
 $('close').onclick = () => $('dlg').close();
-$('send').onclick = async () => {
-  const name = $('fn').value.trim(), email = $('fe').value.trim(), phone = $('fp').value.trim();
-  const birth = $('fb').value, sex = (document.querySelector('input[name=sex]:checked') || {}).value;
+$('fb').oninput = e => { const d = e.target.value.replace(/\D/g, '').slice(0, 8); e.target.value = d.length > 4 ? `${d.slice(0, 2)}-${d.slice(2, 4)}-${d.slice(4)}` : d.length > 2 ? `${d.slice(0, 2)}-${d.slice(2)}` : d; };
+function birthISO(v) {
+  const m = /^(\d{2})-(\d{2})-(\d{4})$/.exec(v.trim()); if (!m) return '';
+  const [, d, mo, y] = m, dt = new Date(`${y}-${mo}-${d}T00:00:00`);
+  if (isNaN(dt) || dt.getDate() !== +d || dt.getMonth() + 1 !== +mo || dt > new Date() || +y < 1900) return '';
+  return `${y}-${mo}-${d}`;
+}
+$('formNext').onclick = () => {
+  const name = $('fn').value.trim(), email = $('fe').value.trim();
   if (!name || !/^\S+@\S+\.\S+$/.test(email)) { alert('Vul je naam en een geldig e-mailadres in.'); return; }
-  if (!birth || birth > new Date().toISOString().slice(0, 10)) { alert('Vul een geldige geboortedatum in.'); return; }
-  if (!sex) { alert('Kies man of vrouw.'); return; }
+  if (!birthISO($('fb').value)) { alert('Vul je geboortedatum in als dd-mm-jjjj.'); return; }
+  if (!(document.querySelector('input[name=sex]:checked'))) { alert('Kies man of vrouw.'); return; }
+  showStep('addr');
+};
+$('addrBack').onclick = () => showStep('form');
+// adres automatisch aanvullen (PDOK), mislukt het dan vul je het zelf in
+async function lookupAddr() {
+  const pc = $('apc').value.replace(/\s/g, ''), nr = $('ahn').value.trim();
+  if (!/^\d{4}[A-Za-z]{2}$/.test(pc) || !nr) return;
+  try {
+    const r = await fetch(`https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=${encodeURIComponent(pc + ' ' + nr)}&fq=type:adres&rows=1&fl=straatnaam,woonplaatsnaam`);
+    const d = (await r.json()).response.docs[0]; if (!d) return;
+    if (!$('ast').value) $('ast').value = d.straatnaam; if (!$('apl').value) $('apl').value = d.woonplaatsnaam;
+  } catch { }
+}
+$('apc').onblur = lookupAddr; $('ahn').onblur = lookupAddr;
+const photos = [];
+async function shrink(file) {
+  const url = URL.createObjectURL(file);
+  const img = await new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = url; });
+  const k = Math.min(1, 1100 / Math.max(img.width, img.height)), c = document.createElement('canvas');
+  c.width = Math.round(img.width * k); c.height = Math.round(img.height * k); c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+  URL.revokeObjectURL(url);
+  let q = 0.72, out = c.toDataURL('image/jpeg', q);
+  while (out.length > 230000 && q > 0.35) { q -= 0.1; out = c.toDataURL('image/jpeg', q); }
+  return out;
+}
+function renderPh() {
+  $('phl').innerHTML = '';
+  photos.forEach((p, i) => {
+    const d = document.createElement('div'); d.style.cssText = 'position:relative;width:64px;height:64px';
+    d.innerHTML = `<img src="${p}" style="width:64px;height:64px;object-fit:cover;border-radius:8px"><button type="button" style="position:absolute;right:-6px;top:-6px;width:22px;height:22px;border-radius:50%;border:0;background:#111;color:#fff;cursor:pointer;font-size:13px;line-height:1">&times;</button>`;
+    d.querySelector('button').onclick = () => { photos.splice(i, 1); renderPh(); };
+    $('phl').appendChild(d);
+  });
+}
+$('fph').onchange = async e => {
+  for (const f of [...e.target.files]) { if (photos.length >= 4) { alert('Maximaal 4 foto\u2019s.'); break; } try { photos.push(await shrink(f)); } catch { alert('Deze foto kon niet worden gelezen.'); } }
+  e.target.value = ''; renderPh();
+};
+$('send').onclick = async () => {
+  const pc = $('apc').value.trim(), hn = $('ahn').value.trim(), st = $('ast').value.trim(), pl = $('apl').value.trim();
+  if (!/^\d{4}\s?[A-Za-z]{2}$/.test(pc) || !hn || !st || !pl) { alert('Vul het volledige adres in: postcode, huisnummer, straat en plaats.'); return; }
+  const woon = (document.querySelector('input[name=woon]:checked') || {}).value, afval = (document.querySelector('input[name=afval]:checked') || {}).value;
+  if (!woon) { alert('Kies koopwoning of huurwoning.'); return; }
+  if (!afval) { alert('Kies wie het afval opruimt.'); return; }
+  if (!$('avw').checked) { alert('Ga akkoord met de algemene voorwaarden om door te gaan.'); return; }
   const { lines, total } = summaryText();
   const payload = {
-    customer: { name, email, phone, birthdate: birth, gender: sex, income: incVals(), incomeLabels: incVals().map(v => INCTXT[v]) },
+    customer: {
+      name: $('fn').value.trim(), email: $('fe').value.trim(), phone: $('fp').value.trim(), birthdate: birthISO($('fb').value), gender: document.querySelector('input[name=sex]:checked').value,
+      income: payVal() === 'eenmalig' ? [] : incVals(), incomeLabels: payVal() === 'eenmalig' ? [] : incVals().map(v => INCTXT[v]),
+      address: { postcode: pc.toUpperCase().replace(/\s/g, ''), huisnummer: hn, toevoeging: $('aht').value.trim(), straat: st, plaats: pl },
+      woonsituatie: woon, afval, opmerking: $('aop').value.trim(), voorwaarden: true,
+    },
     timing: whenVal(), timingLabel: WHENTXT[whenVal()], payment: payVal(), paymentLabel: PAYTXT[payVal()],
-    config: cfgSnapshot(), lines, total, shots: captureShots(),
+    config: cfgSnapshot(), lines, total, shots: captureShots(), photos,
   };
   $('send').disabled = true;
   try {
@@ -976,7 +1143,7 @@ $('send').onclick = async () => {
     if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || 'Mislukt');
   } catch (e) {
     $('send').disabled = false;
-    if (location.protocol === 'file:') console.log('Offerte-aanvraag (lokaal, geen server):', payload);
+    if (location.protocol === 'file:' || location.hostname === 'localhost') console.log('Offerte-aanvraag (lokaal, geen server):', payload);
     else { alert('Versturen mislukt. Probeer het later opnieuw.'); return; }
   }
   $('send').disabled = false;
@@ -985,21 +1152,26 @@ $('send').onclick = async () => {
 
 
 /* ---------- offerte-helpers + beheer (TermijnPartner) ---------- */
-function cfgSnapshot() { return { ...S, material: CONFIG.materials[S.mat].label, claddingColor: COLORS.cladding[S.col].n, frameColor: COLORS.frame[S.frame].n }; }
+function cfgSnapshot() {
+  CFG[side] = pick();
+  const one = c => ({ ...c, material: CONFIG.materials[c.mat].label, claddingColor: `${COLORS.cladding[c.col].n} (RAL ${COLORS.cladding[c.col].ral})`, claddingHex: COLORS.cladding[c.col].c, frameColor: `${COLORS.frame[c.frame].n} (RAL ${COLORS.frame[c.frame].ral})` });
+  return { face: S.face, sides: shownSides().map(sd => ({ side: sd, ...one(CFG[sd]) })) };
+}
 function captureShots() {
   const keep = curView.slice(), out = [];
-  const full = S.face === 'back' ? -1 : 1;
-  for (const v of ['angle', 'front']) { views(v, full, true); renderer.render(scene, camera); out.push(renderer.domElement.toDataURL('image/jpeg', 0.72)); }
+  const faces = S.face === 'both' ? [1, -1] : [S.face === 'back' ? -1 : 1];
+  for (const f of faces) for (const v of ['angle', 'front']) { views(v, f, true); renderer.render(scene, camera); out.push(renderer.domElement.toDataURL('image/jpeg', 0.7)); }
   views(keep[0], keep[1], true); renderer.render(scene, camera);
   return out;
 }
 const QP = new URLSearchParams(location.search);
-const ADM = { id: QP.get('edit'), on: QP.has('edit') || QP.has('admin'), key: '', q: null };
+const ADM = { id: QP.get('edit'), on: QP.has('edit') || QP.has('admin'), key: '', q: null, ready: false };
 function loadConfig(c) {
-  for (const k of Object.keys(S)) if (c[k] !== undefined) S[k] = c[k];
-  $('w').value = S.w;
-  for (const [id, k] of [['xRol', 'rol'], ['xVent', 'vent'], ['xIso', 'iso'], ['xHor', 'hor'], ['xAir', 'ac']]) $(id).checked = !!S[k];
-  sync(); buildDormer(); views('angle', S.face === 'back' ? -1 : 1, true);
+  for (const sd of c.sides || []) CFG[sd.side] = Object.fromEntries(PS.map(k => [k, sd[k]]));
+  S.face = c.face || 'front';
+  side = S.face === 'back' ? 'back' : 'front';
+  Object.assign(S, CFG[side]); applyControls();
+  sync(); buildDormer(); fitDistance(); views('angle', side === 'back' ? -1 : 1, true);
 }
 async function api(method, qs, body) {
   const r = await fetch('/api/quote' + qs, { method, headers: { 'Content-Type': 'application/json', 'x-admin-key': ADM.key }, body: body ? JSON.stringify(body) : undefined });
@@ -1016,14 +1188,17 @@ async function initAdmin() {
       break;
     } catch (e) { if (/toegang/i.test(e.message)) { ADM.key = ''; try { sessionStorage.removeItem('tpk'); } catch { } if (tries === 2) return alert('Onjuist wachtwoord.'); } else return alert(e.message); }
   }
-  $('cta').textContent = ADM.id ? 'Offerte bewerken & opslaan' : 'Nieuwe offerte opslaan';
-  $('cta').onclick = openAdm;
+  ADM.ready = true; $('cta').onclick = openAdm; sync();
   $('adTag').style.display = '';
   if (ADM.q) {
     loadConfig(ADM.q.config || {});
     $('afn').value = ADM.q.customer?.name || ''; $('afe').value = ADM.q.customer?.email || ''; $('afp').value = ADM.q.customer?.phone || '';
     if (ADM.q.adjust) { $('aadjL').value = ADM.q.adjust.label || ''; $('aadj').value = ADM.q.adjust.amount || ''; }
     $('anote').value = ADM.q.note || '';
+    const cu = ADM.q.customer || {}, ad = cu.address || {};
+    const info = [ad.straat ? `<b>Adres:</b> ${ad.straat} ${ad.huisnummer}${ad.toevoeging ? ' ' + ad.toevoeging : ''}, ${ad.postcode} ${ad.plaats}` : '', cu.woonsituatie ? `<b>Woning:</b> ${cu.woonsituatie === 'koop' ? 'Koop' : 'Huur'}` : '', cu.afval ? `<b>Afval:</b> ${cu.afval === 'zelf' ? 'klant zelf' : 'bouwbedrijf'}` : '', ADM.q.timingLabel ? `<b>Plaatsing:</b> ${ADM.q.timingLabel}` : '', ADM.q.paymentLabel ? `<b>Betaling:</b> ${ADM.q.paymentLabel}` : '', cu.birthdate ? `<b>Geboortedatum:</b> ${cu.birthdate}` : '', (cu.incomeLabels || []).length ? `<b>Inkomen:</b> ${cu.incomeLabels.join(', ')}` : '', cu.opmerking ? `<b>Opmerking klant:</b> ${String(cu.opmerking).replace(/</g, '&lt;')}` : ''].filter(Boolean);
+    if (info.length) { $('ainfo').innerHTML = info.join('<br>'); $('ainfo').style.display = ''; }
+    api('GET', `?id=${ADM.id}&photos=1`).then(r => { $('aph').innerHTML = (r.photos || []).map(p => `<a href="${p}" target="_blank"><img src="${p}" style="width:72px;height:72px;object-fit:cover;border-radius:8px"></a>`).join(''); }).catch(() => { });
     $('adTag').textContent = `${ADM.q.nummer} · ${ADM.q.status} · v${ADM.q.version}`;
   }
 }
