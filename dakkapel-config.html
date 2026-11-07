@@ -311,7 +311,7 @@ const COLORS = {
 };
 /* ====================================================================== */
 
-const S = { w: 2.2, h: 1.5, wins: 2, type: 'draai', mat: 'kunststof', col: 0, frame: 0, rol: false, vent: false, iso: false, hor: false, ac: false, house: true, face: 'front' };
+const S = { w: 2.2, h: 1.5, wins: 2, type: 'draai', mat: 'kunststof', col: 0, frame: 0, rol: false, vent: false, iso: false, hor: false, ac: false, house: true, face: 'back' };
 const $ = id => document.getElementById(id);
 const eur = n => '€ ' + Math.round(n).toLocaleString('nl-NL');
 
@@ -894,7 +894,7 @@ function buildDormerBody(sd, cuts) {
 /* per kant een eigen configuratie (voorkant en achterkant kunnen verschillen) */
 const PS = ['w', 'h', 'wins', 'type', 'mat', 'col', 'frame', 'rol', 'vent', 'iso', 'hor', 'ac'];
 const CFG = { front: null, back: null };
-let side = 'front';
+let side = 'back';
 const pick = () => Object.fromEntries(PS.map(k => [k, S[k]]));
 const shownSides = () => (S.face === 'both' ? ['front', 'back'] : [S.face]);
 function buildDormer() {
@@ -932,7 +932,7 @@ function setFace(f) {
   views('angle', side === 'back' ? -1 : 1);
 }
 
-views('angle', 1, true);
+views('angle', -1, true);
 
 /* ---------- prijs ---------- */
 function calcSide(c) {
@@ -986,7 +986,7 @@ function swatches(id, list, key) {
     w.append(b, t); el.appendChild(w);
   });
 }
-group('gFace', [{ v: 'front', html: 'Voorkant<small>woning</small>' }, { v: 'back', html: 'Achterkant<small>woning</small>' }, { v: 'both', html: 'Beide<small>zijden</small>' }], 'face');
+group('gFace', [{ v: 'back', html: 'Achterkant<small>woning</small>' }, { v: 'front', html: 'Voorkant<small>woning</small>' }, { v: 'both', html: 'Beide<small>zijden</small>' }], 'face');
 document.querySelectorAll('#gFace .opt').forEach(b => { b.onclick = () => setFace(b.dataset.v); });
 $('stepBack').onclick = () => { switchSide('front'); sync(); buildDormer(); fitDistance(); views('angle', 1); };
 group('gH', [{ v: 1.5, html: '1500<small>vergunningvrij</small>' }, { v: 1.75, html: '1750<small>niet vergunningvrij</small>' }], 'h');
