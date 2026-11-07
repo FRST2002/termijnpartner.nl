@@ -246,7 +246,7 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
         <button class="cta" id="send" type="button">Verstuur aanvraag</button>
       </div>
     </div>
-    <div id="done"><h2>Bedankt!</h2><p>We nemen snel contact met je op over je offerte.</p><button class="cta" id="close">Sluiten</button></div>
+    <div id="done"><h2>Bedankt!</h2><p id="doneTxt">We nemen snel contact met je op over je offerte.</p><a id="viewOffer" class="cta" target="_blank" style="display:none;text-decoration:none;text-align:center;margin-bottom:10px">Bekijk je offerte</a><button class="cta" id="close" style="background:#fff;border:1.5px solid var(--line)">Sluiten</button></div>
   </div>
 </dialog>
 
@@ -279,6 +279,8 @@ import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 const CONFIG = {
   // Webhook (bijv. GoHighLevel inbound webhook). Leeg = alleen tonen, niets versturen.
   webhookUrl: '',
+  // true = tijdelijk: na 'Verstuur aanvraag' direct een voorbeeldofferte tonen (niets wordt opgeslagen of verstuurd). Zet op false zodra de koppeling klaar is.
+  previewOnly: true,
   financeDivisor: 180,          // maandbedrag = prijs / 180 (TermijnPartner)
   basePrice: 2600,              // basis dakkapel
   perMeterWidth: 1900,          // per meter breedte
@@ -1148,6 +1150,14 @@ $('send').onclick = async () => {
     timing: whenVal(), timingLabel: WHENTXT[whenVal()], payment: payVal(), paymentLabel: PAYTXT[payVal()],
     config: cfgSnapshot(), lines, total, shots: captureShots(), photos,
   };
+  if (CONFIG.previewOnly) {
+    const now = new Date().toISOString();
+    const pq = { id: 'voorbeeld', nummer: 'TP-VOORBEELD', status: 'preview', version: 1, createdAt: now, sentAt: now, customer: payload.customer, config: payload.config, lines, total, shots: payload.shots, timingLabel: payload.timingLabel, paymentLabel: payload.paymentLabel, note: '' };
+    try { localStorage.setItem('tp_preview', JSON.stringify(pq)); } catch { }
+    $('viewOffer').href = new URL('offerte.html?preview=1', location.href).href; $('viewOffer').style.display = 'block';
+    $('doneTxt').textContent = 'Dit is een voorbeeld van je offerte. Je kunt hem bekijken en downloaden als PDF.';
+    showStep('done'); return;
+  }
   $('send').disabled = true;
   try {
     const r = await fetch('/api/quote', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
@@ -1171,8 +1181,8 @@ function cfgSnapshot() {
 function captureShots() {
   const keep = curView.slice(), out = [];
   const faces = S.face === 'both' ? [1, -1] : [S.face === 'back' ? -1 : 1];
-  for (const f of faces) for (const v of ['angle', 'front']) { views(v, f, true); renderer.render(scene, camera); out.push(renderer.domElement.toDataURL('image/jpeg', 0.7)); }
-  views(keep[0], keep[1], true); renderer.render(scene, camera);
+  for (const f of faces) for (const v of ['angle', 'front']) { views(v, f, true); camera.lookAt(controls.target); renderer.render(scene, camera); out.push(renderer.domElement.toDataURL('image/jpeg', 0.7)); }
+  views(keep[0], keep[1], true); camera.lookAt(controls.target); renderer.render(scene, camera);
   return out;
 }
 const QP = new URLSearchParams(location.search);

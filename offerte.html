@@ -17,7 +17,7 @@ body{margin:0;background:var(--paper);color:var(--grey);font-family:Manrope,syst
 .top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
 .logo{font-weight:800;font-size:22px;letter-spacing:-.02em;color:var(--black)}.logo span{color:var(--gold)}
 .badge{font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;border-radius:99px;padding:6px 14px;background:#f0eee9;color:var(--grey)}
-.badge.verstuurd{background:#fbf3df;color:var(--gold-dark)}.badge.goedgekeurd{background:#e3f2e9;color:var(--ok)}.badge.afgekeurd{background:#fbe6e3;color:var(--bad)}
+.badge.preview{background:#e8eefb;color:#2b5bb8}.badge.verstuurd{background:#fbf3df;color:var(--gold-dark)}.badge.goedgekeurd{background:#e3f2e9;color:var(--ok)}.badge.afgekeurd{background:#fbe6e3;color:var(--bad)}
 .hero{padding:36px 0 18px}
 .eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-dark)}
 h1{font:600 clamp(28px,5vw,40px) Fraunces,serif;color:var(--black);margin:6px 0 10px;letter-spacing:-.01em;line-height:1.15}
@@ -70,8 +70,9 @@ const eur = n => '€ ' + Math.round(n).toLocaleString('nl-NL');
 const eur2 = n => '€ ' + n.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const dt = iso => new Date(iso).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
-const STATUS = { aanvraag: 'In behandeling', concept: 'In behandeling', verstuurd: 'Wacht op jouw reactie', goedgekeurd: 'Goedgekeurd', afgekeurd: 'Afgekeurd' };
+const STATUS = { preview: 'Voorbeeld', aanvraag: 'In behandeling', concept: 'In behandeling', verstuurd: 'Wacht op jouw reactie', goedgekeurd: 'Goedgekeurd', afgekeurd: 'Afgekeurd' };
 const id = new URLSearchParams(location.search).get('id');
+const PREVIEW = new URLSearchParams(location.search).has('preview');
 
 /* ---- technische tekeningen (maten volgen het 3D-model) ---- */
 const FASC = 0.27, PITCH = 0.9;
@@ -136,6 +137,7 @@ function render(q) {
     <h1>Jouw dakkapel op maat${nm ? ', ' + nm : ''}</h1>
     <div class="meta"><span>Datum <b>${date}</b></span><span>Geldig tot <b>${valid}</b></span><span>Voor <b>${esc(q.customer.name)}</b></span></div></div>`;
 
+  if (q.status === 'preview') h += `<div class="banner info noprint">Dit is een voorbeeld van je offerte. <button class="pr" style="margin:0 0 0 8px" onclick="print()">Download als PDF</button></div>`;
   if (q.status === 'aanvraag' || q.status === 'concept') {
     h += `<div class="banner info">We stellen je offerte samen. Zodra die klaar is, zie je hem hier en kun je hem goedkeuren. Je hoeft niets te doen.</div>`;
     $('app').innerHTML = h; return;
@@ -200,6 +202,7 @@ function render(q) {
 }
 
 (async () => {
+  if (PREVIEW) { try { render(JSON.parse(localStorage.getItem('tp_preview'))); } catch { $('app').innerHTML = '<p style="padding:40px 0">Geen voorbeeld gevonden. Vraag eerst een offerte aan in de configurator.</p>'; } return; }
   if (!id) { $('app').innerHTML = '<p style="padding:40px 0">Deze link is niet compleet.</p>'; return; }
   try {
     const r = await fetch('/api/quote?id=' + encodeURIComponent(id));
