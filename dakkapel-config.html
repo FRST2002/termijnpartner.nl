@@ -112,7 +112,7 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
   <section id="stage">
     <canvas id="c"></canvas>
     <div class="views">
-      <button data-v="front" data-f="1">Voorkant</button>
+      <button data-v="front">Recht</button>
       <button data-v="angle">Schuin</button>
       <button data-v="side">Zijkant</button>
     </div>
@@ -122,7 +122,7 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
     <div class="panel">
       <h1>Stel je dakkapel samen</h1>
       <p class="sub">Kies de opties en zie direct het resultaat en je maandbedrag.</p>
-      <div class="stepbar" id="stepbar"><span id="stepTxt"></span><button type="button" id="stepBack">&larr; Voorkant</button></div>
+      <div class="stepbar" id="stepbar"><span id="stepTxt"></span><button type="button" id="stepBack">&larr; Achterkant</button></div>
 
       <div class="grp">
         <div class="lbl">Plaatsing dakkapel</div>
@@ -896,7 +896,7 @@ const PS = ['w', 'h', 'wins', 'type', 'mat', 'col', 'frame', 'rol', 'vent', 'iso
 const CFG = { front: null, back: null };
 let side = 'back';
 const pick = () => Object.fromEntries(PS.map(k => [k, S[k]]));
-const shownSides = () => (S.face === 'both' ? ['front', 'back'] : [S.face]);
+const shownSides = () => (S.face === 'both' ? ['back', 'front'] : [S.face]);
 function buildDormer() {
   CFG[side] = pick();
   const shown = shownSides();
@@ -926,8 +926,7 @@ function switchSide(ns) {
 function setFace(f) {
   CFG[side] = pick();
   S.face = f;
-  if (f !== 'front' && !CFG.back) CFG.back = { ...CFG[side] };
-  switchSide(f === 'back' ? 'back' : 'front');
+  switchSide(f === 'front' ? 'front' : 'back');
   sync(); buildDormer(); fitDistance();
   views('angle', side === 'back' ? -1 : 1);
 }
@@ -988,7 +987,7 @@ function swatches(id, list, key) {
 }
 group('gFace', [{ v: 'back', html: 'Achterkant<small>woning</small>' }, { v: 'front', html: 'Voorkant<small>woning</small>' }, { v: 'both', html: 'Beide<small>zijden</small>' }], 'face');
 document.querySelectorAll('#gFace .opt').forEach(b => { b.onclick = () => setFace(b.dataset.v); });
-$('stepBack').onclick = () => { switchSide('front'); sync(); buildDormer(); fitDistance(); views('angle', 1); };
+$('stepBack').onclick = () => { switchSide('back'); sync(); buildDormer(); fitDistance(); views('angle', -1); };
 group('gH', [{ v: 1.5, html: '1500<small>vergunningvrij</small>' }, { v: 1.75, html: '1750<small>niet vergunningvrij</small>' }], 'h');
 group('gType', [{ v: 'draai', html: 'Draai-kiep' }, { v: 'vast', html: 'Vast glas' }], 'type');
 group('gMat', Object.entries(CONFIG.materials).map(([v, m]) => ({ v, html: `${m.label}<small>${m.perM ? '+ € ' + m.perM + ' /m' : m.sub}</small>` })), 'mat');
@@ -1014,7 +1013,7 @@ function sync() {
   document.querySelectorAll('#gH .opt').forEach(b => b.classList.toggle('on', +b.dataset.v === S.h));
   const frontSide = side === 'front';
   document.querySelectorAll('#gH .opt').forEach(b => { const sm = b.querySelector('small'); if (sm) sm.textContent = frontSide ? 'vergunning nodig' : (+b.dataset.v <= 1.5 ? 'vergunningvrij' : 'niet vergunningvrij'); });
-  $('hPerm').textContent = frontSide ? 'Aan de voorkant van de woning heb je altijd een vergunning nodig.' : (S.h <= 1.5 ? 'Aan de achterkant is een dakkapel van 1500 mm vergunningvrij.' : 'Bij 1750 mm heb je een vergunning nodig.');
+  $('hPerm').textContent = frontSide ? 'Aan de voorkant heb je altijd een vergunning nodig. De regels verschillen per gemeente; bij de vergunningsaanvraag kijken we naar de mogelijkheden.' : (S.h <= 1.5 ? 'Aan de achterkant is een dakkapel van 1500 mm vergunningvrij.' : 'Bij 1750 mm heb je een vergunning nodig.');
   document.querySelectorAll('#gFace .opt').forEach(b => b.classList.toggle('on', b.dataset.v === S.face));
   document.querySelectorAll('#gType .opt').forEach(b => b.classList.toggle('on', b.dataset.v === S.type));
   document.querySelectorAll('#gMat .opt').forEach(b => b.classList.toggle('on', b.dataset.v === S.mat));
@@ -1024,9 +1023,9 @@ function sync() {
   renderWins();
   const both = S.face === 'both';
   $('stepbar').style.display = both ? 'flex' : 'none';
-  $('stepTxt').textContent = side === 'front' ? 'Stap 1 van 2 · Voorkant instellen' : 'Stap 2 van 2 · Achterkant instellen';
-  $('stepBack').style.display = side === 'back' ? '' : 'none';
-  $('cta').textContent = ADM.ready ? (ADM.id ? 'Offerte bewerken & opslaan' : 'Nieuwe offerte opslaan') : (both && side === 'front' ? 'Volgende: achterkant instellen \u2192' : 'Offerte aanvragen');
+  $('stepTxt').textContent = side === 'back' ? 'Stap 1 van 2 · Achterkant instellen' : 'Stap 2 van 2 · Voorkant instellen';
+  $('stepBack').style.display = side === 'front' ? '' : 'none';
+  $('cta').textContent = ADM.ready ? (ADM.id ? 'Offerte bewerken & opslaan' : 'Nieuwe offerte opslaan') : (both && side === 'back' ? 'Volgende: voorkant instellen \u2192' : 'Offerte aanvragen');
 }
 $('wIn').oninput = e => {
   const v = parseFloat(e.target.value.replace(',', '.'));
@@ -1036,7 +1035,7 @@ $('wIn').onchange = $('wIn').onblur = e => { const v = parseFloat(e.target.value
 $('wIn').onkeydown = e => { if (e.key === 'Enter') e.target.blur(); };
 $('w').oninput = e => { S.w = +e.target.value; sync(); buildDormer(); fitDistance(); };
 for (const [id, k] of [['xRol', 'rol'], ['xVent', 'vent'], ['xIso', 'iso'], ['xHor', 'hor'], ['xAir', 'ac']]) $(id).onchange = e => { S[k] = e.target.checked; buildDormer(); };
-document.querySelectorAll('.views button').forEach(b => b.onclick = () => views(b.dataset.v, b.dataset.f ? +b.dataset.f : viewFace));
+document.querySelectorAll('.views button').forEach(b => b.onclick = () => views(b.dataset.v, side === 'back' ? -1 : 1));
 
 /* ---------- offerte ---------- */
 function summaryText() {
@@ -1052,13 +1051,13 @@ const WHENTXT = { asap: 'Zo snel mogelijk', '2-4w': 'Tussen 2 en 4 weken', '2m':
 const whenVal = () => (document.querySelector('input[name=when]:checked') || {}).value;
 const enable = (btn, on) => { btn.disabled = !on; btn.style.opacity = on ? 1 : 0.5; };
 $('cta').onclick = () => {
-  if (S.face === 'both' && side === 'front') { switchSide('back'); sync(); buildDormer(); fitDistance(); views('angle', -1); scrollTo(0, 0); return; }
+  if (S.face === 'both' && side === 'back') { switchSide('front'); sync(); buildDormer(); fitDistance(); views('angle', 1); scrollTo(0, 0); return; }
   $('payM').textContent = eur2(monthly());
   enable($('whenNext'), !!whenVal()); enable($('payNext'), !!payVal()); enable($('incNext'), incVals().length > 0);
   showStep('when'); $('dlg').showModal();
 };
-document.querySelectorAll('input[name=when]').forEach(r => r.onchange = () => enable($('whenNext'), true));
-document.querySelectorAll('input[name=pay]').forEach(r => r.onchange = () => enable($('payNext'), true));
+document.querySelectorAll('input[name=when]').forEach(r => r.onchange = () => { enable($('whenNext'), true); setTimeout(() => $('whenNext').click(), 250); });
+document.querySelectorAll('input[name=pay]').forEach(r => r.onchange = () => { enable($('payNext'), true); setTimeout(() => $('payNext').click(), 250); });
 $('whenBack').onclick = () => $('dlg').close();
 $('whenNext').onclick = () => { if (whenVal()) showStep('pay'); };
 $('payBack').onclick = () => showStep('when');
@@ -1180,7 +1179,7 @@ function cfgSnapshot() {
 }
 function captureShots() {
   const keep = curView.slice(), out = [];
-  const faces = S.face === 'both' ? [1, -1] : [S.face === 'back' ? -1 : 1];
+  const faces = S.face === 'both' ? [-1, 1] : [S.face === 'back' ? -1 : 1];
   for (const f of faces) for (const v of ['angle', 'front']) { views(v, f, true); camera.lookAt(controls.target); renderer.render(scene, camera); out.push(renderer.domElement.toDataURL('image/jpeg', 0.7)); }
   views(keep[0], keep[1], true); camera.lookAt(controls.target); renderer.render(scene, camera);
   return out;
@@ -1190,7 +1189,7 @@ const ADM = { id: QP.get('edit'), on: QP.has('edit') || QP.has('admin'), key: ''
 function loadConfig(c) {
   for (const sd of c.sides || []) CFG[sd.side] = Object.fromEntries(PS.map(k => [k, sd[k]]));
   S.face = c.face || 'front';
-  side = S.face === 'back' ? 'back' : 'front';
+  side = S.face === 'front' ? 'front' : 'back';
   Object.assign(S, CFG[side]); applyControls();
   sync(); buildDormer(); fitDistance(); views('angle', side === 'back' ? -1 : 1, true);
 }

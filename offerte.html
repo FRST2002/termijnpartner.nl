@@ -156,7 +156,7 @@ function render(q) {
     <div><span>Kleur kozijnen</span><b>${esc(x.frameColor)}</b></div><div><span>Glas</span><b>HR++ spiegelglas</b></div>
     <div><span>Rolluiken</span><b>${x.rol ? 'Ja' : 'Nee'}</b></div><div><span>Ventilatieroosters</span><b>${x.vent ? 'Ja' : 'Nee'}</b></div>
     <div><span>Horren in kiepramen</span><b>${x.hor && x.type === 'draai' ? 'Ja' : 'Nee'}</b></div><div><span>Airco-aansluiting</span><b>${x.ac ? 'Ja' : 'Nee'}</b></div>
-    <div><span>Extra isolatie (Rc 6,0)</span><b>${x.iso ? 'Ja' : 'Nee'}</b></div><div><span>Vergunning</span><b>${x.side === 'front' ? 'Nodig (voorkant woning)' : x.h <= 1.5 ? 'Vergunningvrij' : 'Nodig'}</b></div></div>`;
+    <div><span>Extra isolatie (Rc 6,0)</span><b>${x.iso ? 'Ja' : 'Nee'}</b></div><div><span>Vergunning</span><b>${x.side === 'front' ? 'Nodig (regels per gemeente)' : x.h <= 1.5 ? 'Vergunningvrij' : 'Nodig'}</b></div></div>`;
   const cu = q.customer || {}, ad = cu.address || {};
   h += `<div class="card"><h2>Specificaties</h2>${sides.map(x => (sides.length > 1 ? `<div class="eyebrow" style="margin:14px 0 2px">${SN[x.side]}</div>` : '') + specOf(x)).join('')}
     ${ad.straat || cu.afval ? `<div class="spec" style="margin-top:14px">${ad.straat ? `<div><span>Adres</span><b>${esc(ad.straat)} ${esc(ad.huisnummer)}${ad.toevoeging ? ' ' + esc(ad.toevoeging) : ''}, ${esc(ad.postcode)} ${esc(ad.plaats)}</b></div>` : '<div></div>'}${cu.afval ? `<div><span>Afval opruimen</span><b>${cu.afval === 'zelf' ? 'Door jou zelf' : 'Door het bouwbedrijf'}</b></div>` : '<div></div>'}</div>` : ''}</div>`;
