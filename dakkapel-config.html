@@ -135,6 +135,7 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
       <div class="grp">
         <div class="lbl">Hoogte</div>
         <div class="opts" id="gH"></div>
+        <div class="hintline" id="hPerm"></div>
       </div>
       <div class="grp">
         <div class="lbl">Aantal ramen</div>
@@ -1009,6 +1010,9 @@ function sync() {
   $('xHor').disabled = S.type !== 'draai'; $('lHor').classList.toggle('dis', S.type !== 'draai');
   if (document.activeElement !== $('wIn')) $('wIn').value = fmtW(S.w);
   document.querySelectorAll('#gH .opt').forEach(b => b.classList.toggle('on', +b.dataset.v === S.h));
+  const frontSide = side === 'front';
+  document.querySelectorAll('#gH .opt').forEach(b => { const sm = b.querySelector('small'); if (sm) sm.textContent = frontSide ? 'vergunning nodig' : (+b.dataset.v <= 1.5 ? 'vergunningvrij' : 'niet vergunningvrij'); });
+  $('hPerm').textContent = frontSide ? 'Aan de voorkant van de woning heb je altijd een vergunning nodig.' : (S.h <= 1.5 ? 'Aan de achterkant is een dakkapel van 1500 mm vergunningvrij.' : 'Bij 1750 mm heb je een vergunning nodig.');
   document.querySelectorAll('#gFace .opt').forEach(b => b.classList.toggle('on', b.dataset.v === S.face));
   document.querySelectorAll('#gType .opt').forEach(b => b.classList.toggle('on', b.dataset.v === S.type));
   document.querySelectorAll('#gMat .opt').forEach(b => b.classList.toggle('on', b.dataset.v === S.mat));
