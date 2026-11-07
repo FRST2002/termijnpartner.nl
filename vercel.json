@@ -33,6 +33,14 @@
     {
       "source": "/offerte",
       "destination": "/offerte.html"
+    },
+    {
+      "source": "/hollandstotaalbouw-dakkapel",
+      "destination": "/hollandstotaalbouw-dakkapel.html"
+    },
+    {
+      "source": "/hollandstotaalbouw-offerte",
+      "destination": "/hollandstotaalbouw-offerte.html"
     }
   ],
   "headers": [
@@ -74,6 +82,24 @@
     },
     {
       "source": "/offerte",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/hollandstotaalbouw-dakkapel",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/hollandstotaalbouw-offerte",
       "headers": [
         {
           "key": "X-Robots-Tag",
