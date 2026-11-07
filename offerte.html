@@ -164,17 +164,17 @@ function render(q) {
   h += `<div class="card"><h2>Tekening met maten</h2>${sides.map(x => `${sides.length > 1 ? `<div class="eyebrow" style="margin:6px 0 8px">${SN[x.side]}</div>` : ''}<div class="draw" style="margin-bottom:14px"><figure>${frontDrawing(x)}<figcaption>Vooraanzicht (maten in mm)</figcaption></figure><figure>${roofDrawing(x, wMax)}<figcaption>Dakvlak (maten in mm)</figcaption></figure></div>`).join('')}
     <p style="font-size:12.5px;color:var(--muted);margin:0">Maten zijn indicatief. Na akkoord wordt alles opgemeten en definitief vastgelegd.</p></div>`;
 
-  const excl = q.total / 1.21;
+  const excl = q.total / 1.21, once = q.payment === 'eenmalig';
   h += `<div class="card"><h2>Prijs</h2><table>${(q.lines || []).map(([l, v]) => v === null ? `<tr><td colspan="2" style="font-weight:800;color:var(--ink);padding-top:16px">${esc(l)}</td></tr>` : `<tr><td>${esc(l)}</td><td class="r">${v < 0 ? '− ' + eur(-v) : eur(v)}</td></tr>`).join('')}
-    <tr class="sub"><td>Totaal excl. btw</td><td class="r">${eur(excl)}</td></tr><tr class="sub"><td>Btw 21%</td><td class="r">${eur(q.total - excl)}</td></tr>
-    <tr class="tot"><td>Totaal incl. btw</td><td class="r"><span class="big">${eur(q.total)}</span></td></tr></table>
-    <div class="mnd">Liever in termijnen betalen? Dat kan achteraf, vanaf <b>${eur2(q.total / 180)} per maand</b> (indicatief).</div>
+    ${once ? `<tr class="sub"><td>Totaal excl. btw</td><td class="r">${eur(excl)}</td></tr><tr class="sub"><td>Btw 21%</td><td class="r">${eur(q.total - excl)}</td></tr>
+    <tr class="tot"><td>Totaal incl. btw</td><td class="r"><span class="big">${eur(q.total)}</span></td></tr>` : ''}</table>
+    ${once ? '' : `<div class="mnd" style="text-align:center;padding:20px 16px"><div style="font-size:14px">Achteraf in termijnen betalen</div><div style="font:700 34px Fraunces,serif;color:var(--black);margin:4px 0">Vanaf ${eur2(q.total / 180)} <span style="font:600 16px Manrope">per maand</span></div><div style="font-size:12.5px;color:var(--muted)">Indicatief. Totaalprijs ${eur(q.total)} incl. btw (${eur(excl)} excl. btw).</div></div>`}
     ${q.note ? `<p class="note" style="margin:16px 0 0"><b>Opmerking van TermijnPartner</b><br>${esc(q.note)}</p>` : ''}
     <button class="pr" onclick="print()">Download of print als PDF</button></div>`;
 
   if (q.status === 'verstuurd') {
     h += `<div class="card actions-card"><h2>Wat vind je ervan?</h2><div class="actions">
-      <label class="chk"><input type="checkbox" id="agree"><span>Ik ga akkoord met deze offerte van ${eur(q.total)} incl. btw.</span></label>
+      <label class="chk"><input type="checkbox" id="agree"><span>Ik ga akkoord met deze offerte.</span></label>
       <input type="text" id="who" placeholder="Typ je volledige naam als handtekening" autocomplete="name" value="${esc(q.customer.name)}">
       <button class="btn ok" id="acc" disabled>Offerte goedkeuren</button>
       <button class="btn no" id="rej">Ik wil iets anders of niet doorgaan</button>

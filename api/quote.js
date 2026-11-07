@@ -101,9 +101,9 @@ const nowIso = () => new Date().toISOString();
 const clean = (s, n = 200) => String(s ?? '').slice(0, n);
 
 function publicView(q) {
-  const { id, status, version, config, lines, total, adjust, note, customer, shots, createdAt, sentAt, decision, history } = q;
+  const { id, status, version, config, lines, total, adjust, note, customer, shots, createdAt, sentAt, decision, payment } = q;
   return {
-    id, status, version, config, lines, total, adjust, note, shots, createdAt, sentAt, decision,
+    id, status, version, config, lines, total, adjust, note, shots, createdAt, sentAt, decision, payment,
     customer: { name: customer?.name, email: customer?.email, address: customer?.address, woonsituatie: customer?.woonsituatie, afval: customer?.afval },
     nummer: q.nummer,
   };

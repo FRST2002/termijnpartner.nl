@@ -1063,8 +1063,9 @@ $('whenNext').onclick = () => { if (whenVal()) showStep('pay'); };
 $('payBack').onclick = () => showStep('when');
 function goForm() {
   const { lines, total } = summaryText();
-  $('sum').innerHTML = lines.map(([l, v]) => v === null ? `<li><b>${l}</b></li>` : `<li>${l} <span style="float:right">${eur(v)}</span></li>`).join('') +
-    `<li style="border-top:1px solid #e6dfd0;margin-top:6px;padding-top:6px"><b>Totaal <span style="float:right">${eur(total)}</span></b></li>` +
+  const term = payVal() !== 'eenmalig';
+  $('sum').innerHTML = lines.map(([l, v]) => v === null ? `<li><b>${l}</b></li>` : term ? `<li>${l}</li>` : `<li>${l} <span style="float:right">${eur(v)}</span></li>`).join('') +
+    `<li style="border-top:1px solid #e6dfd0;margin-top:6px;padding-top:6px"><b>${term ? `Vanaf ${eur2(total / CONFIG.financeDivisor)} <span style="float:right">per maand</span>` : `Totaal <span style="float:right">${eur(total)}</span>`}</b></li>` +
     `<li>Betaling <span style="float:right">${PAYTXT[payVal()]}</span></li>` +
     `<li>Plaatsing gewenst <span style="float:right">${WHENTXT[whenVal()]}</span></li>` +
     (payVal() !== 'eenmalig' && incVals().length ? `<li>Manier van inkomen <span style="float:right;text-align:right">${incVals().map(v => INCTXT[v]).join(', ')}</span></li>` : '');
@@ -1151,7 +1152,7 @@ $('send').onclick = async () => {
   };
   if (CONFIG.previewOnly) {
     const now = new Date().toISOString();
-    const pq = { id: 'voorbeeld', nummer: 'TP-VOORBEELD', status: 'preview', version: 1, createdAt: now, sentAt: now, customer: payload.customer, config: payload.config, lines, total, shots: payload.shots, timingLabel: payload.timingLabel, paymentLabel: payload.paymentLabel, note: '' };
+    const pq = { id: 'voorbeeld', nummer: 'TP-VOORBEELD', status: 'preview', version: 1, createdAt: now, sentAt: now, customer: payload.customer, config: payload.config, lines, total, shots: payload.shots, timingLabel: payload.timingLabel, paymentLabel: payload.paymentLabel, payment: payload.payment, note: '' };
     try { localStorage.setItem('tp_preview', JSON.stringify(pq)); } catch { }
     $('viewOffer').href = new URL('offerte.html?preview=1', location.href).href; $('viewOffer').style.display = 'block';
     $('doneTxt').textContent = 'Dit is een voorbeeld van je offerte. Je kunt hem bekijken en downloaden als PDF.';
