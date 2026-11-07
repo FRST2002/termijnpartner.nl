@@ -40,7 +40,7 @@ input[type=range]{width:100%;accent-color:var(--gold)}
 .opt small{display:block;font-weight:500;color:#7a7468;font-size:11px;margin-top:2px}
 .opt:hover{border-color:var(--gold-light)}
 .opt.on{border-color:var(--gold);background:#fbf3df}
-.sw{display:flex;flex-wrap:wrap;gap:14px 8px}.swi{display:flex;flex-direction:column;align-items:center;width:66px;gap:6px;font-size:12px;font-weight:700;text-align:center;color:var(--ink)}.swi small{display:block;font-weight:500;color:#7a7468;font-size:11px}.hintline{font-size:12.5px;color:#7a7468;margin-top:8px}
+.sw{display:flex;flex-wrap:wrap;gap:14px 8px}.swi{display:flex;flex-direction:column;align-items:center;width:66px;gap:6px;font-size:12px;font-weight:700;text-align:center;color:var(--ink)}.swi small{display:block;font-weight:500;color:#7a7468;font-size:11px}.wbox{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:800;color:var(--gold-dark);letter-spacing:0;text-transform:none}.wbox input{width:76px;font:800 15px Manrope;color:var(--gold-dark);text-align:right;padding:6px 8px;border:1.5px solid var(--line);border-radius:8px;background:#fff}.wbox input:focus{outline:none;border-color:var(--gold)}.hintline{font-size:12.5px;color:#7a7468;margin-top:8px}
 .stepbar{display:none;margin:0 0 6px;padding:10px 12px;background:#fbf3df;border:1px solid #efdca6;border-radius:12px;font-size:13px;font-weight:700;color:var(--gold-dark);align-items:center;justify-content:space-between;gap:8px}.stepbar button{font:700 12px Manrope;border:1px solid #e3c978;background:#fff;border-radius:99px;padding:5px 12px;cursor:pointer;color:var(--ink)}
 .sw button{width:52px;height:52px;border-radius:50%;border:2px solid var(--white);box-shadow:0 0 0 1.5px var(--line);cursor:pointer;padding:0}
 .sw button.on{box-shadow:0 0 0 2.5px var(--gold)}
@@ -129,7 +129,7 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
         <div class="opts" id="gFace"></div>
       </div>
       <div class="grp">
-        <div class="lbl">Breedte <b id="vW"></b></div>
+        <div class="lbl">Breedte <span class="wbox"><input id="wIn" type="text" inputmode="decimal" autocomplete="off" aria-label="Breedte in meters"> m</span></div>
         <input type="range" id="w" min="1.5" max="9" step="0.1" value="2.2">
       </div>
       <div class="grp">
@@ -1004,9 +1004,10 @@ function renderWins() {
     el.appendChild(b);
   }
 }
+const fmtW = v => String(Math.round(v * 100) / 100).replace('.', ',');
 function sync() {
   $('xHor').disabled = S.type !== 'draai'; $('lHor').classList.toggle('dis', S.type !== 'draai');
-  $('vW').textContent = S.w.toFixed(1).replace('.', ',') + ' m';
+  if (document.activeElement !== $('wIn')) $('wIn').value = fmtW(S.w);
   document.querySelectorAll('#gH .opt').forEach(b => b.classList.toggle('on', +b.dataset.v === S.h));
   document.querySelectorAll('#gFace .opt').forEach(b => b.classList.toggle('on', b.dataset.v === S.face));
   document.querySelectorAll('#gType .opt').forEach(b => b.classList.toggle('on', b.dataset.v === S.type));
@@ -1021,6 +1022,12 @@ function sync() {
   $('stepBack').style.display = side === 'back' ? '' : 'none';
   $('cta').textContent = ADM.ready ? (ADM.id ? 'Offerte bewerken & opslaan' : 'Nieuwe offerte opslaan') : (both && side === 'front' ? 'Volgende: achterkant instellen \u2192' : 'Offerte aanvragen');
 }
+$('wIn').oninput = e => {
+  const v = parseFloat(e.target.value.replace(',', '.'));
+  if (v >= 1.5 && v <= 9) { S.w = Math.round(v * 100) / 100; $('w').value = S.w; sync(); buildDormer(); fitDistance(); }
+};
+$('wIn').onchange = $('wIn').onblur = e => { const v = parseFloat(e.target.value.replace(',', '.')); if (!(v >= 1.5)) S.w = 1.5; else if (v > 9) S.w = 9; else S.w = Math.round(v * 100) / 100; $('w').value = S.w; e.target.value = fmtW(S.w); sync(); buildDormer(); fitDistance(); };
+$('wIn').onkeydown = e => { if (e.key === 'Enter') e.target.blur(); };
 $('w').oninput = e => { S.w = +e.target.value; sync(); buildDormer(); fitDistance(); };
 for (const [id, k] of [['xRol', 'rol'], ['xVent', 'vent'], ['xIso', 'iso'], ['xHor', 'hor'], ['xAir', 'ac']]) $(id).onchange = e => { S[k] = e.target.checked; buildDormer(); };
 document.querySelectorAll('.views button').forEach(b => b.onclick = () => views(b.dataset.v, b.dataset.f ? +b.dataset.f : viewFace));
