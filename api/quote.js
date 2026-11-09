@@ -192,7 +192,7 @@ export default async function handler(req, res) {
       applyFields(q, body);
       q.customer = {
         name: clean(c.name, 120), email: clean(c.email, 160), phone: clean(c.phone, 40),
-        ...(admin ? {} : {
+        ...(admin ? { afval: c.afval === 'zelf' ? 'zelf' : 'bouwbedrijf' } : {
           birthdate: clean(c.birthdate, 10), gender: clean(c.gender, 10), income: (c.income || []).slice(0, 4), incomeLabels: (c.incomeLabels || []).slice(0, 4).map((x) => clean(x, 40)),
           address: { postcode: clean(c.address?.postcode, 8), huisnummer: clean(c.address?.huisnummer, 10), toevoeging: clean(c.address?.toevoeging, 10), straat: clean(c.address?.straat, 80), plaats: clean(c.address?.plaats, 60) },
           woonsituatie: c.woonsituatie === 'huur' ? 'huur' : 'koop', afval: c.afval === 'zelf' ? 'zelf' : 'bouwbedrijf', opmerking: clean(c.opmerking, 1500),

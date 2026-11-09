@@ -191,6 +191,10 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
         <div class="lbl">Bekleding</div>
         <div class="opts" id="gMat"></div>
       </div>
+      <div class="grp">
+        <div class="lbl">Afval opruimen</div>
+        <div class="opts" id="gAfval"></div>
+      </div>
       </div>
 
       <div class="page">
@@ -281,8 +285,6 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
       <input type="text" id="apl" placeholder="Plaats" autocomplete="address-level2">
       <span class="flbl">Woonsituatie</span>
       <div class="seg"><label><input type="radio" name="woon" value="koop">Koopwoning</label><label><input type="radio" name="woon" value="huur">Huurwoning</label></div>
-      <span class="flbl">Afval opruimen</span>
-      <div class="seg"><label><input type="radio" name="afval" value="bouwbedrijf">Door het bouwbedrijf</label><label><input type="radio" name="afval" value="zelf">Ik doe dit zelf</label></div>
       <span class="flbl">Opmerkingen (optioneel)</span>
       <textarea id="aop" style="width:100%;font:500 16px Manrope;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;min-height:76px;margin-bottom:10px" placeholder="Bijvoorbeeld: bijzonderheden aan je dak of wensen"></textarea>
       <span class="flbl">Foto&rsquo;s van je woning (optioneel)</span>
@@ -359,7 +361,7 @@ const COLORS = {
 };
 /* ====================================================================== */
 
-const S = { w: 2.4, h: 1.5, wins: 2, type: 'draai', mat: 'kunststof', col: 0, frame: 0, rol: false, vent: false, iso: false, hor: false, ac: false, house: true, face: 'back' };
+const S = { w: 2.4, h: 1.5, wins: 2, type: 'draai', mat: 'kunststof', col: 0, frame: 0, rol: false, vent: false, iso: false, hor: false, ac: false, house: true, face: 'back', afval: 'bouwbedrijf' };
 const $ = id => document.getElementById(id);
 const eur = n => '€ ' + Math.round(n).toLocaleString('nl-NL');
 
@@ -1039,6 +1041,7 @@ document.querySelectorAll('#gFace .opt').forEach(b => { b.onclick = () => setFac
 $('stepBack').onclick = () => { switchSide('back'); sync(); buildDormer(); fitDistance(); views('angle', -1); showPage(0); };
 group('gH', [{ v: 1.5, html: '1500<small>vergunningvrij</small>' }, { v: 1.75, html: '1750<small>niet vergunningvrij</small>' }], 'h');
 group('gType', [{ v: 'draai', html: 'Draai-kiep' }, { v: 'vast', html: 'Vast glas' }], 'type');
+group('gAfval', [{ v: 'bouwbedrijf', html: 'Door het bouwbedrijf<small>wordt voor je opgeruimd</small>' }, { v: 'zelf', html: 'Ik doe dit zelf<small>zelf afvoeren</small>' }], 'afval');
 group('gMat', Object.entries(CONFIG.materials).map(([v, m]) => ({ v, html: `${m.label}<small>${m.perM ? '+ € ' + m.perM + ' /m' : m.sub}</small>` })), 'mat');
 swatches('gCol', COLORS.cladding, 'col');
 swatches('gFrame', COLORS.frame, 'frame');
@@ -1085,6 +1088,7 @@ function sync() {
   document.querySelectorAll('#gFace .opt').forEach(b => b.classList.toggle('on', b.dataset.v === S.face));
   document.querySelectorAll('#gType .opt').forEach(b => b.classList.toggle('on', b.dataset.v === S.type));
   document.querySelectorAll('#gMat .opt').forEach(b => b.classList.toggle('on', b.dataset.v === S.mat));
+  document.querySelectorAll('#gAfval .opt').forEach(b => b.classList.toggle('on', b.dataset.v === S.afval));
   document.querySelectorAll('#gCol button').forEach((b, i) => b.classList.toggle('on', i === S.col));
   document.querySelectorAll('#gFrame button').forEach((b, i) => b.classList.toggle('on', i === S.frame));
   $('gCol').parentElement.style.display = S.mat === 'hout' ? 'none' : '';
@@ -1205,9 +1209,8 @@ $('fph').onchange = async e => {
 $('send').onclick = async () => {
   const pc = $('apc').value.trim(), hn = $('ahn').value.trim(), st = $('ast').value.trim(), pl = $('apl').value.trim();
   if (!/^\d{4}\s?[A-Za-z]{2}$/.test(pc) || !hn || !st || !pl) { alert('Vul het volledige adres in: postcode, huisnummer, straat en plaats.'); return; }
-  const woon = (document.querySelector('input[name=woon]:checked') || {}).value, afval = (document.querySelector('input[name=afval]:checked') || {}).value;
+  const woon = (document.querySelector('input[name=woon]:checked') || {}).value;
   if (!woon) { alert('Kies koopwoning of huurwoning.'); return; }
-  if (!afval) { alert('Kies wie het afval opruimt.'); return; }
   if (!$('avw').checked) { alert('Ga akkoord met de algemene voorwaarden om door te gaan.'); return; }
   const { lines, total } = summaryText();
   const payload = {
@@ -1215,7 +1218,7 @@ $('send').onclick = async () => {
       name: $('fn').value.trim(), email: $('fe').value.trim(), phone: $('fp').value.trim(), birthdate: birthISO($('fb').value), gender: document.querySelector('input[name=sex]:checked').value,
       income: payVal() === 'eenmalig' ? [] : incVals(), incomeLabels: payVal() === 'eenmalig' ? [] : incVals().map(v => INCTXT[v]),
       address: { postcode: pc.toUpperCase().replace(/\s/g, ''), huisnummer: hn, toevoeging: $('aht').value.trim(), straat: st, plaats: pl },
-      woonsituatie: woon, afval, opmerking: $('aop').value.trim(), voorwaarden: true,
+      woonsituatie: woon, afval: S.afval, opmerking: $('aop').value.trim(), voorwaarden: true,
     },
     timing: whenVal(), timingLabel: WHENTXT[whenVal()], payment: payVal(), paymentLabel: PAYTXT[payVal()],
     config: cfgSnapshot(), lines, total, shots: captureShots(), photos,
@@ -1246,7 +1249,7 @@ $('send').onclick = async () => {
 function cfgSnapshot() {
   CFG[side] = pick();
   const one = c => ({ ...c, material: CONFIG.materials[c.mat].label, claddingColor: `${COLORS.cladding[c.col].n} (RAL ${COLORS.cladding[c.col].ral})`, claddingHex: COLORS.cladding[c.col].c, frameColor: `${COLORS.frame[c.frame].n} (RAL ${COLORS.frame[c.frame].ral})` });
-  return { face: S.face, sides: shownSides().map(sd => ({ side: sd, ...one(CFG[sd]) })) };
+  return { face: S.face, afval: S.afval, sides: shownSides().map(sd => ({ side: sd, ...one(CFG[sd]) })) };
 }
 function captureShots() {
   const keep = curView.slice(), out = [];
@@ -1259,7 +1262,7 @@ const QP = new URLSearchParams(location.search);
 const ADM = { id: QP.get('edit'), on: QP.has('edit') || QP.has('admin'), key: '', q: null, ready: false };
 function loadConfig(c) {
   for (const sd of c.sides || []) CFG[sd.side] = Object.fromEntries(PS.map(k => [k, sd[k]]));
-  S.face = c.face || 'front';
+  S.face = c.face || 'front'; S.afval = c.afval || 'bouwbedrijf';
   side = S.face === 'front' ? 'front' : 'back';
   Object.assign(S, CFG[side]); applyControls();
   sync(); buildDormer(); fitDistance(); views('angle', side === 'back' ? -1 : 1, true);
@@ -1305,7 +1308,7 @@ async function admSave(release) {
   const name = $('afn').value.trim(), email = $('afe').value.trim();
   if (!name || !/^\S+@\S+\.\S+$/.test(email)) { $('aerr').textContent = 'Vul naam en geldig e-mailadres in.'; return; }
   const c = admCalc(); $('aerr').textContent = 'Opslaan…';
-  const body = { customer: { name, email, phone: $('afp').value.trim() }, config: cfgSnapshot(), lines: c.lines, total: c.total, adjust: c.adjust, note: $('anote').value, shots: captureShots(), status: release ? 'verstuurd' : (ADM.q ? ADM.q.status : 'concept') };
+  const body = { customer: { name, email, phone: $('afp').value.trim(), afval: S.afval }, config: cfgSnapshot(), lines: c.lines, total: c.total, adjust: c.adjust, note: $('anote').value, shots: captureShots(), status: release ? 'verstuurd' : (ADM.q ? ADM.q.status : 'concept') };
   try {
     let j;
     if (ADM.id) j = await api('PUT', `?id=${ADM.id}`, body);
