@@ -26,44 +26,19 @@ main{flex:1;display:grid;grid-template-columns:1fr 400px;min-height:0}
 .views{position:absolute;left:16px;top:14px;display:flex;gap:6px}
 .views button{font:600 12px Manrope;border:1px solid var(--line);background:rgba(255,255,255,.9);padding:7px 12px;border-radius:99px;cursor:pointer;color:var(--ink)}
 .views button:hover{border-color:var(--gold)}
-/* ---------- laadscherm: bouwende 3D-draadmodel ---------- */
-@property --n{syntax:'<integer>';inherits:false;initial-value:0}
-#loading{position:absolute;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;overflow:hidden;color:#fff;background:radial-gradient(ellipse at 50% 38%,#2b2a27 0%,#171614 58%,#0d0d0c 100%);transition:opacity .6s ease,transform .7s ease}
-#loading.done{opacity:0;transform:scale(1.06);pointer-events:none}
-#loading .floor{position:absolute;left:-30%;right:-30%;bottom:-18%;height:62%;transform:perspective(420px) rotateX(64deg);background-image:linear-gradient(color-mix(in srgb,var(--gold) 32%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--gold) 32%,transparent) 1px,transparent 1px);background-size:46px 46px;animation:flr 2.4s linear infinite;-webkit-mask-image:linear-gradient(to top,#000 10%,transparent 85%);mask-image:linear-gradient(to top,#000 10%,transparent 85%)}
-@keyframes flr{to{background-position:0 46px}}
-#loading .glow{position:absolute;left:50%;top:40%;width:340px;height:340px;margin:-170px 0 0 -170px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--gold) 26%,transparent),transparent 68%);animation:pulse 2.6s ease-in-out infinite}
-@keyframes pulse{50%{transform:scale(1.18);opacity:.65}}
-#loading .scene{position:relative;width:360px;height:250px;perspective:900px;perspective-origin:50% 38%;margin-top:-6px}
-#loading .house{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;animation:spin 11s linear infinite}
-@keyframes spin{from{transform:scale(1.3) rotateX(-19deg) rotateY(-30deg)}to{transform:scale(1.3) rotateX(-19deg) rotateY(330deg)}}
-#loading .f{position:absolute;left:50%;top:50%;border:1.6px solid var(--gold);background:color-mix(in srgb,var(--gold) 7%,transparent);box-shadow:inset 0 0 22px color-mix(in srgb,var(--gold) 22%,transparent),0 0 10px color-mix(in srgb,var(--gold) 28%,transparent);opacity:0;animation:fin .55s ease forwards}
-@keyframes fin{from{opacity:0}to{opacity:1}}
-#loading .w{animation-delay:.1s}#loading .gb{animation-delay:.55s}#loading .rf{animation-delay:.95s}
-#loading .gb{clip-path:polygon(0 100%,100% 100%,50% 0);border:0;background:color-mix(in srgb,var(--gold) 16%,transparent);box-shadow:none}
-#loading .rf{background:repeating-linear-gradient(to bottom,color-mix(in srgb,var(--gold) 55%,transparent) 0 1.2px,transparent 1.2px 7px),color-mix(in srgb,var(--gold) 9%,transparent)}
-#loading .gnd{border-style:dashed;border-color:color-mix(in srgb,var(--gold) 55%,transparent);background:none;box-shadow:none;animation-delay:0s}
-#loading .win{position:absolute;background:color-mix(in srgb,#fff 70%,var(--gold));opacity:0;box-shadow:0 0 12px var(--gold);animation:fin .4s ease forwards,tw 2.2s ease-in-out infinite;animation-delay:2.1s,2.5s}
-@keyframes tw{50%{opacity:.55}}
-#loading .dm{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;opacity:0;animation:drop .9s cubic-bezier(.3,1.5,.5,1) 1.5s forwards}
-@keyframes drop{from{opacity:0;transform:translate3d(-40px,-90px,0)}to{opacity:1;transform:translate3d(-40px,0,0)}}
-#loading .dm .f{animation:none;opacity:1;background:color-mix(in srgb,var(--gold) 20%,transparent);border-color:#fff;box-shadow:0 0 14px var(--gold),inset 0 0 14px color-mix(in srgb,var(--gold) 40%,transparent)}
-#loading .txt{position:relative;text-align:center;margin-top:2px}
-#loading .ttl{font-size:11px;font-weight:800;letter-spacing:.34em;text-transform:uppercase;color:color-mix(in srgb,var(--gold) 80%,#fff)}
-#loading .stat{position:relative;height:24px;margin-top:8px;font-size:15px;font-weight:600;letter-spacing:.01em}
-#loading .stat span{position:absolute;left:0;right:0;opacity:0;animation:st 6.4s infinite}
-#loading .stat span:nth-child(2){animation-delay:1.6s}#loading .stat span:nth-child(3){animation-delay:3.2s}#loading .stat span:nth-child(4){animation-delay:4.8s}
-@keyframes st{0%{opacity:0;transform:translateY(8px)}4%,22%{opacity:1;transform:none}26%,100%{opacity:0;transform:translateY(-8px)}}
-#loading .bar{position:relative;width:min(280px,70%);height:5px;border-radius:99px;background:rgba(255,255,255,.12);margin:12px auto 0;overflow:hidden}
-#loading .bar i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:99px;background:linear-gradient(90deg,var(--gold),color-mix(in srgb,var(--gold) 55%,#fff),var(--gold));background-size:200% 100%;animation:fill 3.4s cubic-bezier(.2,.7,.2,1) forwards,shim 1.1s linear infinite}
-@keyframes fill{to{width:92%}}@keyframes shim{to{background-position:-200% 0}}
-#loading.done .bar i{animation:shim 1.1s linear infinite;width:100%;transition:width .25s}
-#loading .pct{margin-top:8px;font-size:12px;font-weight:700;letter-spacing:.1em;color:rgba(255,255,255,.62);counter-reset:n var(--n);animation:cnt 3.4s cubic-bezier(.2,.7,.2,1) forwards}
-#loading .pct::after{content:counter(n) '%'}
-@keyframes cnt{to{--n:92}}
-#loading.done .pct{animation:none;--n:100}
-@media(max-width:900px),(max-height:520px){#loading .scene{transform:scale(.74);margin:-26px 0 -22px}#loading .stat{margin-top:0}#loading .bar{margin-top:8px}#loading .pct{margin-top:6px}}
-@media(prefers-reduced-motion:reduce){#loading .house,#loading .floor,#loading .glow{animation:none}}
+/* ---------- laadscherm (licht en snel) ---------- */
+#loading{position:absolute;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:var(--paper);color:var(--ink);transition:opacity .4s ease}
+#loading.done{opacity:0;pointer-events:none}
+#loading svg{width:92px;height:auto;overflow:visible}
+#loading svg path,#loading svg rect{fill:none;stroke:var(--gold);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:dr 1.8s ease-in-out infinite}
+#loading svg .d2{animation-delay:.25s}#loading svg .d3{animation-delay:.5s}
+@keyframes dr{0%{stroke-dashoffset:1}55%,85%{stroke-dashoffset:0}100%{stroke-dashoffset:-1}}
+#loading .t{font-size:15px;font-weight:700}
+#loading .s{font-size:13px;color:#6b6b6b;margin-top:-10px}
+#loading .bar{position:relative;width:150px;height:4px;border-radius:99px;background:rgba(0,0,0,.08);overflow:hidden}
+#loading .bar i{position:absolute;top:0;bottom:0;width:40%;border-radius:99px;background:var(--gold);animation:sl 1.2s ease-in-out infinite}
+@keyframes sl{from{left:-40%}to{left:100%}}
+@media(prefers-reduced-motion:reduce){#loading svg path,#loading svg rect,#loading .bar i{animation:none;stroke-dashoffset:0}}
 aside{background:var(--white);border-left:1px solid var(--line);overflow-y:auto;display:flex;flex-direction:column}
 .panel{padding:20px 24px;flex:1}
 h1{font:600 26px Fraunces,serif;color:var(--black);margin:0 0 4px;letter-spacing:-.01em}
@@ -164,32 +139,14 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
       <button data-v="side">Zijkant</button>
     </div>
     <div id="loading" aria-live="polite">
-      <div class="floor"></div><div class="glow"></div>
-      <div class="scene"><div class="house">
-        <div class="f gnd" style="width:190px;height:140px;margin:-70px 0 0 -95px;transform:translateY(35px) rotateX(90deg)"></div>
-        <div class="f w" style="width:160px;height:70px;margin:-35px 0 0 -80px;transform:translateZ(55px)">
-          <span class="win" style="left:18px;top:14px;width:30px;height:24px"></span><span class="win" style="left:62px;top:14px;width:30px;height:24px"></span><span class="win" style="left:118px;top:14px;width:24px;height:56px;top:14px;height:56px;background:color-mix(in srgb,var(--gold) 50%,transparent)"></span>
-        </div>
-        <div class="f w" style="width:160px;height:70px;margin:-35px 0 0 -80px;transform:translateZ(-55px)"></div>
-        <div class="f w" style="width:110px;height:70px;margin:-35px 0 0 -55px;transform:rotateY(-90deg) translateZ(80px)"></div>
-        <div class="f w" style="width:110px;height:70px;margin:-35px 0 0 -55px;transform:rotateY(90deg) translateZ(80px)"></div>
-        <div class="f gb" style="width:110px;height:50px;margin:-25px 0 0 -55px;transform:translateY(-60px) rotateY(90deg) translateZ(80px)"></div>
-        <div class="f gb" style="width:110px;height:50px;margin:-25px 0 0 -55px;transform:translateY(-60px) rotateY(-90deg) translateZ(80px)"></div>
-        <div class="f rf" style="width:160px;height:74px;margin:-37px 0 0 -80px;transform:translate3d(0,-60px,27.5px) rotateX(47.7deg)"></div>
-        <div class="f rf" style="width:160px;height:74px;margin:-37px 0 0 -80px;transform:translate3d(0,-60px,-27.5px) rotateX(-47.7deg)"></div>
-        <div class="dm">
-          <div class="f" style="width:40px;height:24px;margin:-12px 0 0 -20px;transform:translate3d(0,-64.7px,35.5px)"><span class="win" style="left:5px;top:4px;right:5px;bottom:4px"></span></div>
-          <div class="f" style="width:40px;height:26.4px;margin:-13.2px 0 0 -20px;transform:translate3d(0,-76.7px,22.3px) rotateX(90deg)"></div>
-          <div class="f" style="width:26.4px;height:24px;margin:-12px 0 0 -13.2px;transform:translate3d(20px,-64.7px,22.3px) rotateY(90deg)"></div>
-          <div class="f" style="width:26.4px;height:24px;margin:-12px 0 0 -13.2px;transform:translate3d(-20px,-64.7px,22.3px) rotateY(-90deg)"></div>
-        </div>
-      </div></div>
-      <div class="txt">
-        <div class="ttl">Dakkapel configurator</div>
-        <div class="stat"><span>Dak opmeten&hellip;</span><span>Dakpannen leggen&hellip;</span><span>Dakkapel plaatsen&hellip;</span><span>Ramen zetten&hellip;</span></div>
-        <div class="bar"><i></i></div>
-        <div class="pct"></div>
-      </div>
+      <svg viewBox="0 0 100 80" aria-hidden="true">
+        <path pathLength="1" d="M10 42 L50 10 L90 42"/>
+        <path class="d2" pathLength="1" d="M18 36 V70 H82 V36"/>
+        <rect class="d3" pathLength="1" x="36" y="40" width="28" height="18" rx="2"/>
+      </svg>
+      <div class="t">Dakkapel configurator wordt geladen</div>
+      <div class="s">Een momentje&hellip;</div>
+      <div class="bar"><i></i></div>
     </div>
   </section>
   <aside>
@@ -1365,7 +1322,7 @@ $('acopy').onclick = () => { $('alinkv').select(); navigator.clipboard?.writeTex
 
 /* ---------- start ---------- */
 sync(); buildDormer(); showPage(0);
-{ const L = $('loading'); setTimeout(() => { L.classList.add('done'); setTimeout(() => L.remove(), 750); }, Math.max(0, 2600 - performance.now())); }
+{ const L = $('loading'); setTimeout(() => { L.classList.add('done'); setTimeout(() => L.remove(), 750); }, Math.max(0, 500 - performance.now())); }
 if (ADM.on) initAdmin();
 (function loop() { stepTween(); camera.lookAt(controls.target); renderer.render(scene, camera); requestAnimationFrame(loop); })();
 </script>
