@@ -143,7 +143,8 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
       </div>
       <div class="grp">
         <div class="lbl">Breedte <span class="wbox"><input id="wIn" type="text" inputmode="decimal" autocomplete="off" aria-label="Breedte in meters"> m</span></div>
-        <input type="range" id="w" min="1.5" max="9" step="0.1" value="2.2">
+        <input type="range" id="w" min="1.5" max="9" step="0.1" value="2.4">
+        <div class="hintline" id="hWon"></div>
       </div>
       <div class="grp">
         <div class="lbl">Aantal ramen</div>
@@ -337,7 +338,7 @@ const COLORS = {
 };
 /* ====================================================================== */
 
-const S = { w: 2.2, h: 1.5, wins: 2, type: 'draai', mat: 'kunststof', col: 0, frame: 0, rol: false, vent: false, iso: false, hor: false, ac: false, house: true, face: 'back' };
+const S = { w: 2.4, h: 1.5, wins: 2, type: 'draai', mat: 'kunststof', col: 0, frame: 0, rol: false, vent: false, iso: false, hor: false, ac: false, house: true, face: 'back' };
 const $ = id => document.getElementById(id);
 const eur = n => '€ ' + Math.round(n).toLocaleString('nl-NL');
 
@@ -1070,6 +1071,7 @@ function sync() {
   $('stepbar').style.display = both ? 'flex' : 'none';
   $('stepTxt').textContent = side === 'back' ? 'Stap 1 van 2 · Achterkant instellen' : 'Stap 2 van 2 · Voorkant instellen';
   $('stepBack').style.display = side === 'front' ? '' : 'none';
+  $('hWon').textContent = `Bij een dakkapel van ${fmtW(S.w)} m moet je woning minimaal ${fmtW(S.w + 1)} m breed zijn (0,5 m vrij aan elke kant).`;
   updateCta(); $('w').style.setProperty('--p', ((S.w - 1.5) / 7.5 * 100) + '%');
 }
 $('wIn').oninput = e => {
