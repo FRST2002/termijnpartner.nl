@@ -1072,7 +1072,7 @@ function sync() {
   $('stepbar').style.display = both ? 'flex' : 'none';
   $('stepTxt').textContent = side === 'back' ? 'Stap 1 van 2 · Achterkant instellen' : 'Stap 2 van 2 · Voorkant instellen';
   $('stepBack').style.display = side === 'front' ? '' : 'none';
-  $('hWon').textContent = `Bij een woning van ${fmtW(S.w + 1)} m breed mag je dakkapel maximaal ${fmtW(S.w)} m breed zijn (0,5 m vrij aan elke kant).`;
+  $('hWon').textContent = `Bij een dakkapel breedte van ${fmtW(S.w)} m mag je woning maximaal ${fmtW(S.w + 1)} m breed zijn (0,5 m vrij aan elke kant).`;
   updateCta(); $('w').style.setProperty('--p', ((S.w - 1.5) / 7.5 * 100) + '%');
 }
 $('wIn').oninput = e => {
