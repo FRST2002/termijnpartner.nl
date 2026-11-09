@@ -330,7 +330,7 @@ const CONFIG = {
 const COLORS = {
   cladding: [
     { n: 'Lichtgrijs', ral: 7035, c: '#dcdcd9' }, { n: 'Wit', ral: 9016, c: '#f2f0ea' }, { n: 'Antraciet', ral: 7016, c: '#59626a' }, { n: 'Zwart', ral: 9005, c: '#070708' },
-    { n: 'Zand', ral: 1015, c: '#cdbd9c' }, { n: 'Groen', ral: 6011, c: '#587246' },
+    { n: 'Creme', ral: 9001, c: '#e6dcc3' }, { n: 'Zand', ral: 1015, c: '#cdbd9c' }, { n: 'Groen', ral: 6011, c: '#587246' },
   ],
   frame: [
     { n: 'Wit', ral: 9016, c: '#f4f3ef' }, { n: 'Antraciet', ral: 7016, c: '#4a5258' }, { n: 'Zwart', ral: 9005, c: '#070708' }, { n: 'Creme', ral: 9001, c: '#e6dcc3' },
@@ -1021,11 +1021,11 @@ group('gMat', Object.entries(CONFIG.materials).map(([v, m]) => ({ v, html: `${m.
 swatches('gCol', COLORS.cladding, 'col');
 swatches('gFrame', COLORS.frame, 'frame');
 
-function maxWins() { return Math.min(6, S.w < 2.2 ? 1 : S.w < 3.6 ? 2 : S.w < 5.2 ? 3 : S.w < 6.8 ? 4 : S.w < 8.2 ? 5 : 6); }
+function maxWins() { return Math.max(1, Math.min(7, Math.floor((S.w + 0.001) / 1.2))); }   // 1 raam per 1,2 m breedte
 function renderWins() {
   const mx = maxWins(); if (S.wins > mx) S.wins = mx;
   const el = $('gWin'); el.innerHTML = '';
-  for (let i = 1; i <= 6; i++) {
+  for (let i = 1; i <= 7; i++) {
     const b = document.createElement('button'); b.type = 'button'; b.className = 'opt'; b.textContent = i;
     if (i > mx) { b.disabled = true; b.style.opacity = .35; b.style.cursor = 'not-allowed'; }
     if (i === S.wins) b.classList.add('on');
