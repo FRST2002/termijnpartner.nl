@@ -411,7 +411,7 @@ scene.environmentIntensity = 0.8;
 
 scene.add(new THREE.HemisphereLight('#dbe9ff', '#a89c82', 0.15));
 const sun = new THREE.DirectionalLight('#fff1d6', 3.8);
-sun.position.set(11, 17, 12);
+sun.position.set(-11, 17, -12);
 sun.castShadow = true;
 sun.shadow.mapSize.set(4096, 4096);
 Object.assign(sun.shadow.camera, { left: -15, right: 15, top: 15, bottom: -15, near: 1, far: 60 });
@@ -427,7 +427,7 @@ new RGBELoader().load(HDR_URL, tx => {
   for (let i = 0; i < W * H; i++) { const v = THREE.DataUtils.fromHalfFloat(d[i * 4]); if (v > best) { best = v; bi = i; } }
   const sx = bi % W, sy = Math.floor(bi / W);
   const elev = Math.abs(sy / H - 0.5) * Math.PI, az0 = ((sx + 0.5) / W - 0.5) * 2 * Math.PI;
-  const rot = Math.atan2(0.62, 0.5) - az0;                 // zon schuin voor-rechts, zoals in de voorbeeldfoto
+  const rot = Math.atan2(0.62, 0.5) - az0 + Math.PI;       // zon schuin achter-rechts van de achterkant (standaardkant); voorkant ligt in de schaduw
   scene.backgroundRotation.y = rot; scene.environmentRotation.y = rot;
   const R = new THREE.Matrix4().makeRotationY(rot);
   const e = new THREE.Vector3(Math.cos(elev) * Math.cos(az0), Math.sin(elev), Math.cos(elev) * Math.sin(az0)).applyMatrix4(R);
