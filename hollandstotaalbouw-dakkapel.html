@@ -58,6 +58,14 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .pgdots{display:flex;gap:6px}.pgdots button{flex:1;height:7px;border:0;border-radius:99px;background:#e5e5e5;cursor:pointer;padding:0}.pgdots button.done{background:var(--gold-light);opacity:.55}.pgdots button.on{background:var(--gold)}
 .pgt{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-top:9px}
 .adm .page.cust{display:none}
+.qhead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px}.qt{font:600 20px Poppins,sans-serif;color:var(--black);line-height:1.25}
+.cta:disabled{opacity:.5;cursor:not-allowed}
+.grp>label.pay{display:block;font-size:14px;font-weight:600;letter-spacing:0;text-transform:none;margin:10px 0}
+.grp>label.tog{font-size:14px;font-weight:600;letter-spacing:0;text-transform:none;margin-bottom:0}
+.grp>label.chk{display:flex;justify-content:flex-start;font-size:13.5px;font-weight:500;letter-spacing:0;text-transform:none;margin:6px 0 4px}
+.grp>label.ghost{display:block;font-size:14px;font-weight:700;letter-spacing:0;text-transform:none;margin-bottom:8px}
+body.nostage #stage{display:none}
+@media(min-width:901px){body.nostage main{grid-template-columns:1fr}body.nostage aside{max-width:660px;width:100%;margin:0 auto;border-left:0}}
 .page.cust input[type=text],.page.cust input[type=email],.page.cust input[type=tel]{width:100%;font:500 16px Poppins;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;margin-bottom:10px;background:#fff;color:var(--ink)}.page.cust input[type=text]:focus,.page.cust input[type=email]:focus,.page.cust input[type=tel]:focus,.page.cust textarea:focus{outline:none;border-color:var(--gold)}.page.cust .row{display:flex;gap:10px;margin-top:6px}
 .pgdots button{cursor:default}
 .proj{display:flex;gap:12px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px;margin:0 0 4px}.proj img{width:112px;height:84px;object-fit:cover;border-radius:8px;flex:none;background:#bcd3e6}.proj .pd{font-size:12.5px;line-height:1.5;color:var(--grey)}.proj .pp{font-weight:800;color:var(--ink);font-size:14px;margin-top:4px}.proj .pm{color:#6b6b6b}
@@ -227,6 +235,36 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
       </div>
       </div>
       <div class="page cust">
+      <div class="grp">
+        <div class="qhead"><div class="qt">Wanneer moet jouw DroomDakkapel geplaatst worden?</div><span class="badge">Verplicht</span></div>
+        <label class="pay"><input type="radio" name="when" value="asap">Zo snel mogelijk!</label>
+        <label class="pay"><input type="radio" name="when" value="2-4w">Tussen 2/4 weken</label>
+        <label class="pay"><input type="radio" name="when" value="2m">Binnen 2 maanden</label>
+        <label class="pay"><input type="radio" name="when" value="orient">Ik ben aan het oriënteren</label>
+      </div>
+      </div>
+
+      <div class="page cust">
+      <div class="grp">
+        <div class="qhead"><div class="qt">Achteraf in termijnen betalen?</div><span class="badge">Verplicht</span></div>
+        <div style="font-size:14px;margin-bottom:8px">Wil je een offerte ontvangen met de optie om de dakkapel achteraf in termijnen te betalen?</div>
+        <label class="pay"><input type="radio" name="pay" value="termijn">Ja ik wil een offerte voor termijn betalingen ontvangen<small>Vanaf <span id="payM"></span> per maand</small></label>
+        <label class="pay"><input type="radio" name="pay" value="eenmalig">Nee<small>Graag in 1x betalen</small></label>
+        <label class="pay"><input type="radio" name="pay" value="beide">Beide mogelijkheden zijn prima!</label>
+      </div>
+      </div>
+
+      <div class="page cust">
+      <div class="grp">
+        <div class="qhead"><div class="qt">Manier van inkomen?</div><span class="badge">Verplicht</span></div>
+        <label class="pay"><input type="checkbox" name="inc" value="loondienst">Loondienst</label>
+        <label class="pay"><input type="checkbox" name="inc" value="ondernemer">Ondernemer<small>Zzp'er/B.V./Eenmanszaak/V.O.F/Freelancer/etc..</small></label>
+        <label class="pay"><input type="checkbox" name="inc" value="uitkering">Uitkering/ziektewet</label>
+        <label class="pay"><input type="checkbox" name="inc" value="geen">Geen inkomsten</label>
+      </div>
+      </div>
+
+      <div class="page cust">
       <div class="proj" id="proj"></div>
       <div class="grp">
         <div class="lbl">Jouw gegevens</div>
@@ -267,39 +305,6 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
 
 <dialog id="dlg">
   <div class="dlg">
-    <div id="whenq">
-      <div class="qhead"><h2>Wanneer moet jouw DroomDakkapel geplaatst worden?</h2><span class="badge">Verplicht</span></div>
-      <label class="pay"><input type="radio" name="when" value="asap">Zo snel mogelijk!</label>
-      <label class="pay"><input type="radio" name="when" value="2-4w">Tussen 2/4 weken</label>
-      <label class="pay"><input type="radio" name="when" value="2m">Binnen 2 maanden</label>
-      <label class="pay"><input type="radio" name="when" value="orient">Ik ben aan het oriënteren</label>
-      <div class="row" style="margin-top:16px">
-        <button class="ghost" id="whenBack" type="button" aria-label="Annuleer">&larr;</button>
-        <button class="cta" id="whenNext" type="button" disabled style="opacity:.5">Volgende &rarr;</button>
-      </div>
-    </div>
-    <div id="payq" style="display:none">
-      <div class="qhead"><h2>Achteraf in termijnen betalen?</h2><span class="badge">Verplicht</span></div>
-      <div style="font-size:14px;margin-bottom:8px">Wil je een offerte ontvangen met de optie om de dakkapel achteraf in termijnen te betalen?</div>
-      <label class="pay"><input type="radio" name="pay" value="termijn">Ja ik wil een offerte voor termijn betalingen ontvangen<small>Vanaf <span id="payM"></span> per maand</small></label>
-      <label class="pay"><input type="radio" name="pay" value="eenmalig">Nee<small>Graag in 1x betalen</small></label>
-      <label class="pay"><input type="radio" name="pay" value="beide">Beide mogelijkheden zijn prima!</label>
-      <div class="row" style="margin-top:16px">
-        <button class="ghost" id="payBack" type="button" aria-label="Terug">&larr;</button>
-        <button class="cta" id="payNext" type="button" disabled style="opacity:.5">Volgende &rarr;</button>
-      </div>
-    </div>
-    <div id="incomeq" style="display:none">
-      <div class="qhead"><h2>Manier van inkomen?</h2><span class="badge">Verplicht</span></div>
-      <label class="pay"><input type="checkbox" name="inc" value="loondienst">Loondienst</label>
-      <label class="pay"><input type="checkbox" name="inc" value="ondernemer">Ondernemer<small>Zzp'er/B.V./Eenmanszaak/V.O.F/Freelancer/etc..</small></label>
-      <label class="pay"><input type="checkbox" name="inc" value="uitkering">Uitkering/ziektewet</label>
-      <label class="pay"><input type="checkbox" name="inc" value="geen">Geen inkomsten</label>
-      <div class="row" style="margin-top:16px">
-        <button class="ghost" id="incBack" type="button" aria-label="Terug">&larr;</button>
-        <button class="cta" id="incNext" type="button" disabled style="opacity:.5">Volgende &rarr;</button>
-      </div>
-    </div>
     <div id="done"><h2>Bedankt!</h2><p id="doneTxt">We nemen snel contact met je op over je offerte.</p><a id="viewOffer" class="cta" target="_blank" style="display:none;text-decoration:none;text-align:center;margin-bottom:10px">Bekijk je offerte</a><button class="cta" id="close" style="background:#fff;border:1.5px solid var(--line);color:var(--ink)">Sluiten</button></div>
   </div>
 </dialog>
@@ -471,6 +476,7 @@ function stepTween() {
 }
 function fit() {
   const r = $('stage').getBoundingClientRect();
+  if (!r.width || !r.height) return;
   renderer.setSize(r.width, r.height, false);
   camera.aspect = r.width / r.height;
   camera.updateProjectionMatrix();
@@ -1077,25 +1083,37 @@ function renderWins() {
     el.appendChild(b);
   }
 }
-const PAGES = ['Plaatsing & afmetingen', 'Hoogte & raamtype', 'Bekleding', 'Kleuren', "Extra's", 'Jouw gegevens', 'Adres & woning'];
+const PAGES = ['Plaatsing & afmetingen', 'Hoogte & raamtype', 'Bekleding', 'Kleuren', "Extra's", 'Plaatsing gewenst', 'Betalen', 'Manier van inkomen', 'Jouw gegevens', 'Adres & woning'];
 let page = 0;
+const visPages = () => PAGES.map((n, i) => i).filter(i => !(i === 7 && payVal() === 'eenmalig'));
+const ctaOk = () => (page === 5 ? !!whenVal() : page === 6 ? !!payVal() : page === 7 ? incVals().length > 0 : true);
 function updateCta() {
   const both = S.face === 'both';
-  $('cta').textContent = ADM.ready ? (ADM.id ? 'Offerte bewerken & opslaan' : 'Nieuwe offerte opslaan') : (page === 4 && both && side === 'back' ? 'Volgende: voorkant instellen →' : page === 6 ? 'Verstuur aanvraag' : 'Volgende →');
+  $('cta').textContent = ADM.ready ? (ADM.id ? 'Offerte bewerken & opslaan' : 'Nieuwe offerte opslaan') : (page === 4 && both && side === 'back' ? 'Volgende: voorkant instellen →' : page === 9 ? 'Verstuur aanvraag' : 'Volgende →');
+  $('cta').disabled = !ADM.ready && !ctaOk();
 }
 function showPage(p) {
+  if (p === 8) renderProj();
   page = p;
   document.querySelectorAll('.page').forEach((el, i) => el.classList.toggle('on', i === p));
-  document.querySelectorAll('#pgdots button').forEach((b, i) => { b.classList.toggle('on', i === p); b.classList.toggle('done', i < p); });
-  $('pgt').textContent = `Stap ${p + 1} van ${PAGES.length} · ${PAGES[p]}`;
+  const vp = visPages(), pos = vp.indexOf(p);
+  $('pgdots').innerHTML = '';
+  vp.forEach((pi, k) => {
+    const b = document.createElement('button'); b.type = 'button'; b.title = PAGES[pi];
+    b.className = k === pos ? 'on' : k < pos ? 'done' : '';
+    b.onclick = () => { if (k < pos) showPage(pi); };          // alleen terug, niet vooruit
+    $('pgdots').appendChild(b);
+  });
+  $('pgt').textContent = `Stap ${pos + 1} van ${vp.length} · ${PAGES[p]}`;
   $('pgBack').style.display = (p === 0 && !(S.face === 'both' && side === 'front')) ? 'none' : '';
+  if (p === 6) $('payM').textContent = eur2(monthly());
+  const hide = p >= 8;                                         // bij de gegevens geen groot beeld (staat al klein in het overzicht)
+  if (document.body.classList.contains('nostage') !== hide) { document.body.classList.toggle('nostage', hide); requestAnimationFrame(() => { fit(); fitDistance(); }); }
   updateCta(); scrollTo(0, 0);
 }
-PAGES.forEach((n, i) => { const b = document.createElement('button'); b.type = 'button'; b.title = n; b.onclick = () => { if (i < page) showPage(i); }; $('pgdots').appendChild(b); });
 $('pgBack').onclick = () => {
-  if (page === 5) { $('payM').textContent = eur2(monthly()); showStep(payVal() === 'eenmalig' ? 'pay' : 'income'); $('dlg').showModal(); }
-  else if (page > 0) showPage(page - 1);
-  else if (S.face === 'both' && side === 'front') { switchSide('back'); sync(); buildDormer(); fitDistance(); views('angle', -1); showPage(PAGES.length - 1); }
+  if (page > 0) { let n = page - 1; if (n === 7 && payVal() === 'eenmalig') n = 6; showPage(n); }
+  else if (S.face === 'both' && side === 'front') { switchSide('back'); sync(); buildDormer(); fitDistance(); views('angle', -1); showPage(4); }
 };
 const fmtW = v => String(Math.round(v * 100) / 100).replace('.', ',');
 function sync() {
@@ -1139,24 +1157,22 @@ const PAYTXT = { termijn: 'Termijnbetaling', eenmalig: 'In 1x betalen', beide: '
 const monthly = () => calc().total / CONFIG.financeDivisor;
 const eur2 = n => '€' + n.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const payVal = () => (document.querySelector('input[name=pay]:checked') || {}).value;
-function showStep(step) { for (const [id, k] of [['whenq', 'when'], ['payq', 'pay'], ['incomeq', 'income']]) $(id).style.display = step === k ? '' : 'none'; $('done').style.display = step === 'done' ? 'block' : 'none'; }
+function showStep(step) { $('done').style.display = step === 'done' ? 'block' : 'none'; }
 const WHENTXT = { asap: 'Zo snel mogelijk', '2-4w': 'Tussen 2 en 4 weken', '2m': 'Binnen 2 maanden', orient: 'Ik ben aan het oriënteren' };
 const whenVal = () => (document.querySelector('input[name=when]:checked') || {}).value;
 const enable = (btn, on) => { btn.disabled = !on; btn.style.opacity = on ? 1 : 0.5; };
 $('cta').onclick = () => {
   if (page < 4) { showPage(page + 1); return; }
-  if (page === 5) { submitForm(); return; }
-  if (page === 6) { sendRequest(); return; }
-  if (S.face === 'both' && side === 'back') { switchSide('front'); sync(); buildDormer(); fitDistance(); views('angle', 1); showPage(0); return; }
-  $('payM').textContent = eur2(monthly());
-  enable($('whenNext'), !!whenVal()); enable($('payNext'), !!payVal()); enable($('incNext'), incVals().length > 0);
-  showStep('when'); $('dlg').showModal();
+  if (page === 4) {
+    if (S.face === 'both' && side === 'back') { switchSide('front'); sync(); buildDormer(); fitDistance(); views('angle', 1); showPage(0); return; }
+    showPage(5); return;
+  }
+  if (page >= 5 && page <= 7) { if (!ctaOk()) return; let n = page + 1; if (n === 7 && payVal() === 'eenmalig') n = 8; showPage(n); return; }
+  if (page === 8) { submitForm(); return; }
+  if (page === 9) { sendRequest(); return; }
 };
-document.querySelectorAll('input[name=when]').forEach(r => r.onchange = () => { enable($('whenNext'), true); setTimeout(() => $('whenNext').click(), 250); });
-document.querySelectorAll('input[name=pay]').forEach(r => r.onchange = () => { enable($('payNext'), true); setTimeout(() => $('payNext').click(), 250); });
-$('whenBack').onclick = () => $('dlg').close();
-$('whenNext').onclick = () => { if (whenVal()) showStep('pay'); };
-$('payBack').onclick = () => showStep('when');
+document.querySelectorAll('input[name=when]').forEach(r => r.onchange = () => { updateCta(); setTimeout(() => { if (page === 5) $('cta').click(); }, 250); });
+document.querySelectorAll('input[name=pay]').forEach(r => r.onchange = () => { updateCta(); setTimeout(() => { if (page === 6) $('cta').click(); }, 250); });
 function renderProj() {
   const { total } = summaryText(), term = payVal() !== 'eenmalig', sd = shownSides();
   CFG[side] = pick();
@@ -1164,16 +1180,12 @@ function renderProj() {
   let img = ''; try { img = renderer.domElement.toDataURL('image/jpeg', 0.6); } catch { }
   $('proj').innerHTML = `${img ? `<img src="${img}" alt="Je dakkapel">` : ''}<div class="pd">${specs}<div class="pp">${term ? `Vanaf ${eur2(total / CONFIG.financeDivisor)} per maand` : `Totaal ${eur(total)}`}</div><div class="pm">${PAYTXT[payVal()]} · ${WHENTXT[whenVal()]}</div></div>`;
 }
-function goForm() { $('dlg').close(); renderProj(); showPage(5); }
-$('payNext').onclick = () => { if (!payVal()) return; if (payVal() === 'eenmalig') goForm(); else showStep('income'); };
 const INCTXT = { loondienst: 'Loondienst', ondernemer: 'Ondernemer', uitkering: 'Uitkering/ziektewet', geen: 'Geen inkomsten' };
 const incVals = () => [...document.querySelectorAll('input[name=inc]:checked')].map(i => i.value);
 document.querySelectorAll('input[name=inc]').forEach(c => c.onchange = () => {
   if (c.checked) document.querySelectorAll('input[name=inc]').forEach(o => { if (o !== c && ((c.value === 'geen') || o.value === 'geen')) o.checked = false; });
-  enable($('incNext'), incVals().length > 0);
+  updateCta();
 });
-$('incBack').onclick = () => showStep('pay');
-$('incNext').onclick = () => { if (incVals().length) goForm(); };
 $('close').onclick = () => $('dlg').close();
 $('fb').oninput = e => { const d = e.target.value.replace(/\D/g, '').slice(0, 8); e.target.value = d.length > 4 ? `${d.slice(0, 2)}-${d.slice(2, 4)}-${d.slice(4)}` : d.length > 2 ? `${d.slice(0, 2)}-${d.slice(2)}` : d; };
 function birthISO(v) {
@@ -1187,7 +1199,7 @@ function submitForm() {
   if (!name || !/^\S+@\S+\.\S+$/.test(email)) { alert('Vul je naam en een geldig e-mailadres in.'); return; }
   if (!birthISO($('fb').value)) { alert('Vul je geboortedatum in als dd-mm-jjjj.'); return; }
   if (!(document.querySelector('input[name=sex]:checked'))) { alert('Kies man of vrouw.'); return; }
-  showPage(6);
+  showPage(9);
 }
 // adres automatisch aanvullen (PDOK), mislukt het dan vul je het zelf in
 async function lookupAddr() {
