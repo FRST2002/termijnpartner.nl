@@ -1216,12 +1216,13 @@ async function lookupAddr() {
 }
 $('apc').onblur = lookupAddr; $('ahn').onblur = lookupAddr;
 const DRAFT_KEY = 'hollandstotaalbouw_draft';
-const draftEls = () => [...document.querySelectorAll('.page.cust input:not([type=file]), .page.cust textarea, #dlg input')];
+const draftEls = () => [...document.querySelectorAll('.page.cust input:not([type=file]):not([name=when]):not([name=pay]):not([name=inc]), .page.cust textarea')];   // de drie vragen (plaatsing, betalen, inkomen) nooit vooraf invullen
 const draftKey = el => el.id || (el.name + '|' + el.value);
 function saveDraft() { try { const d = {}; draftEls().forEach(el => { d[draftKey(el)] = (el.type === 'checkbox' || el.type === 'radio') ? el.checked : el.value; }); sessionStorage.setItem(DRAFT_KEY, JSON.stringify(d)); } catch { } }
 function loadDraft() { try { const d = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || 'null'); if (!d) return; draftEls().forEach(el => { const k = draftKey(el); if (!(k in d)) return; if (el.type === 'checkbox' || el.type === 'radio') el.checked = !!d[k]; else el.value = d[k]; }); } catch { } }
 document.addEventListener('input', saveDraft); document.addEventListener('change', saveDraft);
 loadDraft();
+document.querySelectorAll('input[name=when],input[name=pay],input[name=inc]').forEach(i => { i.autocomplete = 'off'; i.checked = false; });
 const photos = [];
 async function shrink(file) {
   const url = URL.createObjectURL(file);
