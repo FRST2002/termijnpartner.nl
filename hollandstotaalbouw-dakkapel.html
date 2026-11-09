@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="robots" content="noindex, nofollow">
 <title>Dakkapel configurator | Holland&#39;s Totaalbouw</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,7 @@
   --paper:#f7f7f7; --white:#fff; --grey:#333333; --line:#e5e5e5;
 }
 *{box-sizing:border-box}
-html,body{height:100%;margin:0}
+html,body{height:100%;margin:0;touch-action:manipulation}
 body{font-family:Poppins,system-ui,sans-serif;color:var(--grey);background:var(--paper);display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
 header{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:var(--white);border-bottom:1px solid var(--line)}
 .logo{font-weight:800;font-size:22px;letter-spacing:-.02em;color:var(--black)}
@@ -1300,6 +1300,9 @@ function captureShots() {
   views(keep[0], keep[1], true); camera.lookAt(controls.target); renderer.render(scene, camera);
   return out;
 }
+// zoomen uitzetten (iOS negeert de viewport-instelling, daarom ook de pinch-gebaren blokkeren)
+['gesturestart', 'gesturechange', 'gestureend'].forEach(ev => document.addEventListener(ev, e => e.preventDefault()));
+document.addEventListener('touchmove', e => { if (e.touches.length > 1) e.preventDefault(); }, { passive: false });
 const QP = new URLSearchParams(location.search);
 const ADM = { id: QP.get('edit'), on: QP.has('edit') || QP.has('admin'), key: '', q: null, ready: false };
 function loadConfig(c) {
