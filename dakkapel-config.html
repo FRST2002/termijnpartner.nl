@@ -56,6 +56,10 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .pgnav{margin:4px 0 6px}.adm .pgnav,.adm #pgBack{display:none!important}
 .pgdots{display:flex;gap:6px}.pgdots button{flex:1;height:7px;border:0;border-radius:99px;background:#e5e5e5;cursor:pointer;padding:0}.pgdots button.done{background:var(--gold-light);opacity:.55}.pgdots button.on{background:var(--gold)}
 .pgt{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-top:9px}
+.adm .page.cust{display:none}
+.page.cust input[type=text],.page.cust input[type=email],.page.cust input[type=tel]{width:100%;font:500 16px Manrope;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;margin-bottom:10px;background:#fff;color:var(--ink)}.page.cust input[type=text]:focus,.page.cust input[type=email]:focus,.page.cust input[type=tel]:focus,.page.cust textarea:focus{outline:none;border-color:var(--gold)}.page.cust .row{display:flex;gap:10px;margin-top:6px}
+.pgdots button{cursor:default}
+.proj{display:flex;gap:12px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px;margin:0 0 4px}.proj img{width:112px;height:84px;object-fit:cover;border-radius:8px;flex:none;background:#bcd3e6}.proj .pd{font-size:12.5px;line-height:1.5;color:var(--grey)}.proj .pp{font-weight:800;color:var(--ink);font-size:14px;margin-top:4px}.proj .pm{color:#6b6b6b}
 .pager{display:flex;gap:10px}.pager .cta{flex:1;width:auto}.pager .ghost{padding:0 20px}
 .opts{display:flex;gap:8px;flex-wrap:wrap}
 .opt{flex:1;min-width:76px;font:600 13px Manrope;padding:10px 8px;border:1.5px solid var(--line);background:var(--white);border-radius:10px;cursor:pointer;color:var(--ink);text-align:center}
@@ -105,6 +109,9 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
   header{padding:10px 16px}header .tag{display:none}.logo{font-size:19px}
   main{display:block}
   #stage{position:sticky;top:0;z-index:5;height:40vh;height:40svh;min-height:240px;max-height:380px;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+  main{min-height:calc(100svh + 150px)}
+  #stage{transition:height .3s ease}
+  #stage.compact{height:23svh;min-height:140px;max-height:185px}
   #c{touch-action:pan-y}
   .views{left:10px;top:10px;gap:5px}.views button{padding:6px 10px;font-size:11.5px}
   aside{overflow:visible;border-left:0;border-top:0;display:block}
@@ -218,6 +225,36 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
         <label class="tog"><span>Extra isolatie (Rc 6,0)</span><input type="checkbox" id="xIso"></label>
       </div>
       </div>
+      <div class="page cust">
+      <div class="proj" id="proj"></div>
+      <div class="grp">
+        <div class="lbl">Jouw gegevens</div>
+        <input type="text" id="fn" placeholder="Naam" autocomplete="name">
+        <input type="email" id="fe" placeholder="E-mailadres" autocomplete="email">
+        <input type="tel" id="fp" placeholder="Telefoonnummer" autocomplete="tel">
+        <label class="flbl" for="fb">Geboortedatum</label>
+        <input type="text" id="fb" inputmode="numeric" placeholder="dd-mm-jjjj" maxlength="10" autocomplete="bday">
+        <span class="flbl">Geslacht</span>
+        <div class="seg"><label><input type="radio" name="sex" value="man">Man</label><label><input type="radio" name="sex" value="vrouw">Vrouw</label></div>
+      </div>
+      </div>
+
+      <div class="page cust">
+      <div class="grp">
+        <div class="lbl">Adres van de woning</div>
+        <div class="row" style="margin:0 0 10px"><input type="text" id="apc" placeholder="Postcode" autocomplete="postal-code" style="margin:0"><input type="text" id="ahn" placeholder="Huisnr." inputmode="numeric" style="margin:0;max-width:96px"><input type="text" id="aht" placeholder="Toev." style="margin:0;max-width:84px"></div>
+        <input type="text" id="ast" placeholder="Straat" autocomplete="address-line1">
+        <input type="text" id="apl" placeholder="Plaats" autocomplete="address-level2">
+        <span class="flbl">Woonsituatie</span>
+        <div class="seg"><label><input type="radio" name="woon" value="koop">Koopwoning</label><label><input type="radio" name="woon" value="huur">Huurwoning</label></div>
+        <span class="flbl">Opmerkingen (optioneel)</span>
+        <textarea id="aop" style="width:100%;font:500 16px Manrope;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;min-height:76px;margin-bottom:10px" placeholder="Bijvoorbeeld: bijzonderheden aan je dak of wensen"></textarea>
+        <span class="flbl">Foto&rsquo;s van je woning (optioneel)</span>
+        <label class="ghost" style="display:block;text-align:center;padding:12px;margin-bottom:8px;font-size:14px">+ Foto toevoegen<input type="file" id="fph" accept="image/*" multiple style="display:none"></label>
+        <div id="phl" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px"></div>
+        <label class="chk" style="display:flex;gap:10px;align-items:flex-start;font-size:13.5px;margin:6px 0 4px"><input type="checkbox" id="avw" style="margin-top:3px;width:18px;height:18px;accent-color:var(--gold)"><span>Ik ga akkoord met de <a href="/algemene-voorwaarden.html" target="_blank" style="color:var(--gold-dark);font-weight:700">algemene voorwaarden</a>.</span></label>
+      </div>
+      </div>
     </div>
     <div class="summary">
       <div class="price"><div class="big" id="pTot">&euro; 0</div><div class="mnd" id="pMnd"></div></div>
@@ -260,40 +297,6 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
       <div class="row" style="margin-top:16px">
         <button class="ghost" id="incBack" type="button" aria-label="Terug">&larr;</button>
         <button class="cta" id="incNext" type="button" disabled style="opacity:.5">Volgende &rarr;</button>
-      </div>
-    </div>
-    <div id="form" style="display:none">
-      <h2>Jouw gegevens</h2>
-      <div style="font-size:14px">Je configuratie wordt meegestuurd.</div>
-      <ul id="sum"></ul>
-      <input type="text" id="fn" placeholder="Naam" autocomplete="name">
-      <input type="email" id="fe" placeholder="E-mailadres" autocomplete="email">
-      <input type="tel" id="fp" placeholder="Telefoonnummer" autocomplete="tel">
-      <label class="flbl" for="fb">Geboortedatum</label>
-      <input type="text" id="fb" inputmode="numeric" placeholder="dd-mm-jjjj" maxlength="10" autocomplete="bday">
-      <span class="flbl">Geslacht</span>
-      <div class="seg"><label><input type="radio" name="sex" value="man">Man</label><label><input type="radio" name="sex" value="vrouw">Vrouw</label></div>
-      <div class="row">
-        <button class="ghost" id="cancel" type="button" aria-label="Terug">&larr;</button>
-        <button class="cta" id="formNext" type="button">Volgende &rarr;</button>
-      </div>
-    </div>
-    <div id="addr" style="display:none">
-      <h2>Adres van de woning</h2>
-      <div class="row" style="margin:0 0 10px"><input type="text" id="apc" placeholder="Postcode" autocomplete="postal-code" style="margin:0"><input type="text" id="ahn" placeholder="Huisnr." inputmode="numeric" style="margin:0;max-width:96px"><input type="text" id="aht" placeholder="Toev." style="margin:0;max-width:84px"></div>
-      <input type="text" id="ast" placeholder="Straat" autocomplete="address-line1">
-      <input type="text" id="apl" placeholder="Plaats" autocomplete="address-level2">
-      <span class="flbl">Woonsituatie</span>
-      <div class="seg"><label><input type="radio" name="woon" value="koop">Koopwoning</label><label><input type="radio" name="woon" value="huur">Huurwoning</label></div>
-      <span class="flbl">Opmerkingen (optioneel)</span>
-      <textarea id="aop" style="width:100%;font:500 16px Manrope;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;min-height:76px;margin-bottom:10px" placeholder="Bijvoorbeeld: bijzonderheden aan je dak of wensen"></textarea>
-      <span class="flbl">Foto&rsquo;s van je woning (optioneel)</span>
-      <label class="ghost" style="display:block;text-align:center;padding:12px;margin-bottom:8px;font-size:14px">+ Foto toevoegen<input type="file" id="fph" accept="image/*" multiple style="display:none"></label>
-      <div id="phl" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px"></div>
-      <label class="chk" style="display:flex;gap:10px;align-items:flex-start;font-size:13.5px;margin:6px 0 14px"><input type="checkbox" id="avw" style="margin-top:3px;width:18px;height:18px;accent-color:var(--gold)"><span>Ik ga akkoord met de <a href="/algemene-voorwaarden.html" target="_blank" style="color:var(--gold-dark);font-weight:700">algemene voorwaarden</a>.</span></label>
-      <div class="row">
-        <button class="ghost" id="addrBack" type="button" aria-label="Terug">&larr;</button>
-        <button class="cta" id="send" type="button">Verstuur aanvraag</button>
       </div>
     </div>
     <div id="done"><h2>Bedankt!</h2><p id="doneTxt">We nemen snel contact met je op over je offerte.</p><a id="viewOffer" class="cta" target="_blank" style="display:none;text-decoration:none;text-align:center;margin-bottom:10px">Bekijk je offerte</a><button class="cta" id="close" style="background:#fff;border:1.5px solid var(--line)">Sluiten</button></div>
@@ -471,6 +474,20 @@ function fit() {
   camera.updateProjectionMatrix();
 }
 addEventListener('resize', () => { fit(); fitDistance(); }); fit();
+// mobiel: bij scrollen wordt het beeld kleiner (blijft wel zichtbaar), zodat er meer van de vragen te zien is
+{
+  const mq = matchMedia('(max-width:900px)'); let compact = false;
+  const setCompact = c => {
+    compact = c; $('stage').classList.toggle('compact', c);
+    const t0 = performance.now();
+    (function step() { fit(); if (performance.now() - t0 < 420) requestAnimationFrame(step); else fitDistance(); })();
+  };
+  addEventListener('scroll', () => {
+    if (!mq.matches) { if (compact) setCompact(false); return; }
+    const y = scrollY, want = compact ? y > 20 : y > 70;
+    if (want !== compact) setCompact(want);
+  }, { passive: true });
+}
 
 /* ---------- procedurele texturen (kleur + reliëf als normal map) ---------- */
 function tex(c, rep, srgb = true) {
@@ -1058,11 +1075,11 @@ function renderWins() {
     el.appendChild(b);
   }
 }
-const PAGES = ['Plaatsing & afmetingen', 'Hoogte & raamtype', 'Bekleding', 'Kleuren', "Extra's"];
+const PAGES = ['Plaatsing & afmetingen', 'Hoogte & raamtype', 'Bekleding', 'Kleuren', "Extra's", 'Jouw gegevens', 'Adres & woning'];
 let page = 0;
 function updateCta() {
   const both = S.face === 'both';
-  $('cta').textContent = ADM.ready ? (ADM.id ? 'Offerte bewerken & opslaan' : 'Nieuwe offerte opslaan') : (page < PAGES.length - 1 ? 'Volgende →' : (both && side === 'back' ? 'Volgende: voorkant instellen →' : 'Offerte aanvragen'));
+  $('cta').textContent = ADM.ready ? (ADM.id ? 'Offerte bewerken & opslaan' : 'Nieuwe offerte opslaan') : (page === 4 && both && side === 'back' ? 'Volgende: voorkant instellen →' : page === 6 ? 'Verstuur aanvraag' : 'Volgende →');
 }
 function showPage(p) {
   page = p;
@@ -1072,9 +1089,10 @@ function showPage(p) {
   $('pgBack').style.display = (p === 0 && !(S.face === 'both' && side === 'front')) ? 'none' : '';
   updateCta(); scrollTo(0, 0);
 }
-PAGES.forEach((n, i) => { const b = document.createElement('button'); b.type = 'button'; b.title = n; b.onclick = () => showPage(i); $('pgdots').appendChild(b); });
+PAGES.forEach((n, i) => { const b = document.createElement('button'); b.type = 'button'; b.title = n; b.onclick = () => { if (i < page) showPage(i); }; $('pgdots').appendChild(b); });
 $('pgBack').onclick = () => {
-  if (page > 0) showPage(page - 1);
+  if (page === 5) { $('payM').textContent = eur2(monthly()); showStep(payVal() === 'eenmalig' ? 'pay' : 'income'); $('dlg').showModal(); }
+  else if (page > 0) showPage(page - 1);
   else if (S.face === 'both' && side === 'front') { switchSide('back'); sync(); buildDormer(); fitDistance(); views('angle', -1); showPage(PAGES.length - 1); }
 };
 const fmtW = v => String(Math.round(v * 100) / 100).replace('.', ',');
@@ -1119,12 +1137,14 @@ const PAYTXT = { termijn: 'Termijnbetaling', eenmalig: 'In 1x betalen', beide: '
 const monthly = () => calc().total / CONFIG.financeDivisor;
 const eur2 = n => '€' + n.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const payVal = () => (document.querySelector('input[name=pay]:checked') || {}).value;
-function showStep(step) { for (const [id, k] of [['whenq', 'when'], ['payq', 'pay'], ['incomeq', 'income'], ['form', 'form'], ['addr', 'addr']]) $(id).style.display = step === k ? '' : 'none'; $('done').style.display = step === 'done' ? 'block' : 'none'; }
+function showStep(step) { for (const [id, k] of [['whenq', 'when'], ['payq', 'pay'], ['incomeq', 'income']]) $(id).style.display = step === k ? '' : 'none'; $('done').style.display = step === 'done' ? 'block' : 'none'; }
 const WHENTXT = { asap: 'Zo snel mogelijk', '2-4w': 'Tussen 2 en 4 weken', '2m': 'Binnen 2 maanden', orient: 'Ik ben aan het oriënteren' };
 const whenVal = () => (document.querySelector('input[name=when]:checked') || {}).value;
 const enable = (btn, on) => { btn.disabled = !on; btn.style.opacity = on ? 1 : 0.5; };
 $('cta').onclick = () => {
-  if (page < PAGES.length - 1) { showPage(page + 1); return; }
+  if (page < 4) { showPage(page + 1); return; }
+  if (page === 5) { submitForm(); return; }
+  if (page === 6) { sendRequest(); return; }
   if (S.face === 'both' && side === 'back') { switchSide('front'); sync(); buildDormer(); fitDistance(); views('angle', 1); showPage(0); return; }
   $('payM').textContent = eur2(monthly());
   enable($('whenNext'), !!whenVal()); enable($('payNext'), !!payVal()); enable($('incNext'), incVals().length > 0);
@@ -1135,16 +1155,14 @@ document.querySelectorAll('input[name=pay]').forEach(r => r.onchange = () => { e
 $('whenBack').onclick = () => $('dlg').close();
 $('whenNext').onclick = () => { if (whenVal()) showStep('pay'); };
 $('payBack').onclick = () => showStep('when');
-function goForm() {
-  const { lines, total } = summaryText();
-  const term = payVal() !== 'eenmalig';
-  $('sum').innerHTML = lines.map(([l, v]) => v === null ? `<li><b>${l}</b></li>` : term ? `<li>${l}</li>` : `<li>${l} <span style="float:right">${eur(v)}</span></li>`).join('') +
-    `<li style="border-top:1px solid #e6dfd0;margin-top:6px;padding-top:6px"><b>${term ? `Vanaf ${eur2(total / CONFIG.financeDivisor)} <span style="float:right">per maand</span>` : `Totaal <span style="float:right">${eur(total)}</span>`}</b></li>` +
-    `<li>Betaling <span style="float:right">${PAYTXT[payVal()]}</span></li>` +
-    `<li>Plaatsing gewenst <span style="float:right">${WHENTXT[whenVal()]}</span></li>` +
-    (payVal() !== 'eenmalig' && incVals().length ? `<li>Manier van inkomen <span style="float:right;text-align:right">${incVals().map(v => INCTXT[v]).join(', ')}</span></li>` : '');
-  showStep('form');
+function renderProj() {
+  const { total } = summaryText(), term = payVal() !== 'eenmalig', sd = shownSides();
+  CFG[side] = pick();
+  const specs = sd.map(k => { const c = CFG[k]; return `${sd.length > 1 ? `<b>${k === 'back' ? 'Achterkant' : 'Voorkant'}:</b> ` : ''}${fmtW(c.w)} m × ${Math.round(c.h * 1000)} mm · ${c.wins} ramen · ${CONFIG.materials[c.mat].label} · ${COLORS.cladding[c.col].n}`; }).join('<br>');
+  let img = ''; try { img = renderer.domElement.toDataURL('image/jpeg', 0.6); } catch { }
+  $('proj').innerHTML = `${img ? `<img src="${img}" alt="Je dakkapel">` : ''}<div class="pd">${specs}<div class="pp">${term ? `Vanaf ${eur2(total / CONFIG.financeDivisor)} per maand` : `Totaal ${eur(total)}`}</div><div class="pm">${PAYTXT[payVal()]} · ${WHENTXT[whenVal()]}</div></div>`;
 }
+function goForm() { $('dlg').close(); renderProj(); showPage(5); }
 $('payNext').onclick = () => { if (!payVal()) return; if (payVal() === 'eenmalig') goForm(); else showStep('income'); };
 const INCTXT = { loondienst: 'Loondienst', ondernemer: 'Ondernemer', uitkering: 'Uitkering/ziektewet', geen: 'Geen inkomsten' };
 const incVals = () => [...document.querySelectorAll('input[name=inc]:checked')].map(i => i.value);
@@ -1154,7 +1172,6 @@ document.querySelectorAll('input[name=inc]').forEach(c => c.onchange = () => {
 });
 $('incBack').onclick = () => showStep('pay');
 $('incNext').onclick = () => { if (incVals().length) goForm(); };
-$('cancel').onclick = () => showStep(payVal() === 'eenmalig' ? 'pay' : 'income');
 $('close').onclick = () => $('dlg').close();
 $('fb').oninput = e => { const d = e.target.value.replace(/\D/g, '').slice(0, 8); e.target.value = d.length > 4 ? `${d.slice(0, 2)}-${d.slice(2, 4)}-${d.slice(4)}` : d.length > 2 ? `${d.slice(0, 2)}-${d.slice(2)}` : d; };
 function birthISO(v) {
@@ -1163,14 +1180,13 @@ function birthISO(v) {
   if (isNaN(dt) || dt.getDate() !== +d || dt.getMonth() + 1 !== +mo || dt > new Date() || +y < 1900) return '';
   return `${y}-${mo}-${d}`;
 }
-$('formNext').onclick = () => {
+function submitForm() {
   const name = $('fn').value.trim(), email = $('fe').value.trim();
   if (!name || !/^\S+@\S+\.\S+$/.test(email)) { alert('Vul je naam en een geldig e-mailadres in.'); return; }
   if (!birthISO($('fb').value)) { alert('Vul je geboortedatum in als dd-mm-jjjj.'); return; }
   if (!(document.querySelector('input[name=sex]:checked'))) { alert('Kies man of vrouw.'); return; }
-  showStep('addr');
-};
-$('addrBack').onclick = () => showStep('form');
+  showPage(6);
+}
 // adres automatisch aanvullen (PDOK), mislukt het dan vul je het zelf in
 async function lookupAddr() {
   const pc = $('apc').value.replace(/\s/g, ''), nr = $('ahn').value.trim();
@@ -1182,6 +1198,13 @@ async function lookupAddr() {
   } catch { }
 }
 $('apc').onblur = lookupAddr; $('ahn').onblur = lookupAddr;
+const DRAFT_KEY = 'tp_draft';
+const draftEls = () => [...document.querySelectorAll('.page.cust input:not([type=file]), .page.cust textarea, #dlg input')];
+const draftKey = el => el.id || (el.name + '|' + el.value);
+function saveDraft() { try { const d = {}; draftEls().forEach(el => { d[draftKey(el)] = (el.type === 'checkbox' || el.type === 'radio') ? el.checked : el.value; }); sessionStorage.setItem(DRAFT_KEY, JSON.stringify(d)); } catch { } }
+function loadDraft() { try { const d = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || 'null'); if (!d) return; draftEls().forEach(el => { const k = draftKey(el); if (!(k in d)) return; if (el.type === 'checkbox' || el.type === 'radio') el.checked = !!d[k]; else el.value = d[k]; }); } catch { } }
+document.addEventListener('input', saveDraft); document.addEventListener('change', saveDraft);
+loadDraft();
 const photos = [];
 async function shrink(file) {
   const url = URL.createObjectURL(file);
@@ -1206,7 +1229,7 @@ $('fph').onchange = async e => {
   for (const f of [...e.target.files]) { if (photos.length >= 4) { alert('Maximaal 4 foto\u2019s.'); break; } try { photos.push(await shrink(f)); } catch { alert('Deze foto kon niet worden gelezen.'); } }
   e.target.value = ''; renderPh();
 };
-$('send').onclick = async () => {
+async function sendRequest() {
   const pc = $('apc').value.trim(), hn = $('ahn').value.trim(), st = $('ast').value.trim(), pl = $('apl').value.trim();
   if (!/^\d{4}\s?[A-Za-z]{2}$/.test(pc) || !hn || !st || !pl) { alert('Vul het volledige adres in: postcode, huisnummer, straat en plaats.'); return; }
   const woon = (document.querySelector('input[name=woon]:checked') || {}).value;
@@ -1229,20 +1252,21 @@ $('send').onclick = async () => {
     try { localStorage.setItem('tp_preview', JSON.stringify(pq)); } catch { }
     $('viewOffer').href = new URL('offerte.html?preview=1', location.href).href; $('viewOffer').style.display = 'block';
     $('doneTxt').textContent = 'Dit is een voorbeeld van je offerte. Je kunt hem bekijken en downloaden als PDF.';
-    showStep('done'); return;
+    $('dlg').showModal(); showStep('done'); return;
   }
-  $('send').disabled = true;
+  $('cta').disabled = true;
   try {
     const r = await fetch('/api/quote', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || 'Mislukt');
   } catch (e) {
-    $('send').disabled = false;
+    $('cta').disabled = false;
     if (location.protocol === 'file:' || location.hostname === 'localhost') console.log('Offerte-aanvraag (lokaal, geen server):', payload);
     else { alert('Versturen mislukt. Probeer het later opnieuw.'); return; }
   }
-  $('send').disabled = false;
-  showStep('done');
-};
+  $('cta').disabled = false;
+  try { sessionStorage.removeItem(DRAFT_KEY); } catch { }
+  $('dlg').showModal(); showStep('done');
+}
 
 
 /* ---------- offerte-helpers + beheer (TermijnPartner) ---------- */
