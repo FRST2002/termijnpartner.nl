@@ -449,6 +449,7 @@ function viewTarget(name, face) {
   return { P, T };
 }
 function views(name, face = viewFace, instant = false) {
+  if (face !== viewFace) instant = true;   // wisselen tussen voor- en achterkant: direct verplaatsen, geen rondvlucht
   viewFace = face; curView = [name, face];
   const { P, T } = viewTarget(name, face);
   if (instant) { camera.position.copy(P); controls.target.copy(T); tween = null; return; }
