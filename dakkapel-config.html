@@ -280,8 +280,9 @@ dialog::backdrop{background:rgba(17,17,17,.55)}
       <div class="page cust">
       <div class="grp">
         <div class="lbl">Adres van de woning</div>
-        <div class="row" style="margin:0 0 10px"><input type="text" id="apc" placeholder="Postcode" autocomplete="postal-code" style="margin:0"><input type="text" id="ahn" placeholder="Huisnr." inputmode="numeric" style="margin:0;max-width:96px"><input type="text" id="aht" placeholder="Toev." style="margin:0;max-width:84px"></div>
         <input type="text" id="ast" placeholder="Straat" autocomplete="address-line1">
+        <div class="row" style="margin:0 0 10px"><input type="text" id="ahn" placeholder="Huisnummer" inputmode="numeric" style="margin:0;flex:1"><input type="text" id="aht" placeholder="Toevoeging" style="margin:0;flex:1"></div>
+        <input type="text" id="apc" placeholder="Postcode" autocomplete="postal-code">
         <input type="text" id="apl" placeholder="Plaats" autocomplete="address-level2">
         <span class="flbl">Woonsituatie</span>
         <div class="seg"><label><input type="radio" name="woon" value="koop">Koopwoning</label><label><input type="radio" name="woon" value="huur">Huurwoning</label></div>
@@ -1214,6 +1215,12 @@ async function lookupAddr() {
   } catch { }
 }
 $('apc').onblur = lookupAddr; $('ahn').onblur = lookupAddr;
+// autofill van de browser zet vaak 'Straat 12a' in het straatveld: splits dat in straat en huisnummer
+const splitStreet = () => {
+  const m = /^(.+?)\s+(\d+)\s*([A-Za-z0-9-]{0,6})$/.exec($('ast').value.trim());
+  if (m && !$('ahn').value.trim()) { $('ast').value = m[1]; $('ahn').value = m[2]; if (m[3] && !$('aht').value) $('aht').value = m[3]; saveDraft(); lookupAddr(); }
+};
+$('ast').addEventListener('change', splitStreet); $('ast').addEventListener('blur', splitStreet);
 const DRAFT_KEY = 'tp_draft';
 const draftEls = () => [...document.querySelectorAll('.page.cust input:not([type=file]):not([name=when]):not([name=pay]):not([name=inc]), .page.cust textarea')];   // de drie vragen (plaatsing, betalen, inkomen) nooit vooraf invullen
 const draftKey = el => el.id || (el.name + '|' + el.value);
