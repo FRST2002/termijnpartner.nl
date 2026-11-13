@@ -6,12 +6,12 @@ Context voor Claude (en voor mensen) bij werk aan deze repo. Lees dit eerst.
 
 ## Wat is dit
 
-Marketingsite van **TermijnPartner** (https://termijnpartner.nl): een platform waarmee bedrijven met hoge orderwaardes (bouw, keukens, auto's, tandartsen, zonnepanelen, enz.) klanten in termijnen laten betalen. Statische HTML/CSS/JS, **geen build-stap**, geen backend.
+Marketingsite van **TermijnPartner** (https://termijnpartner.nl): een platform waarmee bedrijven met hoge orderwaardes (bouw, keukens, auto's, tandartsen, zonnepanelen, enz.) klanten in termijnen laten betalen. Statische HTML/CSS/JS, **geen build-stap**. Enige backend: `api/quote.js` voor de dakkapel-offertes (zie "Dakkapel-configurator"); die werkt pas na instellen van Upstash en GoHighLevel.
 
 - Eigenaar/gebruiker: Freek (Tada Solutions). Taal van de site en van het overleg: **Nederlands**.
 - GitHub: `FRST2002/termijnpartner.nl`, branch `main`.
 - Hosting: **Vercel**, gekoppeld aan deze repo. Een push naar `main` zet de site automatisch live.
-- Lokale map: `C:\A-Bedrijf\termijnpartner.nl`. De oude map `C:\A-Bedrijf\TermijnPartner` is een oudere losse kopie, geen git-repo; gebruik die niet meer.
+- Lokale map: `C:\A-Bedrijf\termijnpartner.nl`. De oude map `C:\A-Bedrijf\TermijnPartner` is een oudere losse kopie, geen git-repo; gebruik die niet meer voor de website. **Uitzondering:** daarin staat de submap `3d-configurator` met de bron van de dakkapel-configurator en de generator voor klantversies (zie "Dakkapel-configurator"); die staat niet in git, dus maak er af en toe een back-up van.
 
 ## Werkafspraken (belangrijk)
 
@@ -39,6 +39,8 @@ Marketingsite van **TermijnPartner** (https://termijnpartner.nl): een platform w
 | `intern.html` | Interne scenario-/partnercalculator (verdienmodel). Staat op `/intern`, **niet beveiligd**, wel met `noindex`-header. Op uitdrukkelijk verzoek van Freek live gezet; wijzig of verspreid de inhoud niet zonder overleg |
 | `middleware.js`, `lib/markdown-content.mjs` | Levert een Markdown-versie van pagina's aan AI-crawlers (`Accept: text/markdown`) |
 | `llms.txt`, `robots.txt`, `sitemap.xml` | Voor zoekmachines en AI-agents |
+| `dakkapel-config.html`, `offerte.html`, `api/quote.js` | 3D-dakkapel-configurator, offertepagina en offerte-API (zie "Dakkapel-configurator"). Routes `/dakkapel-config` en `/offerte`, beide `noindex` |
+| `hollandstotaalbouw-dakkapel.html`, `hollandstotaalbouw-offerte.html`, `hollandstotaalbouw-logo.svg` | Klantversie van de configurator voor Holland's Totaalbouw (**gegenereerd**, niet met de hand bewerken) |
 | `vercel.json` | Routes (zie hieronder) |
 
 ### Let op: Markdown-spiegel
@@ -46,6 +48,7 @@ Marketingsite van **TermijnPartner** (https://termijnpartner.nl): een platform w
 
 ### Routes (`vercel.json`)
 `/about` → over-ons, `/privacy` → privacybeleid, `/welkom` → `welkom.html` (met `X-Robots-Tag: noindex`), `/marketing` → `marketing.html`, `/partners` → `partners.html`.
+`/dakkapel-config`, `/offerte`, `/hollandstotaalbouw-dakkapel` en `/hollandstotaalbouw-offerte` → de gelijknamige `.html` (alle met `noindex`).
 `/intern` → `intern.html` (met `X-Robots-Tag: noindex`), `/partners` → `partners.html` (ook `/partners.html` werkt nog). Een redirect van `.html` naar `/partners` is bewust niet ingesteld om een redirect-lus te vermijden; eerst testen als dat gewenst is.
 
 ## Wachtwoord op /partners, /marketing en /intern
@@ -132,6 +135,50 @@ Overweeg een `noindex`-header of de repo/pagina privé te maken als de inhoud ni
 - Het bedrijf krijgt **100% van het bedrag vooraf**; de klant betaalt terug aan de financieringspartner.
 - Rente verschilt per klant en wordt door de financieringspartner vooraf besproken. TermijnPartner zelf verstrekt het krediet niet.
 - De knop "Meld je aan" (aanvraagformulier) en de WhatsApp-links staan in de header/CTA's van de pagina's; hergebruik die zoals ze er staan.
+
+## Dakkapel-configurator (3D) en offertes
+
+Gebouwd (nov 2026) naar het voorbeeld van de configurator van Blurmedia. Klanten stellen een dakkapel samen, zien direct een maandbedrag en vragen een offerte aan. **Nog niet gekoppeld aan GoHighLevel**; er worden nu geen aanvragen opgeslagen of verstuurd.
+
+### Bestanden, werkwijze en generator
+- **Bron van de configurator staat buiten de repo:** `C:\A-Bedrijf\TermijnPartner\3d-configurator\index.html` (lokaal, geen git). Werkwijze na elke wijziging: bron aanpassen, kopiëren naar `dakkapel-config.html` in de repo, `python maak-klantconfig.py hollandstotaalbouw` draaien (zelfde map), committen en pushen. Klantversies nooit met de hand bewerken: die worden telkens opnieuw gegenereerd.
+- `maak-klantconfig.py` (zelfde lokale map) leest `dakkapel-config.html` en `offerte.html` uit de repo (alleen lezen) en maakt een klantversie met eigen logo, kleuren, lettertype en routes (`/<slug>-dakkapel`, `/<slug>-offerte`). Nieuwe klant = één blok toevoegen aan `KLANTEN` (naam, slug, logo in `klanten\`, kleuren, lettertype, offertenummer-voorvoegsel). `offerte.html` bewerk je wél direct in de repo (dat is de sjabloon).
+- Holland's Totaalbouw: oranje `#ff6501`, lettertype Poppins, logo van hun site. Dit is een voorbeeld van "kant-en-klare config"; de **koppeling per klant** (eigen GoHighLevel, eigen prijzen, opslag) zit er nog niet in.
+- `INSTELLEN-OFFERTES.md` (lokale configurator-map) beschrijft het instellen van opslag en GoHighLevel.
+- Techniek: een enkel HTML-bestand, three.js 0.170 via importmap (cdn.jsdelivr.net), echte HDRI-lucht van Poly Haven (valt terug op een eenvoudige lucht), dakpannen als 3D-instances, procedurele texturen. Instellingen en prijzen staan bovenaan in het object `CONFIG`.
+
+### Opbouw en afspraken met Freek (zo bedoeld, niet "per ongeluk")
+- **10 stappen** in het paneel (geen popup meer), met balkjes bovenin: je kunt via de balkjes **alleen terug**, nooit vooruit. 1 Plaatsing, breedte, aantal ramen. 2 Hoogte en raamtype. 3 Bekleding en afval opruimen. 4 Kleuren. 5 Extra's (optioneel). 6 Plaatsing gewenst. 7 Achteraf in termijnen betalen. 8 Manier van inkomen (alleen bij termijn of "beide"; bij "1x betalen" overgeslagen). 9 Jouw gegevens (met klein overzicht met foto; **geen groot beeld**). 10 Adres en woning (foto's, opmerkingen, vinkje algemene voorwaarden).
+- **Geen standaardkeuze** bij stappen 6, 7 en 8 (ook niet na verversen). Stappen 6 en 7 gaan automatisch door na een keuze. Ingevulde gegevens van stap 9 en 10 blijven staan (sessionStorage).
+- Plaatsing: **achterkant staat links en is standaard** (Freek wil zo min mogelijk voorkantplaatsingen). Bij "Beide zijden" eerst de achterkant, daarna de voorkant. Voor- en achterkant hebben een eigen configuratie. De zon staat aan de achterkant (daar ziet het beeld er het mooist uit).
+- **Voorkant: altijd vergunning nodig**, regels verschillen per gemeente. Achterkant: 1500 mm is "Meest gekozen" en vergunningsvrij (staat standaard aan, bewust opvallend: klanten moeten 1500 kiezen); 1750 mm is "deels vergunningsvrij" met toelichting.
+- Ramen: **1 raam per 1,2 m breedte**, maximaal 7. Breedte 1,5 tot 9 m, ook typbaar. Woning is standaard 7 m breed en wordt breder bij een grotere dakkapel; altijd 0,5 m vrij per kant. Rijtjeshuis met rode buurdaken. Standaard breedte 2,4 m.
+- Kleuren met RAL-code (de RAL-keuzes zijn door Claude gekozen, laat ze controleren). Antraciet is bewust lichter dan echt RAL 7016 zodat het van zwart te onderscheiden is. Zwart staat ook bij kozijnen.
+- **Prijsweergave:** in de configurator alleen het maandbedrag ("Vanaf € x p/m", prijs ÷ 180). Bij "1x betalen" toont het overzicht en de offerte het totaal; bij termijn of "beide" het maandtarief met het totaal klein eronder (alleen op de offerte). **Prijzen in `CONFIG` zijn aannames van Claude (richtprijzen, incl. btw), geen echte tarieven.**
+- Afval opruimen: keuze in stap 3, standaard "Door het bouwbedrijf"; heeft geen invloed op de prijs.
+- Mobiel: eigen layout (beeld sticky bovenin en krimpt geleidelijk tijdens scrollen, prijs- en knoppenbalk vast onderin, witte achtergrond, na de laatste vraag einde pagina). **Zoomen is uitgezet** (viewport, `touch-action` en gebaar-blokkade voor iOS); de offertepagina mag wel zoomen. Laadscherm is bewust licht en rustig (voor grote groepen bezoekers via Meta); de 3D-draadmodel-versie staat in commit `3959687`.
+- Wisselen tussen voor- en achterkant gaat direct (geen camerarondvlucht). De camerknoppen heten Recht, Schuin en Zijkant en volgen de gekozen kant.
+
+### Offertes (code klaar, nog niet ingeschakeld)
+- **Nu staat `previewOnly: true` in `CONFIG`:** na "Verstuur aanvraag" verschijnt direct een voorbeeldofferte (`offerte.html?preview=1`, uit localStorage, met PDF-download via printen). Er wordt niets opgeslagen of verstuurd. Zet op `false` zodra opslag en koppeling klaar zijn.
+- Echte werking (`api/quote.js`): offertes in **Upstash Redis**, per offerte een niet te raden link `/offerte?id=…` waar de klant kan goedkeuren of afkeuren. TermijnPartner past een offerte aan in dezelfde configurator via `/dakkapel-config?edit=ID` (of `?admin=1` voor een nieuwe), met korting/opmerking, en geeft hem vrij; opnieuw vrijgeven maakt een nieuwe versie. Statussen: aanvraag, concept, verstuurd, goedgekeurd, afgekeurd. De offerte bevat 3D-beelden, specificaties, maattekening en prijsopbouw.
+- **GoHighLevel-koppeling:** bij elke stap een contact (upsert) met adres, tag per status (`offerte-aangevraagd`, `-verstuurd`, `-goedgekeurd`, `-afgekeurd`) en een notitie met prijs, dakkapelgegevens, klantlink en interne bewerklink. Er komt nog **geen opportunity/pipeline**. Welke GoHighLevel-omgeving (echt of test) is nog niet gekozen.
+- Vercel-variabelen die nodig zijn (alleen namen, **nooit waarden in de repo**): `KV_REST_API_URL` en `KV_REST_API_TOKEN` (komen van Upstash), `ADMIN_PASSWORD`, `GHL_TOKEN`, `GHL_LOCATION_ID`; optioneel `GHL_PRICE_FIELD_ID` en `SITE_URL`. Zonder deze variabelen geeft de API een fout en kan de configurator (met `previewOnly: false`) niets versturen.
+- Persoonsgegevens (geboortedatum, adres, inkomen) horen alleen in Upstash en GoHighLevel, **nooit in de repo**.
+- Let op: de links in de GoHighLevel-notitie wijzen nu naar `/offerte` en `/dakkapel-config`; voor klantversies moet dat per klant gaan als de koppeling wordt gebouwd.
+
+### Open punten
+- GoHighLevel en opslag instellen en een testaanvraag doorlopen (later oppakken).
+- Teksten laten controleren: vergunningstekst, "geldig 30 dagen", prijzen incl. btw, afstand tot dakrand in de maattekening (komt uit het 3D-model, niet uit bouwregels).
+- Prestaties op oude telefoons zijn niet getest (duizenden dakpan-instances); aantal pannen kan omlaag.
+- Bij offertes met beide zijden staan de bedragen per onderdeel ook bij termijnen op de offerte; weglaten kan op verzoek.
+
+## DNS en hosting (TransIP + Vercel)
+
+- Domein bij **TransIP**, nameservers `ns0.transip.net`, `ns1.transip.nl`, `ns2.transip.eu`. De site draait op Vercel (apex stuurt door naar `www`).
+- Webrecords in TransIP: `@` **A** `76.76.21.21` en `www` **CNAME** `cname.vercel-dns.com.`. Geen AAAA-regels en geen `*`-regels naar TransIP.
+- Mailrecords (MX `mx.transip.email`, SPF, `autoconfig`, `autodiscover`, drie `transip-…_domainkey`, `x-transip-mail-auth`, `_dmarc`) moeten blijven staan.
+- **Zet "TransIP-instellingen" in het DNS-scherm nooit aan:** dat vervangt de records door de TransIP-standaard en dan verschijnt de oude website (is op 13-11-2026 per ongeluk gebeurd en hersteld).
 
 ## Techniek en valkuilen
 
