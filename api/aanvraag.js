@@ -82,7 +82,9 @@ export default async function handler(req, res) {
     });
     const j = await r.json().catch(() => ({}));
     if (!r.ok) { console.error('aanvraag GHL', r.status, JSON.stringify(j).slice(0, 300)); return res.status(502).json({ error: 'Versturen is niet gelukt.' }); }
-    return res.status(200).json({ ok: true });
+    const cid = (j.contact && j.contact.id) || null;
+    console.log('aanvraag: contact', cid, j.new === true ? 'nieuw' : 'bijgewerkt');
+    return res.status(200).json({ ok: true, contact: cid, nieuw: j.new === true });
   } catch (e) {
     console.error('aanvraag', e);
     return res.status(502).json({ error: 'Versturen is niet gelukt.' });
