@@ -186,3 +186,13 @@ Gebouwd (nov 2026) naar het voorbeeld van de configurator van Blurmedia. Klanten
 - Git geeft "LF will be replaced by CRLF"-waarschuwingen; onschadelijk.
 - `vercel.json` gebruikt `outputDirectory: "."`: bestanden in de hoofdmap kunnen publiek geserveerd worden. `README.md`, `package.json` en `vercel.json` geven nu 404, maar `lib/markdown-content.mjs` is wel bereikbaar. Dit bestand (`CLAUDE.md`) staat in `.vercelignore` zodat het niet op de website komt (op GitHub is het wel zichtbaar).
 - Commit-berichten eindigen met de `Co-Authored-By`-regel van Claude.
+
+## SEO-ronde (18-11-2026, op verzoek van Freek)
+- **Voorkeursdomein is `https://www.termijnpartner.nl`** (apex stuurt op Vercel door naar www). Canonicals, `og:url`, JSON-LD, `sitemap.xml`, `robots.txt`, `llms.txt`, `middleware.js` en `lib/markdown-content.mjs` gebruiken allemaal `www`. Nieuwe pagina's ook met `www` in de canonical. `lib/markdown-content.mjs` is oorspronkelijk gegenereerd, de drie nieuwe bouwpagina's zijn er met een script aan toegevoegd.
+- **Focus: bouwbedrijven** (eerst dakkapel, dan aanbouw/uitbouw). Nieuwe pagina's: `branche-dakkapellen.html`, `branche-aanbouw-uitbouw.html`, `branche-overkappingen.html`. `branche-bouw.html` is nu het overzicht met kaarten naar die drie. Andere branches blijven bestaan maar staan lager (menu "Andere branches", carousel achteraan).
+- **Menu:** "Branches" is een keuzemenu (`.nav-dd` in `style.css`, gedrag in `main.js`). Mobiel: links onder "Branches: bouw". Footer heeft de drie bouwlinks.
+- **Homepage:** title/H1 "Laat jouw klanten in termijnen betalen" (bouwbedrijven in de title). Eigen CRM: de FAQ zegt nu dat je je eigen CRM behoudt en alleen de financieringsaanvragen via ons systeem lopen. Afraden is bewust verwijderd.
+- **Afbeeldingen:** `favicon.png` is 192 px (1 kB), `og-termijnpartner.jpg` (1200x630) is de standaard social-afbeelding, veelgebruikte foto's hebben een `.webp`-versie (de PNG blijft voor `og:image`).
+- **Markup:** BreadcrumbList op branche-, blog- en overige pagina's, WebSite op de homepage. FAQ-schema blijft op de homepage staan, maar verwacht geen uitgebreide FAQ-resultaten in Google.
+- **Interne links:** blogs verwijzen naar de bouwpagina's, de bouwpagina's naar elkaar en naar de blogs.
+- Vers dat nog openstaat: echte case-pagina's (Roley, Holland's Totaal Bouw) en B2B-blogs, wachten op cijfers en onderwerpen van Freek.

@@ -166,10 +166,40 @@
 
     const branches = [
       {
-        name: 'Bouw',
-        image: 'branch-bouw.png',
-        alt: 'Dakkapel wordt geplaatst op een woning',
-        benefits: ['Grote projecten worden haalbaar', 'Klant kiest zelf looptijd', 'Jij ontvangt 100% vooraf'],
+        name: 'Dakkapellen',
+        image: 'branch-bouw.webp',
+        alt: 'Dakkapel installatie',
+        benefits: ['Minder onnodige inmetingen', 'Aankoopbedrag vooraf', 'Meer akkoord op offertes'],
+      },
+      {
+        name: 'Aanbouw & uitbouw',
+        image: '',
+        alt: '',
+        benefits: ['Grote bedragen overzichtelijk', 'Aankoopbedrag vooraf', 'Vooraf weten of de klant het kan betalen'],
+      },
+      {
+        name: "Overkappingen & veranda's",
+        image: 'branch-veranda.webp',
+        alt: 'Glazen veranda met schuifwanden',
+        benefits: ['Premium projecten toegankelijk', 'Seizoensgebonden verkoop boost', 'Meer volledige tuinprojecten'],
+      },
+      {
+        name: 'Kozijnen',
+        image: 'branch-kozijnen.png',
+        alt: 'Nieuw kozijn in woning',
+        benefits: ['Complete woningrenovaties', 'Minder afgewezen offertes', 'Hogere orderwaarde per klant'],
+      },
+      {
+        name: 'Vloeren',
+        image: 'branch-vloeren.webp',
+        alt: 'Nieuwe vloer in woonkamer',
+        benefits: ['Complete woning vloeren', 'Lagere drempel per m²', 'Meer volledige projecten'],
+      },
+      {
+        name: 'Tuinhuizen & serres',
+        image: 'branch-tuinhuis.png',
+        alt: 'Tuinhuis in de tuin',
+        benefits: ['Premium tuinprojecten', 'Combinatie met veranda', 'Meer complete buitenverbouwingen'],
       },
       {
         name: 'Keukens',
@@ -184,34 +214,28 @@
         benefits: ['Droombadkamer wordt bereikbaar', 'Minder prijsbezwaren', 'Meer akkoord op offertes'],
       },
       {
-        name: 'Dakkapellen',
-        image: 'branch-bouw.png',
-        alt: 'Dakkapel installatie',
-        benefits: ['Direct plaatsbaar uit voorraad', 'Meer akkoord op offertes', 'Hogere marge per project'],
+        name: 'Warmtepompen',
+        image: 'branch-warmtepomp.webp',
+        alt: 'Warmtepomp en cv-installatie',
+        benefits: ['Energiebesparing toegankelijk', 'Combinatie met isolatie', 'Meer complete energieprojecten'],
       },
       {
-        name: "Veranda's",
-        image: 'branch-veranda.png',
-        alt: 'Glazen veranda met schuifwanden',
-        benefits: ['Premium projecten toegankelijk', 'Seizoensgebonden verkoop boost', 'Meer volledige tuinprojecten'],
+        name: 'Zonnepanelen',
+        image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&q=80&auto=format',
+        alt: 'Zonnepanelen installatie',
+        benefits: ['Investering spreiden', 'Snellere ROI-beslissing', 'Meer installaties per maand'],
       },
       {
-        name: 'Kozijnen',
-        image: 'branch-kozijnen.png',
-        alt: 'Nieuw kozijn in woning',
-        benefits: ['Complete woningrenovaties', 'Minder afgewezen offertes', 'Hogere orderwaarde per klant'],
+        name: 'Thuisbatterijen',
+        image: 'branch-thuisbatterij.png',
+        alt: 'Thuisbatterij systeem',
+        benefits: ['Combineer met zonnepanelen', 'Hogere projectwaarde', 'Snellere investeringsbeslissing'],
       },
       {
-        name: 'Haartransplantaties',
-        image: 'branch-haartransplantaties.png',
-        alt: 'Haartransplantatie behandeling',
-        benefits: ['Behandeling toegankelijker', 'Minder uitstelgedrag', 'Meer ingeplande trajecten'],
-      },
-      {
-        name: 'Vloeren',
-        image: 'branch-vloeren.png',
-        alt: 'Nieuwe vloer in woonkamer',
-        benefits: ['Complete woning vloeren', 'Lagere drempel per m²', 'Meer volledige projecten'],
+        name: "Airco's",
+        image: 'branch-airco.png',
+        alt: 'Airconditioning unit aan de muur',
+        benefits: ['Seizoenspieken benutten', 'Meerdere units per klant', 'Snelle beslissing in warme periodes'],
       },
       {
         name: "Auto's",
@@ -225,35 +249,11 @@
         alt: 'Tandartspraktijk',
         benefits: ['Implantaten en cosmetiek', 'Patiënten zeggen vaker ja', 'Behandelingen direct starten'],
       },
-         {
-        name: 'Zonnepanelen',
-        image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&q=80&auto=format',
-        alt: 'Zonnepanelen installatie',
-        benefits: ['Investering spreiden', 'Snellere ROI-beslissing', 'Meer installaties per maand'],
-      },
       {
-        name: 'Warmtepompen',
-        image: 'branch-warmtepomp.png',
-        alt: 'Warmtepomp en cv-installatie',
-        benefits: ['Energiebesparing toegankelijk', 'Combinatie met isolatie', 'Meer complete energieprojecten'],
-      },
-         {
-        name: "Airco's",
-        image: 'branch-airco.png',
-        alt: 'Airconditioning unit aan de muur',
-        benefits: ['Seizoenspieken benutten', 'Meerdere units per klant', 'Snelle beslissing in warme periodes'],
-      },
-      {
-        name: 'Thuisbatterijen',
-        image: 'branch-thuisbatterij.png',
-        alt: 'Thuisbatterij systeem',
-        benefits: ['Combineer met zonnepanelen', 'Hogere projectwaarde', 'Snellere investeringsbeslissing'],
-      },
-      {
-        name: 'Tuinhuizen & serres',
-        image: 'branch-tuinhuis.png',
-        alt: 'Tuinhuis in de tuin',
-        benefits: ['Premium tuinprojecten', 'Combinatie met veranda', 'Meer complete buitenverbouwingen'],
+        name: 'Haartransplantaties',
+        image: 'branch-haartransplantaties.png',
+        alt: 'Haartransplantatie behandeling',
+        benefits: ['Behandeling toegankelijker', 'Minder uitstelgedrag', 'Meer ingeplande trajecten'],
       },
       {
         name: 'Scootmobielen',
@@ -430,4 +430,15 @@
       }
     });
   }
+})();
+
+/* Keuzemenu Branches (desktop): klik opent/sluit, Escape en klik buiten sluiten */
+(function () {
+  var dd = document.querySelector('.nav-dd');
+  if (!dd) return;
+  var btn = dd.querySelector('.nav-dd-btn');
+  function set(open) { dd.classList.toggle('open', open); btn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+  btn.addEventListener('click', function (e) { e.stopPropagation(); set(!dd.classList.contains('open')); });
+  document.addEventListener('click', function (e) { if (!dd.contains(e.target)) set(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { set(false); btn.focus(); } });
 })();

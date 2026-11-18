@@ -13,13 +13,13 @@
 
 ## Key pages
 
-- [Homepage](https://termijnpartner.nl/): product overview, pricing (Basis plan + optional add-ons), industries served, FAQ.
-- [Over ons / About](https://termijnpartner.nl/over-ons.html): who TermijnPartner is and why it exists.
-- [Blog](https://termijnpartner.nl/blog.html): articles on installment payments, financing comparisons, AFM/compliance, onboarding speed, and sales psychology.
-- [Privacybeleid / Privacy policy](https://termijnpartner.nl/privacybeleid.html)
-- [Algemene voorwaarden / Terms](https://termijnpartner.nl/algemene-voorwaarden.html)
-- [Disclaimer](https://termijnpartner.nl/disclaimer.html)
-- [Sitemap](https://termijnpartner.nl/sitemap.xml): full list of pages, including industry-specific landing pages (construction, kitchens, bathrooms, car dealers, solar panels, heat pumps, dental practices).
+- [Homepage](https://www.termijnpartner.nl/): product overview, pricing (Basis plan + optional add-ons), industries served, FAQ.
+- [Over ons / About](https://www.termijnpartner.nl/over-ons.html): who TermijnPartner is and why it exists.
+- [Blog](https://www.termijnpartner.nl/blog.html): articles on installment payments, financing comparisons, AFM/compliance, onboarding speed, and sales psychology.
+- [Privacybeleid / Privacy policy](https://www.termijnpartner.nl/privacybeleid.html)
+- [Algemene voorwaarden / Terms](https://www.termijnpartner.nl/algemene-voorwaarden.html)
+- [Disclaimer](https://www.termijnpartner.nl/disclaimer.html)
+- [Sitemap](https://www.termijnpartner.nl/sitemap.xml): full list of pages, including industry-specific landing pages (construction, kitchens, bathrooms, car dealers, solar panels, heat pumps, dental practices).
 
 ## Contact
 
@@ -30,3 +30,11 @@
 ## Machine-readable content
 
 Every page on this site supports Markdown content negotiation: request any URL with `Accept: text/markdown` to receive a clean Markdown rendition of that page instead of HTML (same URL, no separate `.md` path required).
+
+## Primary focus: construction companies
+
+- Dormer (dakkapel) companies: https://www.termijnpartner.nl/branche-dakkapellen.html
+- Extension and annex (aanbouw/uitbouw) companies: https://www.termijnpartner.nl/branche-aanbouw-uitbouw.html
+- Canopy and veranda companies: https://www.termijnpartner.nl/branche-overkappingen.html
+- Overview for construction: https://www.termijnpartner.nl/branche-bouw.html
+- The business keeps its own CRM; only the financing applications run through TermijnPartner's system.

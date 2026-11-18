@@ -8,8 +8,8 @@ export const config = {
   matcher: ['/((?!.*\\.(?:css|js|mjs|png|jpg|jpeg|svg|ico|xml|txt|webmanifest|json)$).*)'],
 };
 
-const SITEMAP_URL = 'https://termijnpartner.nl/sitemap.xml';
-const LLMS_URL = 'https://termijnpartner.nl/llms.txt';
+const SITEMAP_URL = 'https://www.termijnpartner.nl/sitemap.xml';
+const LLMS_URL = 'https://www.termijnpartner.nl/llms.txt';
 
 function wantsMarkdown(request) {
   const accept = request.headers.get('accept') || '';
@@ -24,7 +24,7 @@ function notFoundMarkdown(pathname) {
     '',
     `- See the full list of pages: [sitemap.xml](${SITEMAP_URL})`,
     `- See a curated overview for agents: [llms.txt](${LLMS_URL})`,
-    '- Homepage: [https://termijnpartner.nl/](https://termijnpartner.nl/)',
+    '- Homepage: [https://www.termijnpartner.nl/](https://www.termijnpartner.nl/)',
   ].join('\n');
 }
 
