@@ -28,6 +28,31 @@ function phone(p) {
   return s;
 }
 
+// Melding per e-mail via Resend. Vraagt: RESEND_API_KEY en NOTIFY_EMAIL (optioneel RESEND_FROM). Zonder deze variabelen gebeurt er niets.
+const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/\n/g, '<br>');
+async function notify(d) {
+  if (!process.env.RESEND_API_KEY || !process.env.NOTIFY_EMAIL) return 'melding niet ingesteld';
+  const row = (k, v) => `<tr><td style="padding:7px 14px 7px 0;width:170px;color:#6B6657;vertical-align:top;border-bottom:1px solid #E4DCC8;">${k}</td><td style="padding:7px 0;border-bottom:1px solid #E4DCC8;">${v ? esc(v) : '<span style="color:#999">-</span>'}</td></tr>`;
+  const head = (t) => `<h3 style="margin:22px 0 6px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#A67D22;">${t}</h3>`;
+  const html = `<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.5;color:#1C1B19;max-width:600px;">
+<h2 style="margin:0 0 4px;font-size:20px;">Nieuwe demo-aanvraag</h2><p style="margin:0 0 6px;color:#6B6657;">Via termijnpartner.nl/aanvraag. Antwoord op deze mail om de aanvrager direct te mailen.</p>
+${head('Contact')}<table style="width:100%;border-collapse:collapse;">${row('Naam', `${d.firstName} ${d.lastName}`)}${row('Telefoon', d.phone)}${row('E-mail', d.email)}</table>
+${head('Bedrijf')}<table style="width:100%;border-collapse:collapse;">${row('Bedrijfsnaam', d.organization)}${row('Website', d.website)}${row('Jaren actief', d.jaren)}${row('Opdrachten per maand', d.opdrachten)}${row('Gem. opdrachtwaarde', d.waarde)}</table>
+${head('Werkwijze')}<table style="width:100%;border-collapse:collapse;">${row('Termijnbetaling nu', d.termijnen)}${row('Opvolging aanvragen', d.opvolging)}${row('Marketing', d.marketing)}${row('Grootste uitdaging', d.uitdaging.join(', '))}${row('Branche', d.branche.join(', '))}</table>
+${head('Extra informatie')}<p style="margin:0;">${d.extra ? esc(d.extra) : '<span style="color:#999">-</span>'}</p></div>`;
+  const r = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      from: process.env.RESEND_FROM || 'TermijnPartner <onboarding@resend.dev>',
+      to: [process.env.NOTIFY_EMAIL], reply_to: d.email,
+      subject: `Nieuwe demo-aanvraag: ${d.organization}`, html,
+    }),
+  }).catch((e) => ({ ok: false, status: String(e) }));
+  if (!r.ok) console.error('aanvraag melding', r.status, await (r.text ? r.text() : '').catch(() => ''));
+  return r.ok ? 'melding verstuurd' : 'melding mislukt ' + r.status;
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return res.status(405).json({ error: 'Alleen POST' }); }
   let b = req.body;
@@ -106,8 +131,9 @@ export default async function handler(req, res) {
       wf = wr.ok ? 'workflow gestart' : 'workflow mislukt ' + wr.status;
       if (!wr.ok) console.error('aanvraag workflow', wr.status, await (wr.text ? wr.text() : '').catch(() => ''));
     }
+    const mail = await notify(d).catch((e) => { console.error('melding', e); return 'melding mislukt'; });
     console.log('aanvraag: contact', cid, j.new === true ? 'nieuw' : 'bijgewerkt');
-    return res.status(200).json({ ok: true, contact: cid, nieuw: j.new === true, workflow: wf });
+    return res.status(200).json({ ok: true, contact: cid, nieuw: j.new === true, workflow: wf, melding: mail });
   } catch (e) {
     console.error('aanvraag', e);
     return res.status(502).json({ error: 'Versturen is niet gelukt.' });
