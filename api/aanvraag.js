@@ -95,8 +95,19 @@ export default async function handler(req, res) {
       await fetch(`https://services.leadconnectorhq.com/contacts/${cid}/tags`, { method: 'DELETE', headers: h, body: tags }).catch(() => {});
       await fetch(`https://services.leadconnectorhq.com/contacts/${cid}/tags`, { method: 'POST', headers: h, body: tags }).catch(() => {});
     }
+    // Zet het contact rechtstreeks in de workflow (onafhankelijk van de trigger). Vraagt: GHL_WORKFLOW_ID.
+    let wf = 'geen workflow ingesteld';
+    if (cid && process.env.GHL_WORKFLOW_ID) {
+      const wr = await fetch(`https://services.leadconnectorhq.com/contacts/${cid}/workflow/${process.env.GHL_WORKFLOW_ID}`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${process.env.GHL_TOKEN}`, Version: '2021-07-28', 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({}),
+      }).catch((e) => ({ ok: false, status: String(e) }));
+      wf = wr.ok ? 'workflow gestart' : 'workflow mislukt ' + wr.status;
+      if (!wr.ok) console.error('aanvraag workflow', wr.status, await (wr.text ? wr.text() : '').catch(() => ''));
+    }
     console.log('aanvraag: contact', cid, j.new === true ? 'nieuw' : 'bijgewerkt');
-    return res.status(200).json({ ok: true, contact: cid, nieuw: j.new === true });
+    return res.status(200).json({ ok: true, contact: cid, nieuw: j.new === true, workflow: wf });
   } catch (e) {
     console.error('aanvraag', e);
     return res.status(502).json({ error: 'Versturen is niet gelukt.' });
