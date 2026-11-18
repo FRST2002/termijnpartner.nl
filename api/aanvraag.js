@@ -89,6 +89,13 @@ export default async function handler(req, res) {
     const j = await r.json().catch(() => ({}));
     if (!r.ok) { console.error('aanvraag GHL', r.status, JSON.stringify(j).slice(0, 300)); return res.status(502).json({ error: 'Versturen is niet gelukt.' }); }
     const cid = (j.contact && j.contact.id) || null;
+    // Bestaand contact: de tag staat er al, dus er komt geen "tag toegevoegd". Haal hem weg en zet hem terug zodat de workflow opnieuw start.
+    if (cid && j.new !== true) {
+      const h = { Authorization: `Bearer ${process.env.GHL_TOKEN}`, Version: '2021-07-28', 'Content-Type': 'application/json', Accept: 'application/json' };
+      const tags = JSON.stringify({ tags: ['demo-aanvraag'] });
+      await fetch(`https://services.leadconnectorhq.com/contacts/${cid}/tags`, { method: 'DELETE', headers: h, body: tags }).catch(() => {});
+      await fetch(`https://services.leadconnectorhq.com/contacts/${cid}/tags`, { method: 'POST', headers: h, body: tags }).catch(() => {});
+    }
     console.log('aanvraag: contact', cid, j.new === true ? 'nieuw' : 'bijgewerkt');
     return res.status(200).json({ ok: true, contact: cid, nieuw: j.new === true });
   } catch (e) {
