@@ -98,28 +98,28 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);bo
         <div class="fld"><label for="jaren">Hoeveel jaar bestaat je bedrijf? <span class="req">*</span></label><input id="jaren" name="jaren" type="number" min="0" step="any" inputmode="decimal" placeholder="Bijvoorbeeld 5" required><div class="msg">Vul een getal in.</div></div>
         <div class="fld"><label for="opdrachten">Opdrachten per maand (gemiddeld) <span class="req">*</span></label>
           <select id="opdrachten" name="opdrachten" required><option value="">Selecteer een optie</option><option>1-5 opdrachten</option><option>5-10 opdrachten</option><option>10-25 opdrachten</option><option>25+ opdrachten</option></select><div class="msg">Maak een keuze.</div></div>
-        <div class="fld full"><label for="waarde">Gemiddelde opdrachtwaarde</label>
-          <select id="waarde" name="waarde"><option value="">Selecteer een optie</option><option value="Minder dan €5.000">Minder dan €5.000</option><option value="€5.000 - €15.000">€5.000 - €15.000</option><option value="€15.000 - €50.000">€15.000 - €50.000</option><option value="€50.000 of meer">€50.000 of meer</option></select></div>
+        <div class="fld full"><label for="waarde">Gemiddelde opdrachtwaarde <span class="req">*</span></label>
+          <select id="waarde" name="waarde" required><option value="">Selecteer een optie</option><option value="Minder dan €5.000">Minder dan €5.000</option><option value="€5.000 - €15.000">€5.000 - €15.000</option><option value="€15.000 - €50.000">€15.000 - €50.000</option><option value="€50.000 of meer">€50.000 of meer</option></select><div class="msg">Maak een keuze.</div></div>
       </div>
     </div>
 
     <div class="step" data-step="4">
       <h2>Betalen en opvolging</h2>
       <div class="grid">
-        <div class="fld"><label for="termijnen">Bieden jullie al termijnbetaling aan?</label>
-          <select id="termijnen" name="termijnen"><option value="">Selecteer een optie</option><option>Nee, nog niet</option><option>Ja, via een finance partner</option><option>Ja, via een eigen interne betalingsregeling</option></select></div>
-        <div class="fld"><label for="opvolging">Hoe volgen jullie aanvragen op?</label>
-          <select id="opvolging" name="opvolging"><option value="">Selecteer een optie</option><option>Voornamelijk handmatig</option><option>Met een CRM-systeem</option><option>Met geautomatiseerde opvolging</option><option>Er is nog geen vast opvolgproces</option></select></div>
+        <div class="fld"><label for="termijnen">Bieden jullie al termijnbetaling aan? <span class="req">*</span></label>
+          <select id="termijnen" name="termijnen" required><option value="">Selecteer een optie</option><option>Nee, nog niet</option><option>Ja, via een finance partner</option><option>Ja, via een eigen interne betalingsregeling</option></select><div class="msg">Maak een keuze.</div></div>
+        <div class="fld"><label for="opvolging">Hoe volgen jullie aanvragen op? <span class="req">*</span></label>
+          <select id="opvolging" name="opvolging" required><option value="">Selecteer een optie</option><option>Voornamelijk handmatig</option><option>Met een CRM-systeem</option><option>Met geautomatiseerde opvolging</option><option>Er is nog geen vast opvolgproces</option></select><div class="msg">Maak een keuze.</div></div>
       </div>
     </div>
 
     <div class="step" data-step="5">
       <h2>Marketing en uitdaging</h2>
       <div class="grid">
-        <div class="fld full"><label for="marketing">Hoe is jullie marketing geregeld?</label>
-          <select id="marketing" name="marketing"><option value="">Selecteer een optie</option><option>Wij verzorgen onze marketing zelf intern</option><option>Wij besteden onze marketing uit</option><option>Een combinatie van bovenstaande</option><option>Wij doen momenteel weinig/geen marketing</option></select></div>
-        <div class="fld full"><span class="lbl">Wat is jullie grootste commerciële uitdaging? <span style="font-weight:500;color:var(--muted)">(meerdere mogelijk)</span></span>
-          <div class="chips" id="uitdaging">
+        <div class="fld full"><label for="marketing">Hoe is jullie marketing geregeld? <span class="req">*</span></label>
+          <select id="marketing" name="marketing" required><option value="">Selecteer een optie</option><option>Wij verzorgen onze marketing zelf intern</option><option>Wij besteden onze marketing uit</option><option>Een combinatie van bovenstaande</option><option>Wij doen momenteel weinig/geen marketing</option></select><div class="msg">Maak een keuze.</div></div>
+        <div class="fld full"><span class="lbl">Wat is jullie grootste commerciële uitdaging? <span class="req">*</span> <span style="font-weight:500;color:var(--muted)">(meerdere mogelijk)</span></span>
+          <div class="chips" id="uitdaging" data-need="1">
             <input type="checkbox" id="u1" value="Klanten vinden de investering te hoog"><label for="u1">Investering te hoog voor klanten</label>
             <input type="checkbox" id="u2" value="Achter optenstaande betalingen van klanten aan moeten"><label for="u2">Achter betalingen aan</label>
             <input type="checkbox" id="u3" value="Te veel inmetingen zonder resultaat"><label for="u3">Te veel inmetingen zonder resultaat</label>
@@ -127,15 +127,15 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);bo
             <input type="checkbox" id="u5" value="Klanten kiezen voor een goedkopere concurrent"><label for="u5">Goedkopere concurrent</label>
             <input type="checkbox" id="u6" value="Te weining nieuwe aanvragen"><label for="u6">Te weinig nieuwe aanvragen</label>
             <input type="checkbox" id="u7" value="Opvolging kost te veel tijd"><label for="u7">Opvolging kost te veel tijd</label>
-          </div></div>
+          </div><div class="msg">Kies minstens één optie.</div></div>
       </div>
     </div>
 
     <div class="step" data-step="6">
       <h2>Branche en toelichting</h2>
       <div class="grid">
-        <div class="fld full"><span class="lbl">In welke branche zit je? <span style="font-weight:500;color:var(--muted)">(meerdere mogelijk)</span></span>
-          <div class="chips" id="branche">
+        <div class="fld full"><span class="lbl">In welke branche zit je? <span class="req">*</span> <span style="font-weight:500;color:var(--muted)">(meerdere mogelijk)</span></span>
+          <div class="chips" id="branche" data-need="1">
             <input type="checkbox" id="b1" value="Dakkapellen"><label for="b1">Dakkapellen</label>
             <input type="checkbox" id="b2" value="Aanbouw/uitbouw"><label for="b2">Aanbouw/uitbouw</label>
             <input type="checkbox" id="b3" value="Opbouw"><label for="b3">Opbouw</label>
@@ -143,7 +143,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);bo
             <input type="checkbox" id="b5" value="Overkappingen"><label for="b5">Overkappingen</label>
             <input type="checkbox" id="b6" value="Optoppen"><label for="b6">Optoppen</label>
             <input type="checkbox" id="b7" value="Anders, namelijk"><label for="b7">Anders</label>
-          </div></div>
+          </div><div class="msg">Kies minstens één optie.</div></div>
         <div class="fld full"><label for="extra">Extra informatie</label><textarea id="extra" name="extra" placeholder="Wil je voorafgaand aan onze afspraak nog iets met ons delen?"></textarea></div>
       </div>
     </div>
@@ -170,7 +170,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);bo
     var fi=steps[n].querySelector('input,select,textarea');if(fi&&n>0)try{fi.focus({preventScroll:true})}catch(e){}
     document.getElementById('intro').classList.toggle('compact',n>0);document.querySelector('.card').scrollIntoView({block:'start',behavior:'smooth'});}
   function ok(el){var v=el.value.trim();if(el.type==='email')return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);if(el.type==='tel')return v.replace(/\D/g,'').length>=9;if(el.type==='number')return v!==''&&!isNaN(Number(v));return v!==''}
-  function check(n){var good=true,first=null;[].forEach.call(steps[n].querySelectorAll('[required]'),function(el){var g=ok(el);el.closest('.fld').classList.toggle('bad',!g);if(!g){good=false;if(!first)first=el}});if(first)first.focus();return good}
+  function check(n){var good=true,first=null;[].forEach.call(steps[n].querySelectorAll('[required]'),function(el){var g=ok(el);el.closest('.fld').classList.toggle('bad',!g);if(!g){good=false;if(!first)first=el}});[].forEach.call(steps[n].querySelectorAll('.chips[data-need]'),function(g){var any=g.querySelector('input:checked');g.closest('.fld').classList.toggle('bad',!any);if(!any){good=false;if(!first)first=g.querySelector('label')}});if(first&&first.focus)first.focus();return good}
+  f.addEventListener('change',function(e){var g=e.target.closest&&e.target.closest('.chips');if(g)g.closest('.fld').classList.remove('bad')});
   f.addEventListener('input',function(e){var w=e.target.closest&&e.target.closest('.fld');if(w&&w.classList.contains('bad')&&ok(e.target))w.classList.remove('bad')});
   back.addEventListener('click',function(){show(cur-1)});
   function vals(name){return [].map.call(document.querySelectorAll('#'+name+' input:checked'),function(i){return i.value})}

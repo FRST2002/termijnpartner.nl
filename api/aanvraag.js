@@ -52,6 +52,12 @@ export default async function handler(req, res) {
   if (!d.website) fout.push('website');
   if (!d.jaren || isNaN(Number(d.jaren))) fout.push('jaren');
   if (!d.opdrachten) fout.push('opdrachten');
+  if (!d.waarde) fout.push('opdrachtwaarde');
+  if (!d.termijnen) fout.push('termijnbetaling');
+  if (!d.opvolging) fout.push('opvolging');
+  if (!d.marketing) fout.push('marketing');
+  if (!d.uitdaging.length) fout.push('uitdaging');
+  if (!d.branche.length) fout.push('branche');
   if (fout.length) return res.status(400).json({ error: 'Controleer: ' + fout.join(', ') });
 
   if (!process.env.GHL_TOKEN || !process.env.GHL_LOCATION_ID) {
