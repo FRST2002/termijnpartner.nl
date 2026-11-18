@@ -173,8 +173,8 @@
       },
       {
         name: 'Aanbouw & uitbouw',
-        image: '',
-        alt: '',
+        image: 'project-aanbouw.webp',
+        alt: 'Moderne aanbouw met houten gevel en glazen pui aan een woning',
         benefits: ['Grote bedragen overzichtelijk', 'Aankoopbedrag vooraf', 'Vooraf weten of de klant het kan betalen'],
       },
       {
