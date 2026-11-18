@@ -34,8 +34,7 @@ export default async function handler(req, res) {
   if (typeof b === 'string') { try { b = JSON.parse(b); } catch { b = {}; } }
   b = b || {};
 
-  // Spamval: bots vullen het verborgen veld in. Doe alsof het gelukt is.
-  if (clean(b.hp_x7)) { console.warn('aanvraag: spamveld ingevuld, overgeslagen'); return res.status(200).json({ ok: true }); }
+  console.log('aanvraag: ontvangen');
 
   const d = {
     firstName: clean(b.first_name, 80), lastName: clean(b.last_name, 80), phone: phone(b.phone), email: clean(b.email, 120).toLowerCase(),
