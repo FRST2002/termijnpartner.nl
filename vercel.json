@@ -31,6 +31,10 @@
       "destination": "/dakkapel-config.html"
     },
     {
+      "source": "/aanvraag",
+      "destination": "/aanvraag.html"
+    },
+    {
       "source": "/offerte",
       "destination": "/offerte.html"
     },
