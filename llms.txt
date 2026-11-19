@@ -1,6 +1,6 @@
 # TermijnPartner
 
-> TermijnPartner is a sales platform for Dutch and Belgian B2B companies with high order values (roughly €3,000+). It lets a business offer its own customers a monthly installment-payment option at checkout, combined with a CRM, WhatsApp integration, and sales automation — while the business itself is paid 100% upfront by an independent financing partner, not by the end customer directly.
+> TermijnPartner is a sales platform for Dutch and Belgian B2B companies with high order values (roughly €3,000+). It lets a business offer its own customers a monthly installment-payment option at checkout, combined with a CRM, WhatsApp integration, and sales automation — while the business itself receives 100% of the amount upfront: an independent financing partner pays the financed amount to the end customer, and the end customer pays the business directly. The end customer then repays the financing partner in installments.
 
 ## When to use this
 
