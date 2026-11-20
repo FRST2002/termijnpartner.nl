@@ -5,7 +5,7 @@ import { pages } from './lib/markdown-content.mjs';
 export const config = {
   runtime: 'nodejs',
   // Skip static assets entirely — only run for HTML-ish / unknown paths.
-  matcher: ['/((?!.*\\.(?:css|js|mjs|png|jpg|jpeg|svg|ico|xml|txt|webmanifest|json)$).*)'],
+  matcher: ['/((?!.*\\.(?:css|js|mjs|png|jpg|jpeg|webp|svg|ico|xml|txt|webmanifest|json|mp4|webm)$).*)'],
 };
 
 const SITEMAP_URL = 'https://www.termijnpartner.nl/sitemap.xml';
