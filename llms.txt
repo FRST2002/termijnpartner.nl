@@ -38,3 +38,12 @@ Every page on this site supports Markdown content negotiation: request any URL w
 - Canopy and veranda companies: https://www.termijnpartner.nl/branche-overkappingen.html
 - Overview for construction: https://www.termijnpartner.nl/branche-bouw.html
 - The business keeps its own CRM; only the financing applications run through TermijnPartner's system.
+
+## Guides for construction companies (Dutch)
+
+- Klanten in termijnen laten betalen als bouwbedrijf: welke opties heb je?: https://www.termijnpartner.nl/blog-termijnen-aanbieden-bouwbedrijf.html
+- Een dakkapel in termijnen aanbieden: zo pakt een dakkapelbedrijf het aan: https://www.termijnpartner.nl/blog-dakkapel-in-termijnen-aanbieden.html
+- Aanbouw of uitbouw laten afbetalen: gespreid betalen aanbieden als bouwbedrijf: https://www.termijnpartner.nl/blog-aanbouw-uitbouw-gespreid-betalen.html
+- Klant haakt af op de prijs? 7 manieren om meer offertes akkoord te krijgen: https://www.termijnpartner.nl/blog-klant-haakt-af-op-prijs.html
+- Een maandbedrag op je offerte zetten: zo doe je dat in de bouw: https://www.termijnpartner.nl/blog-maandbedrag-op-offerte.html
+- Veelgestelde vragen over termijnbetaling voor bouwbedrijven: https://www.termijnpartner.nl/blog-vragen-termijnbetaling-bouw.html

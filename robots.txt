@@ -1,4 +1,23 @@
 User-agent: *
 Allow: /
 
+# Zoekmachines en AI-assistenten mogen alle publieke pagina's lezen
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://www.termijnpartner.nl/sitemap.xml

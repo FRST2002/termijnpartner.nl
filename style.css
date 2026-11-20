@@ -1501,3 +1501,16 @@ a.whatsapp-float svg {
 .vid-card figcaption strong{color:#1C1B19;font-size:1.05rem}
 .vid-mini{max-width:260px;margin-left:auto;margin-right:auto}
 .vid-mini figcaption{margin-top:10px;font-size:.9rem;color:rgba(28,27,25,.65)}
+
+
+/* ===== Vergelijkingstabel in artikelen ===== */
+.prose-content ol{margin-top:1rem;padding-left:1.25rem;list-style:decimal;line-height:1.75;color:var(--color-dark-grey)}
+.prose-content .table-wrap{margin-top:1.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.prose-content table{width:100%;min-width:640px;border-collapse:collapse;font-size:.95rem;line-height:1.5}
+.prose-content th{background:#1C1B19;color:#fff;text-align:left;padding:.75rem .9rem;font-weight:700;font-size:.85rem}
+.prose-content td{padding:.8rem .9rem;border-bottom:1px solid rgba(28,27,25,.12);vertical-align:top;color:var(--color-dark-grey)}
+.prose-content tr:last-child td{border-bottom:0}
+.prose-content tbody tr:nth-child(odd) td{background:#FAF7F1}
+.prose-content td:first-child{font-weight:700;color:#1C1B19}
+.lees-ook{margin-top:1.25rem}
+.lees-ook li{margin-top:.4rem}
