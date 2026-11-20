@@ -47,3 +47,10 @@ Every page on this site supports Markdown content negotiation: request any URL w
 - Klant haakt af op de prijs? 7 manieren om meer offertes akkoord te krijgen: https://www.termijnpartner.nl/blog-klant-haakt-af-op-prijs.html
 - Een maandbedrag op je offerte zetten: zo doe je dat in de bouw: https://www.termijnpartner.nl/blog-maandbedrag-op-offerte.html
 - Veelgestelde vragen over termijnbetaling voor bouwbedrijven: https://www.termijnpartner.nl/blog-vragen-termijnbetaling-bouw.html
+- 3D-configurator voor bouwbedrijven: dakkapel en aanbouw: https://www.termijnpartner.nl/3d-configurator-bouwbedrijven.html
+- Btw bij termijnbetaling aan klanten: wat moet een aannemer weten?: https://www.termijnpartner.nl/blog-btw-termijnbetaling-aannemer.html
+- Wat kost het om termijnbetaling aan te bieden als bouwbedrijf?: https://www.termijnpartner.nl/blog-kosten-termijnbetaling-aanbieden.html
+- Wanneer krijg ik mijn geld? Uitbetaling bij termijnbetaling uitgelegd: https://www.termijnpartner.nl/blog-uitbetaling-termijnbetaling-bouw.html
+- Voorschot en termijnen in de bouw: wat is gebruikelijk?: https://www.termijnpartner.nl/blog-voorschot-termijnen-aannemer.html
+- Offerte niet getekend? 9 redenen en wat je eraan kunt doen: https://www.termijnpartner.nl/blog-offerte-niet-getekend.html
+- Termijnbetaling en BouwGarant of Woningborg: wat moet je weten?: https://www.termijnpartner.nl/blog-bouwgarant-woningborg-termijnbetaling.html
