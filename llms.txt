@@ -54,3 +54,5 @@ Every page on this site supports Markdown content negotiation: request any URL w
 - Voorschot en termijnen in de bouw: wat is gebruikelijk?: https://www.termijnpartner.nl/blog-voorschot-termijnen-aannemer.html
 - Offerte niet getekend? 9 redenen en wat je eraan kunt doen: https://www.termijnpartner.nl/blog-offerte-niet-getekend.html
 - Termijnbetaling en BouwGarant of Woningborg: wat moet je weten?: https://www.termijnpartner.nl/blog-bouwgarant-woningborg-termijnbetaling.html
+- Dakkapel-configurator voor dakkapelbedrijven: https://www.termijnpartner.nl/configurator-dakkapel.html
+- Aanbouw-configurator voor aanbouw- en uitbouwbedrijven: https://www.termijnpartner.nl/configurator-aanbouw.html

@@ -1514,3 +1514,10 @@ a.whatsapp-float svg {
 .prose-content td:first-child{font-weight:700;color:#1C1B19}
 .lees-ook{margin-top:1.25rem}
 .lees-ook li{margin-top:.4rem}
+
+/* Hoofdmenu: past ook op 1024-1279px breed met de extra Configurator-keuze */
+nav[aria-label="Hoofdnavigatie"] a, nav[aria-label="Hoofdnavigatie"] .nav-dd-btn { white-space: nowrap; }
+@media (min-width: 1024px) and (max-width: 1279px) {
+  nav[aria-label="Hoofdnavigatie"] { gap: 14px; }
+  nav[aria-label="Hoofdnavigatie"] a, nav[aria-label="Hoofdnavigatie"] .nav-dd-btn { font-size: 13px; }
+}
