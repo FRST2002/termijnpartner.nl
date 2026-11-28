@@ -39,7 +39,7 @@ Marketingsite van **TermijnPartner** (https://termijnpartner.nl): een platform w
 | `intern.html` | Interne scenario-/partnercalculator (verdienmodel). Staat op `/intern`, **niet beveiligd**, wel met `noindex`-header. Op uitdrukkelijk verzoek van Freek live gezet; wijzig of verspreid de inhoud niet zonder overleg |
 | `middleware.js`, `lib/markdown-content.mjs` | Levert een Markdown-versie van pagina's aan AI-crawlers (`Accept: text/markdown`) |
 | `llms.txt`, `robots.txt`, `sitemap.xml` | Voor zoekmachines en AI-agents |
-| `dakkapel-config.html`, `offerte.html`, `api/quote.js` | 3D-dakkapel-configurator, offertepagina en offerte-API (zie "Dakkapel-configurator"). Routes `/dakkapel-config` en `/offerte`, beide `noindex` |
+| `offerte.html`, `api/quote.js` | Offertepagina en offerte-API (zie "Dakkapel-configurator"). Route `/offerte`, `noindex`. De eigen 3D-tool `dakkapel-config.html` is op 28-11-2026 van de site gehaald (staat nog in de git-historie; bron in `TermijnPartnerd-configurator`). De nieuwe configurator wordt via embed van `configurator.jordyvps.xyz` getoond |
 | `hollandstotaalbouw-dakkapel.html`, `hollandstotaalbouw-offerte.html`, `hollandstotaalbouw-logo.svg` | Klantversie van de configurator voor Holland's Totaalbouw (**gegenereerd**, niet met de hand bewerken) |
 | `vercel.json` | Routes (zie hieronder) |
 
@@ -48,7 +48,7 @@ Marketingsite van **TermijnPartner** (https://termijnpartner.nl): een platform w
 
 ### Routes (`vercel.json`)
 `/about` → over-ons, `/privacy` → privacybeleid, `/welkom` → `welkom.html` (met `X-Robots-Tag: noindex`), `/marketing` → `marketing.html`, `/partners` → `partners.html`.
-`/dakkapel-config`, `/offerte`, `/hollandstotaalbouw-dakkapel` en `/hollandstotaalbouw-offerte` → de gelijknamige `.html` (alle met `noindex`).
+`/offerte`, `/hollandstotaalbouw-dakkapel` en `/hollandstotaalbouw-offerte` → de gelijknamige `.html` (alle met `noindex`).
 `/intern` → `intern.html` (met `X-Robots-Tag: noindex`), `/partners` → `partners.html` (ook `/partners.html` werkt nog). Een redirect van `.html` naar `/partners` is bewust niet ingesteld om een redirect-lus te vermijden; eerst testen als dat gewenst is.
 
 ## Wachtwoord op /partners, /marketing en /intern

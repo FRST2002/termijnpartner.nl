@@ -27,10 +27,6 @@
       "destination": "/welkom.html"
     },
     {
-      "source": "/dakkapel-config",
-      "destination": "/dakkapel-config.html"
-    },
-    {
       "source": "/aanvraag",
       "destination": "/aanvraag.html"
     },
@@ -68,15 +64,6 @@
     },
     {
       "source": "/welkom",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        }
-      ]
-    },
-    {
-      "source": "/dakkapel-config",
       "headers": [
         {
           "key": "X-Robots-Tag",
